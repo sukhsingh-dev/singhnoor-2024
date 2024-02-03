@@ -33,5 +33,6 @@ module.exports = {
       "react/jsx-filename-extension": [1, { "extensions": [".jsx",".tsx"] }],
       "react/react-in-jsx-scope": "off",
       "@typescript-eslint/quotes": "off",
+      "@typescript-eslint/space-before-function-paren": "off"
     }
 }
