@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" >
+  <defs>
+      <symbol id="menu" viewBox="0 0 30 14">
+        <rect width="30" height="3" rx="1.5" fill="currentColor"/>
+        <rect y="11" width="20" height="3" rx="1.5" fill="currentColor"/>
+      </symbol>
+      <symbol id="search" width="22" height="22" fill="none" viewBox="0 0 22 22">
+        <path d="M21 21L16.1743 16.1743M16.1743 16.1743C17.7829 14.5657 18.7778 12.3435 18.7778 9.88889C18.7778 4.97969 14.7981 1 9.88889 1C4.97969 1 1 4.97969 1 9.88889C1 14.7981 4.97969 18.7778 9.88889 18.7778C12.3435 18.7778 14.5657 17.7829 16.1743 16.1743Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+  </defs>
+</svg>
