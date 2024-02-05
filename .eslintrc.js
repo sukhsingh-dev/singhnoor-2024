@@ -40,6 +40,7 @@ module.exports = {
     "react/require-default-props": [2, {
       "functions": "defaultArguments"
     }],
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "padded-blocks": "off"
   }
 };

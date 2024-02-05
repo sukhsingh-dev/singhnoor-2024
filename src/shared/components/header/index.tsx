@@ -19,11 +19,6 @@ const Header: React.FC = () => (
               <input type="radio" id={`${menu.category}-submenu`} name="submenu" className="submenu-input" />
               <div className="submenu-outer">
                 <ul>
-                  <li className="bg-light">
-                    <label htmlFor="no-submenu" className="arrow-icon back-arrow align-center">
-                      Back
-                    </label>
-                  </li>
                   {
                     menu.subcategories.map((item) => (
                       <li key={item.link}>
@@ -31,6 +26,11 @@ const Header: React.FC = () => (
                       </li>
                     ))
                   }
+                  <li className="bg-light">
+                    <label htmlFor="no-submenu" className="arrow-icon back-arrow align-center">
+                      Back
+                    </label>
+                  </li>
                 </ul>
               </div>
             </li>
