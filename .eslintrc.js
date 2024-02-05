@@ -36,6 +36,10 @@ module.exports = {
     "@typescript-eslint/space-before-function-paren": "off",
     "react/function-component-definition": "off",
     "import/extensions": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "react/require-default-props": [2, {
+      "functions": "defaultArguments"
+    }],
+    "jsx-a11y/label-has-associated-control": "off"
   }
 };

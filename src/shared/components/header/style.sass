@@ -1,0 +1,189 @@
+@import "../../styles/_functions.sass"
+
+$size: 32px
+$hamburger-close-size: 75
+$header-height-size: 64
+$ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
+
+.magic-icon-search
+  display: inline-block
+  position: relative
+  width: $size
+  height: $size
+
+  &::before
+    content: ''
+    display: inline-block
+    border-radius: 4px
+    width: 3px
+    height: 25%
+    background: var(--text)
+    position: absolute
+    left: 75%
+    top: 75%
+    transform: translate(-50%, -50%) rotate(-45deg)
+    transition: all 0.5s $ease-spring
+
+  &.close::before
+    height: 80%
+    left: 50%
+    top: 50%
+
+  &::after
+    content: ''
+    display: inline-block
+    position: absolute
+    width: 50%
+    height: 50%
+    border: 3px solid var(--text)
+    border-radius: 50%
+    top: 42%
+    left: 44%
+    transform: translate(-50%, -50%) rotate(0deg)
+    transition: all 0.5s $ease-spring
+
+  &.close::after
+    border: none
+    background-color: var(--text)
+    border-radius: 4px
+    width: 3px
+    height: 80%
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%) rotate(46deg)
+
+.search-wrapper
+  position: absolute
+  background: var(--white)
+  height: 100%
+  left: 0
+  right: 50px
+  border-radius: 1.25rem
+  display: flex
+  align-items: center
+  padding: 0.625rem 1.25rem
+  transition: transform 0.3s $ease-spring
+  transform: translateY(-100%)
+
+  &.search-visible
+    transform: translateY(0)
+
+  input
+    padding: 8px 16px
+    border-radius: 24px
+    border: 1px solid #ccc
+    width: 100%
+    font-family: inherit
+    font-size: 16px
+
+    &::placeholder
+      font-family: inherit
+
+.sn-header
+  border-radius: 0 0 1.25rem 1.25rem
+  box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
+  padding: 0.625rem 1.25rem
+  transition: 0.3s $ease-spring
+  position: fixed
+  z-index: 2
+  top: 0
+  width: 100%
+  background-color: var(--white)
+
+.sn-menu
+  position: fixed
+  background: #fff
+  top: rem($header-height-size)
+  bottom: 0
+  left: 0
+  right: rem($hamburger-close-size)
+  padding-block: rem(24)
+  transform: translateX(calc(-100% - rem($hamburger-close-size)))
+  transition: 0.3s $ease-spring
+
+  ul
+    li
+      font-weight: 600
+      border-bottom: rem(1) solid #ccc
+
+      &:last-child
+        border: none
+
+  &-label
+    padding: rem(12) rem(24)
+
+.hamburger-btn
+  rect
+    transition: all 0.3s $ease-spring
+
+.menu-open
+  border-radius: 0
+
+  .sn-menu
+    transform: translateX(0)
+
+  .hamburger-label-close
+    display: block
+
+  svg
+    rect
+      width: rem(25)
+
+      &:first-child
+        transform: rotate(45deg) translateY(-4px)
+
+      &:last-child
+        transform: rotate(-45deg) translateX(-11px)
+
+  .menu-close-area
+    display: block
+
+.menu-close-area
+  background-color: rgba(0, 0, 0, 0.5)
+  position: fixed
+  top: rem($header-height-size)
+  bottom: 0
+  right: 0
+  width: rem($hamburger-close-size)
+  display: none
+
+.submenu
+  &-outer
+    position: absolute
+    background: #ffff
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    transform: translateX(-100%)
+    transition: transform 0.3s $ease-spring
+
+    li
+      padding: rem(12) rem(24)
+
+  &-input
+    position: absolute
+    opacity: 0
+
+    &:checked + .submenu-outer
+      transform: translateX(0)
+
+.btn-link-outer
+  padding: rem(16)
+  text-align: right
+
+.arrow-icon
+  &::after
+    content: ""
+    width: rem(7)
+    height: rem(12)
+    background-image: url("data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.2 1.19995L6 5.99995L1.2 10.8' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+
+.back-arrow
+  display: flex
+  flex-direction: row-reverse
+  justify-content: flex-end
+  gap: 8px
+
+  &::after
+    transform: rotate(180deg)

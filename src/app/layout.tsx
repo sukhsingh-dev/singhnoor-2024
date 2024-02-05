@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Outfit } from "next/font/google"
 import '../shared/styles/main.sass'
+import Header from "@/shared/components/header"
 
 const outfit = Outfit({ subsets: ["latin"] })
 
@@ -16,7 +17,12 @@ export default function RootLayout({
 }>): React.ReactNode {
   return (
     <html lang="en">
-      <body className={outfit.className}>{children}</body>
+      <body className={outfit.className}>
+        <Header />
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   )
 }
