@@ -1,4 +1,4 @@
-@use "sass:math"
+@import "./_functions"
 
 :root
   --primary: #007BFF
@@ -9,9 +9,6 @@
   --white: #fff
   --primary-light: #CEF0F4
   --easing: cubic-bezier(0.25, 0.84, 0.44, 1)
-
-@function rem($pixels)
-  @return (math.div($pixels, 16)) * 1rem
 
 *
   margin: 0
