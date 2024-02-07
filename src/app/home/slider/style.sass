@@ -1,25 +1,24 @@
 @import "../../../shared/styles/_functions.sass"
 
-$ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
-
 .slider-outer
   position: relative
   overflow-x: hidden
+  padding-inline: 1rem
 
   .btn-primary
-    animation: moveSideRight 0.5s $ease-spring forwards
+    animation: moveSideRight 0.5s var(--ease-spring) forwards
 
   .btn-secondary
-    animation: moveSide 0.5s $ease-spring forwards
+    animation: moveSide 0.5s var(--ease-spring) forwards
 
 .slider-heading
   font-weight: 800
   font-size: rem(28)
   letter-spacing: 0.02em
-  animation: moveSide 0.5s $ease-spring forwards
+  animation: moveSide 0.5s var(--ease-spring) forwards
 
 .slider-img
-  animation: moveUp 0.5s $ease-spring forwards
+  animation: moveUp 0.5s var(--ease-spring) forwards
   height: auto
 
 .slide-changer

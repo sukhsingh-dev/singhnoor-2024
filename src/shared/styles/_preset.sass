@@ -8,7 +8,7 @@
   --light: #eae6e6
   --white: #fff
   --primary-light: #CEF0F4
-  --easing: cubic-bezier(0.25, 0.84, 0.44, 1)
+  --ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
 
 *
   margin: 0
@@ -22,7 +22,7 @@ a
 button
   border: none
   background: transparent
-  transition: 0.3s var(--easing)
+  transition: 0.3s var(--ease-spring)
   cursor: pointer
 
 img,
@@ -56,4 +56,12 @@ section
 
 main
   padding-block: rem(60) rem(24)
-  padding-inline: rem(24)
+  padding-inline: rem(16)
+
+//On scroll
+.page-down
+  .sn-header
+    transform: translateY(-100%)
+
+  .sn-footer
+    transform: translateY(100%)
