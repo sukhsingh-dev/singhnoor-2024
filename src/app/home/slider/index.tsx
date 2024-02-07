@@ -2,7 +2,7 @@
 
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Slide1, Slide2, Slide3 } from "./slides"
 import './style.sass'
 
@@ -66,8 +66,45 @@ const Slider: React.FC = () => {
     }
   }, [])
 
+  const touchStartX = useRef<number | null>(null)
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLElement>): void => {
+    touchStartX.current = event.touches[0].clientX
+  }
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLElement>): void => {
+    if (!touchStartX.current) {
+      return
+    }
+
+    const currentX = event.touches[0].clientX
+    const diffX = touchStartX.current - currentX
+
+    const moveBack = (): void => {
+      if (activeSlide >= 1) {
+        setActiveSlide((prevSlide) => (prevSlide - 1) % totalSlides)
+      } else {
+        setActiveSlide(totalSlides - 1)
+      }
+    }
+
+    // Check if the swipe is significant enough
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        setActiveSlide((prevSlide) => (prevSlide + 1) % totalSlides)
+      } else {
+        moveBack()
+      }
+      touchStartX.current = null
+    }
+  }
+
   return (
-    <section className="slider-outer">
+    <section
+      className="slider-outer"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+    >
       <div className={activeSlide === 0 ? '' : 'd-none'}>
         <Slide1 />
       </div>
