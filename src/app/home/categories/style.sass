@@ -1,0 +1,52 @@
+@import "../../../shared/styles/_functions.sass"
+
+.page-heading
+  text-align: center
+  font-size: rem(28)
+  font-weight: 800
+  margin-bottom: rem(24)
+
+.bg-decorator
+  width: rem(150)
+  height: rem(150)
+  border-radius: 50%
+  position: absolute
+  z-index: -1
+  top: rem(10)
+  opacity: 0
+  transform: scale(0.5)
+  animation: setBack 0.6s var(--ease-spring) forwards
+
+.categories-list
+  display: grid
+  grid-template-columns: 50% 50%
+  gap: rem(32) rem(8)
+
+  li
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 100%
+
+    img
+      filter: drop-shadow(6px 9px 9px rgba(0, 0, 0, 0.45))
+      opacity: 0
+      transform: translateY(-10px)
+      animation: setBack 0.3s var(--ease-spring) 0.4s forwards
+
+.cat-link
+  font-weight: 500
+  margin-top: rem(20)
+  position: relative
+  display: inline-flex
+  flex-direction: column
+  align-items: center
+  opacity: 0
+  transform: translateY(10px)
+  animation: setBack 0.3s var(--ease-spring) 0.4s forwards
+
+  svg
+    position: relative
+    top: rem(-10)
+    z-index: -1
