@@ -1,7 +1,7 @@
-import './styles.module.sass'
+import Slider from "./home/slider"
 
 export default function Home(): React.ReactNode {
   return (
-    <h1>Next App</h1>
+    <Slider />
   )
 }

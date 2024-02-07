@@ -1,0 +1,43 @@
+@import "../../../shared/styles/_functions.sass"
+
+$ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
+
+.slider-outer
+  position: relative
+  overflow-x: hidden
+
+  .btn-primary
+    animation: moveSideRight 0.5s $ease-spring forwards
+
+  .btn-secondary
+    animation: moveSide 0.5s $ease-spring forwards
+
+.slider-heading
+  font-weight: 800
+  font-size: rem(28)
+  letter-spacing: 0.02em
+  animation: moveSide 0.5s $ease-spring forwards
+
+.slider-img
+  animation: moveUp 0.5s $ease-spring forwards
+  height: auto
+
+.slide-changer
+  position: absolute
+  top: rem(150)
+  right: 15%
+
+.btn-slide-changer
+  width: 3px
+  height: 20px
+  background-color: #8f8f8f
+  margin-block: 6px
+
+  &.active
+    background-color: var(--secondary)
+
+.slide-num
+  font-weight: 600
+  font-size: 16px
+  transform: rotate(90deg) translate(-8px, -2px)
+  transform-origin: left
