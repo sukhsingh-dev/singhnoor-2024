@@ -35,11 +35,11 @@ export const Heading: React.FC<HeadingProps> = ({ text }: HeadingProps) => <h2 c
 export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) => (
   <div className="product-card-outer" key={product.id}>
     <button type="button" aria-label="Heart icon" className="btn btn-small btn-wishlist position-absolute">
-      <Icon name="heart" />
+      <Icon name="heart" width={16} height={16} className="text-primary" />
     </button>
     <div className="product-image-outer">
       <Image
-        src={`images/${product.imgUrl}`}
+        src={`/images/${product.imgUrl}`}
         alt="SN Product img"
         loading="lazy"
         width={175}

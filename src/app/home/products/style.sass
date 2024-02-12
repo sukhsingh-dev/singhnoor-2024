@@ -1,0 +1,60 @@
+@import "../../../shared/styles/_functions.sass"
+
+.product
+  &-image-outer
+    position: relative
+    margin-bottom: rem(8)
+
+    img
+      width: 100%
+      height: auto
+      filter: drop-shadow(3px 6px 9px rgba(0, 0, 0, 0.24))
+
+    .pi-decorator
+      z-index: -1
+      left: 0
+      bottom: rem(4)
+      width: 100%
+
+  &-name
+    font-weight: 600
+    font-size: rem(16)
+    white-space: nowrap
+
+  &-list
+    display: grid
+    grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem)
+    gap: rem(32) rem(16)
+
+    li
+      opacity: 0
+      transform: translateX(-20px)
+      animation: setBack 0.5s var(--ease-spring) forwards
+
+      &:nth-child(2n)
+        transform: translateX(20px)
+
+  &-varieties
+    font-size: rem(14)
+
+    span:last-child
+      display: none
+
+  &-price
+    font-weight: 500
+    font-size: 1em
+
+    &-info
+      font-size: rem(16)
+      font-weight: 500
+      flex-direction: column
+
+    &-old
+      color: #A9A9A9
+      font-size: 0.75em
+      text-decoration-line: line-through
+      min-height: rem(20)
+      padding-top: rem(4)
+
+  &-variety-count
+    font-size: 1.15em
