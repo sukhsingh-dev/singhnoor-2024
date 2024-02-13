@@ -1,0 +1,39 @@
+@import "../../../shared/styles/_functions.sass"
+
+.t-shirts-set
+  display: grid
+  grid-template-columns: 30% 40% 30%
+  margin-block: rem(40)
+  top: 0
+
+  img
+    height: auto
+    filter: drop-shadow(6px 9px 9px rgba(0, 0, 0, 0.15))
+    transform: scale(1.4)
+
+    &:nth-child(2)
+      transform: scale(1.4) translateY(20px)
+
+.deals-bg-decorator
+  display: block
+  width: rem(300)
+  height: rem(300)
+  border-radius: 50%
+  margin-inline: auto
+
+.deal-text
+  font-weight: 500
+  font-size: rem(24)
+  margin-block: rem(60) rem(-18)
+
+.deals-outer
+  max-width: 100vw
+  overflow: hidden
+  margin-inline: -1rem
+  padding-top: 0
+
+.deals-offer
+  margin: 0 rem(-120)
+
+.deal-btn-outer
+  margin-top: rem(24)
