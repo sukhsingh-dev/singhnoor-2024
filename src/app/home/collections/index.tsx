@@ -4,7 +4,7 @@ import Image from "next/image"
 import './style.sass'
 
 const Collections: React.FC = () => (
-  <section className="px-24">
+  <section>
     <Heading text="NEW COLLECTION" />
     <div className="for-sec-outer position-relative aos">
       <h4 className="position-absolute">For Men</h4>
