@@ -4,6 +4,7 @@ import Categories from "./home/categories"
 import Products from "./home/products"
 import Collections from "./home/collections"
 import TodayDeal from "./home/deals"
+import DealsZone from "./home/zone"
 
 export default function Home(): React.ReactNode {
   return (
@@ -14,6 +15,7 @@ export default function Home(): React.ReactNode {
       <Collections />
       <TodayDeal />
       <Products heading="TOP PICKS" productList={productList2} moreLink="/" outerClass="top-picks" />
+      <DealsZone />
     </>
   )
 }
