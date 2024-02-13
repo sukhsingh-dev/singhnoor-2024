@@ -42,6 +42,7 @@ module.exports = {
     }],
     "jsx-a11y/label-has-associated-control": "off",
     "padded-blocks": "off",
-    "@typescript-eslint/no-confusing-void-expression": "off"
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "no-plusplus": "off"
   }
 };
