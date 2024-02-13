@@ -7,37 +7,37 @@ const Contacts: React.FC = () => (
     <Heading text="CONTACTS" />
     <ul className="contact-list">
       <li className="d-flex align-center">
-        <a href="tel:+918130229131" className="d-flex align-center gap-16" rel="noreferrer" target="_blank">
+        <a href="tel:+918130229131" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="call" />
           Call Us
         </a>
       </li>
       <li>
-        <a href="https://wa.me/+918130229131" className="d-flex align-center gap-16" rel="noreferrer" target="_blank">
+        <a href="https://wa.me/+918130229131" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="whatsapp" />
           WhatsApp
         </a>
       </li>
       <li>
-        <a href="mailto:contact@singhnoor.com" className="d-flex align-center gap-16" rel="noreferrer" target="_blank">
+        <a href="mailto:contact@singhnoor.com" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="gmail" />
           Mail Us
         </a>
       </li>
       <li>
-        <a href="https://www.instagram.com/singhnoor.com_/" className="d-flex align-center gap-16" rel="noreferrer" target="_blank">
+        <a href="https://www.instagram.com/singhnoor.com_/" className="d-flex align-center" rel="noreferrer" target="_blank">
           <InstaIcon />
           Instagram
         </a>
       </li>
       <li>
-        <a href="https://www.youtube.com/@SinghNoor" className="d-flex align-center gap-16" rel="noreferrer" target="_blank">
+        <a href="https://www.youtube.com/@SinghNoor" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="youTube" />
           YouTube
         </a>
       </li>
       <li>
-        <a href="/f" className="d-flex align-center gap-16" rel="noreferrer" target="_blank">
+        <a href="/f" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="facebook" />
           Facebook
         </a>
