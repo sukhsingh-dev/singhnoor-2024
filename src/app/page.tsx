@@ -2,6 +2,7 @@ import { productList } from "@/shared/helper/store"
 import Slider from "./home/slider"
 import Categories from "./home/categories"
 import Products from "./home/products"
+import Collections from "./home/collections"
 
 export default function Home(): React.ReactNode {
   return (
@@ -9,6 +10,7 @@ export default function Home(): React.ReactNode {
       <Slider />
       <Categories />
       <Products heading="FRESH LOOKS" productList={productList} moreLink="/" />
+      <Collections />
     </>
   )
 }
