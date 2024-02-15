@@ -30,6 +30,9 @@
       grid-template-columns: repeat(4,calc(33% - 0.5rem))
       overflow: auto
       padding-bottom: rem(20)
+    +respond-to(large)
+      grid-template-columns: repeat(4,calc(25% - 1rem))
+      column-gap: 1.25rem
 
     li
       opacity: 0

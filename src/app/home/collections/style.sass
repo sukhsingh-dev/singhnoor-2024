@@ -39,11 +39,14 @@
         font-size: rem(24)
         top: rem(20)
         left: rem(20)
+      +respond-to(large)
+        top: rem(100)
   &-men
     h4
       text-align: left
       +respond-to(medium)
         max-width: rem(70)
+
   &-women
     h4
       left: auto
@@ -63,3 +66,5 @@
       +respond-to(medium)
         top: rem(-10)
         max-width: rem(70)
+      +respond-to(large)
+        top: rem(60)

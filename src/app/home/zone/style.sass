@@ -6,9 +6,16 @@
     overflow: auto
     padding-bottom: rem(10)
     padding-right: rem(16)
+    +respond-to(medium)
+      justify-content: space-between
+      a
+        align-items: center
 
     img
       min-width: rem(120)
+      +respond-to(large)
+        min-width: rem(180)
+        height: auto
 
     span
       white-space: nowrap

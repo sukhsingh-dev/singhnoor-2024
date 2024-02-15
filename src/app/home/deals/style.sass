@@ -97,7 +97,9 @@
           img
             &:nth-child(1)
               opacity: 0
-
+  +respond-to(large)
+    max-width: rem(840)
+    margin-inline: auto
 .deals-offer
   margin: 0 rem(-120)
 
