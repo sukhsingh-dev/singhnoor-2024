@@ -1,4 +1,13 @@
 @use "sass:math"
 
+$breakpoints: ( small: 480px, medium: 750px, large: 1024px, x-large: 1200px)
+
+=respond-to($breakpoint)
+  @if map-has-key($breakpoints, $breakpoint)
+    @media (min-width: map-get($breakpoints, $breakpoint))
+      @content
+  @else
+    @error "Unknown breakpoint #{$breakpoint}."
+
 @function rem($pixels)
   @return (math.div($pixels, 16)) * 1rem

@@ -16,10 +16,15 @@
   font-size: rem(24)
   letter-spacing: 0.02em
   animation: moveSide 0.5s var(--ease-spring) forwards
+  +respond-to(medium)
+    font-size: rem(40)
+    text-align: center
 
 .slider-img
   animation: moveUp 0.5s var(--ease-spring) forwards
   height: auto
+  +respond-to(medium)
+    width: rem(420)
 
 .slide-changer
   position: absolute
