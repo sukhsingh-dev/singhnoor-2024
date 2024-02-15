@@ -41,7 +41,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCard
     <button type="button" aria-label="Heart icon" className="btn btn-small btn-wishlist position-absolute">
       <Icon name="heart" width={16} height={16} className="text-primary" />
     </button>
-    <div className="product-image-outer">
+    <div className="product-image-outer" style={{ color: product.bgColor }}>
       <Image
         src={`/images/${product.imgUrl}`}
         alt="SN Product img"
@@ -60,7 +60,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCard
             for (const key in item) {
               return (
                 <span key={key[index]}>
-                  <span className="product-variety-count">{item[key]}</span>
+                  <span className="product-variety-count">
+                    {item[key]}
+                    &nbsp;
+                  </span>
                   <span>{key}</span>
                   <span>, </span>
                 </span>

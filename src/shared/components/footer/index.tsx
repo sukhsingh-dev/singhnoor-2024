@@ -4,7 +4,7 @@ import './style.sass'
 const Footer: React.FC = () => (
   <footer className="sn-footer">
     <ul className="footer-list d-flex gap-16 justify-between">
-      <li className="text-primary">
+      <li className="text-primary icon-home">
         <Icon name="home" />
       </li>
       <li>
@@ -17,7 +17,7 @@ const Footer: React.FC = () => (
       <li>
         <Icon name="person" />
       </li>
-      <li>
+      <li className="icon-setting">
         <Icon name="setting" />
       </li>
     </ul>

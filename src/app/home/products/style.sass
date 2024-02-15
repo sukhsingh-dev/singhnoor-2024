@@ -39,6 +39,36 @@
       transform: translateX(-20px)
       animation: setBack 0.5s var(--ease-spring) forwards
 
+      +respond-to(xx-large)
+        border: 1px solid #CFCFCF
+        padding: rem(20)
+        border-radius: rem(20)
+
+        .pi-decorator
+          display: none
+
+        .product-name
+          font-size: rem(20)
+          margin-bottom: rem(10)
+
+        .product-price-info
+          font-size: rem(20)
+          gap: rem(8)
+
+        .product-image-outer
+          position: relative
+          &::after
+            content: ''
+            width: 80%
+            background: currentColor
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%,-50%)
+            border-radius: 50%
+            z-index: -1
+            aspect-ratio: 1/1
+
       &:nth-child(2n)
         transform: translateX(20px)
 

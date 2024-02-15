@@ -12,6 +12,25 @@
   background-color: var(--white)
   color: var(--text)
 
+  +respond-to(x-large)
+    background: transparent
+    box-shadow: none
+    position: fixed
+    top: 0
+    right: rem(57)
+    bottom: auto
+    width: auto
+
+    .page-down &
+      transform: translateY(-100%)
+
+    .show-header &
+      z-index: 2
+    .icon-home
+      display: none
+    .icon-setting
+      order: -1
+
   li
     padding: rem(8)
 

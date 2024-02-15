@@ -8,6 +8,7 @@ const SearchField: React.FC = () => {
   const handleSearch = (): void => {
     setSearchOpen((prev) => !prev)
     clickSound()
+    document.querySelector('.sn-header')?.classList.toggle('show-search')
   }
   return (
     <>

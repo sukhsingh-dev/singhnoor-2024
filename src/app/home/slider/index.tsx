@@ -29,6 +29,12 @@ const Slider: React.FC = () => {
       const currentScrollPos = window.scrollY || document.documentElement.scrollTop
       setScrollDown(currentScrollPos > 100 && currentScrollPos > prevScrollPos)
       prevScrollPos = currentScrollPos
+
+      if (window.scrollY > 64) {
+        main?.classList.add('show-header')
+      } else {
+        main?.classList.remove('show-header')
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
