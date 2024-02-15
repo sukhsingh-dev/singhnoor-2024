@@ -1,7 +1,15 @@
 @import "../../../shared/styles/_functions.sass"
 
 .for-sec
+  &-wrapper
+    +respond-to(medium)
+      display: grid
+      justify-content: space-between
+      align-items: flex-end
+      grid-template-columns: repeat(3,calc(33% - 0.5rem))
   &-outer
+    max-width: rem(450)
+    margin-inline: auto
     img
       height: auto
       width: 100%
@@ -27,11 +35,23 @@
       transform: translateX(-30px)
       animation: setBack 0.5s var(--ease-spring) 0.3s forwards
 
+      +respond-to(medium)
+        font-size: rem(24)
+        top: rem(20)
+        left: rem(20)
+  &-men
+    h4
+      text-align: left
+      +respond-to(medium)
+        max-width: rem(70)
   &-women
     h4
       left: auto
       right: rem(30)
       color: #FB6577
+
+      +respond-to(medium)
+        right: rem(-20)
 
     a.btn
       left: rem(-30)
@@ -40,3 +60,6 @@
     h4
       color: #239905
       top: rem(80)
+      +respond-to(medium)
+        top: rem(-10)
+        max-width: rem(70)

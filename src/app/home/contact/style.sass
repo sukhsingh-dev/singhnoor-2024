@@ -1,3 +1,5 @@
+@import "../../../shared/styles/_functions.sass"
+
 .contact
   &-outer
     padding-bottom: 3.5rem
@@ -7,6 +9,8 @@
     grid-template-columns: 1fr 1fr
     gap: 1.5rem 0.75rem
 
+    +respond-to(medium)
+      grid-template-columns: repeat(3,33%)
     a
       font-size: 1.25rem
       font-weight: 500

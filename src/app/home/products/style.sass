@@ -15,6 +15,7 @@
       left: 0
       bottom: rem(4)
       width: 100%
+      height: auto
 
   &-name
     font-weight: 600
@@ -23,8 +24,12 @@
 
   &-list
     display: grid
-    grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem)
+    grid-template-columns: repeat(2,minmax(calc(50% - 0.5rem), rem(250)))
     gap: rem(32) rem(16)
+    +respond-to(medium)
+      grid-template-columns: repeat(4,calc(33% - 0.5rem))
+      overflow: auto
+      padding-bottom: rem(20)
 
     li
       opacity: 0

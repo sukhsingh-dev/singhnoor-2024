@@ -22,6 +22,9 @@
   grid-template-columns: 50% 50%
   gap: rem(32) rem(8)
 
+  +respond-to(medium)
+    grid-template-columns: repeat(3,33%)
+
   li
     position: relative
     display: flex

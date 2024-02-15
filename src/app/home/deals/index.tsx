@@ -34,7 +34,7 @@ const TodayDeal: React.FC = () => {
       <Heading text="TODAY'S DEAL" />
       <div className="position-relative deals-offer">
         <div className="deals-bg-decorator" style={{ backgroundColor: '#F7DACA' }} />
-        <div className="t-shirts-set position-absolute" ref={imgBox}>
+        <div className="t-shirts-set" ref={imgBox}>
           <Image src="/images/t-shirts/t-3.webp" alt="" loading="lazy" width={210} height={210} />
           <Image src="/images/t-shirts/t-2.webp" alt="" loading="lazy" width={210} height={210} />
           <Image src="/images/t-shirts/t-4.webp" alt="" loading="lazy" width={210} height={210} />

@@ -7,7 +7,7 @@ import './style.sass'
 const DealsZone: React.FC = () => (
   <section className="deal-zone-outer">
     <Heading text="DEALS ZONE" />
-    <ul className="deal-zone-list d-flex gap-16">
+    <ul className="deal-zone-list d-flex justify-center gap-16">
       {
         dealsList.map((deal) => (
           <li key={deal.price}>
