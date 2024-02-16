@@ -5,6 +5,39 @@
   overflow-x: hidden
   padding-inline: 0.5rem
 
+  .slider-action-btns
+    margin-top: rem(30)
+
+  +respond-to(x-large)
+    > div:not(.d-none)
+      display: flex
+      flex-wrap: wrap
+      padding-left: calc(50% - 250px)
+
+      .slider-img-outer
+        order: -1
+
+        > img
+          filter: drop-shadow(0px 0px 6px #e6e8fa)
+          position: relative
+          z-index: 1
+      .slider-heading,
+      .slider-action-btns
+        width: calc(100% - 450px)
+
+      .slider-action-btns
+        .btn-secondary
+          display: none
+
+      .slider-heading
+        text-align: left
+        height: fit-content
+        font-weight: 650
+        font-size: rem(36)
+        max-width: rem(330)
+        margin-top: rem(120)
+        margin-left: auto
+
   .btn-primary
     animation: moveSideRight 0.5s var(--ease-spring) forwards
 
@@ -15,6 +48,7 @@
   font-weight: 800
   font-size: rem(24)
   letter-spacing: 0.02em
+  opacity: 0
   animation: moveSide 0.5s var(--ease-spring) forwards
   +respond-to(medium)
     font-size: rem(40)
@@ -30,18 +64,139 @@
   position: absolute
   top: rem(150)
   right: 15%
+  .btn
+    display: none
+  +respond-to(x-large)
+    right: auto
+    .btn
+      margin-top: rem(30)
+      display: block
 
 .btn-slide-changer
   width: 3px
   height: 20px
   background-color: #8f8f8f
   margin-block: 6px
+  font-size: 0
+  font-family: inherit
+
+  +respond-to(x-large)
+    width: auto
+    height: auto
+    background: transparent
+    margin: 0 0 rem(28)
+    font-size: rem(20)
+    font-weight: 500
 
   &.active
     background-color: var(--secondary)
+    +respond-to(x-large)
+      background: transparent
+      text-decoration: underline
+      text-decoration-color: var(--primary)
+      text-decoration-thickness: 2px
+      text-underline-offset: rem(10)
 
 .slide-num
   font-weight: 600
   font-size: 16px
   transform: rotate(90deg) translate(-8px, -2px)
   transform-origin: left
+  +respond-to(x-large)
+    display: none
+
+.slider-img-outer
+  position: relative
+  width: fit-content
+  margin-inline: auto
+
+  +respond-to(x-large)
+    position: static
+
+.slide-offer
+  width: rem(100)
+  height: rem(100)
+  border-radius: 50%
+  display: flex
+  flex-direction: column
+  justify-content: center
+  font-size: rem(24)
+  font-weight: 700
+  background: var(--white)
+  box-shadow: 0px 4px 21px 6px rgba(0, 0, 0, 0.11)
+  position: absolute
+  bottom: rem(0)
+  right: rem(0)
+  opacity: 0
+  animation: moveDown 0.5s var(--ease-spring) 0.3s forwards
+
+  +respond-to(x-large)
+    bottom: rem(250)
+    right: rem(40)
+
+  &:after
+    content: ''
+    width: 80%
+    height: 80%
+    border: 3px dashed var(--secondary)
+    border-radius: 50%
+    position: absolute
+    top: 8%
+    left: 8%
+    animation: rotateFull 15s linear infinite
+
+.slider-img-lg
+  position: absolute
+  top: rem(35)
+  display: none
+  +respond-to(x-large)
+    display: block
+  &-left,
+  &-right
+    position: absolute
+    left: rem(-115)
+    top: rem(-20)
+    background: #c3f0fd //#AEE6EC
+    width: 600px
+    height: 600px
+    border-radius: 50%
+    overflow: hidden
+    opacity: 0
+    img
+      position: absolute
+      bottom: rem(100)
+      height: auto
+  &-left
+    clip-path: polygon(0 14%, 40% 34%, 68% 53%, 0 90%)
+    animation: scaleUp .6s var(--ease-spring) .3s forwards
+
+    img
+      left: 0
+  &-right
+    clip-path: polygon(65% 30%, 100% 13%, 100% 91%, 25% 50%)
+    animation: scaleUp .6s var(--ease-spring) .3s forwards
+
+    img
+      right: 0
+
+.slider-img-main
+  position: relative
+  width: rem(380)
+  height: rem(425)
+  border-radius: 0 0 50% 50%
+  overflow: hidden
+  margin-top: rem(40)
+  img
+    max-width: rem(300)
+  &:after
+    content: ''
+    position: absolute
+    z-index: -1
+    bottom: 0
+    left: 0
+    width: rem(380)
+    height: rem(380)
+    border-radius: 50%
+    background: #fdd2c3
+  +respond-to(x-large)
+    z-index: 1

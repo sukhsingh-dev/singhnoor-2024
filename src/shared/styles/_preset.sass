@@ -40,6 +40,15 @@ body
   @media (max-width: 1024px)
     -webkit-overflow-scrolling: touch
 
+  +respond-to(x-large)
+    &::-webkit-scrollbar
+      width: rem(10)
+    &::-webkit-scrollbar-track
+      background: transparent
+      width: rem(8)
+    &::-webkit-scrollbar-thumb
+      background: #d2d5f2
+      border-radius: rem(5)
 ul
   list-style: none
 
@@ -62,6 +71,22 @@ main
   +respond-to(x-large)
     max-width: rem(1100)
     margin-inline: auto
+
+    &:after,
+    &:before
+      content: ''
+      position: absolute
+      width: 50vw
+      height: 50vw
+      background: #eefafe //#F5F6FF
+      left: 0
+      top: 0
+      clip-path: polygon(20% 0, 100% 40%, 100% 60%, 20% 100%, 0 100%, 0 0)
+      z-index: -1
+    &:before
+      right: 0
+      left: auto
+      transform: rotate(180deg)
 
   +respond-to(xx-large)
     max-width: rem(1400)

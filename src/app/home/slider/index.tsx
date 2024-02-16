@@ -3,6 +3,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import Link from "next/link"
 import { Slide1, Slide2, Slide3 } from "./slides"
 import './style.sass'
 
@@ -128,30 +129,39 @@ const Slider: React.FC = () => {
         <li>
           <button
             type="button"
-            aria-label="Select Slide 1"
+            aria-label="Select Slide for Women"
             className={`btn-slide-changer ${activeSlide === 0 ? 'active' : ''}`}
             onClick={() => setActiveSlide(0)}
-          />
+          >
+            Women
+          </button>
         </li>
         <li>
           <button
             type="button"
-            aria-label="Select Slide 2"
+            aria-label="Select Slide for Men"
             className={`btn-slide-changer ${activeSlide === 1 ? 'active' : ''}`}
             onClick={() => setActiveSlide(1)}
-          />
+          >
+            Men
+          </button>
         </li>
         <li>
           <button
             type="button"
-            aria-label="Select Slide 3"
+            aria-label="Select Slide for Accessories"
             className={`btn-slide-changer ${activeSlide === 2 ? 'active' : ''}`}
             onClick={() => setActiveSlide(2)}
-          />
+          >
+            Accessories
+          </button>
         </li>
         <li className="slide-num">
           0
           {totalSlides}
+        </li>
+        <li>
+          <Link href="/" className="btn btn-secondary">Create your Own</Link>
         </li>
       </ul>
     </section>

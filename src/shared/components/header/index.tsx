@@ -50,7 +50,7 @@ const Header: React.FC = () => (
       </ul>
     </nav>
     <Link href="/">
-      <Image alt="singhnoor logo" src="/images/sn-black-logo.webp" width={60} height={40} />
+      <Image alt="singhnoor logo" src="/images/sn-black-logo.webp" width={60} height={40} quality={100} />
     </Link>
     <SearchField />
   </header>
