@@ -10,6 +10,8 @@
   --primary-light: #CEF0F4
   --ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
 
+  @media (max-width: 376px)
+    font-size: 14px
 *
   margin: 0
   padding: 0
@@ -64,14 +66,20 @@ section
   overflow: hidden
   padding-block: rem(36)
 
+  &:not(.section-full-width)
+    +respond-to(x-large)
+      max-width: rem(1100)
+      margin-inline: auto
+    +respond-to(xx-large)
+      max-width: rem(1400)
+  &.section-full-width
+    padding-inline: rem(24)
+
 main
   padding-block: rem(60) rem(24)
   padding-inline: rem(16)
 
   +respond-to(x-large)
-    max-width: rem(1100)
-    margin-inline: auto
-
     &:after,
     &:before
       content: ''
@@ -87,9 +95,6 @@ main
       right: 0
       left: auto
       transform: rotate(180deg)
-
-  +respond-to(xx-large)
-    max-width: rem(1400)
 
 //On scroll
 .page-down
