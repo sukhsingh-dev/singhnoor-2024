@@ -1,5 +1,7 @@
 @import "../../../shared/styles/_functions.sass"
 
+$box-size: rem(600)
+
 .slider-outer
   position: relative
   overflow-x: hidden
@@ -11,12 +13,13 @@
   +respond-to(x-large)
     > div:not(.d-none)
       display: grid
-      grid-template-columns: 1fr rem(680) 1fr
+      grid-template-columns: 1fr rem(640) 1fr
 
       &::before
         content: ''
         order: -2
-
+      &::after
+        content: ''
       .slider-img-outer
         order: -1
 
@@ -25,17 +28,21 @@
           position: relative
           z-index: 1
       .slider-action-btns
+        order: 1
         .btn-secondary
           display: none
 
       .slider-heading
         text-align: left
-        height: fit-content
         font-weight: 650
-        font-size: rem(36)
-        max-width: rem(330)
+        font-size: rem(30)
         margin-top: rem(120)
-        margin-left: auto
+  +respond-to(xx-large)
+    max-width: rem(1400)
+    margin-inline: auto
+    > div:not(.d-none) .slider-heading
+      font-size: rem(36)
+      padding-left: rem(24)
 
   .btn-primary
     animation: moveSideRight 0.5s var(--ease-spring) forwards
@@ -110,9 +117,6 @@
   margin-inline: auto
   max-width: 100%
 
-  +respond-to(x-large)
-    position: static
-
 .slide-offer
   width: rem(100)
   height: rem(100)
@@ -131,8 +135,8 @@
   animation: moveDown 0.5s var(--ease-spring) 0.3s forwards
 
   +respond-to(x-large)
-    bottom: rem(250)
-    right: rem(40)
+    bottom: rem(60)
+    right: rem(-220)
 
   &:after
     content: ''
@@ -147,18 +151,17 @@
 
 .slider-img-lg
   position: absolute
-  top: 0
+  top: rem(- 50)
+  left: 50%
   display: none
   +respond-to(x-large)
     display: block
   &-left,
   &-right
     position: absolute
-    left: rem(-115)
-    top: rem(-20)
     background: #c3f0fd //#AEE6EC
-    width: 600px
-    height: 600px
+    width: $box-size
+    height: $box-size
     border-radius: 50%
     overflow: hidden
     opacity: 0
@@ -167,15 +170,15 @@
       bottom: rem(100)
       height: auto
   &-left
-    clip-path: polygon(0 14%, 35% 34%, 68% 53%, 0 90%)
+    clip-path: polygon(0% 10%, 50% 50%, 50% 50%, 0% 90%)
     animation: scaleUp .6s var(--ease-spring) .3s forwards
-
+    left: calc(($box-size/2) * -1)
     img
       left: 0
   &-right
-    clip-path: polygon(65% 30%, 100% 13%, 100% 91%, 25% 50%)
+    clip-path: polygon(50% 50%, 100% 10%, 100% 100%, 100% 90%)
     animation: scaleUp .6s var(--ease-spring) .3s forwards
-
+    right: calc(($box-size/2) * -1)
     img
       right: 0
 
@@ -197,7 +200,8 @@
     position: absolute
     z-index: -1
     bottom: 0
-    left: 0
+    left: 50%
+    transform: translateX(-50%)
     width: rem(380)
     max-width: 90%
     aspect-ratio: 1/1
@@ -206,5 +210,4 @@
   +respond-to(x-large)
     z-index: 1
     margin-top: 0
-  +respond-to(xx-large)
     border-radius: 0 0 50% 50%

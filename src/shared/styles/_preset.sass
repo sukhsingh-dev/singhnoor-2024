@@ -12,6 +12,10 @@
 
   @media (max-width: 376px)
     font-size: 14px
+
+  @media (max-width: 1360px) and (min-width: 1200px)
+    font-size: 14px
+
 *
   margin: 0
   padding: 0
@@ -59,7 +63,7 @@ ul
 body
   background-image: url('/images/page-bg-light.webp')
   background-size: 100vw
-  +respond-to(xx-large)
+  +respond-to(x-large)
     background-image: none
 section
   max-width: 100vw
@@ -89,13 +93,13 @@ main
       background: #eefafe //#F5F6FF
       left: 0
       top: 0
-      clip-path: polygon(20% 0, 100% 40%, 100% 60%, 20% 100%, 0 100%, 0 0)
-      z-index: -1
+      z-index: -2
+      clip-path: polygon(rem(430) 0px, 100% 0%, 100% rem(680), rem(430) rem(680), 0px rem(350))
     &:before
       right: 0
       left: auto
-      transform: rotate(180deg)
-
+    &::after
+      transform: rotateY(180deg)
 //On scroll
 .page-down
   .sn-header

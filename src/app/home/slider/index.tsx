@@ -108,7 +108,7 @@ const Slider: React.FC = () => {
 
   return (
     <section
-      className="slider-outer"
+      className="slider-outer section-full-width"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
     >
