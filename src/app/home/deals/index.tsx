@@ -35,10 +35,10 @@ const TodayDeal: React.FC = () => {
       <div className="position-relative deals-offer">
         <div className="deals-bg-decorator" style={{ backgroundColor: '#F7DACA' }} />
         <div className="t-shirts-set" ref={imgBox}>
-          <Image src="/images/t-shirts/t-3.webp" alt="" loading="lazy" width={210} height={210} />
-          <Image src="/images/t-shirts/t-2.webp" alt="" loading="lazy" width={210} height={210} />
-          <Image src="/images/t-shirts/t-4.webp" alt="" loading="lazy" width={210} height={210} />
-          <Image src="/images/t-shirts/t-3.webp" alt="" loading="lazy" width={210} height={210} />
+          <Image src="/images/t-shirts/t-3.webp" alt="" loading="lazy" width={210} height={210} quality={100} />
+          <Image src="/images/t-shirts/t-2.webp" alt="" loading="lazy" width={210} height={210} quality={100} />
+          <Image src="/images/t-shirts/t-4.webp" alt="" loading="lazy" width={210} height={210} quality={100} />
+          <Image src="/images/t-shirts/t-3.webp" alt="" loading="lazy" width={210} height={210} quality={100} />
         </div>
       </div>
       <h3 className="text-secondary deal-text position-relative">

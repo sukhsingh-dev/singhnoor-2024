@@ -45,9 +45,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCard
       <Image
         src={`/images/${product.imgUrl}`}
         alt="SN Product img"
-        loading="lazy"
         width={175}
         height={240}
+        quality={100}
       />
       <PiBg className="pi-decorator position-absolute" color={product.bgColor} />
     </div>

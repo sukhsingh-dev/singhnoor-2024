@@ -12,7 +12,14 @@ const Categories: React.FC = (): React.ReactNode => (
         categories.map((cat) => (
           <li className="text-center aos" key={cat.url}>
             <div className="bg-decorator mx-auto" style={{ backgroundColor: cat.backColor }} />
-            <Image src={`/images/${cat.imgName}`} loading="lazy" alt={cat.name} width={171} height={171} className="object-contain" />
+            <Image
+              src={`/images/${cat.imgName}`}
+              alt={cat.name}
+              width={171}
+              height={171}
+              className="object-contain"
+              quality={100}
+            />
             <Link href={cat.url} className="cat-link">
               {cat.name}
               <TextDecorator color={cat.backColor} />

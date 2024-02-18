@@ -12,7 +12,13 @@ const DealsZone: React.FC = () => (
         dealsList.map((deal) => (
           <li key={deal.price}>
             <Link href={deal.linkURL} className="d-flex flex-column align-items-center gap-16">
-              <Image src={`/images/${deal.img}`} alt={`SN products under ${deal.price}`} width={120} height={120} />
+              <Image
+                src={`/images/${deal.img}`}
+                alt={`SN products under ${deal.price}`}
+                width={120}
+                height={120}
+                quality={100}
+              />
               <span className="text-primary">
                 Under
                 <span className="product-price-currency"> ₹</span>
