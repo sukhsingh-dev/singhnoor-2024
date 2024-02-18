@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Outfit } from "next/font/google"
 import '../shared/styles/main.sass'
 import Header from "@/shared/components/header"
-import Footer from "@/shared/components/footer"
+import QuickMenus from "@/shared/components/quick-menus"
 
 const outfit = Outfit({ subsets: ["latin"] })
 
@@ -23,7 +23,7 @@ export default function RootLayout({
         <main>
           {children}
         </main>
-        <Footer />
+        <QuickMenus />
       </body>
     </html>
   )

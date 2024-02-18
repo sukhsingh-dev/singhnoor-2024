@@ -79,6 +79,13 @@ section
   &.section-full-width
     padding-inline: rem(24)
 
+.container
+  +respond-to(x-large)
+    max-width: rem(1100)
+    margin-inline: auto
+  +respond-to(xx-large)
+    max-width: rem(1400)
+
 main
   padding-block: rem(60) rem(24)
   padding-inline: rem(16)
@@ -105,5 +112,5 @@ main
   .sn-header
     transform: translateY(-100%)
 
-  .sn-footer
+  .sn-quick-menus
     transform: translateY(100%)

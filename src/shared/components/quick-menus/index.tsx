@@ -1,9 +1,9 @@
 import Icon from "../Icon"
 import './style.sass'
 
-const Footer: React.FC = () => (
-  <footer className="sn-footer">
-    <ul className="footer-list d-flex gap-16 justify-between">
+const QuickMenus: React.FC = () => (
+  <section className="sn-quick-menus section-full-width">
+    <ul className="quick-menus-list d-flex gap-16 justify-between container">
       <li className="text-primary icon-home">
         <Icon name="home" />
       </li>
@@ -21,7 +21,7 @@ const Footer: React.FC = () => (
         <Icon name="setting" />
       </li>
     </ul>
-  </footer>
+  </section>
 )
 
-export default Footer
+export default QuickMenus
