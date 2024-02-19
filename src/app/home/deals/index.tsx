@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Heading, TextDecorator } from "@/shared/components/ui"
 import Image from "next/image"
 import './style.sass'
 
 const TodayDeal: React.FC = () => {
   const imgBox = useRef<HTMLDivElement>(null)
+  const [imgBoxHeight, setImageBoxHeight] = useState<number>(0)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -24,6 +25,10 @@ const TodayDeal: React.FC = () => {
       }, 1500)
     }, 3000)
 
+    const getImgBoxHeight = imgBox.current?.clientWidth // 0.5 because image is in 2:1 ratio
+    if (getImgBoxHeight != null) {
+      setImageBoxHeight(getImgBoxHeight * 0.5 + 2)
+    }
     return () => {
       clearInterval(intervalId)
     }
@@ -34,7 +39,7 @@ const TodayDeal: React.FC = () => {
       <Heading text="TODAY'S DEAL" />
       <div className="position-relative deals-offer">
         <div className="deals-bg-decorator" style={{ backgroundColor: '#F7DACA' }} />
-        <div className="t-shirts-set" ref={imgBox}>
+        <div className="t-shirts-set" ref={imgBox} style={{ minHeight: imgBoxHeight }}>
           <Image src="/images/t-shirts/t-3.webp" alt="" loading="lazy" width={210} height={210} quality={100} />
           <Image src="/images/t-shirts/t-2.webp" alt="" loading="lazy" width={210} height={210} quality={100} />
           <Image src="/images/t-shirts/t-4.webp" alt="" loading="lazy" width={210} height={210} quality={100} />
