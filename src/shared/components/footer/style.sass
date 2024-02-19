@@ -4,7 +4,7 @@
   padding-inline: rem(24)
   .footer-logo
     display: none
-  +respond-to(x-large)
+  +onMinSize(x-large)
     background: linear-gradient(78.67deg, #F5F6FF 0.57%, #DBDFFF 94.36%)
     padding: rem(48) rem(24)
     border-radius: rem(30) rem(30) 0 0
@@ -12,7 +12,7 @@
     .footer-logo
       display: inline-block
   &-inner
-    +respond-to(x-large)
+    +onMinSize(x-large)
       display: grid
       gap: rem(24)
       grid-template-columns: 60% 20% 20%
@@ -30,13 +30,13 @@
     padding-bottom: rem(80)
     margin-inline: 1rem
     border-top: 1px solid #ccc
-    +respond-to(x-large)
+    +onMinSize(x-large)
       border: none
       padding: 0
       margin: 0
 .about-text
   display: none
-  +respond-to(x-large)
+  +onMinSize(x-large)
     display: block
     margin-block: rem(20) rem(40)
     color: #2a2929
@@ -51,7 +51,7 @@
       margin-bottom: rem(24)
       text-align: center
       letter-spacing: 0.75px
-      +respond-to(x-large)
+      +onMinSize(x-large)
         text-align: left
         font-size: rem(24)
   &-list
@@ -59,7 +59,7 @@
     grid-template-columns: 1fr 1fr
     gap: 1.5rem 0.75rem
 
-    +respond-to(medium)
+    +onMinSize(medium)
       grid-template-columns: repeat(3,33%)
     a
       font-size: 1.25rem
@@ -93,14 +93,14 @@
     margin-top: rem(24)
     padding-inline: rem(16)
 
-    +respond-to(medium)
+    +onMinSize(medium)
       display: flex
       flex-direction: column
       .footer-links
         display: flex
         gap: rem(32)
         margin-bottom: rem(24)
-    +respond-to(x-large)
+    +onMinSize(x-large)
       .footer-links
         display: block
 
@@ -115,7 +115,7 @@
   right: rem(40)
   margin-top: rem(-60)
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     bottom: rem(60)
 
   svg

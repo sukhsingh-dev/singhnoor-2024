@@ -54,7 +54,7 @@
   margin-inline: -1rem
   padding-top: 0
 
-  +respond-to(medium)
+  +onMinSize(medium)
     display: grid
     align-items: center
     grid-template-areas: "heading imgsArea" "textArea imgsArea" "svgArea imgsArea" "buttonArea imgsArea"
@@ -96,10 +96,10 @@
           img
             &:nth-child(1)
               opacity: 0
-  +respond-to(large)
+  +onMinSize(large)
     max-width: rem(840)
     margin-inline: auto
-  +respond-to(x-large)
+  +onMinSize(x-large)
     &.text-center
       max-width: rem(1100)
     .page-heading

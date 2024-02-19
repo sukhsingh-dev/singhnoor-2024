@@ -10,7 +10,7 @@ $box-size: rem(600)
   .slider-action-btns
     margin-top: rem(30)
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     > div:not(.d-none)
       display: grid
       grid-template-columns: 1fr rem(640) 1fr
@@ -37,7 +37,7 @@ $box-size: rem(600)
         font-weight: 650
         font-size: rem(30)
         margin-top: rem(120)
-  +respond-to(xx-large)
+  +onMinSize(xx-large)
     max-width: rem(1400)
     margin-inline: auto
     > div:not(.d-none) .slider-heading
@@ -56,14 +56,14 @@ $box-size: rem(600)
   letter-spacing: 0.02em
   opacity: 0
   animation: moveSide 0.5s var(--ease-spring) forwards
-  +respond-to(medium)
+  +onMinSize(medium)
     font-size: rem(40)
     text-align: center
 
 .slider-img
   animation: moveUp 0.5s var(--ease-spring) forwards
   height: auto
-  +respond-to(medium)
+  +onMinSize(medium)
     width: rem(420)
 
 .slide-changer
@@ -72,7 +72,7 @@ $box-size: rem(600)
   right: 15%
   .btn
     display: none
-  +respond-to(x-large)
+  +onMinSize(x-large)
     right: auto
     .btn
       margin-top: rem(30)
@@ -86,7 +86,7 @@ $box-size: rem(600)
   font-size: 0
   font-family: inherit
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     width: auto
     height: auto
     background: transparent
@@ -96,7 +96,7 @@ $box-size: rem(600)
 
   &.active
     background-color: var(--secondary)
-    +respond-to(x-large)
+    +onMinSize(x-large)
       background: transparent
       text-decoration: underline
       text-decoration-color: var(--primary)
@@ -108,7 +108,7 @@ $box-size: rem(600)
   font-size: 16px
   transform: rotate(90deg) translate(-8px, -2px)
   transform-origin: left
-  +respond-to(x-large)
+  +onMinSize(x-large)
     display: none
 
 .slider-img-outer
@@ -134,7 +134,7 @@ $box-size: rem(600)
   opacity: 0
   animation: moveDown 0.5s var(--ease-spring) 0.3s forwards
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     bottom: rem(60)
     right: rem(-220)
 
@@ -154,7 +154,7 @@ $box-size: rem(600)
   top: rem(- 50)
   left: 50%
   display: none
-  +respond-to(x-large)
+  +onMinSize(x-large)
     display: block
   &-left,
   &-right
@@ -191,7 +191,7 @@ $box-size: rem(600)
   max-width: 90%
   margin-inline: auto
   border-radius: 0 0 rem(140) rem(140)
-  +respond-to(x-small)
+  +onMinSize(x-small)
     border-radius: 0 0 rem(160) rem(160)
   img
     max-width: rem(300)
@@ -207,7 +207,7 @@ $box-size: rem(600)
     aspect-ratio: 1/1
     border-radius: 50%
     background: #fdd2c3
-  +respond-to(x-large)
+  +onMinSize(x-large)
     z-index: 1
     margin-top: 0
     border-radius: 0 0 50% 50%

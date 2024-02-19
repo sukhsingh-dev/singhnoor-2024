@@ -2,12 +2,12 @@
 
 .for-sec
   &-wrapper
-    +respond-to(medium)
+    +onMinSize(medium)
       display: grid
       justify-content: space-between
       align-items: flex-end
       grid-template-columns: repeat(3,calc(33% - 0.5rem))
-    +respond-to(xx-large)
+    +onMinSize(xx-large)
       grid-template-columns: repeat(3,27%)
 
   &-outer
@@ -38,17 +38,17 @@
       transform: translateX(-30px)
       animation: setBack 0.5s var(--ease-spring) 0.3s forwards
 
-      +respond-to(medium)
+      +onMinSize(medium)
         font-size: rem(24)
         top: rem(20)
         left: rem(20)
-      +respond-to(large)
+      +onMinSize(large)
         top: rem(100)
         font-size: rem(32)
   &-men
     h4
       text-align: left
-      +respond-to(medium)
+      +onMinSize(medium)
         max-width: rem(70)
 
   &-women
@@ -57,9 +57,9 @@
       right: rem(30)
       color: #FB6577
 
-      +respond-to(medium)
+      +onMinSize(medium)
         right: rem(-20)
-      +respond-to(large)
+      +onMinSize(large)
         margin-top: rem(20)
         right: rem(20)
 
@@ -70,8 +70,8 @@
     h4
       color: #239905
       top: rem(80)
-      +respond-to(medium)
+      +onMinSize(medium)
         top: rem(-10)
         max-width: rem(70)
-      +respond-to(large)
+      +onMinSize(large)
         top: rem(60)

@@ -52,7 +52,7 @@ $icon-stroke: 2.5px
     top: 50%
     transform: translate(-50%, -50%) rotate(46deg)
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     z-index: 1
 
 .search-wrapper
@@ -69,7 +69,7 @@ $icon-stroke: 2.5px
   transform: translateY(-100%)
   overflow: hidden
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     right: 0
     &::after,
     &::before
@@ -87,10 +87,10 @@ $icon-stroke: 2.5px
     &::after
       right: 0
   input
-    +respond-to(x-large)
+    +onMinSize(x-large)
       max-width: calc(rem(1100) - rem(80))
       margin-inline: auto
-    +respond-to(xx-large)
+    +onMinSize(xx-large)
       max-width: calc(rem(1400) - rem(80))
 
   &.search-visible
@@ -117,7 +117,7 @@ $icon-stroke: 2.5px
   top: 0
   width: 100%
   background-color: var(--white)
-  +respond-to(x-large)
+  +onMinSize(x-large)
     box-shadow: none
     background-color: transparent
     padding-inline: 2rem
@@ -141,7 +141,7 @@ $icon-stroke: 2.5px
   padding-block: rem(24)
   transform: translateX(calc(-100% - rem($hamburger-close-size)))
   transition: 0.3s var(--ease-spring)
-  +respond-to(x-large)
+  +onMinSize(x-large)
     background: #eefafe
 
   ul

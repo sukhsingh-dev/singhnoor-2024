@@ -21,7 +21,7 @@
   padding: 0
   box-sizing: border-box
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     &::-webkit-scrollbar
       width: rem(10)
     &::-webkit-scrollbar-track
@@ -64,7 +64,7 @@ ul
 body
   background-image: url('/images/page-bg-light.webp')
   background-size: 100vw
-  +respond-to(x-large)
+  +onMinSize(x-large)
     background-image: none
 section
   max-width: 100vw
@@ -72,26 +72,26 @@ section
   padding-block: rem(36)
 
   &:not(.section-full-width)
-    +respond-to(x-large)
+    +onMinSize(x-large)
       max-width: rem(1100)
       margin-inline: auto
-    +respond-to(xx-large)
+    +onMinSize(xx-large)
       max-width: rem(1400)
   &.section-full-width
     padding-inline: rem(24)
 
 .container
-  +respond-to(x-large)
+  +onMinSize(x-large)
     max-width: rem(1100)
     margin-inline: auto
-  +respond-to(xx-large)
+  +onMinSize(xx-large)
     max-width: rem(1400)
 
 main
   padding-block: rem(60) rem(24)
   padding-inline: rem(16)
 
-  +respond-to(x-large)
+  +onMinSize(x-large)
     &:after,
     &:before
       content: ''

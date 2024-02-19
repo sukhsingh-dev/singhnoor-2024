@@ -26,11 +26,11 @@
     display: grid
     grid-template-columns: repeat(2,minmax(calc(50% - 0.5rem), rem(250)))
     gap: rem(32) rem(16)
-    +respond-to(medium)
+    +onMinSize(medium)
       grid-template-columns: repeat(4,calc(33% - 0.5rem))
       overflow: auto
       padding-bottom: rem(20)
-    +respond-to(large)
+    +onMinSize(large)
       grid-template-columns: repeat(4,calc(25% - 1rem))
       column-gap: 1.25rem
 
@@ -39,7 +39,7 @@
       transform: translateX(-20px)
       animation: setBack 0.5s var(--ease-spring) forwards
 
-      +respond-to(xx-large)
+      +onMinSize(xx-large)
         border: 1px solid #CFCFCF
         padding: rem(20)
         border-radius: rem(20)

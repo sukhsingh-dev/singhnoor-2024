@@ -2,7 +2,14 @@
 
 $breakpoints: ( x-small: 375px, small: 480px, medium: 750px, large: 1024px, x-large: 1200px,xx-large: 1440px)
 
-=respond-to($breakpoint)
+=onMinSize($breakpoint)
+  @if map-has-key($breakpoints, $breakpoint)
+    @media (min-width: map-get($breakpoints, $breakpoint))
+      @content
+  @else
+    @error "Unknown breakpoint #{$breakpoint}."
+
+=onMaxSize($breakpoint)
   @if map-has-key($breakpoints, $breakpoint)
     @media (min-width: map-get($breakpoints, $breakpoint))
       @content
