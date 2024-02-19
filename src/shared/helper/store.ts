@@ -292,3 +292,64 @@ export const productList2: Product[] = [
     ]
   }
 ]
+
+interface innerLinks {
+  id: number
+  name: string
+  url: string
+}
+export const popularLinks: innerLinks[] = [
+  {
+    id: 0,
+    name: 'Men',
+    url: 'men'
+  },
+  {
+    id: 1,
+    name: 'Women',
+    url: 'women'
+  },
+  {
+    id: 2,
+    name: 'Kids',
+    url: 'kids'
+  },
+  {
+    id: 3,
+    name: 'Bags',
+    url: 'bags'
+  },
+  {
+    id: 4,
+    name: 'Belts',
+    url: 'belts'
+  },
+  {
+    id: 5,
+    name: 'Gatras',
+    url: 'gatras'
+  },
+  {
+    id: 6,
+    name: 'Accessories',
+    url: 'accessories'
+  }
+]
+
+export const usefulLink: innerLinks[] = [
+  {
+    id: 0,
+    name: 'About Us',
+    url: 'about'
+  },
+  {
+    id: 1,
+    name: 'Brands',
+    url: 'brands'
+  },
+  {
+    id: 2,
+    name: 'Return Policy',
+    url: 'returns'
+  }
+]

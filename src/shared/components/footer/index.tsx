@@ -1,21 +1,79 @@
-import { Heading } from "@/shared/components/ui"
+import Image from "next/image"
+import Link from "next/link"
 import Icon from "@/shared/components/Icon"
+import { popularLinks, usefulLink } from "@/shared/helper/store"
+import ScrollToTop from "./client/scrollTop"
 import './style.sass'
 
+const Footer: React.FC = () => (
+  <footer className="sn-footer">
+    <div className="container sn-footer-inner">
+      <div>
+        <Link href="/" className="footer-logo">
+          <Image
+            alt="singhnoor logo"
+            src="/images/sn-black-logo.webp"
+            width={60}
+            height={40}
+            quality={100}
+          />
+        </Link>
+        <p className="about-text">
+          We are committed to providing top-quality personalized t-shirts and accessories
+          that allow you to express your unique style and personality.
+          Our team of skilled designers and craftsmen use only the finest materials and
+          cutting-edge printing technologies to create products
+          that meet our high standards of quality.
+        </p>
+        <Contacts />
+      </div>
+      <div className="footer-links-container">
+        <FooterLink mainText="Popular" links={popularLinks} />
+        <FooterLink mainText="Useful Links" links={usefulLink} />
+      </div>
+      <div />
+      <ScrollToTop />
+      <div className="sn-footer-copyright">
+        Copyright ©
+        {new Date().getFullYear()}
+        &nbsp;
+        singhnoor.com. All Rights Reserved
+      </div>
+    </div>
+  </footer>
+)
+
+interface FooterLinkType {
+  mainText: string
+  links: innerLinks[]
+}
+
+interface innerLinks {
+  id: number
+  url: string
+  name: string
+}
+
 const Contacts: React.FC = () => (
-  <section className="contact-outer">
-    <Heading text="CONTACTS" />
+  <div className="contact-outer">
+    <h4>CONTACTS</h4>
     <ul className="contact-list">
       <li className="d-flex align-center">
         <a href="tel:+918130229131" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="call" />
-          Call Us
+          <span>
+            Call Us
+            <small>+91 81302 29131</small>
+          </span>
         </a>
       </li>
       <li>
         <a href="https://wa.me/+918130229131" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="whatsapp" />
-          WhatsApp
+          <span>
+            WhatsApp
+            <small>+91 81302 29131</small>
+          </span>
         </a>
       </li>
       <li>
@@ -43,7 +101,22 @@ const Contacts: React.FC = () => (
         </a>
       </li>
     </ul>
-  </section>
+  </div>
+)
+
+const FooterLink: React.FC<FooterLinkType> = ({ mainText, links }: FooterLinkType) => (
+  <div className="footer-links-outer">
+    <h4>{mainText}</h4>
+    <ul className="footer-links">
+      {
+        links.map((link) => (
+          <li key={link.id}>
+            <Link href={link.url}>{link.name}</Link>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 )
 
 const InstaIcon = (): React.ReactNode => (
@@ -64,4 +137,4 @@ const InstaIcon = (): React.ReactNode => (
   </svg>
 )
 
-export default Contacts
+export default Footer
