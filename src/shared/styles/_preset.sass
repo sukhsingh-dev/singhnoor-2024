@@ -21,6 +21,16 @@
   padding: 0
   box-sizing: border-box
 
+  +respond-to(x-large)
+    &::-webkit-scrollbar
+      width: rem(10)
+    &::-webkit-scrollbar-track
+      background: transparent
+      width: rem(8)
+    &::-webkit-scrollbar-thumb
+      background: #d2d5f2
+      border-radius: rem(5)
+
 a
   text-decoration: none
   color: var(--text)
@@ -46,15 +56,6 @@ body
   @media (max-width: 1024px)
     -webkit-overflow-scrolling: touch
 
-  +respond-to(x-large)
-    &::-webkit-scrollbar
-      width: rem(10)
-    &::-webkit-scrollbar-track
-      background: transparent
-      width: rem(8)
-    &::-webkit-scrollbar-thumb
-      background: #d2d5f2
-      border-radius: rem(5)
 ul
   list-style: none
 
