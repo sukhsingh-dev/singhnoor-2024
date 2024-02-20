@@ -13,22 +13,21 @@ $box-size: rem(600)
   +onMinSize(x-large)
     > div:not(.d-none)
       display: grid
-      grid-template-columns: 1fr rem(640) 1fr
+      grid-template-columns: 1fr rem(640) 1fr //640 is images container size
 
       &::before
         content: ''
         order: -2
+
       &::after
         content: ''
+
       .slider-img-outer
         order: -1
 
-        > img
-          filter: drop-shadow(0px 0px 6px #e6e8fa)
-          position: relative
-          z-index: 1
       .slider-action-btns
         order: 1
+
         .btn-secondary
           display: none
 
@@ -37,9 +36,11 @@ $box-size: rem(600)
         font-weight: 650
         font-size: rem(30)
         margin-top: rem(120)
+
   +onMinSize(xx-large)
-    max-width: $container-xx-large
     margin-inline: auto
+    max-width: $container-xx-large
+
     > div:not(.d-none) .slider-heading
       font-size: rem(36)
       padding-left: rem(24)
@@ -51,63 +52,70 @@ $box-size: rem(600)
     animation: moveSide 0.5s var(--ease-spring) forwards
 
 .slider-heading
-  font-weight: 800
-  font-size: rem(24)
-  letter-spacing: 0.02em
   opacity: 0
+  font-weight: 800
+  letter-spacing: 0.02em
+  font-size: rem(24)
   animation: moveSide 0.5s var(--ease-spring) forwards
+
   +onMinSize(medium)
-    font-size: rem(40)
     text-align: center
+    font-size: rem(40)
 
 .slider-img
-  animation: moveUp 0.5s var(--ease-spring) forwards
   height: auto
+  animation: moveUp 0.5s var(--ease-spring) forwards
+
   +onMinSize(medium)
     width: rem(420)
 
 .slide-changer
   position: absolute
-  top: rem(150)
   right: 15%
+  top: rem(150)
+
   .btn
     display: none
+
   +onMinSize(x-large)
     right: auto
+
     .btn
-      margin-top: rem(30)
       display: block
+      margin-top: rem(30)
 
 .btn-slide-changer
-  width: 3px
-  height: 20px
-  background-color: #8f8f8f
-  margin-block: 6px
-  font-size: 0
   font-family: inherit
+  font-size: 0
+  width: rem(3)
+  height: rem(20)
+  margin-block: rem(6)
+  background-color: var(--border-dark)
 
   +onMinSize(x-large)
     width: auto
     height: auto
     background: transparent
-    margin: 0 0 rem(28)
-    font-size: rem(20)
     font-weight: 500
+    font-size: rem(20)
+    margin: 0 0 rem(28)
 
   &.active
     background-color: var(--secondary)
+
     +onMinSize(x-large)
       background: transparent
       text-decoration: underline
-      text-decoration-color: var(--primary)
-      text-decoration-thickness: 2px
+      text-decoration-thickness: rem(2)
       text-underline-offset: rem(10)
+      text-decoration-color: var(--primary)
 
 .slide-num
-  font-weight: 600
-  font-size: 16px
-  transform: rotate(90deg) translate(-8px, -2px)
   transform-origin: left
+  font-weight: 600
+  font-size: rem(16)
+  transform: rotate(90deg) translate(rem(-8), rem(-2))
+
   +onMinSize(x-large)
     display: none
 
@@ -118,20 +126,20 @@ $box-size: rem(600)
   max-width: 100%
 
 .slide-offer
-  width: rem(100)
-  height: rem(100)
-  border-radius: 50%
   display: flex
   flex-direction: column
   justify-content: center
-  font-size: rem(24)
-  font-weight: 700
-  background: var(--white)
-  box-shadow: 0px 4px 21px 6px rgba(0, 0, 0, 0.11)
   position: absolute
-  bottom: rem(0)
-  right: rem(0)
+  right: 0
+  bottom: 0
   opacity: 0
+  border-radius: 50%
+  font-weight: 700
+  font-size: rem(24)
+  width: rem(100)
+  height: rem(100)
+  box-shadow: 0 rem(4) rem(21) rem(6) rgba(0, 0, 0, 0.12)
+  background: var(--white)
   animation: moveDown 0.5s var(--ease-spring) 0.3s forwards
 
   +onMinSize(x-large)
@@ -140,73 +148,80 @@ $box-size: rem(600)
 
   &:after
     content: ''
-    width: 80%
-    height: 80%
-    border: 3px dashed var(--secondary)
-    border-radius: 50%
     position: absolute
     top: 8%
     left: 8%
+    width: 80%
+    height: 80%
+    border-radius: 50%
     animation: rotateFull 15s linear infinite
+    border: rem(3) dashed var(--secondary)
 
 .slider-img-lg
-  position: absolute
-  top: rem(- 50)
-  left: 50%
   display: none
+  position: absolute
+  left: 50%
+  top: rem(-50)
+
   +onMinSize(x-large)
     display: block
+
   &-left,
   &-right
     position: absolute
-    background: #c3f0fd //#AEE6EC
-    width: $box-size
-    height: $box-size
-    border-radius: 50%
     overflow: hidden
     opacity: 0
+    border-radius: 50%
+    width: $box-size
+    height: $box-size
+    background: rgba($primary-color, 0.15)
+
     img
+      height: auto
       position: absolute
       bottom: rem(100)
-      height: auto
   &-left
     clip-path: polygon(0% 10%, 50% 50%, 50% 50%, 0% 90%)
-    animation: scaleUp .6s var(--ease-spring) .3s forwards
     left: calc(($box-size/2) * -1)
+    animation: scaleUp .6s var(--ease-spring) .3s forwards
     img
       left: 0
+
   &-right
     clip-path: polygon(50% 50%, 100% 10%, 100% 100%, 100% 90%)
-    animation: scaleUp .6s var(--ease-spring) .3s forwards
     right: calc(($box-size/2) * -1)
+    animation: scaleUp .6s var(--ease-spring) .3s forwards
     img
       right: 0
 
 .slider-img-main
   position: relative
+  overflow: hidden
+  margin-inline: auto
+  max-width: 90%
+  margin-top: rem(24)
   width: rem(380)
   height: rem(425)
-  overflow: hidden
-  margin-top: rem(24)
-  max-width: 90%
-  margin-inline: auto
   border-radius: 0 0 rem(140) rem(140)
+
   +onMinSize(x-small)
     border-radius: 0 0 rem(160) rem(160)
   img
     max-width: rem(300)
+
   &:after
     content: ''
     position: absolute
     z-index: -1
     bottom: 0
     left: 50%
-    transform: translateX(-50%)
-    width: rem(380)
+    border-radius: 50%
     max-width: 90%
     aspect-ratio: 1/1
-    border-radius: 50%
-    background: #fdd2c3
+    transform: translateX(-50%)
+    width: rem(380)
+    background: var(--secondary-light)
+
   +onMinSize(x-large)
     z-index: 1
     margin-top: 0

@@ -2,10 +2,11 @@
 
 .deal-zone
   &-list
-    margin-right: rem(-16)
     overflow: auto
+    margin-right: rem(-16)
     padding-bottom: rem(10)
     padding-right: rem(16)
+
     +onMinSize(medium)
       justify-content: space-between
       a
@@ -13,9 +14,10 @@
 
     img
       min-width: rem(120)
+
       +onMinSize(large)
-        min-width: rem(180)
         height: auto
+        min-width: rem(180)
 
     span
       white-space: nowrap

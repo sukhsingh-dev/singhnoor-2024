@@ -8,39 +8,41 @@
     img
       width: 100%
       height: auto
-      filter: drop-shadow(3px 6px 9px rgba(0, 0, 0, 0.24))
+      filter: drop-shadow(rem(3) rem(6) rem(9) rgba(0, 0, 0, 0.24))
 
     .pi-decorator
+      height: auto
       z-index: -1
+      width: 100%
       left: 0
       bottom: rem(4)
-      width: 100%
-      height: auto
 
   &-name
+    white-space: nowrap
     font-weight: 600
     font-size: rem(16)
-    white-space: nowrap
 
   &-list
     display: grid
     grid-template-columns: repeat(2,minmax(calc(50% - 0.5rem), rem(250)))
     gap: rem(32) rem(16)
+
     +onMinSize(medium)
-      grid-template-columns: repeat(4,calc(33% - 0.5rem))
       overflow: auto
+      grid-template-columns: repeat(4,calc(33% - 0.5rem))
       padding-bottom: rem(20)
+
     +onMinSize(large)
-      grid-template-columns: repeat(4,calc(25% - 1rem))
       column-gap: 1.25rem
+      grid-template-columns: repeat(4,calc(25% - 1rem))
 
     li
       opacity: 0
-      transform: translateX(-20px)
+      transform: translateX(rem(-20))
       animation: setBack 0.5s var(--ease-spring) forwards
 
       +onMinSize(xx-large)
-        border: 1px solid #CFCFCF
+        border: 1px solid var(--border-light)
         padding: rem(20)
         border-radius: rem(20)
 
@@ -59,18 +61,18 @@
           position: relative
           &::after
             content: ''
-            width: 80%
             background: currentColor
             position: absolute
             top: 50%
             left: 50%
-            transform: translate(-50%,-50%)
+            width: 80%
             border-radius: 50%
             z-index: -1
             aspect-ratio: 1/1
+            transform: translate(-50%,-50%)
 
       &:nth-child(2n)
-        transform: translateX(20px)
+        transform: translateX(rem(20))
 
   &-varieties
     font-size: rem(14)
@@ -83,14 +85,14 @@
     font-size: 1em
 
     &-info
+      flex-direction: column
       font-size: rem(16)
       font-weight: 500
-      flex-direction: column
 
     &-old
-      color: #A9A9A9
-      font-size: 0.75em
       text-decoration-line: line-through
+      color: var(--border-dark)
+      font-size: 0.75em
       min-height: rem(20)
       padding-top: rem(4)
 
