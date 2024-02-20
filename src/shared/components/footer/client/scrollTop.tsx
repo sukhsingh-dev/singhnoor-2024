@@ -14,7 +14,7 @@ const ScrollToTop: React.FC = () => {
     <button
       type="button"
       aria-label="Go to top"
-      className="scroll-to-top"
+      className="btn btn-primary scroll-to-top"
       onClick={handleClick}
     >
       <Icon name="chevron-up" />
