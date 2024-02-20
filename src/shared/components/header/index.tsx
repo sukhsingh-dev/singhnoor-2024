@@ -8,7 +8,7 @@ import './style.sass'
 
 const Header: React.FC = () => (
   <header className="sn-header">
-    <div className="container d-flex align-center justify-between">
+    <div className="sn-header-inner d-flex align-center justify-between">
       <MenuButton />
       <nav className="sn-menu">
         <ul>
