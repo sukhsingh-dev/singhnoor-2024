@@ -18,3 +18,36 @@ $breakpoints: ( x-small: 375px, small: 480px, medium: 750px, large: 1024px, x-la
 
 @function rem($pixels)
   @return (math.div($pixels, 16)) * 1rem
+
+$primary-color: #007BFF
+$secondary-color: #FA6B38
+$primary-shadow: rgba($primary-color, 0.3)
+$secondary-shadow: rgba($secondary-color, 0.3)
+$decoration-bg: rgba($primary-color, 0.07)
+
+$container-x-large: rem(1100)
+$container-xx-large: rem(1400)
+
+:root
+  --primary: #{$primary-color}
+  --secondary: #{$secondary-color}
+  --ternary: #FDC13C
+  --light: #eae6e6
+  --primary-light: #CEF0F4
+  --text: #333
+  --text-dark: #2a2929
+  --text-light: #848484
+  --white: #fff
+  --primary-shadow: #{$primary-shadow}
+  --secondary-shadow: #{$secondary-shadow}
+  --decoration-bg: #{$decoration-bg}
+  --footer-bg: linear-gradient(78deg, #F5F6FF 0.6%, #DBDFFF 93%)
+  --border-light: #ccc
+  //--decoration-bg: #eefaf
+  --ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
+
+  @media (max-width: 376px)
+    font-size: 14px
+
+  @media (max-width: 1360px) and (min-width: 1200px)
+    font-size: 14px

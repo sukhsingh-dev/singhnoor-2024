@@ -1,9 +1,10 @@
 @import "../../styles/_functions.sass"
 
-$size: 32px
+$size: rem(32)
 $hamburger-close-size: 75
 $header-height-size: 64
 $icon-stroke: 2.5px
+$shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
 
 .magic-icon-search
   display: inline-block
@@ -14,15 +15,15 @@ $icon-stroke: 2.5px
   &::before
     content: ''
     display: inline-block
-    border-radius: 4px
+    position: absolute
     width: $icon-stroke
     height: 25%
-    background: var(--text)
-    position: absolute
     left: 75%
     top: 75%
+    border-radius: 4px
     transform: translate(-50%, -50%) rotate(-45deg)
     transition: all 0.5s var(--ease-spring)
+    background: var(--text)
 
   &.close::before
     height: 80%
@@ -35,119 +36,128 @@ $icon-stroke: 2.5px
     position: absolute
     width: 50%
     height: 50%
-    border: $icon-stroke solid var(--text)
     border-radius: 50%
     top: 42%
     left: 44%
     transform: translate(-50%, -50%) rotate(0deg)
     transition: all 0.5s var(--ease-spring)
+    border: $icon-stroke solid var(--text)
 
   &.close::after
     border: none
-    background-color: var(--text)
     border-radius: 4px
     width: $icon-stroke
     height: 80%
     left: 50%
     top: 50%
     transform: translate(-50%, -50%) rotate(46deg)
+    background-color: var(--text)
 
   +onMinSize(x-large)
     z-index: 1
 
 .search-wrapper
-  position: absolute
-  background: var(--white)
-  height: 100%
-  left: 0
-  right: 50px
-  border-radius: 1.25rem
   display: flex
   align-items: center
-  padding: 0.625rem 1.25rem
-  transition: transform 0.3s var(--ease-spring)
-  transform: translateY(-100%)
   overflow: hidden
+  position: absolute
+  left: 0
+  right: rem(50)
+  height: 100%
+  border-radius: 1.25rem
+  padding: 0.625rem 1.25rem
+  transform: translateY(-100%)
+  background: var(--white)
+  transition: transform 0.3s var(--ease-spring)
 
   +onMinSize(x-large)
     right: 0
+
     &::after,
     &::before
       content: ''
       position: absolute
       top: 0
       z-index: -1
-      background: #eefafe
       width: 50vw
       height: 50vw
+      background: var(--decoration-bg)
       clip-path: polygon(26.875rem 0px, 100% 0%, 100% 42.5rem, 26.875rem 42.5rem, 0px 21.875rem)
+
     &::before
       left: 0
       transform: rotateY(180deg)
+
     &::after
       right: 0
+
   input
     +onMinSize(x-large)
-      max-width: calc(rem(1100) - rem(80))
       margin-inline: auto
+      max-width: calc($container-x-large - rem(80))
     +onMinSize(xx-large)
-      max-width: calc(rem(1400) - rem(80))
+      max-width: calc($container-xx-large - rem(80))
 
   &.search-visible
     transform: translateY(0)
 
   input
-    padding: 8px 16px
-    border-radius: 24px
-    border: 1px solid #ccc
     width: 100%
     font-family: inherit
-    font-size: 16px
+    font-size: rem(16)
+    padding: rem(8) rem(16)
+    border-radius: rem(24)
+    border: 1px solid var(--border-light)
 
     &::placeholder
       font-family: inherit
 
 .sn-header
-  border-radius: 0 0 1.25rem 1.25rem
-  box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
-  padding: 0.625rem 1.25rem
-  transition: 0.3s var(--ease-spring)
   position: fixed
-  z-index: 2
   top: 0
+  z-index: 2
   width: 100%
+  border-radius: 0 0 1.25rem 1.25rem
+  padding: 0.625rem 1.25rem
+  box-shadow: $shadow
   background-color: var(--white)
+  transition: 0.3s var(--ease-spring)
+
   +onMinSize(x-large)
     box-shadow: none
     background-color: transparent
     padding-inline: 2rem
+
     &.show-search
       z-index: 3
+
     .show-header &
-      box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
+      box-shadow: $shadow
       background-color: var(--white)
 
       .search-wrapper
         &::after,
         &::before
           display: none
+
 .sn-menu
   position: fixed
-  background: #fff
-  top: rem($header-height-size)
   bottom: 0
   left: 0
-  right: rem($hamburger-close-size)
   padding-block: rem(24)
+  top: rem($header-height-size)
+  right: rem($hamburger-close-size)
   transform: translateX(calc(-100% - rem($hamburger-close-size)))
   transition: 0.3s var(--ease-spring)
+  background: var(--white)
+
   +onMinSize(x-large)
-    background: #eefafe
+    background: var(--decoration-bg)
 
   ul
     li
       font-weight: 600
-      border-bottom: rem(1) solid #ccc
+      border-bottom: rem(1) solid var(--border-light)
 
       &:last-child
         border: none
@@ -182,24 +192,24 @@ $icon-stroke: 2.5px
     display: block
 
 .menu-close-area
-  background-color: rgba(0, 0, 0, 0.5)
+  display: none
   position: fixed
-  top: rem($header-height-size)
   bottom: 0
   right: 0
+  background-color: rgba(0, 0, 0, 0.5)
   width: rem($hamburger-close-size)
-  display: none
+  top: rem($header-height-size)
 
 .submenu
   &-outer
     position: absolute
-    background: #ffff
     top: 0
     left: 0
     right: 0
     bottom: 0
     transform: translateX(-100%)
     transition: transform 0.3s var(--ease-spring)
+    background: var(--white)
 
     li
       padding: rem(12) rem(24)
@@ -225,7 +235,7 @@ $icon-stroke: 2.5px
   display: flex
   flex-direction: row-reverse
   justify-content: flex-end
-  gap: 8px
+  gap: rem(8)
 
   &::after
     transform: rotate(180deg)

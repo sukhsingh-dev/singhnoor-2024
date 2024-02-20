@@ -1,21 +1,5 @@
 @import "./_functions"
 
-:root
-  --primary: #007BFF
-  --secondary: #FA6B38
-  --ternary: #FDC13C
-  --text: #333
-  --light: #eae6e6
-  --white: #fff
-  --primary-light: #CEF0F4
-  --ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
-
-  @media (max-width: 376px)
-    font-size: 14px
-
-  @media (max-width: 1360px) and (min-width: 1200px)
-    font-size: 14px
-
 *
   margin: 0
   padding: 0
@@ -28,7 +12,7 @@
       background: transparent
       width: rem(8)
     &::-webkit-scrollbar-thumb
-      background: #d2d5f2
+      background: var(--primary-shadow)
       border-radius: rem(5)
 
 a
@@ -38,8 +22,8 @@ a
 button
   border: none
   background: transparent
-  transition: 0.3s var(--ease-spring)
   cursor: pointer
+  transition: 0.3s var(--ease-spring)
 
 img,
 svg
@@ -67,25 +51,25 @@ body
   +onMinSize(x-large)
     background-image: none
 section
+  padding-block: rem(36)
   max-width: 100vw
   overflow: hidden
-  padding-block: rem(36)
 
   &:not(.section-full-width)
     +onMinSize(x-large)
-      max-width: rem(1100)
+      max-width: $container-x-large
       margin-inline: auto
     +onMinSize(xx-large)
-      max-width: rem(1400)
+      max-width: $container-xx-large
   &.section-full-width
     padding-inline: rem(24)
 
 .container
   +onMinSize(x-large)
-    max-width: rem(1100)
+    max-width: $container-x-large
     margin-inline: auto
   +onMinSize(xx-large)
-    max-width: rem(1400)
+    max-width: $container-xx-large
 
 main
   padding-block: rem(60) rem(24)
@@ -96,13 +80,13 @@ main
     &:before
       content: ''
       position: absolute
-      width: 50vw
-      height: 50vw
-      background: #eefafe //#F5F6FF
       left: 0
       top: 0
       z-index: -2
-      clip-path: polygon(rem(430) 0px, 100% 0%, 100% rem(680), rem(430) rem(680), 0px rem(350))
+      width: 50vw
+      height: 50vw
+      background: var(--decoration-bg)
+      clip-path: polygon(rem(430) 0, 100% 0%, 100% rem(680), rem(430) rem(680), 0 rem(350))
     &:before
       right: 0
       left: auto
