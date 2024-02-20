@@ -1,9 +1,10 @@
-import Link from "next/link"
 import { menuList } from "@/shared/helper/store"
+import Link from "next/link"
 import Image from "next/image"
 import MenuButton from "./client-side/hamburger"
-import './style.sass'
 import SearchField from "./client-side/search"
+import QuickMenus from "./client-side/quick-menus"
+import './style.sass'
 
 const Header: React.FC = () => (
   <header className="sn-header">
@@ -50,7 +51,7 @@ const Header: React.FC = () => (
           </li>
         </ul>
       </nav>
-      <Link href="/">
+      <Link href="/" className="logo-icon">
         <Image
           alt="singhnoor logo"
           src="/images/sn-black-logo.webp"
@@ -59,7 +60,10 @@ const Header: React.FC = () => (
           quality={100}
         />
       </Link>
-      <SearchField />
+      <div className="sn-header-side-options">
+        <QuickMenus />
+        <SearchField />
+      </div>
     </div>
   </header>
 )

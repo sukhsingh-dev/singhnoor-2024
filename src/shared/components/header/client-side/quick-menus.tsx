@@ -1,8 +1,7 @@
-import Icon from "../Icon"
-import './style.sass'
+import Icon from "../../Icon"
 
 const QuickMenus: React.FC = () => (
-  <section className="sn-quick-menus section-full-width">
+  <div className="sn-quick-menus">
     <ul className="quick-menus-list d-flex gap-16 justify-between container">
       <li className="text-primary icon-home">
         <Icon name="home" />
@@ -21,7 +20,7 @@ const QuickMenus: React.FC = () => (
         <Icon name="setting" />
       </li>
     </ul>
-  </section>
+  </div>
 )
 
 export default QuickMenus
