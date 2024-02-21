@@ -161,7 +161,7 @@ const Slider: React.FC = () => {
           {totalSlides}
         </li>
         <li>
-          <Link href="/" className="btn btn-secondary">Create your Own</Link>
+          <Link href="/" className="btn btn-secondary btn-arrow-long">Create your Own</Link>
         </li>
       </ul>
     </section>
