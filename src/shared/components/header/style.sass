@@ -4,6 +4,7 @@ $size: rem(32)
 $hamburger-close-size: 75
 $icon-stroke: 2.5px
 $shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
+$shadow2: 0 -0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
 
 .magic-icon-search
   display: inline-block
@@ -264,7 +265,7 @@ $shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
   z-index: 1
   width: 100%
   border-radius: 1.25rem 1.25rem 0 0
-  box-shadow: 0 rem(-3) rem(6) 0 rgba(0, 0, 0, 0.25)
+  box-shadow: $shadow2
   padding: 0.625rem 1.25rem
   color: var(--text)
   background-color: var(--white)
@@ -281,10 +282,74 @@ $shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
       display: none
 
     .icon-setting
+      order: -2
+    .icon-account
       order: -1
-
+    .icon-cart
+      margin-right: rem(16)
+      a
+        position: relative
+        top: rem(2)
   li
     padding: rem(8)
+
+    +onMinSize(x-large)
+      position: relative
+
+      .sn-quick-menus-inner.show-menu
+        pointer-events: all
+        opacity: 1
+        transform: translateX(calc(-50% + 1rem)) translateY(100%)
+
+  &-inner
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    border-radius: 1.25rem 1.25rem 0 0
+    padding-bottom: rem(16)
+    transform: translateY(100%)
+    transition: 0.3s var(--ease-spring)
+    background: var(--white)
+
+    +onMinSize(x-large)
+      width: auto
+      padding-bottom: 0
+      bottom: 0
+      opacity: 0
+      border-radius: 1.25rem
+      box-shadow: $shadow
+      pointer-events: none
+      min-width: rem(150)
+      transform: translateX(calc(-75% + 1rem)) translateY(100%)
+
+    &.show-menu
+      transform: none
+      box-shadow: $shadow2
+
+    &-list
+      li
+        text-align: center
+        padding: rem(16)
+        border-top: 1px solid var(--border-light)
+
+        +onMinSize(x-large)
+          display: flex
+          justify-content: center
+          white-space: nowrap
+          gap: rem(8)
+
+          &:first-child
+            border-top: none
+
+        span
+          font-weight: 600
+  &-close
+    text-align: right
+    padding: rem(16)
+
+    +onMinSize(x-large)
+      display: none
 
 .cart-count
   border-radius: 50%
