@@ -49,11 +49,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCard
         height={240}
         quality={100}
       />
-      <PiBg className="pi-decorator position-absolute" color={product.bgColor} />
+      {/* <PiBg className="pi-decorator position-absolute" color={product.bgColor} /> */}
     </div>
-    <div className="d-flex justify-between">
-      <div>
-        <h3 className="product-name">{product.name}</h3>
+    <h3 className="product-name">{product.name}</h3>
+    <div className="d-flex justify-between product-info">
+      {/* <div>
         <div className="text-secondary product-varieties">
           {product.varieties.map((item, index) => {
             // eslint-disable-next-line no-restricted-syntax, guard-for-in, no-unreachable-loop
@@ -72,7 +72,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCard
             return null
           })}
         </div>
-      </div>
+      </div> */}
 
       <div className="product-price-info d-flex text-right">
         <span className="product-price-old">
@@ -83,6 +83,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCard
           <span className="product-price-currency">₹</span>
           {product.price}
         </span>
+      </div>
+      <div className="product-info-inner">
+        <input type="checkbox" id={`about-${product.id}`} className="product-info-inner-input" />
+        <label className="btn-info" htmlFor={`about-${product.id}`}>
+          <Icon name="chevron-up" className="text-secondary" />
+        </label>
+        <div className="product-info-inner-data">
+          <div className="product-info-inner-data-set sizes">
+            <div className="label">Sizes</div>
+            <ul>
+              <li>S</li>
+              <li>M</li>
+              <li>L</li>
+              <li>XL</li>
+            </ul>
+          </div>
+          <div className="product-info-inner-data-set colors">
+            <div className="label">Colors</div>
+            <ul>
+              <li style={{ background: "#fff" }}>White</li>
+              <li style={{ background: "#000" }}>Black</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

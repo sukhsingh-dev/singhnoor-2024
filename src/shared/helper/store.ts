@@ -193,7 +193,7 @@ interface Product {
 
 export const productList: Product[] = [
   {
-    id: '1',
+    id: '11',
     name: "Panda Hoodie",
     imgUrl: 'hoodies/panda.webp',
     bgColor: '#d6f0e4',
@@ -205,7 +205,7 @@ export const productList: Product[] = [
     ]
   },
   {
-    id: '2',
+    id: '21',
     name: "Leather Gataras",
     imgUrl: 'g1.webp',
     bgColor: '#f0d6d6',
@@ -217,7 +217,7 @@ export const productList: Product[] = [
     ]
   },
   {
-    id: '3',
+    id: '31',
     name: "Shasters Set",
     imgUrl: 's1.webp',
     bgColor: '#d6e4f0',
@@ -229,7 +229,7 @@ export const productList: Product[] = [
     ]
   },
   {
-    id: '4',
+    id: '41',
     name: "Punjab T-shirt",
     imgUrl: 't-shirts/t1.webp',
     bgColor: '#f0e7d6',

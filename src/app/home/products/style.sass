@@ -1,8 +1,13 @@
 @import "../../../shared/styles/_functions.sass"
 
+$card-radius: rem(16)
+:root
+  --card-radius: #{$card-radius}
+
 .product
   &-image-outer
     position: relative
+    margin-inline: -0.75rem
     margin-bottom: rem(8)
 
     img
@@ -18,14 +23,66 @@
       bottom: rem(4)
 
   &-name
-    white-space: nowrap
     font-weight: 600
     font-size: rem(16)
+
+  &-info
+    align-items: flex-end
+    margin-top: auto
+    width: 100%
+
+    &-inner
+      &-input
+        width: 0
+        height: 0
+        opacity: 0
+        &:checked
+          ~ .product-info-inner-data
+            transform: translateY(0)
+          ~ .btn-info
+            transform: translateY(rem(-102))
+            svg
+              transform: rotate(180deg) translateY(2px)
+      &-data
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 0
+        padding: rem(8)
+        border-radius: 0 0 var(--card-radius) var(--card-radius)
+        background-color: var(--white)
+        transition: 0.3s var(--ease-spring)
+        transform: translateY(101%)
+
+        .label
+          font-weight: 600
+          margin-bottom: rem(4)
+
+        ul
+          display: flex
+          gap: rem(8)
+
+        &-set
+          margin-bottom: rem(8)
+          &.colors
+            li
+              font-size: 0
+              border-radius: 50%
+              border: 1px solid var(--text-dark)
+              width: rem(16)
+              height: rem(16)
+          &.sizes
+            li
+              display: inline-block
+              padding: rem(2) rem(4)
+              border-radius: rem(2)
+              background: var(--primary-light)
+              color: var(--primary)
 
   &-list
     display: grid
     grid-template-columns: repeat(2,minmax(calc(50% - 0.5rem), rem(250)))
-    gap: rem(32) rem(16)
+    gap: rem(16) rem(8)
 
     +onMinSize(medium)
       overflow: auto
@@ -37,39 +94,39 @@
       grid-template-columns: repeat(4,calc(25% - 1rem))
 
     .product-card-outer
+      display: flex
+      flex-direction: column
+      overflow: hidden
       opacity: 0
+      height: 100%
       transform: translateX(rem(-20))
       animation: setBack 0.5s var(--ease-spring) forwards
+      border: 1px solid var(--border-light)
+      padding: rem(8)
+      border-radius: var(--card-radius)
 
-      +onMinSize(xx-large)
-        border: 1px solid var(--border-light)
-        padding: rem(20)
-        border-radius: rem(20)
-
-        .pi-decorator
-          display: none
-
+      +onMinSize(x-large)
         .product-name
           font-size: rem(20)
           margin-bottom: rem(10)
+          color: var(--text)
 
         .product-price-info
           font-size: rem(20)
           gap: rem(8)
 
-        .product-image-outer
-          position: relative
-          &::after
-            content: ''
-            background: currentColor
-            position: absolute
-            top: 50%
-            left: 50%
-            width: 80%
-            border-radius: 50%
-            z-index: -1
-            aspect-ratio: 1/1
-            transform: translate(-50%,-50%)
+      .product-image-outer
+        &::after
+          content: ''
+          background: currentColor
+          position: absolute
+          top: 50%
+          left: 50%
+          width: 80%
+          border-radius: 50%
+          z-index: -1
+          aspect-ratio: 1/1
+          transform: translate(-50%,-50%)
 
       &:nth-child(2n)
         transform: translateX(rem(20))
@@ -85,9 +142,9 @@
     font-size: 1em
 
     &-info
-      flex-direction: column
       font-size: rem(16)
       font-weight: 500
+      gap: rem(4)
 
     &-old
       text-decoration-line: line-through
@@ -98,3 +155,26 @@
 
   &-variety-count
     font-size: 1.15em
+
+.btn-info
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  position: relative
+  z-index: 1
+  border-radius: 50%
+  width: rem(30)
+  height: rem(30)
+  background-color: var(--secondary-light)
+  transition: 0.3s var(--ease-spring)
+
+  svg
+    width: rem(12)
+    height: auto
+
+    +onMaxSize(small)
+      width: rem(14)
+
+.section-more-width
+  margin-inline: -0.5rem
