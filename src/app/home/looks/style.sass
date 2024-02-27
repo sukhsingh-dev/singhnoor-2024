@@ -135,6 +135,14 @@
       .product-name
         margin-bottom: rem(4)
 
+  &-animation
+    .sn-gtl-item-inner > img
+      animation: imgAnimation 0.25s var(--ease-spring)
+
+  &-animation-backward
+    .sn-gtl-item-inner > img
+      animation: imgAnimationBack 0.25s var(--ease-spring)
+
 .btn-round
   aspect-ratio: 1/1
   border-radius: 50%
@@ -165,3 +173,17 @@
 
   100%
     box-shadow: 0 0 0 12px rgba($secondary-color,0)
+
+@keyframes imgAnimation
+  0%
+    transform: translateX(-100%)
+
+  100%
+    transform: translateX(0)
+
+@keyframes imgAnimationBack
+  0%
+    transform: translateX(150%)
+
+  100%
+    transform: translateX(0%)

@@ -7,12 +7,19 @@ import Image from "next/image"
 import './style.sass'
 
 const GetTheLook = (): React.ReactNode => {
-  // const responsiveWidth = 1024
   const imgBox = useRef<HTMLDivElement>(null)
   const [imgNotHover, setImgHover] = useState<true | false>(true)
-  // const [windowWidth, setWindowWidth] = useState<number>(responsiveWidth + 1)
+  const interval = useRef<NodeJS.Timeout>()
+
   const handleHoverOver = (state: boolean): void => {
     setImgHover(state)
+  }
+
+  const resetInterval = (): void => {
+    clearInterval(interval.current)
+    interval.current = setInterval(() => {
+      handleNext()
+    }, 3000)
   }
 
   const handleNext = (): void => {
@@ -20,24 +27,34 @@ const GetTheLook = (): React.ReactNode => {
       document.querySelector('.sn-gtl-item.active')?.classList.remove('active')
       imgBox.current.prepend(imgBox.current.children[4])
       document.querySelector('.sn-gtl-item:nth-child(3)')?.classList.add('active')
+      imgBox.current.classList.remove('sn-gtl-animation-backward')
+      imgBox.current.classList.remove('sn-gtl-animation') // in case of multiple clicks
+      imgBox.current.classList.add('sn-gtl-animation')
+      setTimeout(() => {
+        imgBox.current?.classList.remove('sn-gtl-animation')
+      }, 2500)
     }
+    resetInterval()
   }
 
   const handlePrev = (): void => {
-    if (imgBox.current != null) {
-      document.querySelector('.sn-gtl-item.active')?.classList.remove('active')
-      imgBox.current.appendChild(imgBox.current.children[0])
-      document.querySelector('.sn-gtl-item:nth-child(3)')?.classList.add('active')
-    }
+    resetInterval()
+    document.querySelector('.sn-gtl-item.active')?.classList.remove('active')
+    imgBox.current?.appendChild(imgBox.current.children[0])
+    document.querySelector('.sn-gtl-item:nth-child(3)')?.classList.add('active')
+    imgBox.current?.classList.remove('sn-gtl-animation')
+    imgBox.current?.classList.remove('sn-gtl-animation-backward') // in case of multiple clicks
+    imgBox.current?.classList.add('sn-gtl-animation-backward')
+    setTimeout(() => {
+      imgBox.current?.classList.remove('sn-gtl-animation-backward')
+    }, 2500)
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext()
-    }, 3000)
+    resetInterval()
 
     return () => {
-      clearInterval(interval)
+      clearInterval(interval.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgNotHover])
