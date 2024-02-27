@@ -51,6 +51,7 @@
         +onMaxSize(medium)
           height: rem(300)
           max-height: rem(300)
+          object-fit: cover
 
       .sn-gtl-set
         display: none
@@ -65,8 +66,8 @@
         height: rem(500)
 
         +onMaxSize(medium)
-          height: rem(400)
-          max-height: rem(400)
+          height: rem(360)
+          max-height: rem(360)
 
       ~ .sn-gtl-item .sn-gtl-item-inner
         margin-left: auto
@@ -81,6 +82,19 @@
       border-radius: 50%
       background-color: var(--secondary)
       animation: radar-animation 2s ease-out infinite
+      &::after
+        content: ''
+        position: absolute
+        z-index: 1
+        aspect-ratio: 1/1
+        top: rem(4)
+        left: rem(14)
+        width: rem(10)
+        background-color: var(--white)
+        border: 1px solid
+        border-color: transparent transparent var(--border-light) var(--border-light)
+        transform: rotate(45deg) translateX(10px)
+        opacity: 0
 
   &-set
     display: block
@@ -89,36 +103,33 @@
     padding: 0
 
     &:hover
-      .product-card-outer
-        display: block
-
+      .sn-gtl-item-dot
         &::after
-          content: ''
-          position: absolute
-          aspect-ratio: 1/1
-          top: rem(24)
-          left: rem(-6)
-          width: rem(10)
-          background-color: var(--white)
-          border: 1px solid
-          border-color: transparent transparent var(--border-light) var(--border-light)
-          transform: rotate(45deg)
+          opacity: 1
+          transition: 0.3s var(--ease-spring) 0.1s
+          transform: rotate(45deg) translateX(0)
         &::before
           content: ''
           position: absolute
           top: 0
-          left: rem(-20)
+          left: 0
           width: rem(20)
           height: 100%
+      .product-card-outer
+        display: block
 
     .product-card-outer
       display: none
       position: absolute
       text-align: left
+      height: auto
       top: rem(-20)
       left: rem(20)
       padding: 0.75rem
       background-color: var(--white)
+
+      .product-image-outer
+        margin-inline: 0
 
       +onMaxSize(medium)
         border-radius: rem(10)
@@ -130,10 +141,7 @@
       .product-price-info
         font-size: 1rem
       .product-price-info
-        margin-left: rem(8)
         gap: rem(4)
-      .product-name
-        margin-bottom: rem(4)
 
   &-animation
     .sn-gtl-item-inner > img

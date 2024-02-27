@@ -152,7 +152,7 @@ const GtlItem =
   )
 
 const productChandTora = {
-  id: '1',
+  id: 's1',
   name: "Chand Tora",
   imgUrl: 'chand-toras.webp',
   bgColor: '#AEE6EC',
