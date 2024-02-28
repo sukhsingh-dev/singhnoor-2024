@@ -38,9 +38,6 @@ export const Heading: React.FC<HeadingProps> = ({ text }: HeadingProps) => <h2 c
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) => (
   <div className="product-card-outer" key={product.id}>
-    <button type="button" aria-label="Heart icon" className="btn btn-small btn-wishlist position-absolute">
-      <Icon name="heart" width={16} height={16} className="text-primary" />
-    </button>
     <div className="product-image-outer" style={{ color: product.bgColor }}>
       <Image
         src={`/images/${product.imgUrl}`}
@@ -49,64 +46,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCard
         height={240}
         quality={100}
       />
-      {/* <PiBg className="pi-decorator position-absolute" color={product.bgColor} /> */}
     </div>
     <h3 className="product-name">{product.name}</h3>
     <div className="d-flex justify-between product-info">
-      {/* <div>
-        <div className="text-secondary product-varieties">
-          {product.varieties.map((item, index) => {
-            // eslint-disable-next-line no-restricted-syntax, guard-for-in, no-unreachable-loop
-            for (const key in item) {
-              return (
-                <span key={key[index]}>
-                  <span className="product-variety-count">
-                    {item[key]}
-                    &nbsp;
-                  </span>
-                  <span>{key}</span>
-                  <span>, </span>
-                </span>
-              )
-            }
-            return null
-          })}
-        </div>
-      </div> */}
-
-      <div className="product-price-info d-flex text-right">
-        <span className="product-price-old">
-          <span className="product-price-currency">₹</span>
-          {product.oldPrice}
-        </span>
-        <span className="product-price text-primary">
-          <span className="product-price-currency">₹</span>
-          {product.price}
-        </span>
-      </div>
       <div className="product-info-inner">
-        <input type="checkbox" id={`about-${product.id}`} className="product-info-inner-input" />
-        <label className="btn-info" htmlFor={`about-${product.id}`}>
-          <Icon name="chevron-up" className="text-secondary" />
-        </label>
-        <div className="product-info-inner-data">
-          <div className="product-info-inner-data-set sizes">
-            <div className="label">Sizes</div>
-            <ul>
-              <li>S</li>
-              <li>M</li>
-              <li>L</li>
-              <li>XL</li>
-            </ul>
-          </div>
-          <div className="product-info-inner-data-set colors">
-            <div className="label">Colors</div>
-            <ul>
-              <li style={{ background: "#fff" }}>White</li>
-              <li style={{ background: "#000" }}>Black</li>
-            </ul>
-          </div>
+        <button type="button" className="btn-product btn-wishlist">
+          <span>Add to Wishlist</span>
+          <Icon name="heart" />
+        </button>
+        <div className="product-price-info d-flex text-right">
+          <span className="product-price-old">
+            <span className="product-price-currency">₹</span>
+            {product.oldPrice}
+          </span>
+          <span className="product-price text-primary">
+            <span className="product-price-currency">₹</span>
+            {product.price}
+          </span>
         </div>
+        <button type="button" className="btn-product btn-add">
+          <span>Add to Cart</span>
+          <Icon name="cart" />
+        </button>
       </div>
     </div>
   </div>

@@ -1,8 +1,10 @@
 @import "../../../shared/styles/_functions.sass"
 
 $card-radius: rem(16)
+$card-padding: rem(12)
 :root
   --card-radius: #{$card-radius}
+  --card-padding: #{$card-padding}
 
 .product
   &-image-outer
@@ -15,69 +17,18 @@ $card-radius: rem(16)
       height: auto
       filter: drop-shadow(rem(3) rem(6) rem(9) rgba(0, 0, 0, 0.24))
 
-    .pi-decorator
-      height: auto
-      z-index: -1
-      width: 100%
-      left: 0
-      bottom: rem(4)
-
   &-name
     font-weight: 550
-    font-size: rem(16)
+    font-size: rem(18)
 
   &-info
-    align-items: flex-end
+    flex-direction: column
     margin-top: auto
     width: 100%
 
     &-inner
-      &-input
-        width: 0
-        height: 0
-        opacity: 0
-        &:checked
-          ~ .product-info-inner-data
-            transform: translateY(0)
-          ~ .btn-info
-            transform: translateY(rem(-102))
-            svg
-              transform: rotate(180deg) translateY(2px)
-      &-data
-        position: absolute
-        left: 0
-        right: 0
-        bottom: 0
-        padding: rem(8)
-        border-radius: 0 0 var(--card-radius) var(--card-radius)
-        background-color: var(--white)
-        transition: 0.3s var(--ease-spring)
-        transform: translateY(101%)
-
-        .label
-          font-weight: 500
-          margin-bottom: rem(4)
-
-        ul
-          display: flex
-          gap: rem(8)
-
-        &-set
-          margin-bottom: rem(8)
-          &.colors
-            li
-              font-size: 0
-              border-radius: 50%
-              border: 1px solid var(--text-dark)
-              width: rem(16)
-              height: rem(16)
-          &.sizes
-            li
-              display: inline-block
-              padding: rem(2) rem(4)
-              border-radius: rem(2)
-              background: var(--primary-light)
-              color: var(--primary)
+      display: flex
+      justify-content: space-between
 
   &-list
     display: grid
@@ -99,11 +50,12 @@ $card-radius: rem(16)
       overflow: hidden
       opacity: 0
       height: 100%
+      padding: var(--card-padding)
       transform: translateX(rem(-20))
       animation: setBack 0.5s var(--ease-spring) forwards
-      border: 1px solid var(--border-light)
-      padding: rem(8)
+      border: rem(1) solid var(--border-light)
       border-radius: var(--card-radius)
+      background-color: var(--white)
 
       +onMinSize(x-large)
         padding: rem(12)
@@ -139,42 +91,58 @@ $card-radius: rem(16)
 
   &-price
     font-weight: 500
-    font-size: 1em
+    font-size: 1.125em
 
     &-info
-      font-size: rem(16)
+      flex-direction: column
+      justify-content: flex-end
+      text-align: left
       font-weight: 500
-      gap: rem(4)
+      font-size: rem(18)
 
     &-old
       text-decoration-line: line-through
       color: var(--border-dark)
       font-size: 0.75em
-      min-height: rem(20)
-      padding-top: rem(4)
 
-  &-variety-count
-    font-size: 1.15em
+.btn
+  &-product
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    position: relative
+    z-index: 1
+    min-width: rem(56)
+    height: rem(48)
+    transition: 0.3s var(--ease-spring)
 
-.btn-info
-  display: inline-flex
-  align-items: center
-  justify-content: center
-  cursor: pointer
-  position: relative
-  z-index: 1
-  border-radius: 50%
-  width: rem(30)
-  height: rem(30)
-  background-color: var(--secondary-light)
-  transition: 0.3s var(--ease-spring)
+    span
+      display: none
 
-  svg
-    width: rem(12)
-    height: auto
+  &-wishlist,
+  &-add
+    position: relative
+    bottom: calc(var(--card-padding) * -1)
+    color: var(--secondary)
+    background-color: var(--secondary-light)
+    svg
+      height: auto
+      position: relative
+      min-width: rem(24)
+  &-add
+    right: calc(var(--card-padding) * -1)
+    border-radius: var(--card-radius) 0 var(--card-radius) 0
+  &-wishlist
+    background: transparent
+    position: absolute
+    top: 0
+    left: rem(-4)
+    color: var(--page-color-red-light)
+    border-radius: 0 var(--card-radius) 0 var(--card-radius)
 
-    +onMaxSize(small)
-      width: rem(14)
+    svg
+      transform: scale(0.9)
 
 .section-more-width
   margin-inline: -0.5rem
