@@ -10,7 +10,6 @@ import './style.sass'
 const Slider: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const totalSlides = 3
-  const [scrollDown, setScrollDown] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,32 +20,6 @@ const Slider: React.FC = () => {
       clearInterval(interval)
     }
   }, [activeSlide])
-
-  useEffect(() => {
-    let prevScrollPos = window.scrollY || document.documentElement.scrollTop
-    const main = document.querySelector('body')
-
-    const handleScroll = (): void => {
-      const currentScrollPos = window.scrollY || document.documentElement.scrollTop
-      setScrollDown(currentScrollPos > 100 && currentScrollPos > prevScrollPos)
-      prevScrollPos = currentScrollPos
-
-      if (window.scrollY > 64) {
-        main?.classList.add('show-header')
-      } else {
-        main?.classList.remove('show-header')
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    // eslint-disable-next-line no-unused-expressions
-    scrollDown ? main?.classList.add('page-down') : main?.classList.remove('page-down')
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [scrollDown])
 
   const touchStartX = useRef<number | null>(null)
 

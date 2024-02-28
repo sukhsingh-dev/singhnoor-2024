@@ -9,6 +9,7 @@ const QuickMenus: React.FC = () => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const pageName = usePathname()
+  const [scrollDown, setScrollDown] = useState(false)
 
   useEffect(() => {
     const animItems = document.querySelectorAll('.aos')
@@ -33,7 +34,35 @@ const QuickMenus: React.FC = () => {
     return () => {
       observer.disconnect()
     }
-  }, [])
+  })
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    let prevScrollPos = window.scrollY || document.documentElement.scrollTop
+    const main = document.querySelector('body')
+
+    const handleScroll = (): void => {
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      const currentScrollPos = window.scrollY || document.documentElement.scrollTop
+      setScrollDown(currentScrollPos > 100 && currentScrollPos > prevScrollPos)
+      prevScrollPos = currentScrollPos
+
+      if (window.scrollY > 64) {
+        main?.classList.add('show-header')
+      } else {
+        main?.classList.remove('show-header')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    // eslint-disable-next-line no-unused-expressions
+    scrollDown ? main?.classList.add('page-down') : main?.classList.remove('page-down')
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [scrollDown])
 
   return (
     <div className="sn-quick-menus">
