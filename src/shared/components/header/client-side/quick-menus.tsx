@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePathname } from 'next/navigation'
 import Link from "next/link"
 import Icon from "../../Icon"
@@ -9,6 +9,31 @@ const QuickMenus: React.FC = () => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const pageName = usePathname()
+
+  useEffect(() => {
+    const animItems = document.querySelectorAll('.aos')
+
+    const removeClasses = (entries: IntersectionObserverEntry[]): void => {
+      entries.forEach((entry: IntersectionObserverEntry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('aos')
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(removeClasses, {
+      rootMargin: "-60px 0px",
+      threshold: 0.5
+    })
+
+    animItems.forEach((item) => {
+      observer.observe(item)
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   return (
     <div className="sn-quick-menus">
