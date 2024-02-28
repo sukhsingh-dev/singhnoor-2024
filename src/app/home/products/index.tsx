@@ -1,4 +1,5 @@
-import { Heading, ProductCard } from "@/shared/components/ui"
+import { Heading } from "@/shared/components/ui"
+import ProductCard from "@/shared/components/ui/productCard"
 import './style.sass'
 
 type ProductVariety = Record<string, string>

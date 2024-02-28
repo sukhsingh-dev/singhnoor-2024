@@ -1,9 +1,10 @@
 'use client'
 
-import { Heading, ProductCard } from "@/shared/components/ui"
+import { Heading } from "@/shared/components/ui"
 import { useState, useRef, useEffect } from "react"
 import Icon from "@/shared/components/Icon"
 import Image from "next/image"
+import ProductCard from "@/shared/components/ui/productCard"
 import './style.sass'
 
 const GetTheLook = (): React.ReactNode => {

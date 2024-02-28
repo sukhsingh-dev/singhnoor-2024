@@ -1,22 +1,5 @@
-import Image from "next/image"
-import Icon from "../Icon"
-
 interface HeadingProps {
   text: string
-}
-
-interface Product {
-  id: string
-  imgUrl: string
-  bgColor: string
-  name: string
-  varieties: Array<Record<string, string>>
-  oldPrice: number
-  price: number
-}
-
-interface ProductCardProps {
-  product: Product
 }
 
 interface piBgProps {
@@ -35,43 +18,6 @@ export const PiBg: React.FC<piBgProps> = ({ className, color }: piBgProps) => (
 )
 
 export const Heading: React.FC<HeadingProps> = ({ text }: HeadingProps) => <h2 className="page-heading">{text}</h2>
-
-export const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) => (
-  <div className="product-card-outer" key={product.id}>
-    <div className="product-image-outer" style={{ color: product.bgColor }}>
-      <Image
-        src={`/images/${product.imgUrl}`}
-        alt="SN Product img"
-        width={175}
-        height={240}
-        quality={100}
-      />
-    </div>
-    <h3 className="product-name">{product.name}</h3>
-    <div className="d-flex justify-between product-info">
-      <div className="product-info-inner">
-        <button type="button" className="btn-product btn-wishlist">
-          <span>Add to Wishlist</span>
-          <Icon name="heart" />
-        </button>
-        <div className="product-price-info d-flex text-right">
-          <span className="product-price-old">
-            <span className="product-price-currency">₹</span>
-            {product.oldPrice}
-          </span>
-          <span className="product-price text-primary">
-            <span className="product-price-currency">₹</span>
-            {product.price}
-          </span>
-        </div>
-        <button type="button" className="btn-product btn-add">
-          <span>Add to Cart</span>
-          <Icon name="cart" />
-        </button>
-      </div>
-    </div>
-  </div>
-)
 
 export const TextDecorator: React.FC<textDecorator> = ({ color }: textDecorator) => (
   <svg width={100} height={10} viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
