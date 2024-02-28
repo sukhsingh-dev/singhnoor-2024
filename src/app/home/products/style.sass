@@ -58,14 +58,10 @@ $card-padding: rem(12)
       background-color: var(--white)
 
       +onMinSize(x-large)
-        padding: rem(12)
+        --card-padding: 1rem
         .product-name
           font-size: rem(20)
           color: var(--text)
-
-        .product-price-info
-          font-size: rem(20)
-          gap: rem(8)
 
       .product-image-outer
         &::after
