@@ -66,7 +66,7 @@ const QuickMenus: React.FC = () => {
 
   return (
     <div className="sn-quick-menus">
-      <ul className="quick-menus-list d-flex gap-16 justify-between container">
+      <ul className="quick-menus-list d-flex gap-16 justify-between">
         <li className="text-primary icon-home">
           <Link href="/">
             <Icon name="home" className={pageName === '/' ? 'text-primary' : ''} />
