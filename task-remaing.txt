@@ -1,0 +1,19 @@
+Home page --------
+  Menus design for desktop
+  Create your own page
+  Language selector
+  Theme mode selector
+  Wishlist page UI
+  Cart page UI
+  Account related UI
+  Search Functionality
+  Cursor design for desktop
+  Client to server components
+
+Shop page --------
+  Grid/List view Toggle
+  Per page dropdown + Pagination + auto load
+  Sort by dropdown
+  Filters
+
+
