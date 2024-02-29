@@ -55,64 +55,66 @@ const Slider: React.FC = () => {
   }
 
   return (
-    <section
-      className="slider-outer section-full-width"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-    >
-      <div className={activeSlide === 0 ? '' : 'd-none'}>
-        <Slide1 />
-      </div>
-      <div className={activeSlide === 1 ? '' : 'd-none'}>
-        <Slide2 />
-      </div>
-      <div className={activeSlide === 2 ? '' : 'd-none'}>
-        <Slide3 />
-      </div>
-      <ul className="slide-changer">
-        <li className="slide-num">
-          0
-          {activeSlide + 1}
-        </li>
-        <li>
-          <button
-            type="button"
-            aria-label="Select Slide for Women"
-            className={`btn-slide-changer ${activeSlide === 0 ? 'active' : ''}`}
-            onClick={() => setActiveSlide(0)}
-          >
-            Women
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            aria-label="Select Slide for Men"
-            className={`btn-slide-changer ${activeSlide === 1 ? 'active' : ''}`}
-            onClick={() => setActiveSlide(1)}
-          >
-            Men
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            aria-label="Select Slide for Accessories"
-            className={`btn-slide-changer ${activeSlide === 2 ? 'active' : ''}`}
-            onClick={() => setActiveSlide(2)}
-          >
-            Accessories
-          </button>
-        </li>
-        <li className="slide-num">
-          0
-          {totalSlides}
-        </li>
-        <li>
-          <Link href="/" className="btn btn-secondary btn-arrow-long">Create your Own</Link>
-        </li>
-      </ul>
-    </section>
+    <div className="bg-design">
+      <section
+        className="slider-outer section-full-width"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+      >
+        <div className={activeSlide === 0 ? '' : 'd-none'}>
+          <Slide1 />
+        </div>
+        <div className={activeSlide === 1 ? '' : 'd-none'}>
+          <Slide2 />
+        </div>
+        <div className={activeSlide === 2 ? '' : 'd-none'}>
+          <Slide3 />
+        </div>
+        <ul className="slide-changer">
+          <li className="slide-num">
+            0
+            {activeSlide + 1}
+          </li>
+          <li>
+            <button
+              type="button"
+              aria-label="Select Slide for Women"
+              className={`btn-slide-changer ${activeSlide === 0 ? 'active' : ''}`}
+              onClick={() => setActiveSlide(0)}
+            >
+              Women
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              aria-label="Select Slide for Men"
+              className={`btn-slide-changer ${activeSlide === 1 ? 'active' : ''}`}
+              onClick={() => setActiveSlide(1)}
+            >
+              Men
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              aria-label="Select Slide for Accessories"
+              className={`btn-slide-changer ${activeSlide === 2 ? 'active' : ''}`}
+              onClick={() => setActiveSlide(2)}
+            >
+              Accessories
+            </button>
+          </li>
+          <li className="slide-num">
+            0
+            {totalSlides}
+          </li>
+          <li>
+            <Link href="/" className="btn btn-secondary btn-arrow-long">Create your Own</Link>
+          </li>
+        </ul>
+      </section>
+    </div>
   )
 }
 

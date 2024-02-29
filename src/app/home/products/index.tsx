@@ -1,5 +1,6 @@
 import { Heading } from "@/shared/components/ui"
 import ProductCard from "@/shared/components/ui/productCard"
+import Link from "next/link"
 import './style.sass'
 
 type ProductVariety = Record<string, string>
@@ -39,7 +40,7 @@ const Products: React.FC<ProductProps> = ({
       }
     </ul>
     <div className="text-center my-24">
-      <a href={moreLink} className="btn btn-secondary btn-arrow-long align-center position-relative">Check More</a>
+      <Link href={moreLink} className="btn btn-secondary btn-arrow-long align-center position-relative">Check More</Link>
     </div>
   </section>
 )

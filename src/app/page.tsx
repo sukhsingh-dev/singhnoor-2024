@@ -12,10 +12,10 @@ export default function Home(): React.ReactNode {
     <>
       <Slider />
       <Categories />
-      <Products heading="TOP PICKS" productList={productList2} moreLink="/" outerClass="section-more-width top-picks" />
+      <Products heading="TOP PICKS" productList={productList2} moreLink="/shop" outerClass="section-more-width top-picks" />
       <Collections />
       <TodayDeal />
-      <Products heading="MOST POPULAR" productList={productList} moreLink="/" outerClass="section-more-width" />
+      <Products heading="MOST POPULAR" productList={productList} moreLink="/shop" outerClass="section-more-width" />
       <GetTheLook />
       <DealsZone />
     </>

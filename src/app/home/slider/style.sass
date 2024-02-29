@@ -4,7 +4,6 @@ $box-size: rem(600)
 
 .slider-outer
   position: relative
-  overflow-x: hidden
   padding-inline: 0.5rem
 
   .slider-action-btns
@@ -226,3 +225,22 @@ $box-size: rem(600)
     z-index: 1
     margin-top: 0
     border-radius: 0 0 50% 50%
+
+.bg-design
+  +onMinSize(x-large)
+    &:after,
+    &:before
+      content: ''
+      position: absolute
+      left: 0
+      top: 0
+      z-index: -2
+      width: 50vw
+      height: 50vw
+      background: var(--decoration-bg)
+      clip-path: polygon(rem(430) 0, 100% 0%, 100% rem(680), rem(430) rem(680), 0 rem(350))
+    &:before
+      right: 0
+      left: auto
+    &::after
+      transform: rotateY(180deg)
