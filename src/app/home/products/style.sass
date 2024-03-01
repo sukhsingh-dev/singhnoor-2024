@@ -1,1 +1,8 @@
-// no code right now
+@import "../../../shared/styles/_functions.sass"
+
+.top-picks,
+.more-popular
+  .product-list
+    li:nth-child(5):last-child
+      +onMaxSize(large)
+        display: none

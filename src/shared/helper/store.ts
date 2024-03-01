@@ -163,17 +163,22 @@ export const dealsList: Deal[] = [
     linkURL: '/'
   },
   {
-    price: 1999,
+    price: 1499,
     img: 'deals/deal-3.webp',
     linkURL: '/'
   },
   {
-    price: 2999,
+    price: 1999,
     img: 'deals/deal-4.webp',
     linkURL: '/'
   },
   {
-    price: 4999,
+    price: 2499,
+    img: 'deals/deal-1.webp',
+    linkURL: '/'
+  },
+  {
+    price: 2999,
     img: 'deals/deal-1.webp',
     linkURL: '/'
   }
@@ -239,6 +244,18 @@ export const productList: Product[] = [
       { colors: "2" },
       { sizes: "4" }
     ]
+  },
+  {
+    id: '51',
+    name: "Panda Hoodie",
+    imgUrl: 'hoodies/panda.webp',
+    bgColor: '#d6f0e4',
+    oldPrice: 699,
+    price: 499,
+    varieties: [
+      { colors: "2" },
+      { sizes: "4" }
+    ]
   }
 ]
 
@@ -284,6 +301,18 @@ export const productList2: Product[] = [
     name: "Nihang Life",
     imgUrl: 't-shirts/t-2.webp',
     bgColor: '#B8BDD1',
+    oldPrice: 699,
+    price: 499,
+    varieties: [
+      { colors: "2" },
+      { sizes: "4" }
+    ]
+  },
+  {
+    id: '5',
+    name: "Fighter Singh",
+    imgUrl: 't-shirts/t-4.webp',
+    bgColor: '#AEE6EC',
     oldPrice: 699,
     price: 499,
     varieties: [

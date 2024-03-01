@@ -15,7 +15,7 @@ export default function Home(): React.ReactNode {
       <Products heading="TOP PICKS" productList={productList2} moreLink="/shop" outerClass="section-more-width top-picks" />
       <Collections />
       <TodayDeal />
-      <Products heading="MOST POPULAR" productList={productList} moreLink="/shop" outerClass="section-more-width" />
+      <Products heading="MOST POPULAR" productList={productList} moreLink="/shop" outerClass="section-more-width more-popular" />
       <GetTheLook />
       <DealsZone />
     </>
