@@ -46,13 +46,25 @@
         <path d="M1.19995 6.39998L5.99995 1.59998L10.8 6.39998" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </symbol>
       <symbol id="close" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15 1L1 15M15 15L1 1" stroke="black" stroke-width="2" stroke-linecap="round"/>
+        <path d="M15 1L1 15M15 15L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </symbol>
       <symbol id="heart" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
         <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" fill="currentColor" />
       </symbol>
       <symbol id="heart-filled" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
         <path fill="currentColor" d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>
+      </symbol>
+      <symbol id="filter" width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.60001 6.0002H14.4M1.20001 1.2002H16.8M7.20001 10.8002H10.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="grid" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.4667 1.40039C19.6449 1.40039 20.6 2.34243 20.6 3.5045L20.6 7.09632C20.6 8.25839 19.6449 9.20043 18.4667 9.20043H15.2667C14.0885 9.20043 13.1334 8.25839 13.1334 7.09632L13.1334 3.5045C13.1334 2.34243 14.0885 1.40039 15.2667 1.40039L18.4667 1.40039Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.53336 1.40039C2.35515 1.40039 1.40002 2.34243 1.40002 3.5045L1.40003 7.09632C1.40003 8.25839 2.35516 9.20043 3.53337 9.20043H6.73337C7.91157 9.20043 8.8667 8.25839 8.8667 7.09632L8.86669 3.5045C8.86669 2.34243 7.91156 1.40039 6.73336 1.40039L3.53336 1.40039Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M18.4667 12.8004C19.6449 12.8004 20.6 13.7425 20.6 14.9045V18.4963C20.6 19.6584 19.6449 20.6004 18.4667 20.6004H15.2667C14.0885 20.6004 13.1334 19.6584 13.1334 18.4963L13.1334 14.9045C13.1334 13.7425 14.0885 12.8004 15.2667 12.8004H18.4667Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3.53337 12.8004C2.35516 12.8004 1.40003 13.7425 1.40003 14.9045L1.40004 18.4963C1.40004 19.6584 2.35516 20.6004 3.53337 20.6004H6.73337C7.91157 20.6004 8.8667 19.6584 8.8667 18.4963L8.8667 14.9045C8.8667 13.7425 7.91157 12.8004 6.73336 12.8004H3.53337Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="list" width="26" height="16" viewBox="0 0 26 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 14.3333H25M1 7.66667H25M1 1H25" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       </symbol>
   </defs>
 </svg>

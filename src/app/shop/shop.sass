@@ -1,0 +1,187 @@
+@import "../../shared/styles/_functions.sass"
+
+$filter-section-width: 25%
+$filter-section-gap: rem(32)
+
+.btn
+  &-filter
+    align-items: center
+    font-weight: 500
+    font-size: rem(16)
+    gap: rem(8)
+
+    svg
+      position: relative
+      top: rem(6)
+      left: rem(8)
+    +onMinSize(large)
+      visibility: hidden
+
+  &-clear
+    display: flex
+    font-family: inherit
+    gap: rem(8)
+    font-weight: 600
+    color: var(--secondary)
+
+    svg
+      transform: scale(0.8)
+
+.shop-page
+  &-section
+    display: flex
+    flex-wrap: wrap
+    gap: $filter-section-gap
+    padding-top: rem(24)
+
+  &-inner
+    +onMinSize(large)
+      width: calc(100% - $filter-section-width)
+
+  &-actions
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-bottom: rem(32)
+
+    &-view
+      border: none
+      display: flex
+      align-items: center
+      gap: rem(12)
+
+      label
+        opacity: 0.75
+      svg
+        transition: 0.3s var(--ease-spring)
+
+      input
+        width: 0
+        height: 0
+        opacity: 0
+        &:checked
+          + label
+            opacity: 1
+            color: var(--primary)
+
+    &.view-group
+      margin-bottom: 0
+
+      +onMinSize(large)
+        align-items: flex-start
+
+.dropdown
+  &-outer
+    position: relative
+  &-inner
+    display: flex
+    align-items: center
+
+    .text-primary
+      font-weight: 600
+    .icon
+      margin-left: rem(8)
+      transform: rotate(180deg)
+      opacity: 0.75
+
+  &-group
+    padding-inline: rem(8)
+
+.sn-pagination
+  display: grid
+  place-items: center
+  width: 100%
+  ul
+    display: flex
+    gap: rem(8)
+
+    .btn
+      display: grid
+      place-items: center
+      padding: 0
+      font-weight: 500
+      border-radius: rem(10)
+      width: rem(40)
+      height: rem(40)
+      background-color: var(--primary-light)
+      color: var(--text)
+
+      &.activate
+        background-color: var(--primary)
+        color: var(--white)
+
+  .last-page
+    display: grid
+    justify-content: center
+    align-items: flex-end
+    width: rem(40)
+
+.filters-fields
+  border: rem(1) solid var(--border-light)
+  border-radius: rem(20)
+
+  +onMaxSize(large)
+    position: fixed
+    transform: translateX(-110%)
+
+  &-outer
+    min-width: 100%
+    +onMinSize(large)
+      min-width: calc($filter-section-width - $filter-section-gap)
+
+  &-heading
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: rem(16)
+    border-bottom: rem(1) solid var(--border-light)
+
+    h2
+      font-weight: 600
+      font-size: rem(20)
+
+  &-applied
+    display: flex
+    gap: rem(16)
+    margin-bottom: rem(16)
+
+  &-pill
+    display: inline-flex
+    align-items: center
+    font-size: rem(14)
+    gap: rem(6)
+    padding: rem(8) rem(12)
+    border-radius: rem(10)
+    background-color: var(--primary-light)
+
+    button
+      width: rem(18)
+      height: rem(17)
+    svg
+      width: rem(18)
+      height: rem(18)
+      transform: scale(0.6)
+      color: var(--primary)
+
+  &-main
+    li
+      position: relative
+      cursor: pointer
+      padding: rem(8) 0
+      margin: rem(8) rem(20)
+      border-bottom: rem(1) solid var(--border-light)
+
+      &:after
+        content: ''
+        position: absolute
+        background-repeat: no-repeat
+        background-position: center
+        right: 0
+        top: rem(12)
+        width: rem(16)
+        height: rem(16)
+        background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1L5 5L1 1' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+
+      &:last-child
+        border-bottom: none
+        margin-bottom: rem(16)
