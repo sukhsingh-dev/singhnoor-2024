@@ -5,7 +5,7 @@
 import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import { Slide1, Slide2, Slide3 } from "./slides"
-import './style.sass'
+import './slider.sass'
 
 const Slider: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0)

@@ -20,7 +20,6 @@ inspiration
 https://www.nuuds.com/collections/new-in
 https://ecommerce-128.webflow.io/home-5 - collections
 https://ecommerce-128.webflow.io/home-6 - insta feed
-https://wearegorillak.com/ - carousel timing
 https://codepen.io/andymerskin/pen/XNMWvQ - parallax cards
 https://codepen.io/petegarvin1/pen/YzWBbRx - person profile card effect
 
