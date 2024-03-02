@@ -1,5 +1,22 @@
 @import "../../../shared/styles/_functions.sass"
 
+@mixin sn-collections-card-common
+  cursor: pointer
+  text-align: left
+  width: 40% !important
+
+  .sn-collections-heading
+    left: 90%
+
+  .sn-collections-btn,
+  .sn-collections-info p
+    opacity: 1
+    transform: translateY(0)
+
+  .sn-collections-info p
+    transition: opacity 0.3s var(--ease-spring) 0.3s
+//mixin end
+
 .sn-collections
   display: grid
   justify-content: space-between
@@ -21,22 +38,12 @@
         object-position: top center !important
         transition: 0.3s var(--ease-spring)
 
-      &.active,
       &:hover
-        cursor: pointer
-        text-align: left
-        width: 40% !important
+        +sn-collections-card-common
 
-        .sn-collections-heading
-          left: 90%
-
-        .sn-collections-btn,
-        .sn-collections-info p
-          opacity: 1
-          transform: translateY(0)
-
-        .sn-collections-info p
-          transition: opacity 0.3s var(--ease-spring) 0.3s
+    &:not(:hover)
+      .sn-collections-card:first-child
+        +sn-collections-card-common
 
   &-card
     position: relative
