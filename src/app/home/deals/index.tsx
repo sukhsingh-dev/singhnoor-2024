@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Heading, TextDecorator } from "@/shared/components/ui"
 import Image from "next/image"
-import './style.sass'
+import './deals.sass'
 
 const TodayDeal: React.FC = () => {
   const imgBox = useRef<HTMLDivElement>(null)
