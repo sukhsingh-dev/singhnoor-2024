@@ -6,6 +6,7 @@ import Collections from "./home/collections"
 import TodayDeal from "./home/deals"
 import DealsZone from "./home/zone"
 import GetTheLook from "./home/looks"
+import KhalsaCollections from "./home/khalsa"
 
 export default function Home(): React.ReactNode {
   return (
@@ -17,6 +18,7 @@ export default function Home(): React.ReactNode {
       <TodayDeal />
       <Products heading="MOST POPULAR" productList={productList} moreLink="/shop" outerClass="section-more-width more-popular" />
       <GetTheLook />
+      <KhalsaCollections />
       <DealsZone />
     </>
   )
