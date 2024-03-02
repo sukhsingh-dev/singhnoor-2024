@@ -1,46 +1,93 @@
 import { Heading } from "@/shared/components/ui"
 import Link from "next/link"
 import Image from "next/image"
-import './style.sass'
+import './collection.sass'
 
 const Collections: React.FC = () => (
   <section>
     <Heading text="NEW COLLECTION" />
-    <div className="for-sec-wrapper aos">
-      <div className="for-sec-outer for-sec-men position-relative aos">
-        <h4 className="position-absolute">For Men</h4>
-        <Image
-          src="/images/for-men.webp"
-          alt="sn products for men"
-          quality={100}
-          width={363}
-          height={390}
-        />
-        <Link href="men" className="btn btn-primary btn-arrow-long align-center position-relative">Explore</Link>
+    <div className="sn-collections">
+      <div className="sn-collections-card active">
+        <div className="sn-collections-card-img">
+          <Image
+            src="/images/collections/for-him.webp"
+            alt="card img"
+            quality={100}
+            width={550}
+            height={480}
+          />
+        </div>
+        <h3 className="sn-collections-heading">FOR HIM</h3>
+        <div className="sn-collections-info">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Necessitatibus debitis mollitia
+          </p>
+          <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+        </div>
       </div>
 
-      <div className="for-sec-outer for-sec-women text-right position-relative aos">
-        <h4 className="position-absolute text-left">For Women</h4>
-        <Image
-          src="/images/for-women.webp"
-          alt="sn products for men"
-          quality={100}
-          width={363}
-          height={390}
-        />
-        <Link href="men" className="btn btn-primary btn-arrow-long align-center position-relative">Explore</Link>
+      <div className="sn-collections-card">
+        <div className="sn-collections-card-img">
+          <Image
+            src="/images/collections/for-her.webp"
+            alt="card img"
+            quality={100}
+            width={550}
+            height={480}
+            className="for-her"
+          />
+        </div>
+        <h3 className="sn-collections-heading">FOR HER</h3>
+        <div className="sn-collections-info">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Necessitatibus debitis mollitia
+          </p>
+          <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+        </div>
       </div>
 
-      <div className="for-sec-outer for-sec-kids position-relative aos">
-        <h4 className="position-absolute">For Kids</h4>
-        <Image
-          src="/images/for-kids.webp"
-          alt="sn products for men"
-          quality={100}
-          width={363}
-          height={390}
-        />
-        <Link href="men" className="btn btn-primary btn-arrow-long align-center position-relative">Explore</Link>
+      <div className="sn-collections-card">
+        <div className="sn-collections-card-img">
+          <Image
+            src="/images/collections/for-kids.webp"
+            alt="card img"
+            quality={100}
+            width={550}
+            height={480}
+            className="for-her"
+          />
+        </div>
+        <h3 className="sn-collections-heading">FOR KIDS</h3>
+        <div className="sn-collections-info">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Necessitatibus debitis mollitia
+          </p>
+          <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+        </div>
+      </div>
+
+      <div className="sn-collections-card">
+        <div className="sn-collections-card-img">
+          <Image
+            src="/images/collections/for-couples.webp"
+            alt="card img"
+            quality={100}
+            width={550}
+            height={480}
+            className="for-her"
+          />
+        </div>
+        <h3 className="sn-collections-heading">FOR COUPLE</h3>
+        <div className="sn-collections-info">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Necessitatibus debitis mollitia
+          </p>
+          <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+        </div>
       </div>
     </div>
   </section>
