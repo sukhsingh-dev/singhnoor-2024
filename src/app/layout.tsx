@@ -4,6 +4,9 @@ import '../shared/styles/main.sass'
 import Header from "@/shared/components/header"
 import Footer from "@/shared/components/footer"
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const outfit = Outfit({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -24,6 +27,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   )
