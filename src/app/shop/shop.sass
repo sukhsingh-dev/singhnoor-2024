@@ -26,6 +26,15 @@ $filter-section-gap: rem(32)
 
     svg
       transform: scale(0.8)
+    +onMaxSize(large)
+      position: absolute
+      z-index: 1
+      padding: .75rem 1.75rem
+      border-radius: rem(40)
+      bottom: rem(16)
+      right: rem(16)
+      gap: rem(16)
+      border: rem(2) solid
 
 .shop-page
   &-section
@@ -119,10 +128,35 @@ $filter-section-gap: rem(32)
 .filters-fields
   border: rem(1) solid var(--border-light)
   border-radius: rem(20)
+  +onMinSize(large)
+    position: sticky
+    top: rem(32)
+    transition: top 0.3s var(--ease-spring)
 
+    .show-header:not(.page-down) &
+      top: rem(90)
   +onMaxSize(large)
     position: fixed
+    inset: 0
+    z-index: 3
+    border-radius: 0
     transform: translateX(-110%)
+    background-color: var(--white)
+    transition: transform 0.3s var(--ease-spring)
+
+    &-body
+      overflow: auto
+      max-height: calc(100vh - rem(200))
+
+  &-footer
+    position: absolute
+    bottom: 0
+    padding: rem(16)
+    width: 100%
+    border: rem(1) solid var(--border-light)
+    background: var(--white)
+    +onMinSize(large)
+      display: none
 
   &-outer
     min-width: 100%
@@ -170,18 +204,108 @@ $filter-section-gap: rem(32)
       padding: rem(8) 0
       margin: rem(8) rem(20)
       border-bottom: rem(1) solid var(--border-light)
-
-      &:after
-        content: ''
-        position: absolute
-        background-repeat: no-repeat
-        background-position: center
-        right: 0
-        top: rem(12)
-        width: rem(16)
-        height: rem(16)
-        background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1L5 5L1 1' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
-
       &:last-child
         border-bottom: none
         margin-bottom: rem(16)
+
+  &-toggler
+    summary
+      display: block
+      &::-webkit-details-marker
+        display: none
+
+    &:after
+      content: ''
+      position: absolute
+      background-repeat: no-repeat
+      background-position: center
+      pointer-events: none
+      transform-origin: center
+      right: 0
+      top: rem(12)
+      width: rem(16)
+      height: rem(16)
+      transition: transform 0.3s var(--ease-spring)
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1L5 5L1 1' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+
+    &[open]
+      &:after
+        transform: rotate(180deg)
+
+  &-options
+    margin-block: rem(16)
+
+    &.color
+      display: flex
+      flex-wrap: wrap
+      gap: rem(8)
+      padding-left: rem(16)
+
+.sn-custom-checkbox
+  display: inline-block
+  width: rem(16)
+  height: rem(16)
+  border-radius: rem(2)
+  border: rem(1) solid var(--border-light)
+  transition: background-color 0.3s var(--ease-spring)
+
+  &-outer
+    display: flex
+    justify-content: space-between
+    cursor: pointer
+    padding: rem(8) rem(4) rem(8) rem(16)
+
+    &.color
+      padding: 0
+      &,
+      .sn-custom-checkbox
+        width: rem(20)
+        height: rem(20)
+        border-radius: 50%
+
+      .sn-custom-checkbox-input:checked ~ .sn-custom-checkbox
+        border-color: var(--border-light)
+
+  &-input
+    width: 0
+    height: 0
+    opacity: 0
+
+    &:checked
+      ~ .sn-custom-checkbox
+        background-position: center
+        background-repeat: no-repeat
+        background-image: url("data:image/svg+xml,%3Csvg width='11' height='9' viewBox='0 0 11 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.33 1L3.11763 7.2475L1 5.1179' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+        background-color: var(--primary)
+        border-color: var(--primary)
+
+        &.white
+          background-image: url("data:image/svg+xml,%3Csvg width='11' height='9' viewBox='0 0 11 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.33 1L3.11763 7.2475L1 5.1179' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+
+.sn-input
+  &-range
+    width: 100%
+    &-set
+      margin-top: rem(8)
+      label
+        display: flex
+        align-items: center
+        gap: rem(8)
+      input
+        border: rem(1) solid var(--border-light)
+        padding: rem(8)
+        border-radius: rem(20)
+        width: rem(80)
+
+.filter-fields-toggler
+  width: 0
+  height: 0
+  opacity: 0
+  position: absolute
+  &:checked
+    ~ .filters-fields
+      transform: translateX(0)
+
+  &-close
+    +onMinSize(large)
+      display: none

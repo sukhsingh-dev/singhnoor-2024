@@ -34,6 +34,8 @@
   margin: 0
   padding: 0
   box-sizing: border-box
+  font-family: inherit
+  accent-color: var(--secondary)
 
   +onMinSize(x-large)
     &::-webkit-scrollbar
@@ -80,6 +82,8 @@ body
   background-size: 100vw
   +onMinSize(x-large)
     background-image: none
+    &.overflow-hidden
+      padding-right: rem(10)
 section
   padding-block: rem(36)
   max-width: 100vw
@@ -107,10 +111,10 @@ main
 //On scroll
 .page-down
   .sn-header
-    top: rem(-$header-height-size)
+    top: rem(-$header-height-size - 12)
 
   .sn-quick-menus
-    bottom: rem(-$header-height-size)
+    bottom: rem(-$header-height-size - 12)
 
 .section-more-width
   margin-inline: -0.5rem
