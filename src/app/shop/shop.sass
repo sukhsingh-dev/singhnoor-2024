@@ -91,6 +91,7 @@ $filter-section-gap: rem(32)
       margin-left: rem(8)
       transform: rotate(180deg)
       opacity: 0.75
+      transition: transform 0.3s var(--ease-spring)
 
   &-group
     padding-inline: rem(8)
@@ -102,6 +103,8 @@ $filter-section-gap: rem(32)
         visibility: visible
         transform: translateY(0)
         opacity: 1
+      ~ .dropdown-inner .icon
+        transform: rotate(0deg)
 
   &-menu
     position: absolute
@@ -125,6 +128,9 @@ $filter-section-gap: rem(32)
         text-align: left
         width: 100%
         font-size: rem(16)
+
+        &:hover
+          color: var(--primary)
 
 .sn-pagination
   display: grid
