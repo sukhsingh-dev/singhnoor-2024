@@ -7,6 +7,21 @@ const ShopPage = (): React.ReactNode => {
   const shopProducts = [...productList2, ...productList]
   return (
     <section className="shop-page-section section-more-width">
+      <input
+        type="radio"
+        name="productView"
+        id="productViewGrid"
+        value="productViewGrid"
+        className="shop-page-actions-input"
+        defaultChecked
+      />
+      <input
+        type="radio"
+        name="productView"
+        id="productViewList"
+        value="productViewList"
+        className="shop-page-actions-input"
+      />
       <div className="filters-fields-outer">
         <div className="shop-page-actions view-group">
           <label
@@ -18,12 +33,16 @@ const ShopPage = (): React.ReactNode => {
           </label>
 
           <fieldset className="shop-page-actions-view">
-            <input type="radio" name="productView" id="productViewGrid" value="productViewGrid" defaultChecked />
-            <label htmlFor="productViewGrid">
+            <label
+              htmlFor="productViewGrid"
+              className="productViewGrid"
+            >
               <Icon name="grid" />
             </label>
-            <input type="radio" name="productView" id="productViewList" value="productViewList" />
-            <label htmlFor="productViewList">
+            <label
+              htmlFor="productViewList"
+              className="productViewList"
+            >
               <Icon name="list" width={26} height={16} />
             </label>
           </fieldset>

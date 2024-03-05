@@ -47,6 +47,10 @@ $filter-section-gap: rem(32)
     +onMinSize(large)
       width: calc(100% - $filter-section-width)
 
+      .product-list
+        column-gap: 1rem
+        grid-template-columns: repeat(4, calc(25% - 1rem))
+
   &-actions
     display: flex
     align-items: center
@@ -60,16 +64,10 @@ $filter-section-gap: rem(32)
       gap: rem(12)
 
       label
+        cursor: pointer
         opacity: 0.75
       svg
         transition: 0.3s var(--ease-spring)
-
-      input
-        +hide-input
-        &:checked
-          + label
-            opacity: 1
-            color: var(--primary)
 
     &.view-group
       margin-bottom: 0
@@ -77,6 +75,67 @@ $filter-section-gap: rem(32)
       +onMinSize(large)
         align-items: flex-start
 
+    &-input
+      +hide-input
+
+      &#productViewGrid
+        &:checked
+          ~ .filters-fields-outer .productViewGrid
+            color: var(--primary)
+
+      &#productViewList
+        &:checked
+          ~ .filters-fields-outer .productViewList
+            color: var(--primary)
+
+          ~ .shop-page-inner
+            +onMaxSize(large)
+              width: 100%
+
+            .product-list
+              grid-template-columns: 100%
+
+              +onMinSize(medium)
+                grid-template-columns: repeat(2, calc(50% - 1rem))
+
+              .product-card-outer
+                flex-direction: row
+                justify-content: space-between
+
+              .product-image-outer
+                margin: 0
+                max-height: rem(250)
+
+              .product-name
+                text-align: right
+                width: 50%
+                padding: rem(16) rem(8) 0 0
+
+              .product-info
+                position: absolute
+                bottom: rem(10)
+                right: rem(10)
+
+                &-inner
+                  flex-direction: column
+                  align-items: flex-end
+
+                .btn-wishlist
+                  position: fixed
+
+                .btn-add
+                  height: auto
+                  line-height: 1
+                  bottom: rem(-10)
+                  gap: rem(8)
+                  padding: rem(12) rem(16)
+
+                  span
+                    display: block
+
+              .product-price-info
+                text-align: right
+                padding-right: rem(8)
 .dropdown
   &-outer
     position: relative
