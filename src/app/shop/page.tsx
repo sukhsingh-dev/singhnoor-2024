@@ -206,18 +206,48 @@ const ShopPage = (): React.ReactNode => {
       <div className="shop-page-inner">
         <div className="shop-page-actions dropdown-group">
           <div className="dropdown-outer">
-            <div className="dropdown-inner">
+            <input type="checkbox" className="dropdown-input" id="perPage" />
+            <label className="dropdown-inner" htmlFor="perPage">
               <span>Per Page:&nbsp;</span>
               <span className="text-primary">12</span>
               <Icon name="chevron-up" width={12} height={8} />
+            </label>
+            <div className="dropdown-menu">
+              <ul>
+                <li>
+                  <button type="button">16</button>
+                </li>
+                <li>
+                  <button type="button">20</button>
+                </li>
+
+                <li>
+                  <button type="button">24</button>
+                </li>
+              </ul>
             </div>
           </div>
 
           <div className="dropdown-outer">
-            <div className="dropdown-inner">
+            <input type="checkbox" className="dropdown-input" id="sortBy" />
+            <label className="dropdown-inner" htmlFor="sortBy">
               <span>Sort by:&nbsp;</span>
               <span className="text-primary">Low to High</span>
               <Icon name="chevron-up" width={12} height={8} />
+            </label>
+            <div className="dropdown-menu">
+              <ul>
+                <li>
+                  <button type="button">High to Low</button>
+                </li>
+                <li>
+                  <button type="button">New</button>
+                </li>
+
+                <li>
+                  <button type="button">Most Popular</button>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
