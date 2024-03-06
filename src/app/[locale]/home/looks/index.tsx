@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react"
 import Icon from "@/shared/components/Icon"
 import Image from "next/image"
 import ProductCard from "@/shared/components/ui/productCard"
-import './style.sass'
+import './looks.sass'
 
 const GetTheLook = (): React.ReactNode => {
   const imgBox = useRef<HTMLDivElement>(null)

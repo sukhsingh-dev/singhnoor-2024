@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Heading, TextDecorator } from "@/shared/components/ui"
 import { categories } from "@/shared/helper/store"
 import Image from "next/image"
-import './style.sass'
+import './categories.sass'
 
 const Categories: React.FC = (): React.ReactNode => (
   <section>
