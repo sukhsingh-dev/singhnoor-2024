@@ -1,7 +1,6 @@
 Home page --------
   Menus design for desktop
   Create your own page
-  Language selector
   Theme mode selector
   Wishlist page UI
   Cart page UI

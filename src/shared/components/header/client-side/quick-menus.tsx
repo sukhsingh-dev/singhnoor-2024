@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useTransition } from "react"
 import { usePathname, useRouter } from 'next/navigation'
+import { useLocale } from "next-intl"
 import Link from "next/link"
 import Icon from "../../Icon"
 
@@ -14,8 +15,9 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
   const [languageOpen, setLanguageOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
-  const pageName = usePathname()
   const [scrollDown, setScrollDown] = useState(false)
+  const pageName = usePathname()
+  const lang = useLocale()
 
   useEffect(() => {
     const animItems = document.querySelectorAll('.aos')
@@ -79,13 +81,13 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
           </Link>
         </li>
         <li>
-          <Link href="/wishlist">
-            <Icon name="bag" className={pageName === '/wishlist' ? 'text-primary' : ''} />
+          <Link href={`/${lang}/wishlist`}>
+            <Icon name="bag" className={pageName === `/${lang}/wishlist` ? 'text-primary' : ''} />
           </Link>
         </li>
         <li className="icon-cart position-relative">
-          <Link href="/cart">
-            <Icon name="cart" className={pageName === '/cart' ? 'text-primary' : ''} />
+          <Link href={`/${lang}/cart`}>
+            <Icon name="cart" className={pageName === `/${lang}/cart` ? 'text-primary' : ''} />
           </Link>
           <span className="cart-count position-absolute d-flex align-center justify-center">3</span>
         </li>
@@ -189,11 +191,33 @@ interface LanguageChangeActionTypes {
 const LanguageChangeAction = ({ lang, name }: LanguageChangeActionTypes): React.ReactNode => {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
+  const pName = usePathname()
+
+  const getTextAfterSecondSlash = (inputText: string): string | null => {
+    const firstSlashIndex = inputText.indexOf('/')
+
+    if (firstSlashIndex === -1 || firstSlashIndex === inputText.length - 1) {
+      return null
+    }
+    const secondSlashIndex = inputText.indexOf('/', firstSlashIndex + 1)
+    if (secondSlashIndex === -1) {
+      return null
+    }
+    const textAfterSecondSlash = inputText.substring(secondSlashIndex + 1)
+    return textAfterSecondSlash
+  }
+
+  const redirectPath = getTextAfterSecondSlash(pName)
 
   const handleClick = (): void => {
     startTransition(() => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.replace(`/${lang}`)
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (!redirectPath) {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        router.replace(`/${lang}`)
+      } else {
+        router.replace(`/${lang}/${redirectPath}`)
+      }
     })
   }
 
