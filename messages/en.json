@@ -1,6 +1,11 @@
 {
   "Index": {
     "topPicks": "TOP PICKS",
-    "mostPopular": "MOST POPULAR"
+    "mostPopular": "MOST POPULAR",
+    "categories": "CATEGORIES"
+  },
+  "Lang": {
+    "changeLang": "Change Language",
+    "currentLang": "English"
   }
 }
