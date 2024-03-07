@@ -5,7 +5,11 @@ import { Heading, TextDecorator } from "@/shared/components/ui"
 import Image from "next/image"
 import './deals.sass'
 
-const TodayDeal: React.FC = () => {
+interface TodayDealProps {
+  heading: string
+}
+
+const TodayDeal: React.FC<TodayDealProps> = ({ heading }: TodayDealProps) => {
   const imgBox = useRef<HTMLDivElement>(null)
   const [imgBoxHeight, setImageBoxHeight] = useState<number>(0)
 
@@ -36,7 +40,7 @@ const TodayDeal: React.FC = () => {
 
   return (
     <section className="text-center deals-outer">
-      <Heading text="TODAY'S DEAL" />
+      <Heading text={heading} />
       <div className="position-relative deals-offer">
         <div className="deals-bg-decorator" style={{ backgroundColor: '#F7DACA' }} />
         <div className="t-shirts-set" ref={imgBox} style={{ minHeight: imgBoxHeight }}>

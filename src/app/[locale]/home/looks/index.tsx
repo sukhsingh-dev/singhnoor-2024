@@ -7,7 +7,11 @@ import Image from "next/image"
 import ProductCard from "@/shared/components/ui/productCard"
 import './looks.sass'
 
-const GetTheLook = (): React.ReactNode => {
+interface GetTheLookProps {
+  heading: string
+}
+
+const GetTheLook: React.FC<GetTheLookProps> = ({ heading }: GetTheLookProps) => {
   const imgBox = useRef<HTMLDivElement>(null)
   const [imgNotHover, setImgHover] = useState<true | false>(true)
   const interval = useRef<NodeJS.Timeout>()
@@ -62,7 +66,7 @@ const GetTheLook = (): React.ReactNode => {
 
   return (
     <section className="sn-gtl position-relative">
-      <Heading text="GET THE LOOK" />
+      <Heading text={heading} />
       <div className="sn-gtl-btns">
         <button
           type="button"

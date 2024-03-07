@@ -18,9 +18,9 @@ export default function Home(): React.ReactNode {
       <Categories />
       <Products heading={t('topPicks')} productList={productList2} moreLink="/shop" outerClass="section-more-width top-picks" />
       <Collections />
-      <TodayDeal />
+      <TodayDeal heading={t('todayDeal')} />
       <Products heading={t('mostPopular')} productList={productList} moreLink="/shop" outerClass="section-more-width more-popular" />
-      <GetTheLook />
+      <GetTheLook heading={t('getLook')} />
       <KhalsaCollections />
       <DealsZone />
     </>

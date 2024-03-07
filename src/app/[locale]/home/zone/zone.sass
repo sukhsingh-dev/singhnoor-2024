@@ -25,9 +25,11 @@
       white-space: nowrap
 
   &-outer
-    padding-top: 0
     padding-right: 1rem
     margin-right: -1rem
+
+    +onMaxSize(medium)
+      padding-top: 0
 
     .page-heading
       margin-left: -1rem
