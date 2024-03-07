@@ -1,12 +1,18 @@
 'use client'
 
-import { useState, useEffect } from "react"
-import { usePathname } from 'next/navigation'
+import { useState, useEffect, useTransition } from "react"
+import { usePathname, useRouter } from 'next/navigation'
 import Link from "next/link"
 import Icon from "../../Icon"
 
-const QuickMenus: React.FC = () => {
+interface QuickMenusTypes {
+  langText: string
+  currentLang: string
+}
+
+const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
+  const [languageOpen, setLanguageOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const pageName = usePathname()
   const [scrollDown, setScrollDown] = useState(false)
@@ -131,8 +137,36 @@ const QuickMenus: React.FC = () => {
             </div>
             <ul className="sn-quick-menus-inner-list">
               <li>
-                Language:
-                <span> Eng</span>
+                <button
+                  type="submit"
+                  onClick={() => setLanguageOpen((prev) => !prev)}
+                >
+                  {langText}
+                  :&nbsp;
+                  <span>{currentLang}</span>
+                </button>
+                <div className={`sn-quick-menus-inner lang-menu-inner ${languageOpen ? 'show-menu' : ''}`}>
+                  <div className="sn-quick-menus-close">
+                    <button
+                      type="button"
+                      aria-label="close menu"
+                      onClick={() => setLanguageOpen(false)}
+                    >
+                      <Icon name="close" />
+                    </button>
+                  </div>
+                  <ul className="sn-quick-menus-inner-list">
+                    <li>
+                      <LanguageChangeAction lang="en" name="English" />
+                    </li>
+                    <li>
+                      <LanguageChangeAction lang="hi" name="हिंदी" />
+                    </li>
+                    <li>
+                      <LanguageChangeAction lang="pu" name="ਪੰਜਾਬੀ" />
+                    </li>
+                  </ul>
+                </div>
               </li>
               <li>
                 Theme Mode:
@@ -144,6 +178,33 @@ const QuickMenus: React.FC = () => {
       </ul>
 
     </div>
+  )
+}
+
+interface LanguageChangeActionTypes {
+  lang: string
+  name: string
+}
+
+const LanguageChangeAction = ({ lang, name }: LanguageChangeActionTypes): React.ReactNode => {
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+
+  const handleClick = (): void => {
+    startTransition(() => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.replace(`/${lang}`)
+    })
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={isPending}
+    >
+      {name}
+    </button>
   )
 }
 

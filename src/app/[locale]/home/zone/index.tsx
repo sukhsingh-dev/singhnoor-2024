@@ -2,7 +2,7 @@ import { Heading } from "@/shared/components/ui"
 import { dealsList } from "@/shared/helper/store"
 import Link from "next/link"
 import Image from "next/image"
-import './style.sass'
+import './zone.sass'
 
 const DealsZone: React.FC = () => (
   <section className="deal-zone-outer">

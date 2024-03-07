@@ -299,10 +299,23 @@ $shadow2: 0 -0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
     +onMinSize(x-large)
       position: relative
 
+      .lang-menu-inner
+        transition: none
+
       .sn-quick-menus-inner.show-menu
         pointer-events: all
         opacity: 1
         transform: translateX(calc(-50% + 1rem)) translateY(100%)
+
+        &.lang-menu-inner
+          position: static
+          transform: none
+          box-shadow: none
+          width: 100%
+
+          li
+            border: none
+            padding: rem(8)
 
   &-inner
     position: absolute
@@ -335,10 +348,14 @@ $shadow2: 0 -0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
         text-align: center
         padding: rem(16)
         border-top: 1px solid var(--border-light)
+        button
+          font-size: rem(16)
+          &:hover
+            color: var(--primary)
 
         +onMinSize(x-large)
           display: flex
-          justify-content: center
+          flex-wrap: wrap
           white-space: nowrap
           gap: rem(8)
 
