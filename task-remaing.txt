@@ -21,4 +21,6 @@ https://ecommerce-128.webflow.io/home-6 - insta feed
 https://codepen.io/andymerskin/pen/XNMWvQ - parallax cards
 https://codepen.io/petegarvin1/pen/YzWBbRx - person profile card effect
 
+https://lenis.studiofreight.com/ - scroll
+
 

@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google"
 import Header from "@/shared/components/header"
 import Footer from "@/shared/components/footer"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Script from "next/script"
 import '@/shared/styles/main.sass'
 
 const outfit = Outfit({ subsets: ["latin"] })
@@ -29,6 +30,7 @@ export default function LocaleLayout({
         <Footer />
         <SpeedInsights />
       </body>
+      <Script src="/js/scroll-easing.js" />
     </html>
   )
 }
