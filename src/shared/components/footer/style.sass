@@ -66,12 +66,13 @@
         font-size: rem(24)
 
   &-list
+    --cols: 2
     display: grid
-    grid-template-columns: 1fr 1fr
+    grid-template-columns: repeat(var(--cols),minmax(0,1fr))
     gap: 1.5rem 0.75rem
 
     +onMinSize(medium)
-      grid-template-columns: repeat(3,33%)
+      --cols: 3
 
     a
       font-size: 1.25rem

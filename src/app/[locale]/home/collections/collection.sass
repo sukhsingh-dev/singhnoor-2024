@@ -18,13 +18,11 @@
 //mixin end
 
 .sn-collections
+  --cols: 2
   display: grid
   justify-content: space-between
   gap: rem(16)
-  grid-template-columns: repeat(2, calc(50% - rem(8)))
-
-  +onMinSize(medium)
-    grid-template-columns: repeat(4, calc(25% - rem(16)))
+  grid-template-columns: repeat(var(--cols), minmax(0,1fr))
 
   +onMinSize(medium)
     display: flex

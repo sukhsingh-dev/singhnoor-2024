@@ -31,18 +31,19 @@ $card-padding: rem(12)
       justify-content: space-between
 
   &-list
+    --cols: 2
     display: grid
-    grid-template-columns: repeat(2,minmax(calc(50% - 0.5rem), rem(250)))
+    grid-template-columns: repeat(var(--cols),minmax(0,1fr))
     gap: rem(16) rem(8)
 
     +onMinSize(medium)
+      --cols: 4
       overflow: auto
-      grid-template-columns: repeat(4,calc(25% - 0.5rem))
       padding-bottom: rem(20)
 
     +onMinSize(large)
+      --cols: 5
       column-gap: 0.5rem
-      grid-template-columns: repeat(5,calc(20% - 0.5rem))
 
     .product-card-outer
       display: flex
