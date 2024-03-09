@@ -1,0 +1,186 @@
+@import "../../../shared/styles/_functions.sass"
+
+.sn-product-page
+  padding-bottom: 0
+  &-top
+    position: sticky
+    top: rem(75)
+
+    .btn-wishlist
+      left: auto
+      right: rem(-16)
+      top: rem(-10)
+  &-images
+    display: flex
+    overflow: hidden
+    width: 100%
+
+    &::before
+      content: ''
+      position: absolute
+      z-index: -1
+      top: 50%
+      left: 50%
+      transform: translateX(-50%) translateY(-50%)
+      width: 75%
+      aspect-ratio: 1/1
+      border-radius: 50%
+      background-color: var(--primary-light)
+
+    img
+      width: 100%
+      object-fit: contain
+
+  &-thumbnails
+    display: none
+
+  &-slider
+    display: flex
+    justify-content: center
+    gap: rem(4)
+    margin-bottom: rem(28)
+    li
+      button
+        font-size: 0
+        border-radius: 50%
+        width: rem(8)
+        height: rem(8)
+        background-color: var(--primary-light)
+      &.active
+        button
+          border-radius: rem(8)
+          width: rem(32)
+
+  &-description
+    color: var(--text)
+  &-attribute
+    display: flex
+    align-items: center
+    gap: rem(8)
+    margin-top: rem(16)
+
+    &-heading
+      font-weight: 550
+      font-size: rem(18)
+      color: rgba(0, 0, 0, 0.75)
+    ul
+      display: flex
+      gap: rem(4)
+
+      input[type="radio"]
+        +hide-input
+    .attribute-sizes-list
+      label
+        padding-inline: rem(4)
+        border-radius: rem(2)
+      input:checked
+        ~ label
+          background-color: var(--primary-light)
+    .attribute-colors-list
+      gap: rem(8)
+      label
+        display: block
+        border-radius: 50%
+        width: rem(20)
+        height: rem(20)
+        &.white
+          border: rem(1) solid var(--border-dark)
+      input:checked
+        ~ label
+          outline: rem(2) solid var(--primary)
+          outline-offset: rem(2)
+
+  &-accordion
+    margin-top: rem(12)
+    padding-bottom: rem(16)
+
+  &-float
+    display: flex
+    align-items: center
+    justify-content: space-between
+    position: fixed
+    z-index: 1
+    bottom: rem(70)
+    padding: rem(12) rem(12) rem(12) rem(20)
+    border-radius: rem(50)
+    width: calc(100% - rem(32))
+    background-color: var(--primary-light)
+    transition: bottom 0.3s var(--ease-spring)
+
+    .page-down &
+      bottom: rem(20)
+
+    .btn-secondary
+      line-height: 1
+      gap: rem(8)
+
+  &-price
+    display: flex
+    flex-direction: column
+    font-size: rem(24)
+
+    .old-price
+      text-decoration: line-through
+      color: var(--border-dark)
+      font-size: 0.5em
+    .new-price
+      font-weight: 700
+      font-size: 1em
+
+  &-info
+    position: relative
+    z-index: 2
+    padding-top: rem(16)
+    border-radius: rem(20) rem(20) 0 0
+    box-shadow: $shadow2
+
+  .attribute-qty
+    display: flex
+    align-items: center
+    gap: rem(4)
+    padding: rem(8)
+    border-radius: rem(30)
+    background: var(--secondary-light)
+    input
+      background: none
+      border: none
+      text-align: center
+      font-weight: 600
+      font-size: rem(18)
+      width: rem(20)
+      height: rem(20)
+    button
+      display: grid
+      place-items: center
+      width: rem(18)
+      height: rem(18)
+      color: var(--secondary)
+  .page-back-btn
+    display: grid
+    place-items: center
+    border-radius: 50%
+    width: rem(30)
+    height: rem(30)
+    color: var(--secondary)
+    background: var(--secondary-light)
+
+    svg
+      transform: rotate(-90deg)
+    span
+      display: none
+
+  h2
+    margin-bottom: rem(12)
+
+.btn-card-line
+  width: rem(90)
+  height: rem(10)
+  border-radius: rem(10)
+  margin-bottom: rem(16)
+  margin-left: calc(50% - rem(45))
+  background-color: rgba(0, 0, 0, 0.15)
+
+.sn-product-page-spacing
+  padding-inline: rem(16)
+  margin-inline: rem(-16)
+  background-color: var(--white)
