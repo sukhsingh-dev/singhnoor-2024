@@ -294,38 +294,11 @@ $filter-section-gap: rem(32)
 
   &-main
     li
-      position: relative
-      cursor: pointer
-      padding: rem(8) 0
       margin: rem(8) rem(20)
-      border-bottom: rem(1) solid var(--border-light)
       &:last-child
-        border-bottom: none
         margin-bottom: rem(16)
-
-  &-toggler
-    summary
-      display: block
-      &::-webkit-details-marker
-        display: none
-
-    &:after
-      content: ''
-      position: absolute
-      background-repeat: no-repeat
-      background-position: center
-      pointer-events: none
-      transform-origin: center
-      right: 0
-      top: rem(12)
-      width: rem(16)
-      height: rem(16)
-      transition: transform 0.3s var(--ease-spring)
-      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1L5 5L1 1' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
-
-    &[open]
-      &:after
-        transform: rotate(180deg)
+        details
+          border-bottom: none
 
   &-options
     margin-block: rem(16)

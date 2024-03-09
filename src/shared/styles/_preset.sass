@@ -4,10 +4,10 @@
   --primary: #{$primary-color}
   --secondary: #{$secondary-color}
   // secondary-light is converted from rgba($secondary-color,0.3) 
-  --secondary-light: #fdd2c3
+  --secondary-light: #FDE8E0
   --ternary: #FDC13C
   --light: #eae6e6
-  --primary-light: #CEF0F4
+  --primary-light: #DAEBFB
   --text: #333
   --text-dark: #2a2929
   --text-light: #848484
@@ -128,6 +128,35 @@ main
   +onMinSize(xx-large)
     font-size: rem(36)
     margin-bottom: rem(40)
+
+details
+  position: relative
+  cursor: pointer
+  font-size: rem(16)
+  padding: rem(12) 0
+  border-bottom: rem(1) solid var(--border-light)
+  summary
+    display: block
+    &::-webkit-details-marker
+      display: none
+
+  &:after
+    content: ''
+    position: absolute
+    background-repeat: no-repeat
+    background-position: center
+    pointer-events: none
+    transform-origin: center
+    right: 0
+    top: rem(12)
+    width: rem(16)
+    height: rem(16)
+    transition: transform 0.3s var(--ease-spring)
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1L5 5L1 1' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+
+  &[open]
+    &:after
+      transform: rotate(180deg)
 
 html.lenis
   height: auto
