@@ -2,13 +2,6 @@
 
 import { clickSound } from "@/shared/helper/functions"
 
-const MenuIcon = (): React.ReactNode => (
-  <svg width={30} height={30} viewBox="0 0 30 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width={30} height={3} rx="1.5" fill="#333333" />
-    <rect y={11} width={20} height={3} rx="1.5" fill="#333333" />
-  </svg>
-)
-
 const MenuButton: React.FC = () => {
 
   const handleMenuOpen = (): void => {
@@ -19,9 +12,7 @@ const MenuButton: React.FC = () => {
 
   return (
     <>
-      <button className="hamburger-btn" onClick={handleMenuOpen} type="button" aria-label="menu toggle">
-        <MenuIcon />
-      </button>
+      <button className="hamburger-btn" onClick={handleMenuOpen} type="button" aria-label="menu toggle" />
       <button aria-label="close menu" className="menu-close-area" onClick={handleMenuOpen} type="button" />
     </>
   )

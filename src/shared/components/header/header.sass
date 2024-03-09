@@ -1,62 +1,8 @@
 @import "../../styles/_functions.sass"
 
-$size: rem(32)
 $hamburger-close-size: 75
-$icon-stroke: 2.5px
 $shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
 $shadow2: 0 -0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
-
-.magic-icon-search
-  display: inline-block
-  position: relative
-  width: $size
-  height: $size
-
-  &::before
-    content: ''
-    display: inline-block
-    position: absolute
-    width: $icon-stroke
-    height: 25%
-    left: 75%
-    top: 75%
-    border-radius: 4px
-    transform: translate(-50%, -50%) rotate(-45deg)
-    transition: all 0.5s var(--ease-spring)
-    background: var(--text)
-
-  &.close::before
-    height: 80%
-    left: 50%
-    top: 50%
-
-  &::after
-    content: ''
-    display: inline-block
-    position: absolute
-    width: 50%
-    height: 50%
-    border-radius: 50%
-    top: 42%
-    left: 44%
-    transform: translate(-50%, -50%) rotate(0deg)
-    transition: all 0.5s var(--ease-spring)
-    border: $icon-stroke solid var(--text)
-
-  &.close::after
-    border: none
-    border-radius: 4px
-    width: $icon-stroke
-    height: 80%
-    left: 50%
-    top: 50%
-    transform: translate(-50%, -50%) rotate(46deg)
-    background-color: var(--text)
-
-  +onMinSize(x-large)
-    position: relative
-    top: rem(-2)
-    z-index: 2
 
 .search-wrapper
   display: flex
@@ -183,28 +129,15 @@ $shadow2: 0 -0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
   &-label
     padding: rem(12) rem(24)
 
-.hamburger-btn
-  rect
-    transition: all 0.3s var(--ease-spring)
-
 .menu-open
   border-radius: 0
+  right: rem(5)
 
   .sn-menu
     transform: translateX(0)
 
   .hamburger-label-close
     display: block
-
-  svg
-    rect
-      width: rem(25)
-
-      &:first-child
-        transform: rotate(45deg) translateY(rem(-4))
-
-      &:last-child
-        transform: rotate(-45deg) translateX(rem(-11))
 
   .menu-close-area
     display: block
@@ -381,3 +314,48 @@ $shadow2: 0 -0.1875rem 0.375rem rgba(0, 0, 0, 0.25)
   right: rem(-8)
   color: var(--white)
   background-color: var(--primary)
+
+.hamburger-btn
+  display: flex
+  flex-direction: column
+  justify-content: center
+  gap: rem(8)
+  width: rem(30)
+  height: rem(30)
+  &::after,
+  &::before
+    content: ''
+    height: rem(3)
+    border-radius: rem(2)
+    background-color: var(--text)
+    transform-origin: center
+
+  &::before
+    width: rem(30)
+
+  &::after
+    width: rem(20)
+
+  .menu-open &
+    &::before
+      animation: line1 0.6s var(--ease-spring) forwards
+
+    &::after
+      width: rem(30)
+      animation: line2 0.6s var(--ease-spring) forwards
+
+@keyframes line1
+  0%
+    transform: translateY(0) rotate(0)
+  50%
+    transform: translateY(rem(6)) rotate(0)
+  100%
+    transform: translateY(rem(6)) rotate(45deg)
+
+@keyframes line2
+  0%
+    transform: translateY(0) rotate(0)
+  50%
+    transform: translateY(rem(-5)) rotate(0)
+  100%
+    transform: translateY(rem(-5)) rotate(-45deg)
