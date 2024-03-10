@@ -109,6 +109,16 @@ const ProductPage = (): React.ReactNode => {
             </div>
           </div>
           <div className="sn-product-page-attribute-container">
+            <div className="sn-product-page-float">
+              <div className="sn-product-page-price">
+                <span className="old-price">₹699</span>
+                <span className="text-primary new-price">₹499</span>
+              </div>
+              <button type="button" className="btn btn-secondary align-center">
+                Add to Cart
+                <Icon name="cart" />
+              </button>
+            </div>
             <div className="sn-product-page-attribute size">
               <span className="sn-product-page-attribute-heading">Size:</span>
               <ul className="attribute-sizes-list">
@@ -170,16 +180,6 @@ const ProductPage = (): React.ReactNode => {
                   <Icon name="minus" width={18} height={2} />
                 </button>
               </div>
-            </div>
-            <div className="sn-product-page-float">
-              <div className="sn-product-page-price">
-                <span className="old-price">₹699</span>
-                <span className="text-primary new-price">₹499</span>
-              </div>
-              <button type="button" className="btn btn-secondary align-center">
-                Add to Cart
-                <Icon name="cart" />
-              </button>
             </div>
             <details className="sn-product-page-accordion about">
               <summary>About Product</summary>
