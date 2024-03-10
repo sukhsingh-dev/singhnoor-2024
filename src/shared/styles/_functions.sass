@@ -16,6 +16,27 @@ $breakpoints: ( x-small: 375px, small: 480px, medium: 750px, large: 1024px, x-la
   @else
     @error "Unknown breakpoint #{$breakpoint}."
 
+@mixin onSizeRange($minBreakpoint, $maxBreakpoint)
+  @if map-has-key($breakpoints, $minBreakpoint) and map-has-key($breakpoints, $maxBreakpoint)
+    $minValue: map-get($breakpoints, $minBreakpoint)
+    // Subtract 1px from the maxBreakpoint value to ensure the range does not overlap
+    $maxValue: map-get($breakpoints, $maxBreakpoint) - 1px
+
+    // Ensure the min value is less than the max value
+    @if $minValue < $maxValue
+      @media (min-width: $minValue) and (max-width: $maxValue)
+        @content
+
+    @else
+      @error "Minimum breakpoint (#{$minBreakpoint}: #{$minValue}) must be smaller than maximum breakpoint (#{$maxBreakpoint}: #{$maxValue})."
+
+  @else
+    @if not map-has-key($breakpoints, $minBreakpoint)
+      @error "Unknown minimum breakpoint #{$minBreakpoint}."
+
+    @if not map-has-key($breakpoints, $maxBreakpoint)
+      @error "Unknown maximum breakpoint #{$maxBreakpoint}."
+
 @function rem($pixels)
   @return (math.div($pixels, 16)) * 1rem
 

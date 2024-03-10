@@ -1,19 +1,25 @@
 @import "../../../shared/styles/_functions.sass"
 
 .sn-product-page
-  padding-bottom: 0
+  +onMaxSize(x-large)
+    padding-bottom: 0
+    padding-top: 0
   &-top
-    position: sticky
-    top: rem(75)
+    +onMaxSize(x-large)
+      position: sticky
+      top: rem(40)
+      margin: rem(-15) rem(-16) rem(-20)
 
-    .btn-wishlist
-      left: auto
-      right: rem(-16)
-      top: rem(-10)
+      .btn-wishlist
+        left: auto
+        right: 0
+        top: rem(30)
   &-images
     display: flex
     overflow: hidden
+    margin-inline: auto
     width: 100%
+    max-width: rem(400)
 
     &::before
       content: ''
@@ -23,6 +29,7 @@
       left: 50%
       transform: translateX(-50%) translateY(-50%)
       width: 75%
+      max-width: rem(400)
       aspect-ratio: 1/1
       border-radius: 50%
       background-color: var(--primary-light)
@@ -33,6 +40,22 @@
 
   &-thumbnails
     display: none
+    gap: rem(8)
+    img
+      border-radius: rem(10)
+      background-color: var(--primary-light)
+    +onSizeRange(medium, x-large)
+      display: flex
+      flex-direction: column
+      position: absolute
+      z-index: -1
+      top: rem(-30)
+      right: rem(20)
+      transform: translateY(-100%)
+
+    +onMinSize(x-large)
+      display: flex
+      margin-top: rem(48)
 
   &-slider
     display: flex
@@ -45,7 +68,7 @@
         border-radius: 50%
         width: rem(8)
         height: rem(8)
-        background-color: var(--primary-light)
+        background-color: rgba($primary-color, 0.5)
       &.active
         button
           border-radius: rem(8)
@@ -98,21 +121,24 @@
     display: flex
     align-items: center
     justify-content: space-between
-    position: fixed
-    z-index: 1
     bottom: rem(70)
     padding: rem(12) rem(12) rem(12) rem(20)
     border-radius: rem(50)
     width: calc(100% - rem(32))
-    background-color: var(--primary-light)
-    transition: bottom 0.3s var(--ease-spring)
 
-    .page-down &
-      bottom: rem(20)
+    +onMaxSize(x-large)
+      position: fixed
+      z-index: 1
+      background-color: var(--primary-light)
+      transition: bottom 0.3s var(--ease-spring)
+
+      .page-down &
+        bottom: rem(20)
 
     .btn-secondary
       line-height: 1
       gap: rem(8)
+      box-shadow: none
 
   &-price
     display: flex
@@ -128,11 +154,12 @@
       font-size: 1em
 
   &-info
-    position: relative
-    z-index: 2
-    padding-top: rem(16)
-    border-radius: rem(20) rem(20) 0 0
-    box-shadow: $shadow2
+    +onMaxSize(x-large)
+      position: relative
+      z-index: 2
+      padding-top: rem(16)
+      border-radius: rem(20) rem(20) 0 0
+      box-shadow: $shadow2
 
   .attribute-qty
     display: flex
@@ -156,21 +183,70 @@
       height: rem(18)
       color: var(--secondary)
   .page-back-btn
-    display: grid
-    place-items: center
-    border-radius: 50%
-    width: rem(30)
-    height: rem(30)
-    color: var(--secondary)
-    background: var(--secondary-light)
+    +onMaxSize(x-large)
+      display: grid
+      place-items: center
+      position: relative
+      border-radius: 50%
+      top: rem(40)
+      left: rem(16)
+      width: rem(30)
+      height: rem(30)
+      color: var(--secondary)
+      background: var(--secondary-light)
+      span
+        display: none
+    +onMinSize(x-large)
+      display: flex
+      align-items: center
+      font-weight: 600
+      gap: rem(8)
+      color: var(--text)
 
     svg
       transform: rotate(-90deg)
-    span
-      display: none
 
   h2
     margin-bottom: rem(12)
+
+  +onMinSize(x-large)
+    display: grid
+    grid-template-areas: "top"
+    &-top,
+    &-info
+      grid-area: top
+      display: grid
+      align-items: flex-start
+      column-gap: rem(48)
+      // grid-template-columns: 35% 30% 35%
+      grid-template-columns: minmax(0,1fr) 30% minmax(0,1fr)
+    &-info
+      z-index: 1
+    &-top
+      position: relative
+      .page-back-btn
+        z-index: 2
+      .btn-wishlist
+        position: static
+        width: fit-content
+        justify-self: flex-end
+        grid-column: 2
+        grid-row: 1
+        z-index: 3
+    &-images
+      position: relative
+      grid-column: 2
+      grid-row: 1
+      z-index: 2
+    &-slider
+      grid-column: 2
+      z-index: 2
+
+    &-attribute-container
+      grid-column: 3
+
+    h2
+      padding-top: rem(60)
 
 .btn-card-line
   width: rem(90)
@@ -180,7 +256,11 @@
   margin-left: calc(50% - rem(45))
   background-color: rgba(0, 0, 0, 0.15)
 
+  +onMinSize(x-large)
+    display: none
+
 .sn-product-page-spacing
-  padding-inline: rem(16)
-  margin-inline: rem(-16)
-  background-color: var(--white)
+  +onMaxSize(x-large)
+    padding-inline: rem(16)
+    margin-inline: rem(-16)
+    background-color: var(--white)
