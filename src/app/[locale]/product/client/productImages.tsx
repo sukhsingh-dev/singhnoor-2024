@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Icon from '@/shared/components/Icon'
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 
 const PageTopItems = (): React.ReactNode => {
   const track = useRef<HTMLDivElement | null>(null)
@@ -15,6 +15,53 @@ const PageTopItems = (): React.ReactNode => {
     setActiveImg(imgNumb)
     setTrackMove(imgSize * imgNumb)
   }
+
+  useEffect(() => {
+    const imgBoxCurrent = imgBox.current
+
+    let startX: number
+    let endX: number
+
+    const onTouchStart = (e: TouchEvent): void => {
+      startX = e.touches[0].clientX
+    }
+
+    const onTouchMove = (e: TouchEvent): void => {
+      endX = e.touches[0].clientX
+    }
+
+    const onTouchEnd = (): void => {
+      if (startX - endX > 50) {
+        // Swipe left
+        setActiveImg((prevActiveImg) => {
+          const nextActiveImg = prevActiveImg + 1 >= 4 ? 0 : prevActiveImg + 1
+          setTrackMove(imgSize * nextActiveImg)
+          return nextActiveImg
+        })
+      } else if (startX - endX < -50) {
+        // Swipe right
+        setActiveImg((prevActiveImg) => {
+          const nextActiveImg = prevActiveImg - 1 < 0 ? 3 : prevActiveImg - 1
+          setTrackMove(imgSize * nextActiveImg)
+          return nextActiveImg
+        })
+      }
+    }
+
+    if (imgBoxCurrent !== null) {
+      imgBoxCurrent.addEventListener('touchstart', onTouchStart)
+      imgBoxCurrent.addEventListener('touchmove', onTouchMove)
+      imgBoxCurrent.addEventListener('touchend', onTouchEnd)
+    }
+
+    return () => {
+      if (imgBoxCurrent !== null) {
+        imgBoxCurrent.removeEventListener('touchstart', onTouchStart)
+        imgBoxCurrent.removeEventListener('touchmove', onTouchMove)
+        imgBoxCurrent.removeEventListener('touchend', onTouchEnd)
+      }
+    }
+  }, [imgSize])
 
   return (
     <div className="sn-product-page-top">
