@@ -10,10 +10,24 @@ const PageTopItems = (): React.ReactNode => {
   const [trackMove, setTrackMove] = useState<number>(0)
   const [activeImg, setActiveImg] = useState<number>(0)
   const imgSize = ((imgBox.current?.clientWidth) != null) ? imgBox.current.clientWidth : 400
+  const totalImages = 4
 
   const handleDotClick = (imgNumb: number): void => {
     setActiveImg(imgNumb)
     setTrackMove(imgSize * imgNumb)
+  }
+
+  const changeImage = (direction: number): void => {
+    setActiveImg((prevActiveImg) => {
+      let nextActiveImg = prevActiveImg + direction
+      if (nextActiveImg >= totalImages) {
+        nextActiveImg = 0
+      } else if (nextActiveImg < 0) {
+        nextActiveImg = totalImages - 1
+      }
+      setTrackMove(imgSize * nextActiveImg)
+      return nextActiveImg
+    })
   }
 
   useEffect(() => {
@@ -33,18 +47,10 @@ const PageTopItems = (): React.ReactNode => {
     const onTouchEnd = (): void => {
       if (startX - endX > 50) {
         // Swipe left
-        setActiveImg((prevActiveImg) => {
-          const nextActiveImg = prevActiveImg + 1 >= 4 ? 0 : prevActiveImg + 1
-          setTrackMove(imgSize * nextActiveImg)
-          return nextActiveImg
-        })
+        changeImage(1)
       } else if (startX - endX < -50) {
         // Swipe right
-        setActiveImg((prevActiveImg) => {
-          const nextActiveImg = prevActiveImg - 1 < 0 ? 3 : prevActiveImg - 1
-          setTrackMove(imgSize * nextActiveImg)
-          return nextActiveImg
-        })
+        changeImage(-1)
       }
     }
 
@@ -61,7 +67,17 @@ const PageTopItems = (): React.ReactNode => {
         imgBoxCurrent.removeEventListener('touchend', onTouchEnd)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgSize])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      changeImage(1)
+    }, 3000)
+
+    return () => clearInterval(interval) // Clear interval on component unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeImg])
 
   return (
     <div className="sn-product-page-top">
