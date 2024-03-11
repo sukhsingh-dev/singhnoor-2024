@@ -1,8 +1,8 @@
 import { productList2 } from "@/shared/helper/store"
 import { useLocale } from "next-intl"
-import Image from 'next/image'
 import Icon from '@/shared/components/Icon'
 import Products from '../home/products'
+import PageTopItems from "./client/productImages"
 import './product.sass'
 
 const ProductPage = (): React.ReactNode => {
@@ -11,63 +11,7 @@ const ProductPage = (): React.ReactNode => {
   return (
     <>
       <section className="sn-product-page">
-        <div className="sn-product-page-top">
-          <button type="button" className="page-back-btn">
-            <Icon name="chevron-up" width={12} height={8} />
-            <span>Go Back</span>
-          </button>
-          <button
-            type="button"
-            aria-label="Add to Wishlist"
-            className="btn-product btn-wishlist"
-          >
-            <Icon name="heart" />
-          </button>
-          <div className="sn-product-page-images">
-            <Image
-              src="/images/t-shirts/t-4.webp"
-              alt="product image"
-              width={400}
-              height={400}
-              quality={100}
-            />
-            <Image
-              src="/images/t-shirts/t-5.webp"
-              alt="product image"
-              width={400}
-              height={400}
-              quality={100}
-            />
-            <Image
-              src="/images/t-shirts/t-6.webp"
-              alt="product image"
-              width={400}
-              height={400}
-              quality={100}
-            />
-            <Image
-              src="/images/t-shirts/t-2.webp"
-              alt="product image"
-              width={400}
-              height={400}
-              quality={100}
-            />
-          </div>
-          <ul className="sn-product-page-slider">
-            <li>
-              <button type="button">Slide 1</button>
-            </li>
-            <li>
-              <button type="button">Slide 2</button>
-            </li>
-            <li className="active">
-              <button type="button">Slide 3</button>
-            </li>
-            <li>
-              <button type="button">Slide 4</button>
-            </li>
-          </ul>
-        </div>
+        <PageTopItems />
         <div className="sn-product-page-info sn-product-page-spacing">
           <button type="button" aria-label="push info above image" className="btn-card-line" />
           <div className="sn-product-page-info-head">
@@ -77,36 +21,6 @@ const ProductPage = (): React.ReactNode => {
               enim, eum dolore neque blanditiis fuga dolores possimus. Fuga,
               dignissimos in recusandae accusantium fugit corrupti impedit ullam dolorum quam vel.
             </p>
-            <div className="sn-product-page-thumbnails">
-              <Image
-                src="/images/t-shirts/t-4.webp"
-                alt="product image"
-                width={80}
-                height={80}
-                quality={100}
-              />
-              <Image
-                src="/images/t-shirts/t-5.webp"
-                alt="product image"
-                width={80}
-                height={80}
-                quality={100}
-              />
-              <Image
-                src="/images/t-shirts/t-6.webp"
-                alt="product image"
-                width={80}
-                height={80}
-                quality={100}
-              />
-              <Image
-                src="/images/t-shirts/t-2.webp"
-                alt="product image"
-                width={80}
-                height={80}
-                quality={100}
-              />
-            </div>
           </div>
           <div className="sn-product-page-attribute-container">
             <div className="sn-product-page-float">

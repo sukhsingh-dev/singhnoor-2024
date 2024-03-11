@@ -61,18 +61,23 @@
     img
       border-radius: rem(10)
       background-color: var(--primary-light)
+      transition: background-color 0.3s var(--ease-spring)
+      &.active
+        background-color: rgba($primary-color,0.3)
     +onSizeRange(medium, x-large)
       display: flex
       flex-direction: column
       position: absolute
-      z-index: -1
-      top: rem(-30)
-      right: rem(20)
-      transform: translateY(-100%)
+      top: rem(80)
+      right: rem(24)
 
     +onMinSize(x-large)
       display: flex
-      margin-top: rem(48)
+      align-self: flex-end
+      cursor: pointer
+      grid-column: 1
+      grid-row: 1
+      z-index: 2
 
   &-slider
     display: flex
@@ -81,6 +86,7 @@
     margin-bottom: rem(28)
     li
       button
+        transform-origin: left
         font-size: 0
         border-radius: 50%
         width: rem(8)
@@ -250,6 +256,8 @@
       position: relative
       .page-back-btn
         z-index: 2
+        grid-column: 1
+        grid-row: 1
       .btn-wishlist
         position: static
         width: fit-content
@@ -290,3 +298,6 @@
     padding-inline: rem(16)
     margin-inline: rem(-16)
     background-color: var(--white)
+
+.slider-track
+  transition: transform 0.3s var(--ease-spring)
