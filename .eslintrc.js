@@ -43,6 +43,7 @@ module.exports = {
     "jsx-a11y/label-has-associated-control": "off",
     "padded-blocks": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-underscore-dangle": "off"
   }
 };

@@ -1,31 +1,40 @@
 import { Heading, TextDecorator } from "@/shared/components/ui"
-import { categories } from "@/shared/helper/store"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
 import Image from "next/image"
 import './categories.sass'
 
-const Categories: React.FC = (): React.ReactNode => {
+interface CategoryType {
+  _id: string
+  categoryName: string
+  categoryBg: string
+  categoryImg: string
+}
+
+const Categories: React.FC = async () => {
   const t = useTranslations("Index")
+  const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`)
+  const categories = await res.json()
+
   return (
     <section>
       <Heading text={t('categories')} />
       <ul className="categories-list">
         {
-          categories.map((cat) => (
-            <li className="text-center aos" key={cat.url}>
-              <div className="bg-decorator mx-auto" style={{ backgroundColor: cat.backColor }} />
+          categories.map((category: CategoryType) => (
+            <li className="text-center aos" key={category._id}>
+              <div className="bg-decorator mx-auto" style={{ backgroundColor: category.categoryBg }} />
               <Image
-                src={`/images/${cat.imgName}`}
-                alt={cat.name}
+                src={category.categoryImg}
+                alt={category.categoryName}
                 width={171}
                 height={171}
                 className="object-contain"
                 quality={100}
               />
-              <Link href={cat.url} className="cat-link">
-                {cat.name}
-                <TextDecorator color={cat.backColor} />
+              <Link href={`/shop?category=${category._id}`} className="cat-link">
+                {category.categoryName}
+                <TextDecorator color={category.categoryBg} />
               </Link>
             </li>
           ))
