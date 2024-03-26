@@ -14,15 +14,11 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
 
   const totalImages = imagesList.length
   const imgShape = 450 // match this with imgShape variable in product.sass
-  const track = useRef<HTMLDivElement | null>(null)
   const imgBox = useRef<HTMLDivElement | null>(null)
-  const [trackMove, setTrackMove] = useState<number>(0)
   const [activeImg, setActiveImg] = useState<number>(0)
-  const imgSize = ((imgBox.current?.clientWidth) != null) ? imgBox.current.clientWidth : imgShape
 
   const handleDotClick = (imgNumb: number): void => {
     setActiveImg(imgNumb)
-    setTrackMove(imgSize * imgNumb)
   }
 
   const changeImage = (direction: number): void => {
@@ -33,7 +29,6 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
       } else if (nextActiveImg < 0) {
         nextActiveImg = totalImages - 1
       }
-      setTrackMove(imgSize * nextActiveImg)
       return nextActiveImg
     })
   }
@@ -76,12 +71,12 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgSize])
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
       changeImage(1)
-    }, 3000)
+    }, 6000)
 
     return () => clearInterval(interval) // Clear interval on component unmount
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,11 +95,17 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
       >
         <Icon name="heart" />
       </button>
+      <button
+        type="button"
+        aria-label="expand images"
+        className="btn-product btn-expand"
+      >
+        <Icon name="expand" />
+      </button>
       <div className="sn-product-page-images" ref={imgBox}>
         <div
           className="slider-track d-flex"
-          ref={track}
-          style={{ transform: `translateX(-${trackMove}px)` }}
+          style={{ transform: `translateX(calc(-100% * ${activeImg}))` }}
         >
           {
             imagesList.map((imageSrc: string) => (

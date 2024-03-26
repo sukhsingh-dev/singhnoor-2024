@@ -23,7 +23,18 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
           <button type="button" aria-label="push info above image" className="btn-card-line" />
           <div className="sn-product-page-info-head">
             <h2>{product.productTitle}</h2>
-            <p className="sn-product-page-description">{product.productDescription}</p>
+            <div className="sn-product-description-set position-relative">
+              <input type="checkbox" id="textController" className="sn-input-read-more" />
+              <p className="sn-product-page-description">
+                {product.productDescription}
+              </p>
+              <span className="para-dots">...</span>
+              <label htmlFor="textController" className="btn-read-more">
+                Read
+                <span className="read-more-text"> More</span>
+                <span className="read-less-text d-none"> Less</span>
+              </label>
+            </div>
           </div>
           <div className="sn-product-page-attribute-container">
             <div className="sn-product-page-float">

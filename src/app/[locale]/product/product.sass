@@ -24,21 +24,34 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
     padding-bottom: 0
     padding-top: 0
   &-top
+    .btn-wishlist
+      min-width: rem(40)
+      width: rem(40)
+      height: rem(40)
+      margin-top: rem(8)
+      margin-right: rem(8)
+      border-radius: 50%
+      background-color: rgba(#FB6577 ,0.75 )
+      color: var(--white)
     +onMaxSize(x-large)
       position: sticky
       top: rem(40)
-      margin: rem(-15) rem(-16) rem(-20)
+      margin: rem(24) 0
+      display: grid
 
       .btn-wishlist
         left: auto
         right: 0
-        top: rem(30)
+        top: rem(8)
   &-images
     display: flex
     overflow: hidden
     margin-inline: auto
     width: 100%
     max-width: $imgShape
+    grid-row: 1
+    grid-column: 1
+    border-radius: rem(20)
 
     &::before
       content: ''
@@ -55,8 +68,9 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
 
     img
       object-fit: contain
+      height: auto
       width: 100%
-      border-radius: rem(20)
+      aspect-ratio: 1 / 1
 
   &-thumbnails
     display: none
@@ -101,6 +115,8 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
           width: rem(32)
 
   &-description
+    overflow: hidden
+    max-height: rem(145)
     color: var(--text)
   &-attribute
     display: flex
@@ -223,12 +239,15 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
       place-items: center
       position: relative
       border-radius: 50%
-      top: rem(40)
-      left: rem(16)
-      width: rem(30)
-      height: rem(30)
-      color: var(--secondary)
-      background: var(--secondary-light)
+      top: rem(14)
+      left: rem(8)
+      width: rem(40)
+      height: rem(40)
+      color: var(--white)
+      background: rgba($secondary-color, 0.75)
+      grid-row: 1
+      grid-column: 1
+      z-index: 2
       span
         display: none
     +onMinSize(x-large)
@@ -306,3 +325,50 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
 
 .slider-track
   transition: transform 0.3s var(--ease-spring)
+
+.btn-expand
+  background-color: rgba($primary-color, 0.75)
+  color: var(--white)
+  min-width: rem(40)
+  width: rem(40)
+  height: rem(40)
+  border-radius: 50%
+  position: absolute
+  right: rem(8)
+  top: rem(60)
+
+  +onMinSize(x-large)
+    position: static
+    // align-self: flex-end
+    grid-column: 2
+    grid-row: 1
+    z-index: 3
+    margin: rem(8)
+    margin-top: calc($imgShape - rem(50))
+    background-color: var(--secondary-shadow)
+    // color: var(--text)
+
+  svg
+    margin-left: rem(2)
+
+.sn-input-read-more
+  +hide-input
+  &:checked
+    ~ .para-dots
+      display: none
+    ~ .btn-read-more
+      .read-more-text
+        display: none
+      .read-less-text
+        display: inline
+    ~ .sn-product-page-description
+      max-height: initial
+
+.btn-read-more
+  cursor: pointer
+  color: var(--primary)
+
+.para-dots
+  position: absolute
+  right: rem(-2)
+  bottom: rem(24)
