@@ -18,7 +18,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
   return (
     <>
       <section className="sn-product-page">
-        <PageTopItems />
+        <PageTopItems imagesList={product.productImagesArray} />
         <div className="sn-product-page-info sn-product-page-spacing">
           <button type="button" aria-label="push info above image" className="btn-card-line" />
           <div className="sn-product-page-info-head">

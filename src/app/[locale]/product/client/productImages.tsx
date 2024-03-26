@@ -4,13 +4,21 @@ import Image from "next/image"
 import Icon from '@/shared/components/Icon'
 import { useRef, useState, useEffect } from "react"
 
-const PageTopItems = (): React.ReactNode => {
+interface PageTopTypes {
+  imagesList: string[]
+}
+
+const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
+  // fix rendering issue on every image change
+  // console.log("rendering")
+
+  const totalImages = imagesList.length
+  const imgShape = 450 // match this with imgShape variable in product.sass
   const track = useRef<HTMLDivElement | null>(null)
   const imgBox = useRef<HTMLDivElement | null>(null)
   const [trackMove, setTrackMove] = useState<number>(0)
   const [activeImg, setActiveImg] = useState<number>(0)
-  const imgSize = ((imgBox.current?.clientWidth) != null) ? imgBox.current.clientWidth : 400
-  const totalImages = 4
+  const imgSize = ((imgBox.current?.clientWidth) != null) ? imgBox.current.clientWidth : imgShape
 
   const handleDotClick = (imgNumb: number): void => {
     setActiveImg(imgNumb)
@@ -98,87 +106,50 @@ const PageTopItems = (): React.ReactNode => {
           ref={track}
           style={{ transform: `translateX(-${trackMove}px)` }}
         >
-          <Image
-            src="/images/t-shirts/t-4.webp"
-            alt="product image"
-            width={400}
-            height={400}
-            quality={100}
-          />
-          <Image
-            src="/images/t-shirts/t-5.webp"
-            alt="product image"
-            width={400}
-            height={400}
-            quality={100}
-          />
-          <Image
-            src="/images/t-shirts/t-6.webp"
-            alt="product image"
-            width={400}
-            height={400}
-            quality={100}
-          />
-          <Image
-            src="/images/t-shirts/t-2.webp"
-            alt="product image"
-            width={400}
-            height={400}
-            quality={100}
-          />
+          {
+            imagesList.map((imageSrc: string) => (
+              <Image
+                key={imageSrc}
+                src={imageSrc}
+                alt="product image"
+                width={imgShape}
+                height={imgShape}
+                quality={100}
+              />
+            ))
+          }
         </div>
       </div>
       <ul className="sn-product-page-slider">
-        <li className={activeImg === 0 ? 'active' : ''}>
-          <button type="button" onClick={() => handleDotClick(0)}>Slide 1</button>
-        </li>
-        <li className={activeImg === 1 ? 'active' : ''}>
-          <button type="button" onClick={() => handleDotClick(1)}>Slide 2</button>
-        </li>
-        <li className={activeImg === 2 ? 'active' : ''}>
-          <button type="button" onClick={() => handleDotClick(2)}>Slide 3</button>
-        </li>
-        <li className={activeImg === 3 ? 'active' : ''}>
-          <button type="button" onClick={() => handleDotClick(3)}>Slide 4</button>
-        </li>
+        {
+          imagesList.map((imageSrc: string, index: number) => (
+            <li
+              key={imageSrc}
+              className={activeImg === index ? 'active' : ''}
+            >
+              <button type="button" onClick={() => handleDotClick(index)}>
+                Slide
+                {index + 1}
+              </button>
+            </li>
+          ))
+        }
       </ul>
       <div className="sn-product-page-thumbnails">
-        <Image
-          src="/images/t-shirts/t-4.webp"
-          alt="product image"
-          width={80}
-          height={80}
-          quality={100}
-          onClick={() => handleDotClick(0)}
-          className={activeImg === 0 ? 'active' : ''}
-        />
-        <Image
-          src="/images/t-shirts/t-5.webp"
-          alt="product image"
-          width={80}
-          height={80}
-          quality={100}
-          onClick={() => handleDotClick(1)}
-          className={activeImg === 1 ? 'active' : ''}
-        />
-        <Image
-          src="/images/t-shirts/t-6.webp"
-          alt="product image"
-          width={80}
-          height={80}
-          quality={100}
-          onClick={() => handleDotClick(2)}
-          className={activeImg === 2 ? 'active' : ''}
-        />
-        <Image
-          src="/images/t-shirts/t-2.webp"
-          alt="product image"
-          width={80}
-          height={80}
-          quality={100}
-          onClick={() => handleDotClick(3)}
-          className={activeImg === 3 ? 'active' : ''}
-        />
+        {
+          imagesList.map((imageSrc: string, index: number) => (
+            <Image
+              key={imageSrc}
+              src={imageSrc}
+              alt="product image"
+              width={80}
+              height={80}
+              quality={100}
+              onClick={() => handleDotClick(index)}
+              className={activeImg === index ? 'active' : ''}
+            />
+          ))
+        }
       </div>
     </div>
   )

@@ -1,5 +1,7 @@
 @import "../../../shared/styles/_functions.sass"
 
+$imgShape: rem(450) // match this with imgShape variable in productImages.tsx
+
 .sn-product-page
   +onMinSize(x-large)
     &:after,
@@ -36,7 +38,7 @@
     overflow: hidden
     margin-inline: auto
     width: 100%
-    max-width: rem(400)
+    max-width: $imgShape
 
     &::before
       content: ''
@@ -52,8 +54,9 @@
       background-color: var(--primary-light)
 
     img
-      width: 100%
       object-fit: contain
+      width: 100%
+      border-radius: rem(20)
 
   &-thumbnails
     display: none
@@ -251,7 +254,7 @@
       align-items: flex-start
       column-gap: rem(48)
       // grid-template-columns: 35% 30% 35%
-      grid-template-columns: minmax(0,1fr) 30% minmax(0,1fr)
+      grid-template-columns: minmax(0,1fr) minmax($imgShape, 30%) minmax(0,1fr)
     &-info
       z-index: 1
     &-top
