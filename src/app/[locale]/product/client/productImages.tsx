@@ -94,7 +94,7 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
     <>
       <button type="button" className="page-back-btn">
         <Icon name="chevron-up" width={12} height={8} />
-        <span>Go Back</span>
+        <span>Back</span>
       </button>
       <button
         type="button"

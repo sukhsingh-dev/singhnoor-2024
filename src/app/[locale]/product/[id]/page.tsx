@@ -25,7 +25,6 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
           <p className="sn-product-page-description">
             {product.productDescription}
           </p>
-          <span className="para-dots">...</span>
           <label htmlFor="textController" className="btn-read-more">
             Read
             <span className="read-more-text"> More</span>

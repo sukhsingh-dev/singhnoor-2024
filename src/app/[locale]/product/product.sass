@@ -1,15 +1,18 @@
 @import "../../../shared/styles/_functions.sass"
 
 $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
-$items-padding: rem(16)
 
 .sn-product-page
-  +onMaxSize(x-large)
+  --items-padding: 1rem
+
+  +onMaxSize(medium)
     position: relative
     z-index: 4
     margin: -3.75rem -1rem 1.5rem
     background-image: url('/images/page-bg-light.webp')
     background-size: cover
+  +onMinSize(medium)
+    margin-top: rem(48)
   +onMinSize(x-large)
     &:after,
     &:before
@@ -43,6 +46,11 @@ $items-padding: rem(16)
       height: auto
       width: 100%
       aspect-ratio: 1 / 1.2
+    +onMinSize(medium)
+      aspect-ratio: 1/1
+      border-radius: rem(20)
+      img
+        aspect-ratio: 1/1
 
   &-thumbnails
     display: none
@@ -53,12 +61,8 @@ $items-padding: rem(16)
       transition: background-color 0.3s var(--ease-spring)
       &.active
         background-color: rgba($primary-color,0.3)
-    // +onSizeRange(medium, x-large)
-    //   display: flex
-    //   flex-direction: column
-    //   position: absolute
-    //   top: rem(80)
-    //   right: rem(24)
+    +onSizeRange(medium, x-large)
+      display: flex
 
     +onMinSize(x-large)
       display: flex
@@ -68,7 +72,6 @@ $items-padding: rem(16)
     display: flex
     justify-content: center
     gap: rem(4)
-    // margin-bottom: rem(28)
     li
       button
         transform-origin: left
@@ -86,8 +89,10 @@ $items-padding: rem(16)
     overflow: hidden
     max-height: rem(145)
     color: var(--text)
+    +onMinSize(x-large)
+      max-height: rem(142)
     &-set
-      padding-inline: $items-padding
+      padding-inline: var(--items-padding)
   &-attribute
     display: flex
     align-items: center
@@ -95,7 +100,7 @@ $items-padding: rem(16)
     margin-top: rem(16)
 
     &-container
-      padding-inline: $items-padding
+      padding-inline: var(--items-padding)
 
     +onMinSize(x-large)
       margin-top: rem(24)
@@ -113,11 +118,13 @@ $items-padding: rem(16)
     .attribute-sizes-list
       label
         cursor: pointer
-        padding-inline: rem(4)
+        padding: rem(2) rem(6)
         border-radius: rem(2)
+        font-size: rem(16)
       input:checked
         ~ label
           background-color: var(--primary-light)
+          border: rem(1) solid var(--primary)
           +onMinSize(x-large)
             background-color: var(--primary)
             color: var(--white)
@@ -153,6 +160,8 @@ $items-padding: rem(16)
       width: calc(100% - rem(32))
       background-color: var(--primary-light)
       transition: bottom 0.3s var(--ease-spring)
+    +onMinSize(medium)
+      bottom: rem(70)
 
     .btn-secondary
       line-height: 1
@@ -220,7 +229,7 @@ $items-padding: rem(16)
 
   h2
     margin-block: rem(24) rem(12)
-    padding-inline: $items-padding
+    padding-inline: var(--items-padding)
 
 .slider-track
   transition: transform 0.3s var(--ease-spring)
@@ -239,8 +248,6 @@ $items-padding: rem(16)
 .sn-input-read-more
   +hide-input
   &:checked
-    ~ .para-dots
-      display: none
     ~ .btn-read-more
       .read-more-text
         display: none
@@ -252,15 +259,6 @@ $items-padding: rem(16)
 .btn-read-more
   cursor: pointer
   color: var(--primary)
-
-.para-dots
-  position: absolute
-  right: rem(16)
-  bottom: rem(24)
-
-.sn-product-body
-  .sn-header
-    display: none
 
 .btn-wishlist-float
   background-color: var(--page-color-red-light)
@@ -274,17 +272,73 @@ $items-padding: rem(16)
   margin-right: rem(16)
 
 //Grid Related changes
+.sn-product-body
+  .sn-header
+    +onMaxSize(medium)
+      display: none
 .sn-product-page
   display: grid
-  &-images
-    grid-row: 1
-    grid-column: 1
-  .page-back-btn,
-  .btn-expand
-    grid-row: 1
-    grid-column: 1
-    z-index: 2
-  .btn-expand
-    justify-self: flex-end
+  +onMaxSize(x-large)
+    &-images
+      grid-row: 1
+      grid-column: 1
+    .page-back-btn,
+    .btn-expand
+      grid-row: 1
+      grid-column: 1
+      z-index: 2
+    .btn-expand
+      justify-self: flex-end
+    +onSizeRange(medium, x-large)
+      grid-template-columns: 1fr rem(80)
+      column-gap: rem(24)
+
+      h2,
+      .sn-product-page-description-set,
+      .sn-product-page-attribute-container
+        grid-column: 1 / 3
+
+      .sn-product-page-thumbnails
+        grid-column: 2
+        grid-row: 1
+        flex-direction: column
+      .btn-expand
+        align-self: flex-end
+  +onMinSize(x-large)
+    --items-padding: 0
+    grid-template-columns: minmax(0,1fr) $imgShape minmax(0,1fr)
+    column-gap: rem(48)
+    .page-back-btn
+      grid-column: 1
+      grid-row: 1
+      align-self: baseline
+    .btn-expand
+      grid-column: 2
+      grid-row: 1
+      justify-self: flex-end
+      position: relative
+      top: calc($imgShape - rem(60))
+    .sn-product-page-slider
+      grid-column: 2
+      grid-row: 1
+      position: relative
+      top: calc($imgShape)
+    .sn-product-page-thumbnails
+      grid-column: 1
+      grid-row: 3
+      margin-top: rem(24)
+    .sn-product-page-images
+      grid-column: 2
+      grid-row: 1/5
+    .sn-product-page-attribute-container
+      grid-column: 3
+      grid-row: 1/5
+    h2
+      grid-column: 1
+      grid-row: 1
+      margin-top: rem(48)
+    .sn-product-page-description-set
+      grid-column: 1
+      grid-row: 2
 
 // Grid Changes end
