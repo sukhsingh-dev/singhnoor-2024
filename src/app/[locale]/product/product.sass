@@ -1,8 +1,15 @@
 @import "../../../shared/styles/_functions.sass"
 
 $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
+$items-padding: rem(16)
 
 .sn-product-page
+  +onMaxSize(x-large)
+    position: relative
+    z-index: 4
+    margin: -3.75rem -1rem 1.5rem
+    background-image: url('/images/page-bg-light.webp')
+    background-size: cover
   +onMinSize(x-large)
     &:after,
     &:before
@@ -23,54 +30,19 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
   +onMaxSize(x-large)
     padding-bottom: 0
     padding-top: 0
-  &-top
-    .btn-wishlist
-      min-width: rem(40)
-      width: rem(40)
-      height: rem(40)
-      margin-top: rem(8)
-      margin-right: rem(8)
-      border-radius: 50%
-      background-color: rgba(#FB6577 ,0.75 )
-      color: var(--white)
-    +onMaxSize(x-large)
-      position: sticky
-      top: rem(40)
-      margin: rem(24) 0
-      display: grid
-
-      .btn-wishlist
-        left: auto
-        right: 0
-        top: rem(8)
   &-images
     display: flex
     overflow: hidden
     margin-inline: auto
     width: 100%
     max-width: $imgShape
-    grid-row: 1
-    grid-column: 1
-    border-radius: rem(20)
-
-    &::before
-      content: ''
-      position: absolute
-      z-index: -1
-      top: 50%
-      left: 50%
-      transform: translateX(-50%) translateY(-50%)
-      width: 75%
-      max-width: rem(400)
-      aspect-ratio: 1/1
-      border-radius: 50%
-      background-color: var(--primary-light)
-
+    border-radius: 0 0 rem(40) rem(40)
+    aspect-ratio: 1/1.2
     img
-      object-fit: contain
+      object-fit: cover
       height: auto
       width: 100%
-      aspect-ratio: 1 / 1
+      aspect-ratio: 1 / 1.2
 
   &-thumbnails
     display: none
@@ -81,20 +53,16 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
       transition: background-color 0.3s var(--ease-spring)
       &.active
         background-color: rgba($primary-color,0.3)
-    +onSizeRange(medium, x-large)
-      display: flex
-      flex-direction: column
-      position: absolute
-      top: rem(80)
-      right: rem(24)
+    // +onSizeRange(medium, x-large)
+    //   display: flex
+    //   flex-direction: column
+    //   position: absolute
+    //   top: rem(80)
+    //   right: rem(24)
 
     +onMinSize(x-large)
       display: flex
-      align-self: flex-end
       cursor: pointer
-      grid-column: 1
-      // grid-row: 1
-      z-index: 2
 
   &-slider
     display: flex
@@ -118,11 +86,17 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
     overflow: hidden
     max-height: rem(145)
     color: var(--text)
+    &-set
+      padding-inline: $items-padding
   &-attribute
     display: flex
     align-items: center
     gap: rem(8)
     margin-top: rem(16)
+
+    &-container
+      padding-inline: $items-padding
+
     +onMinSize(x-large)
       margin-top: rem(24)
 
@@ -169,20 +143,16 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
   &-float
     display: flex
     align-items: center
-    justify-content: space-between
 
     +onMaxSize(x-large)
       position: fixed
       z-index: 1
-      bottom: rem(70)
+      bottom: rem(20)
       border-radius: rem(50)
       padding: rem(12) rem(12) rem(12) rem(20)
       width: calc(100% - rem(32))
       background-color: var(--primary-light)
       transition: bottom 0.3s var(--ease-spring)
-
-      .page-down &
-        bottom: rem(20)
 
     .btn-secondary
       line-height: 1
@@ -203,14 +173,6 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
     .new-price
       font-weight: 700
       font-size: 1em
-
-  &-info
-    +onMaxSize(x-large)
-      position: relative
-      z-index: 2
-      padding-top: rem(16)
-      border-radius: rem(20) rem(20) 0 0
-      box-shadow: $shadow2
 
   .attribute-qty
     display: flex
@@ -239,15 +201,11 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
       place-items: center
       position: relative
       border-radius: 50%
-      top: rem(14)
-      left: rem(8)
       width: rem(40)
       height: rem(40)
+      margin: rem(8)
       color: var(--white)
-      background: rgba($secondary-color, 0.75)
-      grid-row: 1
-      grid-column: 1
-      z-index: 2
+      background: rgba(#000, 0.75)
       span
         display: none
     +onMinSize(x-large)
@@ -261,93 +219,20 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
       transform: rotate(-90deg)
 
   h2
-    margin-bottom: rem(12)
-
-  +onMinSize(x-large)
-    display: grid
-    grid-template-areas: "top"
-    &-top,
-    &-info
-      grid-area: top
-      display: grid
-      align-items: flex-start
-      column-gap: rem(48)
-      // grid-template-columns: 35% 30% 35%
-      grid-template-columns: minmax(0,1fr) minmax($imgShape, 30%) minmax(0,1fr)
-    &-info
-      z-index: 1
-    &-top
-      position: relative
-      .page-back-btn
-        z-index: 2
-        grid-column: 1
-        grid-row: 1
-      .btn-wishlist
-        position: static
-        width: fit-content
-        justify-self: flex-end
-        grid-column: 2
-        grid-row: 1
-        z-index: 3
-    &-images
-      position: relative
-      grid-column: 2
-      grid-row: 1
-      z-index: 2
-    &-slider
-      grid-column: 2
-      z-index: 2
-
-    &-attribute-container
-      grid-column: 3
-      padding-top: rem(40)
-
-    h2
-      padding-top: rem(60)
-      font-size: rem(32)
-
-.btn-card-line
-  width: rem(90)
-  height: rem(10)
-  border-radius: rem(10)
-  margin-bottom: rem(16)
-  margin-left: calc(50% - rem(45))
-  background-color: rgba(0, 0, 0, 0.15)
-
-  +onMinSize(x-large)
-    display: none
-
-.sn-product-page-spacing
-  +onMaxSize(x-large)
-    padding-inline: rem(16)
-    margin-inline: rem(-16)
-    background-color: var(--white)
+    margin-block: rem(24) rem(12)
+    padding-inline: $items-padding
 
 .slider-track
   transition: transform 0.3s var(--ease-spring)
 
 .btn-expand
-  background-color: rgba($primary-color, 0.75)
+  background-color: rgba(#000, 0.75)
   color: var(--white)
   min-width: rem(40)
   width: rem(40)
   height: rem(40)
+  margin: rem(8)
   border-radius: 50%
-  position: absolute
-  right: rem(8)
-  top: rem(60)
-
-  +onMinSize(x-large)
-    position: static
-    // align-self: flex-end
-    grid-column: 2
-    grid-row: 1
-    z-index: 3
-    margin: rem(8)
-    margin-top: calc($imgShape - rem(50))
-    background-color: var(--secondary-shadow)
-    // color: var(--text)
-
   svg
     margin-left: rem(2)
 
@@ -370,5 +255,36 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
 
 .para-dots
   position: absolute
-  right: rem(-2)
+  right: rem(16)
   bottom: rem(24)
+
+.sn-product-body
+  .sn-header
+    display: none
+
+.btn-wishlist-float
+  background-color: var(--page-color-red-light)
+  color: var(--white)
+  width: rem(48)
+  height: rem(48)
+  border-radius: 50%
+  display: grid
+  place-items: center
+  margin-left: auto
+  margin-right: rem(16)
+
+//Grid Related changes
+.sn-product-page
+  display: grid
+  &-images
+    grid-row: 1
+    grid-column: 1
+  .page-back-btn,
+  .btn-expand
+    grid-row: 1
+    grid-column: 1
+    z-index: 2
+  .btn-expand
+    justify-self: flex-end
+
+// Grid Changes end

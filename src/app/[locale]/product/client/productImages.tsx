@@ -34,6 +34,14 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
   }
 
   useEffect(() => {
+    document.querySelector('body')?.classList.add('sn-product-body')
+
+    return () => {
+      document.querySelector('body')?.classList.remove('sn-product-body')
+    }
+  }, [])
+
+  useEffect(() => {
     const imgBoxCurrent = imgBox.current
 
     let startX: number
@@ -83,17 +91,10 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
   }, [activeImg])
 
   return (
-    <div className="sn-product-page-top">
+    <>
       <button type="button" className="page-back-btn">
         <Icon name="chevron-up" width={12} height={8} />
         <span>Go Back</span>
-      </button>
-      <button
-        type="button"
-        aria-label="Add to Wishlist"
-        className="btn-product btn-wishlist"
-      >
-        <Icon name="heart" />
       </button>
       <button
         type="button"
@@ -152,7 +153,7 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
           ))
         }
       </div>
-    </div>
+    </>
   )
 }
 
