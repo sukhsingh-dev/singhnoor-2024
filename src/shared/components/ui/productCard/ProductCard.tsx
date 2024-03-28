@@ -18,7 +18,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) => {
   const lang = useLocale()
-
+  const roundToNearestTen = (number: number): number => Math.round(number / 10) * 10
   return (
     <div className="product-card-outer" key={product._id}>
       <Link
@@ -48,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) 
           <div className="product-price-info d-flex text-right">
             <span className="product-price-old">
               <span className="product-price-currency">₹</span>
-              {product.productPrice}
+              {roundToNearestTen(product.productPrice + (product.productPrice / 2.5))}
             </span>
             <span className="product-price text-primary">
               <span className="product-price-currency">₹</span>
