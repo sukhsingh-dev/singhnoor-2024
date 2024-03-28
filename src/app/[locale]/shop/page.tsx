@@ -1,10 +1,10 @@
 import Icon from "@/shared/components/Icon"
-import { productList, productList2 } from "@/shared/helper/store"
-import ProductCard from "@/shared/components/ui/productCard"
+import ProductCard from "@/shared/components/ui/productCard/ProductCard"
 import './shop.sass'
 
-const ShopPage = (): React.ReactNode => {
-  const shopProducts = [...productList2, ...productList]
+const ShopPage = async (): Promise<JSX.Element> => {
+  const res = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
+  const shopProducts = await res.json()
   return (
     <section className="shop-page-section section-more-width">
       <input
@@ -288,8 +288,8 @@ const ShopPage = (): React.ReactNode => {
         </div>
         <ul className="product-list">
           {
-            shopProducts.map((product) => (
-              <li key={product.id} className="aos">
+            shopProducts.map((product: any) => (
+              <li key={product._id} className="aos">
                 <ProductCard product={product} />
               </li>
             ))

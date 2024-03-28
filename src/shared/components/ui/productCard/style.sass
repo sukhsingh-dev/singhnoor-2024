@@ -9,17 +9,15 @@ $card-padding: rem(12)
 .product
   &-image-outer
     position: relative
-    margin-inline: -0.75rem
-    margin-bottom: rem(8)
 
     img
       width: 100%
       height: auto
-      filter: drop-shadow(rem(3) rem(6) rem(9) rgba(0, 0, 0, 0.24))
 
   &-name
     font-weight: 550
     font-size: rem(18)
+    padding: rem(4) var(--card-padding)
 
   &-info
     flex-direction: column
@@ -51,8 +49,6 @@ $card-padding: rem(12)
       overflow: hidden
       opacity: 0
       height: 100%
-      padding: var(--card-padding)
-      padding-top: 0
       transform: translateX(rem(-20))
       animation: setBack 0.5s var(--ease-spring) forwards
       border: rem(1) solid var(--border-light)
@@ -64,6 +60,7 @@ $card-padding: rem(12)
         .product-name
           font-size: rem(20)
           color: var(--text)
+          padding: rem(8) var(--card-padding)
 
       .product-image-outer
         &::after
@@ -97,6 +94,7 @@ $card-padding: rem(12)
       text-align: left
       font-weight: 500
       font-size: rem(18)
+      padding: var(--card-padding)
 
     &-old
       text-decoration-line: line-through
@@ -121,23 +119,30 @@ $card-padding: rem(12)
   &-wishlist,
   &-add
     position: relative
-    bottom: calc(var(--card-padding) * -1)
+    bottom: rem(-27)
     color: var(--secondary)
     background-color: var(--secondary-light)
+    +onMaxSize(medium)
+      bottom: rem(-20)
     svg
       height: auto
       position: relative
       min-width: rem(24)
   &-add
-    right: calc(var(--card-padding) * -1)
+    right: 0
     border-radius: var(--card-radius) 0 var(--card-radius) 0
   &-wishlist
-    background: transparent
+    background: rgba(#FB6577, 0.8)
     position: absolute
-    top: 0
-    left: rem(-4)
-    color: var(--page-color-red-light)
-    border-radius: 0 var(--card-radius) 0 var(--card-radius)
+    top: rem(4)
+    left: rem(4)
+    color: var(--white)
+    border-radius: 50%
+    min-width: rem(32)
+    width: rem(32)
+    height: rem(32)
 
     svg
       transform: scale(0.9)
+      +onMaxSize(medium)
+        transform: scale(0.75)
