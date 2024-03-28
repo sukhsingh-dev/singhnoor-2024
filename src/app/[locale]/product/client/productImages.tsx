@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Icon from '@/shared/components/Icon'
 import { useRef, useState, useEffect } from "react"
+import Modal from "@/shared/components/ui/modal/Modal"
 
 interface PageTopTypes {
   imagesList: string[]
@@ -16,6 +17,7 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
   const imgShape = 450 // match this with imgShape variable in product.sass
   const imgBox = useRef<HTMLDivElement | null>(null)
   const [activeImg, setActiveImg] = useState<number>(0)
+  const [isFullScreen, setIsFullScreen] = useState(false)
 
   const handleDotClick = (imgNumb: number): void => {
     setActiveImg(imgNumb)
@@ -100,6 +102,7 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
         type="button"
         aria-label="expand images"
         className="btn-product btn-expand"
+        onClick={() => setIsFullScreen(true)}
       >
         <Icon name="expand" />
       </button>
@@ -153,6 +156,53 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
           ))
         }
       </div>
+      {
+        isFullScreen && (
+          <Modal
+            className="images-full-screen"
+            modalClose={setIsFullScreen}
+            modalBody={(
+              <>
+                <button
+                  type="button"
+                  aria-label="previous image"
+                  className="btn-modal btn-prev"
+                  onClick={() => setActiveImg((prev) => (prev - 1 + totalImages) % totalImages)}
+                >
+                  <Icon name="chevron-left" width={16} height={16} />
+                </button>
+                <div className="sn-product-page-images" ref={imgBox}>
+                  <div
+                    className="slider-track d-flex"
+                    style={{ transform: `translateX(calc(-100% * ${activeImg}))` }}
+                  >
+                    {
+                      imagesList.map((imageSrc: string) => (
+                        <Image
+                          key={imageSrc}
+                          src={imageSrc}
+                          alt="product image"
+                          width={1000}
+                          height={1000}
+                          quality={100}
+                        />
+                      ))
+                    }
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  aria-label="next image"
+                  className="btn-modal btn-next"
+                  onClick={() => setActiveImg((prev) => (prev + 1) % totalImages)}
+                >
+                  <Icon name="chevron-right" width={16} height={16} />
+                </button>
+              </>
+            )}
+          />
+        )
+      }
     </>
   )
 }

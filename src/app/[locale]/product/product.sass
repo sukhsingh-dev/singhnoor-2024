@@ -234,7 +234,7 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
 .slider-track
   transition: transform 0.3s var(--ease-spring)
 
-.btn-expand
+.btn-product.btn-expand
   background-color: rgba(#000, 0.75)
   color: var(--white)
   min-width: rem(40)
@@ -271,7 +271,67 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
   margin-left: auto
   margin-right: rem(16)
 
-//Grid Related changes
+.images-full-screen
+  .btn-modal,
+  .sn-modal-close
+    width: rem(50)
+    height: rem(50)
+    border-radius: 50%
+    background-color: rgba(0, 0, 0, 0.3)
+    color: var(--white)
+    display: grid
+    place-items: center
+  .sn-product-page-images
+    max-width: initial
+    width: 90vh
+    height: 90vh
+  .sn-modal-heading
+    width: 90vh
+    margin-inline: auto
+    position: relative
+  .sn-modal-inner
+    background: transparent
+    max-width: 100%
+    width: 90%
+  .sn-modal-body
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: rem(24)
+  .sn-modal-close
+    position: absolute
+    z-index: 1
+    top: rem(16)
+    right: rem(16)
+  +onMaxSize(large)
+    .sn-modal-inner
+      width: 100%
+    .sn-product-page-images
+      width: 90vw
+      height: 90vw
+    .sn-modal-heading
+      width: 90vw
+    .sn-modal-close
+      right: rem(32)
+  +onMaxSize(medium)
+    .sn-product-page-images
+      border-radius: rem(20)
+      aspect-ratio: 1/1
+      img
+        aspect-ratio: 1/1
+    .btn-modal
+      position: absolute
+      z-index: 1
+      &.btn-next
+        right: 0
+    .btn-modal,
+    .sn-modal-close
+      transform: scale(0.75)
+      background-color: rgba(0, 0, 0, 0.5)
+    .sn-modal-close
+      right: 0
+      top: 0
+  //Grid Related changes
 .sn-product-body
   .sn-header
     +onMaxSize(medium)
