@@ -4,6 +4,7 @@ import Image from "next/image"
 import Icon from '@/shared/components/Icon'
 import { useRef, useState, useEffect } from "react"
 import Modal from "@/shared/components/ui/modal/Modal"
+import Link from "next/link"
 
 interface PageTopTypes {
   imagesList: string[]
@@ -94,10 +95,10 @@ const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
 
   return (
     <>
-      <button type="button" className="page-back-btn">
+      <Link href="/en/shop" className="page-back-btn">
         <Icon name="chevron-up" width={12} height={8} />
         <span>Back</span>
-      </button>
+      </Link>
       <button
         type="button"
         aria-label="expand images"

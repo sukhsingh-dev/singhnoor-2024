@@ -86,11 +86,10 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
           width: rem(32)
 
   &-description
-    overflow: hidden
-    max-height: rem(145)
     color: var(--text)
-    +onMinSize(x-large)
-      max-height: rem(142)
+    p
+      margin-bottom: rem(16)
+
     &-set
       padding-inline: var(--items-padding)
   &-attribute
@@ -101,8 +100,6 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
 
     &-container
       padding-inline: var(--items-padding)
-
-    +onMinSize(x-large)
       margin-top: rem(24)
 
     &-heading
@@ -146,6 +143,19 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
   &-accordion
     margin-top: rem(12)
     padding-bottom: rem(16)
+    cursor: auto
+    summary
+      cursor: pointer
+    .sn-product-additional-info
+      padding-block: rem(16)
+    &.about
+      ul
+        list-style: disc
+        padding-left: rem(30)
+        color: var(--text)
+
+        li
+          margin-bottom: rem(8)
 
   &-float
     display: flex
@@ -245,20 +255,10 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
   svg
     margin-left: rem(2)
 
-.sn-input-read-more
-  +hide-input
-  &:checked
-    ~ .btn-read-more
-      .read-more-text
-        display: none
-      .read-less-text
-        display: inline
-    ~ .sn-product-page-description
-      max-height: initial
-
 .btn-read-more
   cursor: pointer
   color: var(--primary)
+  font-size: rem(16)
 
 .btn-wishlist-float
   background-color: var(--page-color-red-light)

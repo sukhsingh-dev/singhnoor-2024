@@ -7,6 +7,7 @@ import Icon from '@/shared/components/Icon'
 import Products from '../../home/products'
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
+import ProductDescription from "../client/ProductDescription"
 import '../product.sass'
 
 const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
@@ -21,15 +22,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
         <PageTopItems imagesList={product.productImagesArray} />
         <h2>{product.productTitle}</h2>
         <div className="sn-product-page-description-set position-relative">
-          <input type="checkbox" id="textController" className="sn-input-read-more" />
-          <p className="sn-product-page-description">
-            {product.productDescription}
-          </p>
-          <label htmlFor="textController" className="btn-read-more">
-            Read
-            <span className="read-more-text"> More</span>
-            <span className="read-less-text d-none"> Less</span>
-          </label>
+          <ProductDescription text={product.productDescription} />
         </div>
         <div className="sn-product-page-attribute-container">
           <div className="sn-product-page-float">
