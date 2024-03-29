@@ -10,7 +10,7 @@ interface ProductDescriptionTypes {
 }
 
 const ProductDescription = ({ text }: ProductDescriptionTypes): React.ReactNode => {
-  const truncateLength = 60
+  const truncateLength = 50
   const [isExpanded, setIsExpanded] = useState(false)
   const truncatedText = text.split(' ').slice(0, truncateLength).join(' ')
   const displayText = isExpanded ? text : `${truncatedText}...`

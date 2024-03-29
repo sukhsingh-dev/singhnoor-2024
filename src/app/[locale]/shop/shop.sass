@@ -43,6 +43,10 @@ $filter-section-gap: rem(32)
     gap: $filter-section-gap
     padding-top: rem(24)
 
+    .product-image-outer
+      &::after
+        display: none
+
   &-inner
     +onMinSize(large)
       width: calc(100% - $filter-section-width)

@@ -15,7 +15,7 @@ $card-padding: rem(12)
       height: auto
 
   &-name
-    font-weight: 550
+    font-weight: 500
     font-size: rem(18)
     padding: rem(4) var(--card-padding)
 
@@ -58,9 +58,15 @@ $card-padding: rem(12)
       +onMinSize(x-large)
         --card-padding: 1rem
         .product-name
-          font-size: rem(20)
+          font-size: rem(18)
           color: var(--text)
           padding: rem(8) var(--card-padding)
+
+        .btn-wishlist
+          opacity: 0
+        &:hover
+          .btn-wishlist
+            opacity: 1
 
       .product-image-outer
         &::after
