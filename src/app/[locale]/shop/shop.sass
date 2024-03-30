@@ -311,7 +311,17 @@ $filter-section-gap: rem(32)
 
   &-options
     margin-block: rem(16)
-
+    display: flex
+    flex-direction: column
+    &-outer
+      margin-left: rem(12)
+      padding-left: rem(4)
+      order: -1
+      .sn-custom-checkbox-outer
+        padding-right: rem(12)
+      summary
+        margin-bottom: rem(8)
+        font-weight: 500
     &.color
       display: flex
       flex-wrap: wrap
