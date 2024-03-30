@@ -8,6 +8,7 @@ import Products from '../../home/products'
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
 import ProductDescription from "../client/ProductDescription"
+import SizeChart from "../client/SizeChart"
 import '../product.sass'
 
 const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
@@ -71,6 +72,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
                     ))
                   }
                 </ul>
+                <SizeChart category={product.productCategory} />
               </div>
               : ''
           }
@@ -106,10 +108,6 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
           <details className="sn-product-page-accordion about">
             <summary>About Product</summary>
             <InnerHtml data={product.productAdditional} className="sn-product-additional-info" />
-          </details>
-          <details className="sn-product-page-accordion guide">
-            <summary>Size Guide</summary>
-            <p>Size Guide Chart</p>
           </details>
           <details className="sn-product-page-accordion review">
             <summary>Reviews</summary>

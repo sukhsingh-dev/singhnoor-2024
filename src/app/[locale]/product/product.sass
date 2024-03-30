@@ -98,6 +98,10 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
     gap: rem(8)
     margin-top: rem(24)
 
+    &.size
+      +onMinSize(x-large)
+        margin-top: rem(40)
+
     &-container
       padding-inline: var(--items-padding)
       margin-top: rem(24)
@@ -163,7 +167,7 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
 
     +onMaxSize(x-large)
       position: fixed
-      z-index: 1
+      z-index: 2
       bottom: rem(20)
       border-radius: rem(50)
       padding: rem(12) rem(12) rem(12) rem(20)
@@ -402,3 +406,77 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
       grid-row: 2
 
 // Grid Changes end
+
+.size-chart-btn
+  border: rem(1) solid var(--primary)
+  color: var(--primary)
+  margin-left: auto
+  display: flex
+  place-items: center
+  gap: rem(8)
+  padding: rem(4) rem(8)
+  border-radius: rem(4)
+  +onMinSize(x-large)
+    border: none
+
+.size-chart-modal
+  position: fixed
+  z-index: 1
+  inset: 0
+  top: auto
+  +onMinSize(x-large)
+    left: auto
+    top: 0
+    z-index: 3
+    width: 50%
+
+  &-body
+    background: var(--white)
+    padding: rem(16)
+    padding-bottom: rem(70)
+  &-close
+    position: absolute
+    right: rem(30)
+    top: rem(20)
+
+    +onMinSize(medium)
+      right: rem(40)
+      top: rem(40)
+    +onMinSize(x-large)
+      position: static
+      &::after
+        content: ''
+        position: fixed
+        inset: 0
+        right: 50%
+        background: rgba(#000,0.50)
+  &-table
+    width: 100%
+    margin-block: rem(12) rem(24)
+    border-collapse: collapse
+    th,td
+      padding: rem(4) rem(8)
+      +onMinSize(x-large)
+        padding: rem(8) rem(12)
+    thead tr
+      background-color: var(--secondary)
+      color: var(--white)
+    td
+      border-bottom: rem(1) solid var(--border-light)
+
+.modal-design
+  width: 100%
+  height: rem(50)
+  color: var(--white)
+  margin-bottom: rem(-10)
+  filter: drop-shadow(0 rem(-1) 0 rgba(#000,0.2))
+
+  +onMinSize(medium)
+    height: rem(90)
+  +onMinSize(x-large)
+    display: none
+
+.value-info
+  display: block
+  text-align: right
+  color: var(--text)

@@ -84,5 +84,11 @@
       <symbol id="chevron-down" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M7 1L4 4L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </symbol>
+      <symbol id="table-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+        <path fill="currentColor" d="M728-172H232q-26 0-43-17t-17-43v-496q0-26 17-43t43-17h496q26 0 43 17t17 43v496q0 26-17 43t-43 17ZM200-614h560v-114q0-12-10-22t-22-10H232q-12 0-22 10t-10 22v114Zm120 28H200v354q0 12 10 22t22 10h88v-386Zm320 0v386h88q12 0 22-10t10-22v-354H640Zm-28 0H348v386h264v-386Z"/>
+      </symbol>
+      <svg id="modal-design" viewBox="0 0 275 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M116.494 4.59842L120.072 7.70868C121.892 9.29029 124.221 10.1613 126.632 10.1613H147.787C150.544 10.1613 153.178 9.0237 155.067 7.01723L157.234 4.71609C160.069 1.70638 164.02 0 168.154 0H245C261.569 0 275 13.4315 275 30H0C0 13.4734 13.4729 0.116085 29.9989 0.258476L106.783 0.920059C110.354 0.950834 113.798 2.25517 116.494 4.59842ZM128.375 2.90332C127.573 2.90332 126.923 3.55323 126.923 4.35493C126.923 5.15664 127.573 5.80655 128.375 5.80655H146.625C147.427 5.80655 148.077 5.15664 148.077 4.35493C148.077 3.55323 147.427 2.90332 146.625 2.90332H128.375Z" fill="currentColor"/>
+      </svg>
   </defs>
 </svg>
