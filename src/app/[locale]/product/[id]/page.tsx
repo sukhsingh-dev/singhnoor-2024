@@ -3,6 +3,7 @@
 /* eslint-disable operator-linebreak */
 import { productList2 } from "@/shared/helper/store"
 import { useLocale } from "next-intl"
+import Link from "next/link"
 import Icon from '@/shared/components/Icon'
 import Products from '../../home/products'
 import PageTopItems from "../client/productImages"
@@ -111,7 +112,10 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
           </details>
           <details className="sn-product-page-accordion review">
             <summary>Reviews</summary>
-            <p>Reviews Data and add review option</p>
+            <div className="review-body">
+              <p className="no-review-text">No Reviews Yet</p>
+              <Link href="/login" className="review-login-btn">Login to Add review</Link>
+            </div>
           </details>
         </div>
       </section>

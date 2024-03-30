@@ -7,13 +7,24 @@ Home page --------
   Account related UI
   Search Functionality
   Cursor design for desktop
-  Client to server components
 
 Shop page --------
-  Grid/List view Toggle
   Per page dropdown + Pagination + auto load
   Sort by dropdown
   Filters
+
+Product page _______
+  Size chart for different Categories
+  Qty increase
+  Reviews
+  You may like also like dynamic
+
+General ___________
+Code cleanup
+typescript any declaration fixes
+Client to server components
+
+
 
 inspiration
 https://www.nuuds.com/collections/new-in
