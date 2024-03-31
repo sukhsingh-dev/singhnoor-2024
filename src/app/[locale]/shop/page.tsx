@@ -4,6 +4,7 @@ import ShopFilter from "./ShopFilters"
 import './shop.sass'
 
 interface FilterTypes {
+  filters: string | undefined
   category: string | undefined
 }
 
@@ -13,11 +14,11 @@ interface SearchParam {
 
 const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
   let result
+  const { filters, category } = searchParams
 
-  if (Object.keys(searchParams).length === 0) {
+  if (Object.keys(searchParams).length === 0 || filters === undefined) {
     result = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
   } else {
-    const { category } = searchParams
     result = await fetch(`${process.env.BACKOFFICE_URL}/products?filters=true&category=${category}`, { cache: 'no-store' })
   }
 
