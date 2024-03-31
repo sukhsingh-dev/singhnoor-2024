@@ -24,7 +24,7 @@ const Categories: React.FC = async () => {
         {
           categories.map((category: CategoryType) => (
             <li className="aos" key={category._id}>
-              <Link href={`${lang}/shop?filter=true&category=${category._id}`} className="category-item-link">
+              <Link href={`${lang}/shop?filters=true&category=${category._id}`} className="category-item-link">
                 <div className="bg-decorator mx-auto" style={{ backgroundColor: category.categoryBg }} />
                 <Image
                   src={category.categoryImg}
