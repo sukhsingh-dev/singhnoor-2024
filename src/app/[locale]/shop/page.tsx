@@ -3,9 +3,25 @@ import ProductCard from "@/shared/components/ui/productCard/ProductCard"
 import ShopFilter from "./ShopFilters"
 import './shop.sass'
 
-const ShopPage = async (): Promise<JSX.Element> => {
-  const res = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
-  const shopProducts = await res.json()
+interface FilterTypes {
+  category: string | undefined
+}
+
+interface SearchParam {
+  searchParams: FilterTypes
+}
+
+const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
+  let result
+
+  if (Object.keys(searchParams).length === 0) {
+    result = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
+  } else {
+    const { category } = searchParams
+    result = await fetch(`${process.env.BACKOFFICE_URL}/products?filters=true&category=${category}`, { cache: 'no-store' })
+  }
+
+  const shopProducts = await result.json()
 
   return (
     <section className="shop-page-section section-more-width">
