@@ -1,10 +1,16 @@
 import Icon from "@/shared/components/Icon"
+import FilterCheckbox from "./FilterCheckbox"
 
-const ShopFilter = async (): Promise<JSX.Element> => {
+interface ShopFilterTypes {
+  categoryName: string | undefined
+}
+
+const ShopFilter = async ({ categoryName }: ShopFilterTypes): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
   const shopCategories = await res.json()
 
-  // console.log("Cat are", shopCategories.subCategory)
+  //  for filters check
+  const categoriesFilterArray = categoryName?.split(',')
 
   return (
     <div className="filters-fields-outer">
@@ -76,7 +82,12 @@ const ShopFilter = async (): Promise<JSX.Element> => {
                       return (
                         <label key={category._id} className="sn-custom-checkbox-outer">
                           <span className="sn-custom-checkbox-label">{category.categoryName}</span>
-                          <input type="checkbox" className="sn-custom-checkbox-input" value={category._id} />
+                          <FilterCheckbox
+                            checkboxId={category._id}
+                            checkboxName={category.categoryName}
+                            // eslint-disable-next-line max-len
+                            isDefaultChecked={categoriesFilterArray?.includes(category.categoryName as string)}
+                          />
                           <span className="sn-custom-checkbox" />
                         </label>
                       )

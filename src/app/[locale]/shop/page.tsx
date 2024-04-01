@@ -41,7 +41,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
         value="productViewList"
         className="shop-page-actions-input"
       />
-      <ShopFilter />
+      <ShopFilter categoryName={category} />
       <div className="shop-page-inner">
         <div className="shop-page-actions dropdown-group">
           <div className="dropdown-outer">
