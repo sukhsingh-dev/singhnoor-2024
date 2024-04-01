@@ -16,10 +16,17 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
   let result
   const { filters, category } = searchParams
 
+  const queryString = Object.entries(searchParams)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&')
+
+  // console.log("the seacrh is", queryString)
+
   if (Object.keys(searchParams).length === 0 || filters === undefined) {
     result = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
   } else {
-    result = await fetch(`${process.env.BACKOFFICE_URL}/products?filters=true&category=${category}`, { cache: 'no-store' })
+    result = await fetch(`${process.env.BACKOFFICE_URL}/products?${queryString}`, { cache: 'no-store' })
   }
 
   const shopProducts = await result.json()
