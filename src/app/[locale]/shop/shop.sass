@@ -266,6 +266,7 @@ $filter-section-gap: rem(32)
     min-width: 100%
     +onMinSize(large)
       min-width: calc($filter-section-width - $filter-section-gap)
+      max-width: calc($filter-section-width - $filter-section-gap)
 
   &-heading
     display: flex
@@ -280,7 +281,8 @@ $filter-section-gap: rem(32)
 
   &-applied
     display: flex
-    gap: rem(16)
+    flex-wrap: wrap
+    gap: rem(4) rem(8)
     margin-bottom: rem(16)
     padding: rem(8)
     border-bottom: rem(1) solid var(--border-light)

@@ -17,13 +17,25 @@ const FilterCheckbox = (
   const searchQuery = searchParams.get(checkboxSearch)
   const searchQueryArray = searchQuery?.split(',')
 
+  const searchQueryString = searchParams.toString()
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (searchQueryArray?.length === undefined) {
+      if (!searchQueryString) {
         router.push(`/en/shop?filters=true&${checkboxSearch}=${checkboxName}`)
-      } else {
-        router.push(`/en/shop?filters=true&${checkboxSearch}=${searchQuery},${checkboxName}`)
+      } else if ((searchQueryString.length > 0) && !searchQueryString.includes(checkboxSearch)) {
+        router.push(`/en/shop?${decodeURIComponent(searchQueryString)}&${checkboxSearch}=${checkboxName}`)
+      } else if (searchQueryString.includes(checkboxSearch)) {
+        const nq = `${searchQuery},${checkboxName}`
+        const startPos = searchQueryString.indexOf(`${checkboxSearch}=`) + `${checkboxSearch}=`.length
+        let endPos = searchQueryString.indexOf("&", startPos)
+        if (endPos === -1) {
+          endPos = searchQueryString.length
+        }
+        const substringToReplace = searchQueryString.substring(startPos, endPos)
+        const newSearch = searchQueryString.replace(substringToReplace, nq)
+        router.push(`/en/shop?${decodeURIComponent(newSearch)}`)
       }
     } else {
 
