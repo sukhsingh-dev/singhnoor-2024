@@ -14,13 +14,10 @@ interface SearchParam {
 const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
   let result
   const { filters } = searchParams
-
   const queryString = Object.entries(searchParams)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
     .join('&')
-
-  // console.log("the seacrh is", queryString)
 
   if (Object.keys(searchParams).length === 0 || filters === undefined) {
     result = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
@@ -47,7 +44,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
         value="productViewList"
         className="shop-page-actions-input"
       />
-      <ShopFilter />
+      <ShopFilter appliedFilters={searchParams} />
       <div className="shop-page-inner">
         <div className="shop-page-actions dropdown-group">
           <div className="dropdown-outer">
@@ -94,22 +91,6 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
-        <div className="filters-fields-applied">
-          <div className="filters-fields-pill">
-            <span>T-shirt</span>
-            <button type="button" aria-label="remove filter"><Icon name="close" /></button>
-          </div>
-
-          <div className="filters-fields-pill">
-            <span>Men</span>
-            <button type="button" aria-label="remove filter"><Icon name="close" /></button>
-          </div>
-
-          <div className="filters-fields-pill">
-            <span>499</span>
-            <button type="button" aria-label="remove filter"><Icon name="close" /></button>
           </div>
         </div>
         <ul className="product-list">

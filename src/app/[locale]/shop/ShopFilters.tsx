@@ -1,9 +1,18 @@
 import Icon from "@/shared/components/Icon"
 import FilterCheckbox from "./FilterCheckbox"
 
-const ShopFilter = async (): Promise<JSX.Element> => {
+const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
   const shopCategories = await res.json()
+  const appliedFiltersArray = []
+
+  /* eslint-disable no-restricted-syntax */
+  for (const key in appliedFilters) {
+    if ((Boolean(Object.prototype.hasOwnProperty.call(appliedFilters, key))) && appliedFilters[key] !== 'true') {
+      const values: string[] = appliedFilters[key].split(',').map((value: string) => value.trim())
+      appliedFiltersArray.push(...values)
+    }
+  }
 
   return (
     <div className="filters-fields-outer">
@@ -41,10 +50,26 @@ const ShopFilter = async (): Promise<JSX.Element> => {
           >
             <Icon name="close" />
           </label>
-          <button type="button" className="btn-clear">
-            Clear all
-            <Icon name="close" width={16} height={16} />
-          </button>
+          {
+            appliedFiltersArray.length > 1 &&
+            (
+              <button type="button" className="btn-clear">
+                Clear all
+                <Icon name="close" width={16} height={16} />
+              </button>
+            )
+          }
+        </div>
+        <div className="filters-fields-applied">
+          {
+            appliedFiltersArray.map((filter) => (
+              <div key={filter} className="filters-fields-pill">
+                <span>{filter}</span>
+                <button type="button" aria-label="remove filter"><Icon name="close" /></button>
+              </div>
+            ))
+          }
+
         </div>
         <div className="filters-fields-body">
           <ul className="filters-fields-main">
