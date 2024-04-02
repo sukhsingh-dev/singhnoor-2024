@@ -5,7 +5,6 @@ import './shop.sass'
 
 interface FilterTypes {
   filters: string | undefined
-  category: string | undefined
 }
 
 interface SearchParam {
@@ -14,7 +13,7 @@ interface SearchParam {
 
 const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
   let result
-  const { filters, category } = searchParams
+  const { filters } = searchParams
 
   const queryString = Object.entries(searchParams)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -48,7 +47,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
         value="productViewList"
         className="shop-page-actions-input"
       />
-      <ShopFilter categoryName={category} />
+      <ShopFilter />
       <div className="shop-page-inner">
         <div className="shop-page-actions dropdown-group">
           <div className="dropdown-outer">

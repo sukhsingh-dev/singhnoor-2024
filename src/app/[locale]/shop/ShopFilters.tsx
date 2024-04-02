@@ -1,16 +1,9 @@
 import Icon from "@/shared/components/Icon"
 import FilterCheckbox from "./FilterCheckbox"
 
-interface ShopFilterTypes {
-  categoryName: string | undefined
-}
-
-const ShopFilter = async ({ categoryName }: ShopFilterTypes): Promise<JSX.Element> => {
+const ShopFilter = async (): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
   const shopCategories = await res.json()
-
-  //  for filters check
-  const categoriesFilterArray = categoryName?.split(',')
 
   return (
     <div className="filters-fields-outer">
@@ -74,8 +67,6 @@ const ShopFilter = async ({ categoryName }: ShopFilterTypes): Promise<JSX.Elemen
                                       checkboxSearch="subCategory"
                                       checkboxId={subCategory.value}
                                       checkboxName={subCategory.label}
-                                      // eslint-disable-next-line max-len
-                                      isDefaultChecked={categoriesFilterArray?.includes(category.categoryName as string)}
                                     />
                                     <span className="sn-custom-checkbox" />
                                   </label>
@@ -92,8 +83,6 @@ const ShopFilter = async ({ categoryName }: ShopFilterTypes): Promise<JSX.Elemen
                             checkboxSearch="category"
                             checkboxId={category._id}
                             checkboxName={category.categoryName}
-                            // eslint-disable-next-line max-len
-                            isDefaultChecked={categoriesFilterArray?.includes(category.categoryName as string)}
                           />
                           <span className="sn-custom-checkbox" />
                         </label>

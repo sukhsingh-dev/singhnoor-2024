@@ -6,11 +6,10 @@ interface FilterCheckboxTypes {
   checkboxSearch: string
   checkboxId: string
   checkboxName: string
-  isDefaultChecked: boolean | undefined
 }
 
 const FilterCheckbox = (
-  { checkboxSearch, checkboxId, checkboxName, isDefaultChecked }: FilterCheckboxTypes
+  { checkboxSearch, checkboxId, checkboxName }: FilterCheckboxTypes
 ): React.ReactNode => {
 
   const router = useRouter()
@@ -21,7 +20,6 @@ const FilterCheckbox = (
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      console.log("The values are", checkboxSearch, checkboxName)
       if (categoriesArray?.length === undefined) {
         router.push(`/en/shop?filters=true&${checkboxSearch}=${checkboxName}`)
       } else {
@@ -49,7 +47,7 @@ const FilterCheckbox = (
       type="checkbox"
       className="sn-custom-checkbox-input"
       value={checkboxId}
-      defaultChecked={isDefaultChecked}
+      defaultChecked={categoryQuery?.includes(checkboxName)}
       onChange={handleInputChange}
     />
   )
