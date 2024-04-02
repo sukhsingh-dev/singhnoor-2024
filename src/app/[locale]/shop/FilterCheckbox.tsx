@@ -3,27 +3,29 @@
 import { useRouter, useSearchParams } from "next/navigation"
 
 interface FilterCheckboxTypes {
+  checkboxSearch: string
   checkboxId: string
   checkboxName: string
   isDefaultChecked: boolean | undefined
 }
 
 const FilterCheckbox = (
-  { checkboxId, checkboxName, isDefaultChecked }: FilterCheckboxTypes
+  { checkboxSearch, checkboxId, checkboxName, isDefaultChecked }: FilterCheckboxTypes
 ): React.ReactNode => {
 
   const router = useRouter()
   const searchParams = useSearchParams()
-  const categoryQuery = searchParams.get("category")
+  const categoryQuery = searchParams.get(checkboxSearch)
   const categoriesArray = categoryQuery?.split(',')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      console.log("The values are", checkboxSearch, checkboxName)
       if (categoriesArray?.length === undefined) {
-        router.push(`/en/shop?filters=true&category=${checkboxName}`)
+        router.push(`/en/shop?filters=true&${checkboxSearch}=${checkboxName}`)
       } else {
-        router.push(`/en/shop?filters=true&category=${categoryQuery},${checkboxName}`)
+        router.push(`/en/shop?filters=true&${checkboxSearch}=${categoryQuery},${checkboxName}`)
       }
     } else {
 
@@ -38,7 +40,7 @@ const FilterCheckbox = (
       } else {
         modifiedQuery = categoryQuery?.replace(`,${checkboxName}`, '')
       }
-      router.push(`/en/shop?filters=true&category=${modifiedQuery}`)
+      router.push(`/en/shop?filters=true&${checkboxSearch}=${modifiedQuery}`)
     }
   }
 

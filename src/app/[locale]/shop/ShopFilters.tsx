@@ -70,7 +70,13 @@ const ShopFilter = async ({ categoryName }: ShopFilterTypes): Promise<JSX.Elemen
                                 category.subCategory.map((subCategory: any) => (
                                   <label key={subCategory.value} className="sn-custom-checkbox-outer">
                                     <span className="sn-custom-checkbox-label">{subCategory.label}</span>
-                                    <input type="checkbox" className="sn-custom-checkbox-input" value={subCategory.value} />
+                                    <FilterCheckbox
+                                      checkboxSearch="subCategory"
+                                      checkboxId={subCategory.value}
+                                      checkboxName={subCategory.label}
+                                      // eslint-disable-next-line max-len
+                                      isDefaultChecked={categoriesFilterArray?.includes(category.categoryName as string)}
+                                    />
                                     <span className="sn-custom-checkbox" />
                                   </label>
                                 ))
@@ -83,6 +89,7 @@ const ShopFilter = async ({ categoryName }: ShopFilterTypes): Promise<JSX.Elemen
                         <label key={category._id} className="sn-custom-checkbox-outer">
                           <span className="sn-custom-checkbox-label">{category.categoryName}</span>
                           <FilterCheckbox
+                            checkboxSearch="category"
                             checkboxId={category._id}
                             checkboxName={category.categoryName}
                             // eslint-disable-next-line max-len
