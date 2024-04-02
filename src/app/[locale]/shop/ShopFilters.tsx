@@ -123,22 +123,38 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
                 <p className="filters-fields-options">
                   <label className="sn-custom-checkbox-outer">
                     <span className="sn-custom-checkbox-label">Men</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
+                    <FilterCheckbox
+                      checkboxSearch="for"
+                      checkboxId="men"
+                      checkboxName="men"
+                    />
                     <span className="sn-custom-checkbox" />
                   </label>
                   <label className="sn-custom-checkbox-outer">
                     <span className="sn-custom-checkbox-label">Women</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
+                    <FilterCheckbox
+                      checkboxSearch="for"
+                      checkboxId="women"
+                      checkboxName="women"
+                    />
                     <span className="sn-custom-checkbox" />
                   </label>
                   <label className="sn-custom-checkbox-outer">
                     <span className="sn-custom-checkbox-label">Kids</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
+                    <FilterCheckbox
+                      checkboxSearch="for"
+                      checkboxId="kids"
+                      checkboxName="kids"
+                    />
                     <span className="sn-custom-checkbox" />
                   </label>
                   <label className="sn-custom-checkbox-outer">
                     <span className="sn-custom-checkbox-label">Couple</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
+                    <FilterCheckbox
+                      checkboxSearch="for"
+                      checkboxId="couple"
+                      checkboxName="couple"
+                    />
                     <span className="sn-custom-checkbox" />
                   </label>
                 </p>

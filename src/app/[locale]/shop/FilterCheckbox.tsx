@@ -14,29 +14,29 @@ const FilterCheckbox = (
 
   const router = useRouter()
   const searchParams = useSearchParams()
-  const categoryQuery = searchParams.get(checkboxSearch)
-  const categoriesArray = categoryQuery?.split(',')
+  const searchQuery = searchParams.get(checkboxSearch)
+  const searchQueryArray = searchQuery?.split(',')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (categoriesArray?.length === undefined) {
+      if (searchQueryArray?.length === undefined) {
         router.push(`/en/shop?filters=true&${checkboxSearch}=${checkboxName}`)
       } else {
-        router.push(`/en/shop?filters=true&${checkboxSearch}=${categoryQuery},${checkboxName}`)
+        router.push(`/en/shop?filters=true&${checkboxSearch}=${searchQuery},${checkboxName}`)
       }
     } else {
 
-      if (categoriesArray?.length === 1) {
+      if (searchQueryArray?.length === 1) {
         router.push('/en/shop')
         return
       }
 
       let modifiedQuery
-      if ((categoryQuery?.endsWith(checkboxName)) === false) {
-        modifiedQuery = categoryQuery?.replace(`${checkboxName},`, '')
+      if ((searchQuery?.endsWith(checkboxName)) === false) {
+        modifiedQuery = searchQuery?.replace(`${checkboxName},`, '')
       } else {
-        modifiedQuery = categoryQuery?.replace(`,${checkboxName}`, '')
+        modifiedQuery = searchQuery?.replace(`,${checkboxName}`, '')
       }
       router.push(`/en/shop?filters=true&${checkboxSearch}=${modifiedQuery}`)
     }
@@ -47,7 +47,7 @@ const FilterCheckbox = (
       type="checkbox"
       className="sn-custom-checkbox-input"
       value={checkboxId}
-      defaultChecked={categoryQuery?.includes(checkboxName)}
+      defaultChecked={searchQuery?.includes(checkboxName)}
       onChange={handleInputChange}
     />
   )
