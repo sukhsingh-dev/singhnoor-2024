@@ -74,6 +74,7 @@ const FilterCheckbox = (
     <input
       type="checkbox"
       className="sn-custom-checkbox-input"
+      id={checkboxName}
       value={checkboxName}
       defaultChecked={searchQuery?.includes(checkboxName)}
       onChange={handleInputChange}
