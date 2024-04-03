@@ -1,5 +1,4 @@
 import Icon from "@/shared/components/Icon"
-import Link from "next/link"
 import FilterCheckbox from "./clientComponents/FilterCheckbox"
 
 export const genderOptions = [
@@ -61,10 +60,10 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
           {
             appliedFiltersArray.length > 1 &&
             (
-              <Link href="/en/shop" className="btn-clear">
+              <a href="/en/shop" className="btn-clear">
                 Clear all
                 <Icon name="close" width={16} height={16} />
-              </Link>
+              </a>
             )
           }
         </div>
@@ -241,7 +240,7 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
           </ul>
         </div>
         <div className="filters-fields-footer">
-          <button type="button" className="btn btn-primary">Apply Filters</button>
+          <label className="btn btn-primary" htmlFor="filter-fields-toggler">Apply Filters</label>
         </div>
       </div>
     </div>
