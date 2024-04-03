@@ -4,14 +4,12 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 interface FilterCheckboxTypes {
   checkboxSearch: string
-  checkboxId: string
   checkboxName: string
 }
 
 const FilterCheckbox = (
-  { checkboxSearch, checkboxId, checkboxName }: FilterCheckboxTypes
+  { checkboxSearch, checkboxName }: FilterCheckboxTypes
 ): React.ReactNode => {
-
   const router = useRouter()
   const searchParams = useSearchParams()
   const searchQuery = searchParams.get(checkboxSearch)
@@ -38,19 +36,31 @@ const FilterCheckbox = (
         router.push(`/en/shop?${decodeURIComponent(newSearch)}`)
       }
     } else {
-
-      if (searchQueryArray?.length === 1) {
+      // eslint-disable-next-line no-lonely-if
+      if (!searchQueryString.includes(checkboxName) && searchQueryArray?.length === 1) {
         router.push('/en/shop')
-        return
-      }
+      } else if (searchQueryString.includes(checkboxName)) {
+        const queryParams = searchQueryString.split('&')
+        const subCategoryIndex = queryParams.findIndex((param) => param.startsWith(`${checkboxSearch}=`))
 
-      let modifiedQuery
-      if ((searchQuery?.endsWith(checkboxName)) === false) {
-        modifiedQuery = searchQuery?.replace(`${checkboxName},`, '')
-      } else {
-        modifiedQuery = searchQuery?.replace(`,${checkboxName}`, '')
+        if (subCategoryIndex !== -1) {
+          const subCategoryValue = queryParams[subCategoryIndex].substring(`${checkboxSearch}=`.length)
+          const subCategoryArray = subCategoryValue.split(',')
+          const checkboxIndex = subCategoryArray.indexOf(checkboxName)
+          if (checkboxIndex !== -1) {
+            subCategoryArray.splice(checkboxIndex, 1)
+          }
+          if (subCategoryArray.length === 0) {
+            queryParams.splice(subCategoryIndex, 1)
+          } else {
+            queryParams[subCategoryIndex] = `${checkboxSearch}=${subCategoryArray.join(',')}`
+          }
+          const updatedQueryString = queryParams.join('&')
+          router.push(`/en/shop?${decodeURIComponent(updatedQueryString)}`)
+        } else {
+          router.push(`/en/shop?${decodeURIComponent(searchQueryString)}`)
+        }
       }
-      router.push(`/en/shop?filters=true&${checkboxSearch}=${modifiedQuery}`)
     }
   }
 
@@ -58,7 +68,7 @@ const FilterCheckbox = (
     <input
       type="checkbox"
       className="sn-custom-checkbox-input"
-      value={checkboxId}
+      value={checkboxName}
       defaultChecked={searchQuery?.includes(checkboxName)}
       onChange={handleInputChange}
     />

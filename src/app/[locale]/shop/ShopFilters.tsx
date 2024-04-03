@@ -1,6 +1,13 @@
 import Icon from "@/shared/components/Icon"
 import FilterCheckbox from "./FilterCheckbox"
 
+export const genderOptions = [
+  { value: 'men', label: 'Men' },
+  { value: 'women', label: 'Women' },
+  { value: 'couple', label: 'Couple' },
+  { value: 'kids', label: 'Kids' }
+]
+
 const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
   const shopCategories = await res.json()
@@ -90,7 +97,6 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
                                     <span className="sn-custom-checkbox-label">{subCategory.label}</span>
                                     <FilterCheckbox
                                       checkboxSearch="subCategory"
-                                      checkboxId={subCategory.value}
                                       checkboxName={subCategory.label}
                                     />
                                     <span className="sn-custom-checkbox" />
@@ -106,7 +112,6 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
                           <span className="sn-custom-checkbox-label">{category.categoryName}</span>
                           <FilterCheckbox
                             checkboxSearch="category"
-                            checkboxId={category._id}
                             checkboxName={category.categoryName}
                           />
                           <span className="sn-custom-checkbox" />
@@ -121,42 +126,18 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
               <details className="filters-fields-toggler">
                 <summary>For</summary>
                 <p className="filters-fields-options">
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">Men</span>
-                    <FilterCheckbox
-                      checkboxSearch="for"
-                      checkboxId="men"
-                      checkboxName="men"
-                    />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">Women</span>
-                    <FilterCheckbox
-                      checkboxSearch="for"
-                      checkboxId="women"
-                      checkboxName="women"
-                    />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">Kids</span>
-                    <FilterCheckbox
-                      checkboxSearch="for"
-                      checkboxId="kids"
-                      checkboxName="kids"
-                    />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">Couple</span>
-                    <FilterCheckbox
-                      checkboxSearch="for"
-                      checkboxId="couple"
-                      checkboxName="couple"
-                    />
-                    <span className="sn-custom-checkbox" />
-                  </label>
+                  {
+                    genderOptions.map((option) => (
+                      <label key={option.value} className="sn-custom-checkbox-outer">
+                        <span className="sn-custom-checkbox-label">{option.label}</span>
+                        <FilterCheckbox
+                          checkboxSearch="for"
+                          checkboxName={option.value}
+                        />
+                        <span className="sn-custom-checkbox" />
+                      </label>
+                    ))
+                  }
                 </p>
               </details>
             </li>
