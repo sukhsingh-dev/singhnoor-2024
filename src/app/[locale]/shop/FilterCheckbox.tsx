@@ -23,7 +23,10 @@ const FilterCheckbox = (
       if (!searchQueryString) {
         router.push(`/en/shop?filters=true&${checkboxSearch}=${checkboxName}`)
       } else if ((searchQueryString.length > 0) && !searchQueryString.includes(checkboxSearch)) {
-        router.push(`/en/shop?${decodeURIComponent(searchQueryString)}&${checkboxSearch}=${checkboxName}`)
+
+        const convertQuery = searchQueryString.replace(/\+/g, '%20')
+        router.push(`/en/shop?${convertQuery}&${checkboxSearch}=${checkboxName}`)
+
       } else if (searchQueryString.includes(checkboxSearch)) {
         const nq = `${searchQuery},${checkboxName}`
         const startPos = searchQueryString.indexOf(`${checkboxSearch}=`) + `${checkboxSearch}=`.length
@@ -33,7 +36,10 @@ const FilterCheckbox = (
         }
         const substringToReplace = searchQueryString.substring(startPos, endPos)
         const newSearch = searchQueryString.replace(substringToReplace, nq)
-        router.push(`/en/shop?${decodeURIComponent(newSearch)}`)
+        const convertQuery = newSearch.replace(/\+/g, '%20')
+
+        router.push(`/en/shop?${convertQuery}`)
+
       }
     } else {
       // eslint-disable-next-line no-lonely-if
@@ -56,9 +62,9 @@ const FilterCheckbox = (
             queryParams[subCategoryIndex] = `${checkboxSearch}=${subCategoryArray.join(',')}`
           }
           const updatedQueryString = queryParams.join('&')
-          router.push(`/en/shop?${decodeURIComponent(updatedQueryString)}`)
+          router.push(`/en/shop?${updatedQueryString}`)
         } else {
-          router.push(`/en/shop?${decodeURIComponent(searchQueryString)}`)
+          router.push(`/en/shop?${searchQueryString}`)
         }
       }
     }
