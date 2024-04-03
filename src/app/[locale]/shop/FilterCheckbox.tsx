@@ -15,7 +15,7 @@ const FilterCheckbox = (
   const searchQuery = searchParams.get(checkboxSearch)
   const searchQueryArray = searchQuery?.split(',')
 
-  const searchQueryString = searchParams.toString()
+  const searchQueryString = searchParams.toString().replace(/\+/g, ' ').replace(/%2C/g, ',')
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
@@ -24,7 +24,7 @@ const FilterCheckbox = (
         router.push(`/en/shop?filters=true&${checkboxSearch}=${checkboxName}`)
       } else if ((searchQueryString.length > 0) && !searchQueryString.includes(checkboxSearch)) {
 
-        const convertQuery = searchQueryString.replace(/\+/g, '%20')
+        const convertQuery = searchQueryString.replace(/\+/g, ' ').replace(/%2C/g, ',')
         router.push(`/en/shop?${convertQuery}&${checkboxSearch}=${checkboxName}`)
 
       } else if (searchQueryString.includes(checkboxSearch)) {
@@ -36,7 +36,7 @@ const FilterCheckbox = (
         }
         const substringToReplace = searchQueryString.substring(startPos, endPos)
         const newSearch = searchQueryString.replace(substringToReplace, nq)
-        const convertQuery = newSearch.replace(/\+/g, '%20')
+        const convertQuery = newSearch.replace(/\+/g, ' ').replace(/%2C/g, ',')
 
         router.push(`/en/shop?${convertQuery}`)
 
