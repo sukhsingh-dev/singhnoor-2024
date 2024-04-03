@@ -1,6 +1,6 @@
 import Icon from "@/shared/components/Icon"
 import Link from "next/link"
-import FilterCheckbox from "./FilterCheckbox"
+import FilterCheckbox from "./clientComponents/FilterCheckbox"
 
 export const genderOptions = [
   { value: 'men', label: 'Men' },

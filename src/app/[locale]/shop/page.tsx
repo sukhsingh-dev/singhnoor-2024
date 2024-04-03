@@ -93,15 +93,23 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
             </div>
           </div>
         </div>
-        <ul className="product-list">
-          {
-            shopProducts.map((product: any) => (
-              <li key={product._id} className="aos">
-                <ProductCard product={product} />
-              </li>
-            ))
-          }
-        </ul>
+        {
+          shopProducts.length > 0
+            ? (
+              <ul className="product-list">
+                {
+                  shopProducts.map((product: any) => (
+                    <li key={product._id} className="aos">
+                      <ProductCard product={product} />
+                    </li>
+                  ))
+                }
+              </ul>
+              // eslint-disable-next-line @typescript-eslint/indent
+            )
+            : <h2 className="text-center not-found-text">No Product found matching your search </h2>
+        }
+
       </div>
       <div className="sn-pagination">
         <ul>
