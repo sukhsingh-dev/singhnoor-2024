@@ -11,6 +11,11 @@ interface Product {
   productTitle: string
   varieties: Array<Record<string, string>>
   productPrice: number
+  productCategory: ProductCategoryTypes
+}
+
+interface ProductCategoryTypes {
+  label: string
 }
 
 interface ProductCardProps {
@@ -56,7 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) 
               {product.productPrice}
             </span>
           </div>
-          <CartBtn id={product._id} />
+          <CartBtn productInfo={{ _id: product._id, category: product.productCategory.label }} />
         </div>
       </div>
     </div>

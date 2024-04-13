@@ -4,28 +4,42 @@ import { useState, useEffect } from "react"
 import Icon from "../Icon"
 import Modal from "../ui/modal/Modal"
 
-interface CartBtnTypes {
-  id: string
+interface ProductTypes {
+  _id: string
+  category: string
   qty?: number
 }
 
-const CartBtn = ({ id, qty = 1 }: CartBtnTypes): React.ReactNode => {
+interface CartBtnTypes {
+  productInfo: ProductTypes
+}
+
+const CartBtn = ({ productInfo }: CartBtnTypes): React.ReactNode => {
   const ls = typeof window !== "undefined" ? window.localStorage : null
   const [showAlert, setShowAlert] = useState(false)
-  const [cartProducts, setCartProducts] = useState<string[]>([])
+  const [cartProducts, setCartProducts] = useState<ProductTypes[]>([])
+  const [alertMsg, setAlertMsg] = useState("Added to Cart")
 
-  const addToCart = (itemId: string): void => {
-    setShowAlert(true)
+  const addToCart = (): void => {
     const cartDataString = ls?.getItem('sn-cart')
     const oldCart = (cartDataString != null) ? JSON.parse(cartDataString) : null
 
-    if (oldCart === null) {
-      setCartProducts([itemId])
-    } else if (Array.isArray(oldCart)) {
-      setCartProducts([...oldCart, itemId])
-    } else {
-      setCartProducts([oldCart, itemId])
+    if (oldCart !== null &&
+      ((Boolean(oldCart.some((item: ProductTypes) => item._id === productInfo._id))) ||
+        cartProducts.some((item) => item._id === productInfo._id))) {
+      setAlertMsg("Already added")
+      setShowAlert(true)
+      return
     }
+
+    if (oldCart === null) {
+      setCartProducts([productInfo])
+    } else if (Array.isArray(oldCart)) {
+      setCartProducts([...oldCart, productInfo])
+    } else {
+      setCartProducts([oldCart, productInfo])
+    }
+    setShowAlert(true)
   }
 
   useEffect(() => {
@@ -37,9 +51,11 @@ const CartBtn = ({ id, qty = 1 }: CartBtnTypes): React.ReactNode => {
   useEffect(() => {
     const cartDataString = ls?.getItem('sn-cart')
     if ((ls?.getItem('sn-cart')) !== null) {
-      const getCartData = (cartDataString != null) ? JSON.parse(cartDataString) : null
+      const getCartData: ProductTypes[] = (cartDataString != null)
+        ? JSON.parse(cartDataString)
+        : null
       if (getCartData !== null) {
-        setCartProducts([getCartData])
+        setCartProducts(getCartData)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,7 +66,7 @@ const CartBtn = ({ id, qty = 1 }: CartBtnTypes): React.ReactNode => {
       <button
         type="button"
         className="btn-product btn-add"
-        onClick={() => addToCart(id)}
+        onClick={() => addToCart()}
       >
         <span>Add to Cart</span>
         <Icon name="cart" />
@@ -59,7 +75,7 @@ const CartBtn = ({ id, qty = 1 }: CartBtnTypes): React.ReactNode => {
         showAlert && (
           <Modal
             className="small-modal"
-            modalBody={<h4 className="item-heading">Added to Cart</h4>}
+            modalBody={<h4 className="item-heading">{alertMsg}</h4>}
             modalClose={setShowAlert}
             time={4500}
           />
