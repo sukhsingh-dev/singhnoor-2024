@@ -21,3 +21,51 @@
 
   &-close
     margin-left: auto
+
+.small-modal
+  background: transparent
+  backdrop-filter: none
+  inset: auto
+  width: 100%
+  bottom: rem(80)
+  +onMinSize(medium)
+    place-items: flex-end
+    padding-right: rem(8)
+
+  .sn-modal-inner
+    max-width: 100%
+    width: calc(100% - rem(24))
+    min-height: rem(60)
+    background: var(--primary-light)
+    border: rem(1) solid var(--primary)
+    padding: rem(24)
+    position: relative
+    overflow: hidden
+
+    +onMinSize(medium)
+      max-width: rem(400)
+
+  .sn-modal-heading
+    position: absolute
+    right: rem(24)
+
+  .sn-modal-close
+    svg
+      width: rem(20)
+      height: rem(20)
+      color: var(--secondary)
+
+  .item-heading
+    font-size: rem(20)
+
+  .sn-modal-time
+    position: absolute
+    animation: scaleX linear
+    transform-origin: left
+    bottom: 0
+    transform: scaleX(0)
+    width: 100%
+    height: rem(4)
+    left: rem(1)
+    border-radius: rem(4)
+    background: var(--primary)
