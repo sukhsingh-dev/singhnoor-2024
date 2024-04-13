@@ -78,7 +78,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
               : ''
           }
           {
-            product.productColors.length > 2 ?
+            product.productColors.length > 1 ?
               <div className="sn-product-page-attribute colors">
                 <span className="sn-product-page-attribute-heading">Colors:</span>
                 <ul className="attribute-colors-list">
