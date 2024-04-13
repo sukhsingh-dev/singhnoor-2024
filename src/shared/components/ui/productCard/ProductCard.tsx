@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useLocale } from "next-intl"
+import CartBtn from "../../cartBtn/CartBtn"
 import Icon from "../../Icon"
 import './style.sass'
 
@@ -55,10 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) 
               {product.productPrice}
             </span>
           </div>
-          <button type="button" className="btn-product btn-add">
-            <span>Add to Cart</span>
-            <Icon name="cart" />
-          </button>
+          <CartBtn id={product._id} />
         </div>
       </div>
     </div>
