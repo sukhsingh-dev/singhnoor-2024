@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import ReactDOM from 'react-dom'
 import Icon from '../../Icon'
 import './modal.sass'
 
@@ -10,7 +11,7 @@ interface ModalType {
   className?: string
 }
 
-const Modal = ({ modalHeading = '', modalBody, modalFooter = '', className = '', modalClose }: ModalType): React.ReactNode => (
+const Modal = ({ modalHeading = '', modalBody, modalFooter = '', className = '', modalClose }: ModalType): React.ReactNode => ReactDOM.createPortal(
   <div className={`sn-modal ${className}`}>
     <div className="sn-modal-inner">
 
@@ -31,7 +32,8 @@ const Modal = ({ modalHeading = '', modalBody, modalFooter = '', className = '',
         <div className="sn-modal-footer">{modalFooter}</div>
       }
     </div>
-  </div>
+  </div>,
+  document.body
 )
 
 export default Modal
