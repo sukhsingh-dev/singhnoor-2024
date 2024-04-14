@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect, useTransition } from "react"
+import { useState, useEffect, useTransition, useContext } from "react"
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from "next-intl"
 import Link from "next/link"
+import { CartContext } from "../../context/CartContext"
 import Icon from "../../Icon"
 
 interface QuickMenusTypes {
@@ -16,6 +17,7 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
   const [languageOpen, setLanguageOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const [scrollDown, setScrollDown] = useState(false)
+  const { cartProducts, wishlistProducts } = useContext(CartContext)
   const pageName = usePathname()
   const lang = useLocale()
 
@@ -83,13 +85,20 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
         <li>
           <Link href={`/${lang}/wishlist`}>
             <Icon name="bag" className={pageName === `/${lang}/wishlist` ? 'text-primary' : ''} />
+            {
+              wishlistProducts.length > 0 &&
+              <span className="cart-count position-absolute d-flex align-center justify-center">{wishlistProducts.length}</span>
+            }
           </Link>
         </li>
         <li className="icon-cart position-relative">
           <Link href={`/${lang}/cart`}>
             <Icon name="cart" className={pageName === `/${lang}/cart` ? 'text-primary' : ''} />
           </Link>
-          <span className="cart-count position-absolute d-flex align-center justify-center">3</span>
+          {
+            cartProducts.length > 0 &&
+            <span className="cart-count position-absolute d-flex align-center justify-center">{cartProducts.length}</span>
+          }
         </li>
         <li className="icon-account">
           <button

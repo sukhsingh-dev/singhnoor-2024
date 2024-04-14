@@ -5,6 +5,7 @@ import Footer from "@/shared/components/footer"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import '@/shared/styles/main.sass'
+import { CartContextProvider } from "@/shared/components/context/CartContext"
 
 const outfit = Outfit({ subsets: ["latin"] })
 
@@ -23,11 +24,13 @@ export default function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={outfit.className}>
-        <Header />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <CartContextProvider>
+          <Header />
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </CartContextProvider>
         <SpeedInsights />
       </body>
       <Script src="/js/scroll-easing.js" />
