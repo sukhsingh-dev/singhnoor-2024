@@ -10,18 +10,20 @@ interface ProductTypes {
   qty?: number
 }
 
-interface CartBtnTypes {
+interface StoreBtnTypes {
   productInfo: ProductTypes
+  storeName: string
+  btnClasses: string
 }
 
-const CartBtn = ({ productInfo }: CartBtnTypes): React.ReactNode => {
+const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.ReactNode => {
   const ls = typeof window !== "undefined" ? window.localStorage : null
   const [showAlert, setShowAlert] = useState(false)
   const [cartProducts, setCartProducts] = useState<ProductTypes[]>([])
-  const [alertMsg, setAlertMsg] = useState("Added to Cart")
+  const [alertMsg, setAlertMsg] = useState(storeName === "sn-cart" ? "Added to Cart" : "Added to Wishlist")
 
-  const addToCart = (): void => {
-    const cartDataString = ls?.getItem('sn-cart')
+  const storeItem = (): void => {
+    const cartDataString = ls?.getItem(storeName)
     const oldCart = (cartDataString != null) ? JSON.parse(cartDataString) : null
 
     if (oldCart !== null &&
@@ -44,13 +46,14 @@ const CartBtn = ({ productInfo }: CartBtnTypes): React.ReactNode => {
 
   useEffect(() => {
     if (cartProducts?.length > 0) {
-      ls?.setItem('sn-cart', JSON.stringify(cartProducts))
+      ls?.setItem(storeName, JSON.stringify(cartProducts))
     }
-  }, [cartProducts, ls])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartProducts])
 
   useEffect(() => {
-    const cartDataString = ls?.getItem('sn-cart')
-    if ((ls?.getItem('sn-cart')) !== null) {
+    const cartDataString = ls?.getItem(storeName)
+    if ((ls?.getItem(storeName)) !== null) {
       const getCartData: ProductTypes[] = (cartDataString != null)
         ? JSON.parse(cartDataString)
         : null
@@ -65,11 +68,11 @@ const CartBtn = ({ productInfo }: CartBtnTypes): React.ReactNode => {
     <>
       <button
         type="button"
-        className="btn-product btn-add"
-        onClick={() => addToCart()}
+        className={btnClasses}
+        onClick={() => storeItem()}
       >
-        <span>Add to Cart</span>
-        <Icon name="cart" />
+        <span>{storeName === 'sn-cart' ? 'Add to Cart' : 'Add to Wishlist'}</span>
+        <Icon name={storeName === 'sn-cart' ? 'cart' : 'heart'} />
       </button>
       {
         showAlert && (
@@ -77,7 +80,7 @@ const CartBtn = ({ productInfo }: CartBtnTypes): React.ReactNode => {
             className="small-modal"
             modalBody={<h4 className="item-heading">{alertMsg}</h4>}
             modalClose={setShowAlert}
-            time={4500}
+            time={3000}
           />
         )
       }
@@ -85,4 +88,4 @@ const CartBtn = ({ productInfo }: CartBtnTypes): React.ReactNode => {
   )
 }
 
-export default CartBtn
+export default StoreBtn

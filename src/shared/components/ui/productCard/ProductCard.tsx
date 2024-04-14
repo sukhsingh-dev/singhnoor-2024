@@ -1,8 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useLocale } from "next-intl"
-import CartBtn from "../../cartBtn/CartBtn"
-import Icon from "../../Icon"
+import StoreBtn from "../../storeBtn/StoreBtn"
 import './style.sass'
 
 interface Product {
@@ -47,10 +46,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) 
       </Link>
       <div className="d-flex justify-between product-info">
         <div className="product-info-inner">
-          <button type="button" className="btn-product btn-wishlist">
-            <span>Add to Wishlist</span>
-            <Icon name="heart" />
-          </button>
+          <StoreBtn
+            productInfo={{ _id: product._id, category: product.productCategory.label }}
+            storeName="sn-wishlist"
+            btnClasses="btn-product btn-wishlist"
+          />
           <div className="product-price-info d-flex text-right">
             <span className="product-price-old">
               <span className="product-price-currency">₹</span>
@@ -61,7 +61,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) 
               {product.productPrice}
             </span>
           </div>
-          <CartBtn productInfo={{ _id: product._id, category: product.productCategory.label }} />
+          <StoreBtn
+            productInfo={{ _id: product._id, category: product.productCategory.label }}
+            storeName="sn-cart"
+            btnClasses="btn-product btn-add"
+          />
         </div>
       </div>
     </div>
