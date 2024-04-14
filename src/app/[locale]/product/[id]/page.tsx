@@ -5,6 +5,7 @@ import { productList2 } from "@/shared/helper/store"
 import { useLocale } from "next-intl"
 import Link from "next/link"
 import Icon from '@/shared/components/Icon'
+import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
 import Products from '../../home/products'
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
@@ -27,32 +28,6 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
           <ProductDescription text={product.productDescription} />
         </div>
         <div className="sn-product-page-attribute-container">
-          <div className="sn-product-page-float">
-            <div className="sn-product-page-price">
-              <span className="old-price">
-                ₹
-                {
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                  roundToNearestTen(product.productPrice + (product.productPrice / 2.5))
-                }
-              </span>
-              <span className="text-primary new-price">
-                ₹
-                {product.productPrice}
-              </span>
-            </div>
-            <button
-              type="button"
-              aria-label="Add to Wishlist"
-              className="btn-wishlist-float"
-            >
-              <Icon name="heart" />
-            </button>
-            <button type="button" className="btn btn-secondary align-center">
-              Add to Cart
-              <Icon name="cart" />
-            </button>
-          </div>
           {
             product.productSize.length !== 0 ?
               <div className="sn-product-page-attribute size">
@@ -105,6 +80,31 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
                 <Icon name="minus" width={18} height={2} />
               </button>
             </div>
+          </div>
+          <div className="sn-product-page-float">
+            <div className="sn-product-page-price">
+              <span className="old-price">
+                ₹
+                {
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                  roundToNearestTen(product.productPrice + (product.productPrice / 2.5))
+                }
+              </span>
+              <span className="text-primary new-price">
+                ₹
+                {product.productPrice}
+              </span>
+            </div>
+            <StoreBtn
+              productInfo={{ _id: product._id, category: product.productCategory.label }}
+              storeName="sn-wishlist"
+              btnClasses="btn-wishlist-float"
+            />
+            <StoreBtn
+              productInfo={{ _id: product._id, category: product.productCategory.label }}
+              storeName="sn-cart"
+              btnClasses="btn btn-secondary align-center"
+            />
           </div>
           <details className="sn-product-page-accordion about">
             <summary>About Product</summary>

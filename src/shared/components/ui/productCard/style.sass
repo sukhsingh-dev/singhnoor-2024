@@ -148,6 +148,10 @@ $card-padding: rem(12)
     width: rem(32)
     height: rem(32)
 
+    &.isActive
+      color: var(--page-color-red-light)
+      background: rgba(#fff,0.75)
+
     svg
       transform: scale(0.9)
       +onMaxSize(medium)
