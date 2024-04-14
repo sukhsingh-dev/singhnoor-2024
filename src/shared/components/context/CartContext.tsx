@@ -40,16 +40,19 @@ export function CartContextProvider({ children }: CartContextProviderProps): Rea
 
   const [alertMsg, setAlertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
+  const [alertType, setAlertTypeAlert] = useState("info")
   const [cartProducts, setCartProducts] = useState<Product[]>([])
   const [wishlistProducts, setWishlistProducts] = useState<Product[]>([])
 
   const addProduct = (product: Product): void => {
     if (((Boolean(cartProducts.some((item: Product) => item._id === product._id))) ||
       cartProducts.some((item) => item._id === product._id))) {
+      setAlertTypeAlert("soft-error")
       setAlertMsg("Already in Cart")
       setShowAlert(true)
       return
     }
+    setAlertTypeAlert("info")
     setShowAlert(true)
     setCartProducts((prev) => [...prev, product])
   }
@@ -57,10 +60,12 @@ export function CartContextProvider({ children }: CartContextProviderProps): Rea
   const addToWishList = (product: Product): void => {
     if (((Boolean(wishlistProducts.some((item: Product) => item._id === product._id))) ||
       wishlistProducts.some((item) => item._id === product._id))) {
+      setAlertTypeAlert("soft-error")
       setAlertMsg("Already in Wishlist")
       setShowAlert(true)
       return
     }
+    setAlertTypeAlert("info")
     setShowAlert(true)
     setAlertMsg("Added to Wishlist")
     setWishlistProducts((prev) => [...prev, product])
@@ -125,6 +130,7 @@ export function CartContextProvider({ children }: CartContextProviderProps): Rea
             modalBody={<h4 className="item-heading">{alertMsg}</h4>}
             modalClose={setShowAlert}
             time={3000}
+            type={alertType}
           />
         )
       }

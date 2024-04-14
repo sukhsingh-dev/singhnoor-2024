@@ -31,6 +31,14 @@
   +onMinSize(medium)
     place-items: flex-end
     padding-right: rem(8)
+  &.soft-error
+    .sn-modal-inner
+      background-color: var(--page-color-red-light)
+      .item-heading
+        color: var(--white)
+        text-shadow: 0 0 rem(5) var(--page-color-red-dark)
+    .sn-modal-time
+      background: var(--page-color-red-dark)
 
   .sn-modal-inner
     max-width: 100%

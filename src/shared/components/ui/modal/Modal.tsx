@@ -10,9 +10,10 @@ interface ModalType {
   modalFooter?: string | React.ReactNode
   className?: string
   time?: number
+  type?: string
 }
 
-const Modal: React.FC<ModalType> = ({ modalHeading = '', modalBody, modalFooter = '', className = '', time = 0, modalClose }): JSX.Element => {
+const Modal: React.FC<ModalType> = ({ modalHeading = '', modalBody, modalFooter = '', className = '', time = 0, type = '', modalClose }): JSX.Element => {
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (time !== undefined && time > 0) {
@@ -24,7 +25,7 @@ const Modal: React.FC<ModalType> = ({ modalHeading = '', modalBody, modalFooter 
   }, [modalClose, time])
 
   return ReactDOM.createPortal(
-    <div className={`sn-modal ${className}`}>
+    <div className={`sn-modal ${className} ${type}`}>
       <div className="sn-modal-inner">
         <div className="sn-modal-heading">
           {modalHeading}
