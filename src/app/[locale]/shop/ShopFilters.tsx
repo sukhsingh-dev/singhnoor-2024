@@ -1,13 +1,6 @@
 import Icon from "@/shared/components/Icon"
 import FilterCheckbox from "./clientComponents/FilterCheckbox"
 
-export const genderOptions = [
-  { value: 'men', label: 'Men' },
-  { value: 'women', label: 'Women' },
-  { value: 'couple', label: 'Couple' },
-  { value: 'kids', label: 'Kids' }
-]
-
 const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
   const shopCategories = await res.json()
@@ -20,6 +13,9 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
       appliedFiltersArray.push(...values)
     }
   }
+
+  const attributesData = await fetch(`${process.env.BACKOFFICE_URL}/attributes`, { cache: 'no-store' })
+  const attributesList = await attributesData.json()
 
   return (
     <div className="filters-fields-outer">
@@ -122,103 +118,29 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
                 </div>
               </details>
             </li>
-            <li>
-              <details className="filters-fields-toggler">
-                <summary>For</summary>
-                <p className="filters-fields-options">
-                  {
-                    genderOptions.map((option) => (
-                      <label key={option.value} className="sn-custom-checkbox-outer">
-                        <span className="sn-custom-checkbox-label">{option.label}</span>
-                        <FilterCheckbox
-                          checkboxSearch="for"
-                          checkboxName={option.value}
-                        />
-                        <span className="sn-custom-checkbox" />
-                      </label>
-                    ))
-                  }
-                </p>
-              </details>
-            </li>
-            <li>
-              <details className="filters-fields-toggler">
-                <summary>Material</summary>
-                <p className="filters-fields-options">
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">Cotton</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">Leather</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">Resham</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                </p>
-              </details>
-            </li>
-            <li>
-              <details className="filters-fields-toggler">
-                <summary>Sizes</summary>
-                <p className="filters-fields-options">
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">XS</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">M</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">L</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">XL</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                  <label className="sn-custom-checkbox-outer">
-                    <span className="sn-custom-checkbox-label">XXL</span>
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" />
-                  </label>
-                </p>
-              </details>
-            </li>
-            <li>
-              <details className="filters-fields-toggler">
-                <summary>Colors</summary>
-                <p className="filters-fields-options color">
-                  <label className="sn-custom-checkbox-outer color">
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" style={{ backgroundColor: '#000' }} />
-                  </label>
-
-                  <label className="sn-custom-checkbox-outer color">
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" style={{ backgroundColor: 'red' }} />
-                  </label>
-                  <label className="sn-custom-checkbox-outer color">
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox" style={{ backgroundColor: 'green' }} />
-                  </label>
-                  <label className="sn-custom-checkbox-outer color">
-                    <input type="checkbox" className="sn-custom-checkbox-input" />
-                    <span className="sn-custom-checkbox white" style={{ backgroundColor: 'white' }} />
-                  </label>
-                </p>
-              </details>
-            </li>
+            {
+              attributesList.map((attribute: any) => (
+                <li key={attribute._id}>
+                  <details className="filters-fields-toggler">
+                    <summary>{attribute.attributeName}</summary>
+                    <p className={`filters-fields-options ${attribute.attributeName}`}>
+                      {
+                        attribute.attributeOptions.map((option: any) => (
+                          <label key={option.value} className={`sn-custom-checkbox-outer ${attribute.attributeName}`}>
+                            <span className="sn-custom-checkbox-label">{option.label}</span>
+                            <FilterCheckbox
+                              checkboxSearch={attribute.attributeName}
+                              checkboxName={option.value}
+                            />
+                            {attribute.attributeName === 'Colors' ? <span className="sn-custom-checkbox" style={{ backgroundColor: option.label }} /> : <span className="sn-custom-checkbox" />}
+                          </label>
+                        ))
+                      }
+                    </p>
+                  </details>
+                </li>
+              ))
+            }
             <li>
               <details className="filters-fields-toggler">
                 <summary>Price Range</summary>

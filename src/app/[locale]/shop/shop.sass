@@ -333,9 +333,10 @@ $filter-section-gap: rem(32)
       summary
         margin-bottom: rem(8)
         font-weight: 500
-    &.color
+    &.Colors
       display: flex
       flex-wrap: wrap
+      flex-direction: row
       gap: rem(8)
       padding-left: rem(16)
 
@@ -353,13 +354,16 @@ $filter-section-gap: rem(32)
     cursor: pointer
     padding: rem(8) rem(4) rem(8) rem(16)
 
-    &.color
+    &.Colors
       padding: 0
       &,
       .sn-custom-checkbox
         width: rem(20)
         height: rem(20)
         border-radius: 50%
+
+        .sn-custom-checkbox-label
+          display: none
 
       .sn-custom-checkbox-input:checked ~ .sn-custom-checkbox
         border-color: var(--border-light)
@@ -374,7 +378,7 @@ $filter-section-gap: rem(32)
         background-color: var(--primary)
         border-color: var(--primary)
 
-        &.white
+        &[style="background-color:White"]
           background-image: url("data:image/svg+xml,%3Csvg width='11' height='9' viewBox='0 0 11 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.33 1L3.11763 7.2475L1 5.1179' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
 
 .sn-input
