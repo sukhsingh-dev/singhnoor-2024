@@ -78,9 +78,19 @@ const Slider: React.FC = () => {
           <li>
             <button
               type="button"
-              aria-label="Select Slide for Women"
+              aria-label="Select Slide for Accessories"
               className={`btn-slide-changer ${activeSlide === 0 ? 'active' : ''}`}
               onClick={() => setActiveSlide(0)}
+            >
+              Designer Gatra
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              aria-label="Select Slide for Women"
+              className={`btn-slide-changer ${activeSlide === 1 ? 'active' : ''}`}
+              onClick={() => setActiveSlide(1)}
             >
               Women
             </button>
@@ -89,20 +99,10 @@ const Slider: React.FC = () => {
             <button
               type="button"
               aria-label="Select Slide for Men"
-              className={`btn-slide-changer ${activeSlide === 1 ? 'active' : ''}`}
-              onClick={() => setActiveSlide(1)}
-            >
-              Men
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              aria-label="Select Slide for Accessories"
               className={`btn-slide-changer ${activeSlide === 2 ? 'active' : ''}`}
               onClick={() => setActiveSlide(2)}
             >
-              Accessories
+              Leather Bag
             </button>
           </li>
           <li className="slide-num">
