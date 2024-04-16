@@ -5,7 +5,7 @@ import Categories from "./home/categories"
 import Products from "./home/products"
 import Collections from "./home/collections"
 import TodayDeal from "./home/deals"
-import DealsZone from "./home/zone"
+// import DealsZone from "./home/zone"
 import GetTheLook from "./home/looks"
 import KhalsaCollections from "./home/khalsa"
 
@@ -23,7 +23,7 @@ export default function Home(): React.ReactNode {
       <Products heading={t('mostPopular')} productList={productList} moreLink={`${lang}/shop`} outerClass="section-more-width more-popular" />
       <GetTheLook heading={t('getLook')} />
       <KhalsaCollections />
-      <DealsZone />
+      {/* <DealsZone /> */}
     </>
   )
 }

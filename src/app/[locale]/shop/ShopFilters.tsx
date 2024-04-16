@@ -1,6 +1,6 @@
 import Icon from "@/shared/components/Icon"
 import FilterCheckbox from "./clientComponents/FilterCheckbox"
-import PriceRangeSelector from "./clientComponents/PriceRangeSelector"
+// import PriceRangeSelector from "./clientComponents/PriceRangeSelector"
 
 const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
@@ -142,7 +142,7 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
                 </li>
               ))
             }
-            <PriceRangeSelector />
+            {/* <PriceRangeSelector /> */}
           </ul>
         </div>
         <div className="filters-fields-footer">
