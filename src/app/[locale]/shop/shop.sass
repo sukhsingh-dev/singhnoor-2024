@@ -384,6 +384,32 @@ $filter-section-gap: rem(32)
 .sn-input
   &-range
     width: 100%
+    appearance: none
+    background-color: transparent
+    &::-webkit-slider-thumb
+      width: rem(16)
+      height: rem(16)
+      appearance: none
+      background-color: var(--primary)
+      border-radius: 50%
+      pointer-events: auto
+      cursor: pointer
+      position: relative
+      z-index: 1
+    &.min-range
+      &::-webkit-slider-runnable-track
+        background-color: var(--border-dark)
+        height: rem(6)
+        border-radius: rem(4)
+      &::-webkit-slider-thumb
+        position: relative
+        top: rem(-4)
+    &.max-range
+      position: relative
+      top: rem(-30)
+      &::-webkit-slider-runnable-track
+        height: 0
+        appearance: none
     &-set
       margin-top: rem(8)
       label
@@ -395,7 +421,6 @@ $filter-section-gap: rem(32)
         padding: rem(8)
         border-radius: rem(20)
         width: rem(80)
-
 .filter-fields-toggler
   +hide-input
   &:checked

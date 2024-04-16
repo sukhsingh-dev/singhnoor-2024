@@ -1,5 +1,6 @@
 import Icon from "@/shared/components/Icon"
 import FilterCheckbox from "./clientComponents/FilterCheckbox"
+import PriceRangeSelector from "./clientComponents/PriceRangeSelector"
 
 const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
@@ -141,24 +142,7 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
                 </li>
               ))
             }
-            <li>
-              <details className="filters-fields-toggler">
-                <summary>Price Range</summary>
-                <p className="filters-fields-options">
-                  <input type="range" className="sn-input-range" />
-                  <span className="sn-input-range-set d-flex justify-between">
-                    <label>
-                      <span>Min</span>
-                      <input defaultValue="399" type="number" />
-                    </label>
-                    <label>
-                      <span>Max</span>
-                      <input defaultValue="9999" type="number" />
-                    </label>
-                  </span>
-                </p>
-              </details>
-            </li>
+            <PriceRangeSelector />
           </ul>
         </div>
         <div className="filters-fields-footer">
