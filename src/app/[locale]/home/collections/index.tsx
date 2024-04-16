@@ -24,10 +24,10 @@ const Collections: React.FC = () => {
           <h3 className="sn-collections-heading">FOR HIM</h3>
           <div className="sn-collections-info">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Necessitatibus debitis mollitia
+              Explore our curated selection of men&#39;s essentials, featuring stylish clothing,
+              designer gatras, custom-made shasters, and an array of premium leather goods.
             </p>
-            <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+            <Link href="/en/shop?filters=true&Gender=Men" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
           </div>
         </div>
 
@@ -45,10 +45,11 @@ const Collections: React.FC = () => {
           <h3 className="sn-collections-heading">FOR HER</h3>
           <div className="sn-collections-info">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Necessitatibus debitis mollitia
+              Discover our collection tailored for the modern woman, showcasing ladies&#39;
+              t-shirts, elegant gatras, sophisticated leather bags, and designer hand pouches
+              to elevate your style effortlessly.
             </p>
-            <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+            <Link href="/en/shop?filters=true&Gender=Women" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
           </div>
         </div>
 
@@ -66,10 +67,11 @@ const Collections: React.FC = () => {
           <h3 className="sn-collections-heading">FOR KIDS</h3>
           <div className="sn-collections-info">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Necessitatibus debitis mollitia
+              Introduce your little ones to a world of style with our selection of kids&#39;
+              essentials. Explore trendy kids t-shirts, adorable gatras,
+              and miniature decorative shasters designed to inspire their imagination and charm.
             </p>
-            <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+            <Link href="/en/shop?filters=true&Gender=Kids" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
           </div>
         </div>
 
@@ -87,10 +89,12 @@ const Collections: React.FC = () => {
           <h3 className="sn-collections-heading">FOR COUPLE</h3>
           <div className="sn-collections-info">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Necessitatibus debitis mollitia
+              Indulge in twinning fashion with our couple&#39;s collection,
+              offering matching stylish clothes, coordinated gatras, and a range
+              of leather accessories and shasters. Elevate your bond with fashion that
+              speaks to your unity and style.
             </p>
-            <Link href="/" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
+            <Link href="/en/shop?filters=true&Gender=Couple" className="btn btn-white-outline btn-arrow-long align-center sn-collections-btn">Explore</Link>
           </div>
         </div>
       </div>

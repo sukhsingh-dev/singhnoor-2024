@@ -14,7 +14,7 @@
     transform: translateY(0)
 
   .sn-collections-info p
-    transition: opacity 0.3s var(--ease-spring) 0.3s
+    transition: opacity 0.3s var(--ease-spring) 0.3s, background-color 0.3s var(--ease-spring)
 //mixin end
 
 .sn-collections
@@ -106,7 +106,13 @@
       max-width: 80%
       font-size: rem(18)
       margin-bottom: rem(20)
+      padding: rem(16)
+      border-radius: rem(16)
       color: var(--white)
+      line-height: 1.4
+
+      &:hover
+        background-color: rgba(0, 0, 0, 0.75)
 
     +onMinSize(medium)
       left: rem(20)
