@@ -33,8 +33,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) 
         <Image
           src={product.productImagesArray[0]}
           alt="SN Product img"
-          width={240}
-          height={240}
+          width={270}
+          height={270}
           quality={100}
         />
       </Link>
