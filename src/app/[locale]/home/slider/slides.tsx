@@ -48,8 +48,11 @@ export const Slide2: React.FC = () => (
       </div>
     </div>
     <div className="d-flex justify-center gap-16 slider-action-btns">
-      <Link href="/" className="btn btn-primary">Buy Now</Link>
-      <Link href="/" className="btn btn-secondary">Know More</Link>
+      <StoreBtn
+        storeName="sn-cart"
+        btnClasses="btn btn-primary"
+        productInfo={{ _id: "6609525d9458ffdc4a9513ea", category: "Leather Bag" }}
+      />
     </div>
   </>
 )
@@ -105,7 +108,6 @@ export const Slide3: React.FC = () => (
         btnClasses="btn btn-primary"
         productInfo={{ _id: "6609525d9458ffdc4a9513ea", category: "Leather Bag" }}
       />
-      <Link href="/en/product/6609525d9458ffdc4a9513ea" className="btn btn-secondary btn-arrow-long align-center">Know More</Link>
     </div>
   </>
 )
@@ -161,7 +163,6 @@ export const Slide1: React.FC = () => (
         btnClasses="btn btn-primary"
         productInfo={{ _id: "6607992dc663e6e0182e0a45", category: "Gatra" }}
       />
-      <Link href="/en/product/6607992dc663e6e0182e0a45" className="btn btn-secondary btn-arrow-long align-center">Know More</Link>
     </div>
   </>
 )
