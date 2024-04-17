@@ -1,17 +1,16 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable operator-linebreak */
-import { productList2 } from "@/shared/helper/store"
 import { useLocale } from "next-intl"
 import Link from "next/link"
 import Icon from '@/shared/components/Icon'
 import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
-import Products from '../../home/products'
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
 import ProductDescription from "../client/ProductDescription"
 import SizeChart from "../client/SizeChart"
 import '../product.sass'
+import ProductList from "../../home/products/ProductsList"
 
 const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/products?id=${params.id}`, { cache: 'no-store' })
@@ -119,7 +118,12 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
           </details>
         </div>
       </section>
-      <Products heading="YOU MAY ALSO LIKE" productList={productList2} moreLink={`${lang}/shop`} outerClass="section-more-width top-picks" />
+      <ProductList
+        listQuery="/products?filters=true&set=6607ba1787019781d7ead2fb,6605608d2ffda6654676148f,660950fdada6d0858b1377fb,660675d23d7008d72eabdfcc,66078c500a0e70610e3a7429"
+        outerClass="section-more-width more-popular"
+        heading="YOU MAY ALSO LIKE"
+        moreLink={`${lang}/shop`}
+      />
     </>
   )
 }
