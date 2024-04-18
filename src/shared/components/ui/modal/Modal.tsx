@@ -1,17 +1,8 @@
+import { type ModalType } from '@/shared/helper/types'
 import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import Icon from '../../Icon'
 import './modal.sass'
-
-interface ModalType {
-  modalClose: (state: boolean) => void
-  modalBody: string | React.ReactNode
-  modalHeading?: string | React.ReactNode
-  modalFooter?: string | React.ReactNode
-  className?: string
-  time?: number
-  type?: string
-}
 
 const Modal: React.FC<ModalType> = ({ modalHeading = '', modalBody, modalFooter = '', className = '', time = 0, type = '', modalClose }): JSX.Element => {
   // eslint-disable-next-line consistent-return

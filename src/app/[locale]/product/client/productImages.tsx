@@ -6,11 +6,7 @@ import { useRef, useState, useEffect } from "react"
 import Modal from "@/shared/components/ui/modal/Modal"
 import Link from "next/link"
 
-interface PageTopTypes {
-  imagesList: string[]
-}
-
-const PageTopItems = ({ imagesList }: PageTopTypes): React.ReactNode => {
+const PageTopItems = ({ imagesList }: { imagesList: string[] }): React.ReactNode => {
   // fix rendering issue on every image change
   // console.log("rendering")
 

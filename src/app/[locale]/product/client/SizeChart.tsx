@@ -1,13 +1,9 @@
 'use client'
 
 import { useState } from "react"
-import Icon from "@/shared/components/Icon"
 import Image from "next/image"
-
-interface SizeChartType {
-  category: string
-  children?: React.ReactNode
-}
+import Icon from "@/shared/components/Icon"
+import { type SizeChartType } from "@/shared/helper/types"
 
 const SizeChart = ({ category, children = '' }: SizeChartType): React.ReactNode => {
   const [isChartOpen, setIsChartOpen] = useState(false)

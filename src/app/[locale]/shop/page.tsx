@@ -1,15 +1,8 @@
+import { type SearchParam } from "@/shared/helper/types"
 import Icon from "@/shared/components/Icon"
 import ProductCard from "@/shared/components/ui/productCard/ProductCard"
 import ShopFilter from "./ShopFilters"
 import './shop.sass'
-
-interface FilterTypes {
-  filters: string | undefined
-}
-
-interface SearchParam {
-  searchParams: FilterTypes
-}
 
 const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
   let result

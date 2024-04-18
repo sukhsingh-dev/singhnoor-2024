@@ -1,27 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useLocale } from "next-intl"
+import { type Product } from "@/shared/helper/types"
 import StoreBtn from "../../storeBtn/StoreBtn"
 import './style.sass'
 
-interface Product {
-  _id: string
-  productImagesArray: string[]
-  productTitle: string
-  varieties: Array<Record<string, string>>
-  productPrice: number
-  productCategory: ProductCategoryTypes
-}
-
-interface ProductCategoryTypes {
-  label: string
-}
-
-interface ProductCardProps {
-  product: Product
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({ product }: ProductCardProps) => {
+const ProductCard: React.FC<Product> = ({ product }: Product) => {
   const lang = useLocale()
   const roundToNearestTen = (number: number): number => Math.round(number / 10) * 10
   return (

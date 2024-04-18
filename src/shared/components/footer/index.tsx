@@ -1,3 +1,4 @@
+import { type FooterLinkType } from "@/shared/helper/types"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
@@ -42,17 +43,6 @@ const Footer: React.FC = () => (
     </div>
   </footer>
 )
-
-interface FooterLinkType {
-  mainText: string
-  links: innerLinks[]
-}
-
-interface innerLinks {
-  id: number
-  url: string
-  name: string
-}
 
 const Contacts: React.FC = () => (
   <div className="contact-outer">

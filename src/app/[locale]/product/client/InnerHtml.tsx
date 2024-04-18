@@ -2,12 +2,9 @@
 
 'use client'
 
-interface InnterHtmlType {
-  data: string
-  className?: string
-}
+import { type InnerHtmlType } from "@/shared/helper/types"
 
-const InnerHtml = ({ data, className = "" }: InnterHtmlType): React.ReactNode => (
+const InnerHtml = ({ data, className = "" }: InnerHtmlType): React.ReactNode => (
   <div className={className} dangerouslySetInnerHTML={{ __html: data }} />
 )
 

@@ -1,11 +1,7 @@
 'use client'
 
+import { type FilterCheckboxTypes } from "@/shared/helper/types"
 import { useRouter, useSearchParams } from "next/navigation"
-
-interface FilterCheckboxTypes {
-  checkboxSearch: string
-  checkboxName: string
-}
 
 const FilterCheckbox = (
   { checkboxSearch, checkboxName }: FilterCheckboxTypes

@@ -5,11 +5,7 @@
 import { useState } from 'react'
 import InnerHtml from './InnerHtml'
 
-interface ProductDescriptionTypes {
-  text: string
-}
-
-const ProductDescription = ({ text }: ProductDescriptionTypes): React.ReactNode => {
+const ProductDescription = ({ text }: { text: string }): React.ReactNode => {
   const truncateLength = 50
   const [isExpanded, setIsExpanded] = useState(false)
   const truncatedText = text.split(' ').slice(0, truncateLength).join(' ')

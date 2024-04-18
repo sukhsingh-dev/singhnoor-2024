@@ -5,11 +5,7 @@ import { Heading, TextDecorator } from "@/shared/components/ui"
 import Image from "next/image"
 import './deals.sass'
 
-interface TodayDealProps {
-  heading: string
-}
-
-const TodayDeal: React.FC<TodayDealProps> = ({ heading }: TodayDealProps) => {
+const TodayDeal = ({ heading }: { heading: string }): React.ReactNode => {
   const imgBox = useRef<HTMLDivElement>(null)
   const [imgBoxHeight, setImageBoxHeight] = useState<number>(0)
 

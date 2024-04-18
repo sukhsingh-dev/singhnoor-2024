@@ -1,15 +1,9 @@
+import { type CategoryType } from "@/shared/helper/types"
 import { Heading, TextDecorator } from "@/shared/components/ui"
 import { useLocale, useTranslations } from "next-intl"
 import Link from "next/link"
 import Image from "next/image"
 import './categories.sass'
-
-interface CategoryType {
-  _id: string
-  categoryName: string
-  categoryBg: string
-  categoryImg: string
-}
 
 const Categories: React.FC = async () => {
   const t = useTranslations("Index")

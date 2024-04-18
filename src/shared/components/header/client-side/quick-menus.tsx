@@ -1,16 +1,12 @@
 'use client'
 
+import { type LanguageChangeActionTypes, type QuickMenusTypes } from "@/shared/helper/types"
 import { useState, useEffect, useTransition, useContext } from "react"
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from "next-intl"
 import Link from "next/link"
 import { CartContext } from "../../context/CartContext"
 import Icon from "../../Icon"
-
-interface QuickMenusTypes {
-  langText: string
-  currentLang: string
-}
 
 const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
@@ -190,11 +186,6 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
 
     </div>
   )
-}
-
-interface LanguageChangeActionTypes {
-  lang: string
-  name: string
 }
 
 const LanguageChangeAction = ({ lang, name }: LanguageChangeActionTypes): React.ReactNode => {
