@@ -21,7 +21,6 @@ Product page _______
 
 General ___________
 Code cleanup
-typescript any declaration fixes
 Client to server components
 
 

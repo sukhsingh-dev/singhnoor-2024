@@ -1,3 +1,4 @@
+import { type AttributeType, type CategoryType } from "@/shared/helper/types"
 import Icon from "@/shared/components/Icon"
 import FilterCheckbox from "./clientComponents/FilterCheckbox"
 // import PriceRangeSelector from "./clientComponents/PriceRangeSelector"
@@ -82,14 +83,14 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
                 <summary>Category</summary>
                 <div className="filters-fields-options">
                   {
-                    shopCategories.map((category: any) => {
+                    shopCategories.map((category: CategoryType) => {
                       if (category.subCategory.length !== 0) {
                         return (
                           <details className="filters-fields-options-outer" key={category._id}>
                             <summary>{category.categoryName}</summary>
                             <p>
                               {
-                                category.subCategory.map((subCategory: any) => (
+                                category.subCategory.map((subCategory) => (
                                   <label key={subCategory.value} className="sn-custom-checkbox-outer">
                                     <span className="sn-custom-checkbox-label">{subCategory.label}</span>
                                     <FilterCheckbox
@@ -120,13 +121,13 @@ const ShopFilter = async ({ appliedFilters }: any): Promise<JSX.Element> => {
               </details>
             </li>
             {
-              attributesList.map((attribute: any) => (
+              attributesList.map((attribute: AttributeType) => (
                 <li key={attribute._id}>
                   <details className="filters-fields-toggler">
                     <summary>{attribute.attributeName}</summary>
                     <p className={`filters-fields-options ${attribute.attributeName}`}>
                       {
-                        attribute.attributeOptions.map((option: any) => (
+                        attribute.attributeOptions.map((option) => (
                           <label key={option.value} className={`sn-custom-checkbox-outer ${attribute.attributeName}`}>
                             <span className="sn-custom-checkbox-label">{option.label}</span>
                             <FilterCheckbox

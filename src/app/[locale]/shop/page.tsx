@@ -1,4 +1,4 @@
-import { type SearchParam } from "@/shared/helper/types"
+import { type SearchParam, type ProductType } from "@/shared/helper/types"
 import Icon from "@/shared/components/Icon"
 import ProductCard from "@/shared/components/ui/productCard/ProductCard"
 import ShopFilter from "./ShopFilters"
@@ -91,7 +91,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
             ? (
               <ul className="product-list">
                 {
-                  shopProducts.map((product: any) => (
+                  shopProducts.map((product: ProductType) => (
                     <li key={product._id} className="aos">
                       <ProductCard product={product} />
                     </li>

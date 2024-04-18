@@ -5,12 +5,13 @@ import { useLocale } from "next-intl"
 import Link from "next/link"
 import Icon from '@/shared/components/Icon'
 import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
+import { type Select } from "@/shared/helper/types"
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
 import ProductDescription from "../client/ProductDescription"
 import SizeChart from "../client/SizeChart"
-import '../product.sass'
 import ProductList from "../../home/products/ProductsList"
+import '../product.sass'
 
 const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/products?id=${params.id}`, { cache: 'no-store' })
@@ -33,7 +34,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
                 <span className="sn-product-page-attribute-heading">Size:</span>
                 <ul className="attribute-sizes-list">
                   {
-                    product.productSize.map((item: any, index: number) => (
+                    product.productSize.map((item: Select, index: number) => (
                       <li key={item.value}>
                         <input
                           type="radio"
@@ -57,7 +58,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
                 <span className="sn-product-page-attribute-heading">Colors:</span>
                 <ul className="attribute-colors-list">
                   {
-                    product.productColors.map((item: any, index: number) => (
+                    product.productColors.map((item: Select, index: number) => (
                       <li key={item.value}>
                         <input type="radio" name="color-radio" value={item.value} id={item.value} defaultChecked={index === 0} />
                         <label htmlFor={item.value} style={{ backgroundColor: item.value }} />

@@ -149,3 +149,9 @@ export interface ModalType {
   time?: number
   type?: string
 }
+
+export interface AttributeType {
+  _id: string
+  attributeName: string
+  attributeOptions: Select[]
+}

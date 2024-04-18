@@ -2,7 +2,7 @@
 
 import { CartContext } from "@/shared/components/context/CartContext"
 import { useContext } from "react"
-// import { type ProductType } from "@/shared/helper/types"
+import { type CartProductType } from "@/shared/helper/types"
 // import Image from "next/image"
 
 const CartItems = (): React.ReactNode => {
@@ -14,7 +14,7 @@ const CartItems = (): React.ReactNode => {
         {
           cartProducts.length === 0
             ? 'No Product Added'
-            : cartProducts.map((product: any) => (
+            : cartProducts.map((product: CartProductType) => (
               <div key={product._id} className="cart-product">
                 <h1>{product._id}</h1>
               </div>
