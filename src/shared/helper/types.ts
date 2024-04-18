@@ -22,14 +22,20 @@ export interface ProductType {
   // __v: number
 }
 
+export interface StoreBtnTypes {
+  productInfo: CartProductType
+  storeName: string
+  btnClasses: string
+}
+
 export interface CartProductType {
   _id: string
-  productCategory: Category
-  productSubCategory: Select
+  productCategory: string
+  productSubCategory: string
   productTitle: string
   productGender: Select[]
   productPrice: number
-  productImagesArray: string[]
+  productImagesArray: string
   productTags: Select[]
   productSize: Select[]
   productMaterial: Select[]
@@ -39,6 +45,16 @@ export interface CartProductType {
   // createdAt: time
   // updatedAt: time
   // __v: number
+}
+
+export interface CartContextType {
+  wishlistProducts: CartProductType[]
+  cartProducts: CartProductType[]
+  setCartProducts: React.Dispatch<React.SetStateAction<CartProductType[]>>
+  addProduct: (product: CartProductType) => void
+  addToWishList: (product: CartProductType) => void
+  // removeProduct: (productId: string) => void
+  // clearCart: () => void
 }
 
 export interface Select {

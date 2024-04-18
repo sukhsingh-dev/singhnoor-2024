@@ -1,20 +1,9 @@
 'use client'
 
+import { type StoreBtnTypes } from "@/shared/helper/types"
 import { useContext, useState, useEffect } from "react"
 import Icon from "../Icon"
 import { CartContext } from "../context/CartContext"
-
-interface ProductTypes {
-  _id: string
-  category: string
-  qty?: number
-}
-
-interface StoreBtnTypes {
-  productInfo: ProductTypes
-  storeName: string
-  btnClasses: string
-}
 
 const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.ReactNode => {
   const { cartProducts, wishlistProducts, addProduct, addToWishList } = useContext(CartContext)

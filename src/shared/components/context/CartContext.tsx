@@ -1,27 +1,8 @@
 'use client'
 
+import { type CartContextType, type CartProductType } from "@/shared/helper/types"
 import React, { createContext, useEffect, useState, type ReactNode } from "react"
 import Modal from "../ui/modal/Modal"
-
-interface Product {
-  _id: string
-  category: string
-  qty?: number
-}
-
-interface CartContextType {
-  wishlistProducts: Product[]
-  cartProducts: Product[]
-  setCartProducts: React.Dispatch<React.SetStateAction<Product[]>>
-  addProduct: (product: Product) => void
-  addToWishList: (product: Product) => void
-  // removeProduct: (productId: string) => void
-  // clearCart: () => void
-}
-
-interface CartContextProviderProps {
-  children: ReactNode
-}
 
 export const CartContext = createContext<CartContextType>({
   wishlistProducts: [],
@@ -33,7 +14,7 @@ export const CartContext = createContext<CartContextType>({
   // clearCart: () => { }
 })
 
-export function CartContextProvider({ children }: CartContextProviderProps): ReactNode {
+export function CartContextProvider({ children }: { children: ReactNode }): ReactNode {
   const ls = typeof window !== "undefined" ? window.localStorage : null
   const cartStoreName = 'sn-cart'
   const wishlistStoreName = 'sn-wishlist'
@@ -41,11 +22,11 @@ export function CartContextProvider({ children }: CartContextProviderProps): Rea
   const [alertMsg, setAlertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
   const [alertType, setAlertTypeAlert] = useState("info")
-  const [cartProducts, setCartProducts] = useState<Product[]>([])
-  const [wishlistProducts, setWishlistProducts] = useState<Product[]>([])
+  const [cartProducts, setCartProducts] = useState<CartProductType[]>([])
+  const [wishlistProducts, setWishlistProducts] = useState<CartProductType[]>([])
 
-  const addProduct = (product: Product): void => {
-    if (((Boolean(cartProducts.some((item: Product) => item._id === product._id))) ||
+  const addProduct = (product: CartProductType): void => {
+    if (((Boolean(cartProducts.some((item: CartProductType) => item._id === product._id))) ||
       cartProducts.some((item) => item._id === product._id))) {
       setAlertTypeAlert("soft-error")
       setAlertMsg("Already in Cart")
@@ -57,8 +38,8 @@ export function CartContextProvider({ children }: CartContextProviderProps): Rea
     setCartProducts((prev) => [...prev, product])
   }
 
-  const addToWishList = (product: Product): void => {
-    if (((Boolean(wishlistProducts.some((item: Product) => item._id === product._id))) ||
+  const addToWishList = (product: CartProductType): void => {
+    if (((Boolean(wishlistProducts.some((item: CartProductType) => item._id === product._id))) ||
       wishlistProducts.some((item) => item._id === product._id))) {
       setAlertTypeAlert("soft-error")
       setAlertMsg("Already in Wishlist")
@@ -74,7 +55,7 @@ export function CartContextProvider({ children }: CartContextProviderProps): Rea
   useEffect(() => {
     const cartDataString = ls?.getItem(cartStoreName)
     if ((ls?.getItem(cartStoreName)) !== null) {
-      const getCartData: Product[] = (cartDataString != null)
+      const getCartData: CartProductType[] = (cartDataString != null)
         ? JSON.parse(cartDataString)
         : null
       if (getCartData !== null) {
@@ -94,7 +75,7 @@ export function CartContextProvider({ children }: CartContextProviderProps): Rea
   useEffect(() => {
     const cartDataString = ls?.getItem(wishlistStoreName)
     if ((ls?.getItem(wishlistStoreName)) !== null) {
-      const getCartData: Product[] = (cartDataString != null)
+      const getCartData: CartProductType[] = (cartDataString != null)
         ? JSON.parse(cartDataString)
         : null
       if (getCartData !== null) {

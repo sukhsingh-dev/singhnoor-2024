@@ -31,7 +31,21 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
       <div className="d-flex justify-between product-info">
         <div className="product-info-inner">
           <StoreBtn
-            productInfo={{ _id: product._id, category: product.productCategory.label }}
+            productInfo={{
+              _id: product._id,
+              productCategory: product.productCategory.label,
+              productSubCategory: product.productSubCategory.label,
+              productTitle: product.productTitle,
+              productGender: product.productGender,
+              productPrice: product.productPrice,
+              productImagesArray: product.productImagesArray[0],
+              productTags: product.productTags,
+              productSize: product.productSize,
+              productMaterial: product.productMaterial,
+              productColors: product.productColors,
+              productWork: product.productWork,
+              productQty: 1
+            }}
             storeName="sn-wishlist"
             btnClasses="btn-product btn-wishlist"
           />
@@ -46,7 +60,21 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
             </span>
           </div>
           <StoreBtn
-            productInfo={{ _id: product._id, category: product.productCategory.label }}
+            productInfo={{
+              _id: product._id,
+              productCategory: product.productCategory.label,
+              productSubCategory: product.productSubCategory.label,
+              productTitle: product.productTitle,
+              productGender: product.productGender,
+              productPrice: product.productPrice,
+              productImagesArray: product.productImagesArray[0],
+              productTags: product.productTags,
+              productSize: product.productSize,
+              productMaterial: product.productMaterial,
+              productColors: product.productColors,
+              productWork: product.productWork,
+              productQty: 1
+            }}
             storeName="sn-cart"
             btnClasses="btn-product btn-add"
           />

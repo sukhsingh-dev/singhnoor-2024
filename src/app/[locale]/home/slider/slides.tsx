@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
 
 export const Slide2: React.FC = () => (
   <>
@@ -11,7 +10,10 @@ export const Slide2: React.FC = () => (
       FOR
       <span className="text-secondary"> GIRLS</span>
     </h1>
-    <div className="text-center slider-img-outer">
+    <Link
+      href="/en/shop?filters=true&Gender=Women&subCategory=T-shirts"
+      className="text-center slider-img-outer"
+    >
       <div className="slider-img-main">
         <Image
           src="/images/slides/slide-1/slide-1-main.webp"
@@ -46,13 +48,9 @@ export const Slide2: React.FC = () => (
           />
         </div>
       </div>
-    </div>
+    </Link>
     <div className="d-flex justify-center gap-16 slider-action-btns">
-      <StoreBtn
-        storeName="sn-cart"
-        btnClasses="btn btn-primary"
-        productInfo={{ _id: "6609525d9458ffdc4a9513ea", category: "Leather Bag" }}
-      />
+      <Link href="/en/shop?filters=true&Gender=Women&subCategory=T-shirts" className="btn btn-primary btn-arrow-long">Know More</Link>
     </div>
   </>
 )
@@ -103,11 +101,7 @@ export const Slide3: React.FC = () => (
       </div>
     </Link>
     <div className="d-flex justify-center gap-16 slider-action-btns">
-      <StoreBtn
-        storeName="sn-cart"
-        btnClasses="btn btn-primary"
-        productInfo={{ _id: "6609525d9458ffdc4a9513ea", category: "Leather Bag" }}
-      />
+      <Link href="/en/product/6609525d9458ffdc4a9513ea" className="btn btn-primary btn-arrow-long">Know More</Link>
     </div>
   </>
 )
@@ -158,11 +152,7 @@ export const Slide1: React.FC = () => (
       </div>
     </Link>
     <div className="d-flex justify-center gap-16 slider-action-btns">
-      <StoreBtn
-        storeName="sn-cart"
-        btnClasses="btn btn-primary"
-        productInfo={{ _id: "6607992dc663e6e0182e0a45", category: "Gatra" }}
-      />
+      <Link href="/en/product/6607992dc663e6e0182e0a45" className="btn btn-primary btn-arrow-long">Know More</Link>
     </div>
   </>
 )
