@@ -25,7 +25,6 @@ const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.
     if (storeName === 'sn-wishlist' && wishlistProducts.some((item) => item._id === productInfo._id)) {
       setIsActive(true)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleAddToCart])
 
   return (

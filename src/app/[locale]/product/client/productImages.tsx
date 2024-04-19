@@ -77,7 +77,6 @@ const PageTopItems = ({ imagesList }: { imagesList: string[] }): React.ReactNode
         imgBoxCurrent.removeEventListener('touchend', onTouchEnd)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -86,7 +85,6 @@ const PageTopItems = ({ imagesList }: { imagesList: string[] }): React.ReactNode
     }, 6000)
 
     return () => clearInterval(interval) // Clear interval on component unmount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeImg])
 
   return (

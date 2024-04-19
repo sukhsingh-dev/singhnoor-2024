@@ -62,14 +62,12 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
         setCartProducts(getCartData)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (cartProducts?.length > 0) {
       ls?.setItem(cartStoreName, JSON.stringify(cartProducts))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartProducts])
 
   useEffect(() => {
@@ -82,14 +80,12 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
         setWishlistProducts(getCartData)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (wishlistProducts?.length > 0) {
       ls?.setItem(wishlistStoreName, JSON.stringify(wishlistProducts))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wishlistProducts])
 
   return (

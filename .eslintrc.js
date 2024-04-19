@@ -44,6 +44,8 @@ module.exports = {
     "padded-blocks": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",
     "no-plusplus": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react-hooks/exhaustive-deps": "off"
+
   }
 };
