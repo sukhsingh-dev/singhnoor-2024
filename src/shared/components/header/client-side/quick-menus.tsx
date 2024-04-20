@@ -62,7 +62,6 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
 
     window.addEventListener('scroll', handleScroll)
 
-    // eslint-disable-next-line no-unused-expressions
     scrollDown ? main?.classList.add('page-down') : main?.classList.remove('page-down')
 
     return () => {
@@ -211,9 +210,7 @@ const LanguageChangeAction = ({ lang, name }: LanguageChangeActionTypes): React.
 
   const handleClick = (): void => {
     startTransition(() => {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (!redirectPath) {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      if (redirectPath == null) {
         router.replace(`/${lang}`)
       } else {
         router.replace(`/${lang}/${redirectPath}`)

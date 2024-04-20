@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 "use client"
 
 import { useEffect, useState, useRef } from "react"
@@ -28,7 +26,7 @@ const Slider: React.FC = () => {
   }
 
   const handleTouchMove = (event: React.TouchEvent<HTMLElement>): void => {
-    if (!touchStartX.current) {
+    if (touchStartX.current == null) {
       return
     }
 

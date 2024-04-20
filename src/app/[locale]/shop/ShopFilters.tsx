@@ -4,13 +4,13 @@ import FilterCheckbox from "./clientComponents/FilterCheckbox"
 // import PriceRangeSelector from "./clientComponents/PriceRangeSelector"
 
 const ShopFilter = async (
-  { appliedFilters }: { appliedFilters: Record<string, string> }
+  { appliedFilters }: { appliedFilters: Record<string, string> | any }
 ): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/categories`, { cache: 'no-store' })
   const shopCategories = await res.json()
   const appliedFiltersArray = []
 
-  /* eslint-disable no-restricted-syntax */
+  // eslint-disable-next-line no-restricted-syntax
   for (const key in appliedFilters) {
     if ((Object.prototype.hasOwnProperty.call(appliedFilters, key)) && appliedFilters[key] !== 'true') {
       const values: string[] = appliedFilters[key].split(',').map((value: string) => value.trim())

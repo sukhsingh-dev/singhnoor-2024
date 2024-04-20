@@ -5,8 +5,6 @@ import { getRequestConfig } from 'next-intl/server'
 const locales = ['en', 'hi', 'pu']
 
 export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   if (!locales.includes(locale)) notFound()
 
   return {

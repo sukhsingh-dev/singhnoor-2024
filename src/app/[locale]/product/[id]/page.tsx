@@ -1,11 +1,8 @@
-/* eslint-disable react/no-danger */
-/* eslint-disable react/jsx-wrap-multilines */
-/* eslint-disable operator-linebreak */
 import { useLocale } from "next-intl"
 import Link from "next/link"
 import Icon from '@/shared/components/Icon'
 import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
-import { type Select } from "@/shared/helper/types"
+import { type Select, type ProductType } from "@/shared/helper/types"
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
 import ProductDescription from "../client/ProductDescription"
@@ -15,7 +12,7 @@ import '../product.sass'
 
 const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/products?id=${params.id}`, { cache: 'no-store' })
-  const product = await res.json()
+  const product: ProductType = await res.json()
   const lang = useLocale()
 
   const roundToNearestTen = (number: number): number => Math.round(number / 10) * 10
@@ -48,7 +45,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
                     ))
                   }
                 </ul>
-                <SizeChart category={product.productCategory} />
+                <SizeChart category={product.productCategory.label} />
               </div>
               : ''
           }
@@ -86,7 +83,6 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
               <span className="old-price">
                 ₹
                 {
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                   roundToNearestTen(product.productPrice + (product.productPrice / 2.5))
                 }
               </span>

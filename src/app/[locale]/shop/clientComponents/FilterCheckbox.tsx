@@ -15,8 +15,7 @@ const FilterCheckbox = (
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (!searchQueryString) {
+      if (searchQueryString.length === 0) {
         router.push(`/en/shop?filters=true&${checkboxSearch}=${checkboxName}`)
       } else if ((searchQueryString.length > 0) && !searchQueryString.includes(checkboxSearch)) {
 

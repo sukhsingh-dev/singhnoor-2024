@@ -45,7 +45,10 @@ module.exports = {
     "@typescript-eslint/no-confusing-void-expression": "off",
     "no-plusplus": "off",
     "no-underscore-dangle": "off",
-    "react-hooks/exhaustive-deps": "off"
-
+    "react-hooks/exhaustive-deps": "off",
+    "react/jsx-wrap-multilines": "off",
+    "operator-linebreak": "off",
+    "react/no-danger": "off",
+    "no-nested-ternary": "off"
   }
 };

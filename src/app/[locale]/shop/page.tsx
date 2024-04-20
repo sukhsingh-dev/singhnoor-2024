@@ -8,8 +8,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
   let result
   const { filters } = searchParams
   const queryString = Object.entries(searchParams)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
     .join('&')
 
   if (Object.keys(searchParams).length === 0 || filters === undefined) {
@@ -87,19 +86,16 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
           </div>
         </div>
         {
-          shopProducts.length > 0
-            ? (
-              <ul className="product-list">
-                {
-                  shopProducts.map((product: ProductType) => (
-                    <li key={product._id} className="aos">
-                      <ProductCard product={product} />
-                    </li>
-                  ))
-                }
-              </ul>
-              // eslint-disable-next-line @typescript-eslint/indent
-            )
+          shopProducts.length > 0 ?
+            <ul className="product-list">
+              {
+                shopProducts.map((product: ProductType) => (
+                  <li key={product._id} className="aos">
+                    <ProductCard product={product} />
+                  </li>
+                ))
+              }
+            </ul>
             : <h2 className="text-center not-found-text">No Product found matching your search </h2>
         }
 

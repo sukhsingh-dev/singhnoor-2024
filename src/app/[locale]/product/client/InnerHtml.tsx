@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger */
-
 'use client'
 
 import { type InnerHtmlType } from "@/shared/helper/types"

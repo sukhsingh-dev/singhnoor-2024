@@ -35,14 +35,12 @@ const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.
     >
       <span>
         {
-          // eslint-disable-next-line no-nested-ternary
           storeName === 'sn-cart'
             ? isActive ? 'Added to Cart' : 'Add to Cart'
             : 'Add to Wishlist'
         }
       </span>
       <Icon name={
-        // eslint-disable-next-line no-nested-ternary
         storeName === 'sn-cart'
           ? isActive ? 'cart-filled' : 'cart'
           : isActive ? 'heart-filled' : 'heart'
