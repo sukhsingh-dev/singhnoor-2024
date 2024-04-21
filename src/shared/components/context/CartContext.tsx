@@ -1,6 +1,6 @@
 'use client'
 
-import { type CartContextType, type CartProductType } from "@/shared/helper/types"
+import { type CartContextType, type CartProductType, type RemoveProductType } from "@/shared/helper/types"
 import React, { createContext, useEffect, useState, type ReactNode } from "react"
 import Modal from "../ui/modal/Modal"
 
@@ -9,9 +9,9 @@ export const CartContext = createContext<CartContextType>({
   cartProducts: [],
   setCartProducts: () => { },
   addProduct: () => { },
-  addToWishList: () => { }
-  // removeProduct: () => { },
-  // clearCart: () => { }
+  addToWishList: () => { },
+  removeProduct: () => { },
+  clearCart: () => { }
 })
 
 export function CartContextProvider({ children }: { children: ReactNode }): ReactNode {
@@ -21,6 +21,10 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
 
   const [alertMsg, setAlertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
+
+  const [openClearCartConfirm, setOpenClearCartConfirm] = useState(false)
+  const [clearCartAction, setClearCartAction] = useState('')
+
   const [alertType, setAlertTypeAlert] = useState("info")
   const [cartProducts, setCartProducts] = useState<CartProductType[]>([])
   const [wishlistProducts, setWishlistProducts] = useState<CartProductType[]>([])
@@ -50,6 +54,43 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setShowAlert(true)
     setAlertMsg("Added to Wishlist")
     setWishlistProducts((prev) => [...prev, product])
+  }
+
+  const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
+    if (actionType === 'sn-cart') {
+      const updatedCart = cartProducts.filter((item) => item._id !== productId)
+      setCartProducts(updatedCart)
+      setAlertMsg("Removed from Cart")
+    } else {
+      const updatedWishlist = wishlistProducts.filter((item) => item._id !== productId)
+      setWishlistProducts(updatedWishlist)
+      setAlertMsg("Removed from Wishlist")
+    }
+    setAlertTypeAlert("info")
+    setShowAlert(true)
+  }
+
+  const clearCart = (actionType: string): void => {
+    setOpenClearCartConfirm(true)
+    setClearCartAction(actionType)
+  }
+
+  const handleClear = (): void => {
+    setOpenClearCartConfirm(false)
+    setAlertTypeAlert("info")
+    setShowAlert(true)
+
+    if (clearCartAction === "sn-cart") {
+      setCartProducts([])
+      ls?.setItem("sn-cart", JSON.stringify([]))
+      setAlertMsg("Cart Cleared")
+    }
+    if (clearCartAction === "sn-wishlist") {
+      setWishlistProducts([])
+      ls?.setItem("sn-wishlist", JSON.stringify([]))
+      setAlertMsg("Wishlist Cleared")
+    }
+    setClearCartAction('')
   }
 
   useEffect(() => {
@@ -96,7 +137,9 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
         wishlistProducts,
         setCartProducts,
         addProduct,
-        addToWishList
+        addToWishList,
+        removeProduct,
+        clearCart
       }}
     >
       {children}
@@ -108,6 +151,28 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
             modalClose={setShowAlert}
             time={3000}
             type={alertType}
+          />
+        )
+      }
+      {
+        openClearCartConfirm && (
+          <Modal
+            className="clear-cart-modal"
+            modalBody={
+              <div>
+                <h3>
+                  Are you really want to clear your
+                  {clearCartAction}
+                </h3>
+              </div>
+            }
+            modalFooter={
+              <>
+                <button type="button" onClick={handleClear}>Confirm</button>
+                <button type="button" onClick={() => setOpenClearCartConfirm(false)}>Cancel</button>
+              </>
+            }
+            modalClose={setOpenClearCartConfirm}
           />
         )
       }

@@ -53,8 +53,8 @@ export interface CartContextType {
   setCartProducts: React.Dispatch<React.SetStateAction<CartProductType[]>>
   addProduct: (product: CartProductType) => void
   addToWishList: (product: CartProductType) => void
-  // removeProduct: (productId: string) => void
-  // clearCart: () => void
+  removeProduct: ({ productId, actionType }: RemoveProductType) => void
+  clearCart: (actionType: string) => void
 }
 
 export interface Select {
@@ -154,4 +154,9 @@ export interface AttributeType {
   _id: string
   attributeName: string
   attributeOptions: Select[]
+}
+
+export interface RemoveProductType {
+  productId: string
+  actionType: string
 }

@@ -1,0 +1,100 @@
+@import "../../../shared/styles/_functions.sass"
+
+.cart-product
+  display: grid
+  align-items: center
+  gap: rem(16)
+  grid-template-columns: rem(100) auto rem(100) rem(120) rem(50)
+  margin-bottom: rem(24)
+  .btn-remove-product
+    color: var(--page-color-red-light)
+  &-title
+    font-weight: 500
+    font-size: rem(18)
+  h3
+    color: var(--primary)
+  img
+    border-radius: rem(10)
+
+.cart-page
+  &-outer
+    display: grid
+    grid-template-columns: auto $filter-section-width
+    gap: $filter-section-gap
+
+    .btn-clear-cart
+      display: flex
+      align-items: center
+      width: max-content
+      margin-left: auto
+      gap: rem(8)
+      font-weight: 500
+      grid-row: 2
+      padding: rem(12) rem(16)
+      border-radius: rem(8)
+      background-color: var(--primary-light)
+
+  &-products
+    border: rem(1) solid var(--border-dark)
+    padding: rem(16)
+    border-radius: rem(20)
+  &-title
+    margin-bottom: rem(24)
+    font-size: rem(28)
+
+.attribute-qty
+  display: inline-flex
+  align-items: center
+  gap: rem(4)
+  padding: rem(8)
+  border-radius: rem(30)
+  background: var(--secondary-light)
+  input
+    background: none
+    border: none
+    text-align: center
+    font-weight: 600
+    font-size: rem(18)
+    width: rem(20)
+    height: rem(20)
+  button
+    display: grid
+    place-items: center
+    width: rem(18)
+    height: rem(18)
+    color: var(--secondary)
+
+.sn-product-page-attribute
+  display: flex
+  align-items: center
+  gap: rem(8)
+  margin-top: rem(12)
+  color: var(--text-light)
+  .attribute-sizes-list
+    display: flex
+    gap: rem(4)
+    input[type="radio"]
+      +hide-input
+    label
+      cursor: pointer
+      padding: rem(2) rem(6)
+      border-radius: rem(2)
+      font-size: rem(16)
+    input:checked
+      ~ label
+        background-color: var(--primary-light)
+        border: rem(1) solid var(--primary)
+        +onMinSize(x-large)
+          background-color: var(--primary)
+          color: var(--white)
+
+.no-product
+  grid-column: 1/3
+  display: grid
+  place-items: center
+  padding: rem(24)
+
+  h1
+    color: var(--text-light)
+    font-size: rem(36)
+    margin-bottom: rem(48)
