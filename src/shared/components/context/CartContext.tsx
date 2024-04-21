@@ -159,17 +159,19 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
           <Modal
             className="clear-cart-modal"
             modalBody={
-              <div>
+              <div className="clear-cart-modal-body">
                 <h3>
-                  Are you really want to clear your
-                  {clearCartAction}
+                  Are you really want to
+                  <br />
+                  clear your&nbsp;
+                  {clearCartAction === "sn-cart" ? "Cart" : "Wishlist"}
                 </h3>
               </div>
             }
             modalFooter={
               <>
-                <button type="button" onClick={handleClear}>Confirm</button>
-                <button type="button" onClick={() => setOpenClearCartConfirm(false)}>Cancel</button>
+                <button type="button" onClick={handleClear} className="btn btn-danger">Confirm</button>
+                <button type="button" onClick={() => setOpenClearCartConfirm(false)} className="btn btn-light">Cancel</button>
               </>
             }
             modalClose={setOpenClearCartConfirm}
