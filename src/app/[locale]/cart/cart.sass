@@ -6,6 +6,29 @@
   gap: rem(16)
   grid-template-columns: rem(100) auto rem(100) rem(120) rem(50)
   margin-bottom: rem(24)
+
+  +onMaxSize(medium)
+    grid-template-columns: rem(100) auto rem(50)
+    gap: rem(12)
+
+    &:not(:last-child)
+      border-bottom: rem(1) solid var(--border-light)
+      padding-bottom: rem(24)
+
+    h3
+      text-align: center
+      grid-row: 2
+
+    .qty
+      grid-row: 2
+      margin-top: 0
+
+  +onMaxSize(small)
+    .btn-remove-product
+      grid-row: 2
+    .product-select-info
+      grid-column: span 2
+
   .btn-remove-product
     color: var(--page-color-red-light)
   &-title
@@ -22,6 +45,9 @@
     grid-template-columns: auto $filter-section-width
     gap: $filter-section-gap
 
+    +onMaxSize(large)
+      grid-template-columns: 100%
+
     .btn-clear-cart
       display: flex
       align-items: center
@@ -29,13 +55,13 @@
       margin-left: auto
       gap: rem(8)
       font-weight: 500
-      grid-row: 2
       padding: rem(12) rem(16)
-      border-radius: rem(8)
+      border-radius: rem(30)
       background-color: var(--primary-light)
+      margin-top: rem(16)
 
   &-products
-    border: rem(1) solid var(--border-dark)
+    border: rem(1) solid var(--border-light)
     padding: rem(16)
     border-radius: rem(20)
   &-title
@@ -55,7 +81,7 @@
     text-align: center
     font-weight: 600
     font-size: rem(18)
-    width: rem(20)
+    width: rem(40)
     height: rem(20)
   button
     display: grid
@@ -98,3 +124,55 @@
     color: var(--text-light)
     font-size: rem(36)
     margin-bottom: rem(48)
+
+.cart-product-order
+  &-summary,
+  &-voucher
+    border-radius: rem(20)
+    border: rem(1) solid var(--border-light)
+    padding: rem(16)
+
+    h4
+      margin-bottom: rem(12)
+      font-size: rem(18)
+  &-voucher
+    position: relative
+    margin-bottom: rem(24)
+
+    input
+      width: 100%
+      margin-top: rem(8)
+      margin-bottom: rem(12)
+      padding: rem(12) rem(12)
+      border: rem(1) solid var(--border-dark)
+      border-radius: rem(20)
+
+    button
+      position: absolute
+      right: rem(16)
+      margin-top: rem(8)
+  .btn-secondary
+    width: 100%
+    justify-content: center
+
+.small-note
+  font-size: rem(14)
+  color: var(--text-light)
+  padding: rem(4) rem(16)
+  margin-bottom: rem(24)
+
+.order-info
+  margin-bottom: rem(16)
+  display: flex
+  justify-content: space-between
+
+  &-total
+    font-weight: 550
+
+  &.grand-total
+    border-top: rem(1) solid var(--border-light)
+    padding-top: rem(12)
+    font-weight: 600
+
+    .order-info-total
+      font-weight: 600
