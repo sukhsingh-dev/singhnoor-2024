@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useLocale } from "next-intl"
 import { type Product } from "@/shared/helper/types"
+import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import StoreBtn from "../../storeBtn/StoreBtn"
 import './style.sass'
 
@@ -46,7 +47,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
               productWork: product.productWork,
               productQty: 1
             }}
-            storeName="sn-wishlist"
+            storeName={WISHLIST_STORE_NAME}
             btnClasses="btn-product btn-wishlist"
           />
           <div className="product-price-info d-flex text-right">
@@ -75,7 +76,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
               productWork: product.productWork,
               productQty: 1
             }}
-            storeName="sn-cart"
+            storeName={CART_STORE_NAME}
             btnClasses="btn-product btn-add"
           />
         </div>

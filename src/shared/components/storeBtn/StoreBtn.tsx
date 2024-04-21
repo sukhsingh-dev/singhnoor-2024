@@ -1,16 +1,17 @@
 'use client'
 
-import { type StoreBtnTypes } from "@/shared/helper/types"
 import { useContext, useState, useEffect } from "react"
-import Icon from "../Icon"
+import { type StoreBtnTypes } from "@/shared/helper/types"
+import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import { CartContext } from "../context/CartContext"
+import Icon from "../Icon"
 
 const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.ReactNode => {
   const { cartProducts, wishlistProducts, addProduct, addToWishList } = useContext(CartContext)
   const [isActive, setIsActive] = useState(false)
 
   const handleAddToCart = (): void => {
-    if (storeName === 'sn-cart') {
+    if (storeName === CART_STORE_NAME) {
       addProduct(productInfo)
     } else {
       addToWishList(productInfo)
@@ -18,11 +19,13 @@ const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.
   }
 
   useEffect(() => {
-    if (storeName === 'sn-cart' && cartProducts.some((item) => item._id === productInfo._id)) {
+    if (storeName === CART_STORE_NAME &&
+      cartProducts.some((item) => item._id === productInfo._id)) {
       setIsActive(true)
     }
 
-    if (storeName === 'sn-wishlist' && wishlistProducts.some((item) => item._id === productInfo._id)) {
+    if (storeName === WISHLIST_STORE_NAME &&
+      wishlistProducts.some((item) => item._id === productInfo._id)) {
       setIsActive(true)
     }
   }, [handleAddToCart])
@@ -35,13 +38,13 @@ const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.
     >
       <span>
         {
-          storeName === 'sn-cart'
+          storeName === CART_STORE_NAME
             ? isActive ? 'Added to Cart' : 'Add to Cart'
             : 'Add to Wishlist'
         }
       </span>
       <Icon name={
-        storeName === 'sn-cart'
+        storeName === CART_STORE_NAME
           ? isActive ? 'cart-filled' : 'cart'
           : isActive ? 'heart-filled' : 'heart'
       }

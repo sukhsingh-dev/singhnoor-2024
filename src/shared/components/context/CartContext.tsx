@@ -1,7 +1,8 @@
 'use client'
 
-import { type CartContextType, type CartProductType, type RemoveProductType } from "@/shared/helper/types"
 import React, { createContext, useEffect, useState, type ReactNode } from "react"
+import { type CartContextType, type CartProductType, type RemoveProductType } from "@/shared/helper/types"
+import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import Modal from "../ui/modal/Modal"
 
 export const CartContext = createContext<CartContextType>({
@@ -16,8 +17,8 @@ export const CartContext = createContext<CartContextType>({
 
 export function CartContextProvider({ children }: { children: ReactNode }): ReactNode {
   const ls = typeof window !== "undefined" ? window.localStorage : null
-  const cartStoreName = 'sn-cart'
-  const wishlistStoreName = 'sn-wishlist'
+  const cartStoreName = CART_STORE_NAME
+  const wishlistStoreName = WISHLIST_STORE_NAME
 
   const [alertMsg, setAlertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
@@ -57,7 +58,7 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
   }
 
   const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
-    if (actionType === 'sn-cart') {
+    if (actionType === CART_STORE_NAME) {
       const updatedCart = cartProducts.filter((item) => item._id !== productId)
       setCartProducts(updatedCart)
       setAlertMsg("Removed from Cart")
@@ -80,14 +81,14 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setAlertTypeAlert("info")
     setShowAlert(true)
 
-    if (clearCartAction === "sn-cart") {
+    if (clearCartAction === CART_STORE_NAME) {
       setCartProducts([])
-      ls?.setItem("sn-cart", JSON.stringify([]))
+      ls?.setItem(CART_STORE_NAME, JSON.stringify([]))
       setAlertMsg("Cart Cleared")
     }
-    if (clearCartAction === "sn-wishlist") {
+    if (clearCartAction === WISHLIST_STORE_NAME) {
       setWishlistProducts([])
-      ls?.setItem("sn-wishlist", JSON.stringify([]))
+      ls?.setItem(WISHLIST_STORE_NAME, JSON.stringify([]))
       setAlertMsg("Wishlist Cleared")
     }
     setClearCartAction('')
@@ -164,7 +165,7 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
                   Are you really want to
                   <br />
                   clear your&nbsp;
-                  {clearCartAction === "sn-cart" ? "Cart" : "Wishlist"}
+                  {clearCartAction === CART_STORE_NAME ? "Cart" : "Wishlist"}
                 </h3>
               </div>
             }

@@ -1,12 +1,13 @@
 'use client'
 
-import { CartContext } from "@/shared/components/context/CartContext"
 import { useContext } from "react"
-import { type CartProductType } from "@/shared/helper/types"
 import Image from "next/image"
-import Icon from "@/shared/components/Icon"
-import '../cart.sass'
 import Link from "next/link"
+import Icon from "@/shared/components/Icon"
+import { type CartProductType } from "@/shared/helper/types"
+import { CartContext } from "@/shared/components/context/CartContext"
+import { CART_STORE_NAME } from "@/shared/helper/constants"
+import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
   const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
@@ -71,7 +72,9 @@ const CartItems = (): React.ReactNode => {
                         type="button"
                         aria-label="remove from cart"
                         className="btn-remove-product"
-                        onClick={() => removeProduct({ productId: product._id, actionType: "sn-cart" })}
+                        onClick={() => removeProduct({
+                          productId: product._id, actionType: CART_STORE_NAME
+                        })}
                       >
                         <Icon name="delete" />
                       </button>
@@ -83,7 +86,7 @@ const CartItems = (): React.ReactNode => {
               <button
                 type="button"
                 className="btn-clear-cart"
-                onClick={() => clearCart("sn-cart")}
+                onClick={() => clearCart(CART_STORE_NAME)}
               >
                 Clear Cart
                 <Icon name="close" width={12} height={12} />

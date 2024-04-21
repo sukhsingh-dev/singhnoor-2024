@@ -2,6 +2,7 @@ import { useLocale } from "next-intl"
 import Link from "next/link"
 import Icon from '@/shared/components/Icon'
 import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
+import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import { type Select, type ProductType } from "@/shared/helper/types"
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
@@ -107,7 +108,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
                 productWork: product.productWork,
                 productQty: 1
               }}
-              storeName="sn-wishlist"
+              storeName={WISHLIST_STORE_NAME}
               btnClasses="btn-wishlist-float"
             />
             <StoreBtn
@@ -126,7 +127,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
                 productWork: product.productWork,
                 productQty: 1
               }}
-              storeName="sn-cart"
+              storeName={CART_STORE_NAME}
               btnClasses="btn btn-secondary align-center"
             />
           </div>
