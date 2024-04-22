@@ -91,40 +91,12 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
               </span>
             </div>
             <StoreBtn
-              productInfo={{
-                _id: product._id,
-                productCategory: product.productCategory.label,
-                productSubCategory: product.productSubCategory.label,
-                productTitle: product.productTitle,
-                productGender: product.productGender,
-                productPrice: product.productPrice,
-                productImagesArray: product.productImagesArray[0],
-                productTags: product.productTags,
-                productSize: product.productSize,
-                productMaterial: product.productMaterial,
-                productColors: product.productColors,
-                productWork: product.productWork,
-                productQty: 1
-              }}
+              productInfo={product}
               storeName={WISHLIST_STORE_NAME}
               btnClasses="btn-wishlist-float"
             />
             <StoreBtn
-              productInfo={{
-                _id: product._id,
-                productCategory: product.productCategory.label,
-                productSubCategory: product.productSubCategory.label,
-                productTitle: product.productTitle,
-                productGender: product.productGender,
-                productPrice: product.productPrice,
-                productImagesArray: product.productImagesArray[0],
-                productTags: product.productTags,
-                productSize: product.productSize,
-                productMaterial: product.productMaterial,
-                productColors: product.productColors,
-                productWork: product.productWork,
-                productQty: 1
-              }}
+              productInfo={product}
               storeName={CART_STORE_NAME}
               btnClasses="btn btn-secondary align-center"
             />

@@ -4,7 +4,7 @@ import { useContext } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
-import { type CartProductType } from "@/shared/helper/types"
+import { type ProductType } from "@/shared/helper/types"
 import { CartContext } from "@/shared/components/context/CartContext"
 import { CART_STORE_NAME } from "@/shared/helper/constants"
 import '../cart.sass'
@@ -22,10 +22,10 @@ const CartItems = (): React.ReactNode => {
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  cartProducts.map((product: CartProductType) => (
+                  cartProducts.map((product: ProductType) => (
                     <div key={product._id} className="cart-product">
                       <Image
-                        src={product.productImagesArray}
+                        src={product.productImagesArray[0]}
                         alt={product.productTitle}
                         width={100}
                         height={100}

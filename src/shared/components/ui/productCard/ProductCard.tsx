@@ -30,25 +30,11 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
       <div className="d-flex justify-between product-info">
         <div className="product-info-inner">
           <StoreBtn
-            productInfo={{
-              _id: product._id,
-              productCategory: product.productCategory.label,
-              productSubCategory: product.productSubCategory.label,
-              productTitle: product.productTitle,
-              productGender: product.productGender,
-              productPrice: product.productPrice,
-              productImagesArray: product.productImagesArray[0],
-              productTags: product.productTags,
-              productSize: product.productSize,
-              productMaterial: product.productMaterial,
-              productColors: product.productColors,
-              productWork: product.productWork,
-              productQty: 1
-            }}
+            productInfo={product}
             storeName={WISHLIST_STORE_NAME}
             btnClasses="btn-product btn-wishlist"
           />
-          <div className="product-price-info d-flex text-right">
+          <div className="product-price-info d-flex">
             <span className="product-price-old">
               <span className="product-price-currency">₹</span>
               {roundToNearestTen(product.productPrice + (product.productPrice / 2.5))}
@@ -59,21 +45,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
             </span>
           </div>
           <StoreBtn
-            productInfo={{
-              _id: product._id,
-              productCategory: product.productCategory.label,
-              productSubCategory: product.productSubCategory.label,
-              productTitle: product.productTitle,
-              productGender: product.productGender,
-              productPrice: product.productPrice,
-              productImagesArray: product.productImagesArray[0],
-              productTags: product.productTags,
-              productSize: product.productSize,
-              productMaterial: product.productMaterial,
-              productColors: product.productColors,
-              productWork: product.productWork,
-              productQty: 1
-            }}
+            productInfo={product}
             storeName={CART_STORE_NAME}
             btnClasses="btn-product btn-add"
           />

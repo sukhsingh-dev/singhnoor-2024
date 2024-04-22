@@ -1,2 +1,2 @@
-export const CART_STORE_NAME = "sn-cart-2"
-export const WISHLIST_STORE_NAME = "sn-wishlist-2"
+export const CART_STORE_NAME = "sn-cart-3"
+export const WISHLIST_STORE_NAME = "sn-wishlist-3"

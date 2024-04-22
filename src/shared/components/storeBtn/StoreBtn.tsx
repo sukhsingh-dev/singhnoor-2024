@@ -32,6 +32,11 @@ const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.
 
   return (
     <button
+      aria-label={
+        storeName === CART_STORE_NAME
+          ? 'Add to Cart'
+          : 'Add to Wishlist'
+      }
       type="button"
       className={`${btnClasses} ${isActive ? 'isActive' : ''}`}
       onClick={() => handleAddToCart()}

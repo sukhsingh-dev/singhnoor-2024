@@ -1,6 +1,7 @@
 export interface Product {
   product: ProductType
 }
+
 export interface ProductType {
   _id: string
   productCategory: Category
@@ -23,36 +24,17 @@ export interface ProductType {
 }
 
 export interface StoreBtnTypes {
-  productInfo: CartProductType
+  productInfo: ProductType
   storeName: string
   btnClasses: string
 }
 
-export interface CartProductType {
-  _id: string
-  productCategory: string
-  productSubCategory: string
-  productTitle: string
-  productGender: Select[]
-  productPrice: number
-  productImagesArray: string
-  productTags: Select[]
-  productSize: Select[]
-  productMaterial: Select[]
-  productColors: Select[]
-  productWork: Select[]
-  productQty: number
-  // createdAt: time
-  // updatedAt: time
-  // __v: number
-}
-
 export interface CartContextType {
-  wishlistProducts: CartProductType[]
-  cartProducts: CartProductType[]
-  setCartProducts: React.Dispatch<React.SetStateAction<CartProductType[]>>
-  addProduct: (product: CartProductType) => void
-  addToWishList: (product: CartProductType) => void
+  wishlistProducts: ProductType[]
+  cartProducts: ProductType[]
+  setCartProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
+  addProduct: (product: ProductType) => void
+  addToWishList: (product: ProductType) => void
   removeProduct: ({ productId, actionType }: RemoveProductType) => void
   clearCart: (actionType: string) => void
 }
