@@ -19,7 +19,7 @@ const Categories: React.FC = async () => {
                 <div className="bg-decorator mx-auto" style={{ backgroundColor: category.categoryBg }} />
                 <Image
                   src={category.categoryImg}
-                  alt={category.categoryName}
+                  alt={`Image of category ${category.categoryName} ${category._id}`}
                   width={171}
                   height={171}
                   className="object-contain"
