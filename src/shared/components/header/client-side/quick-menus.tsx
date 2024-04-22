@@ -75,7 +75,7 @@ const QuickMenus = (): React.ReactNode => {
           </Link>
         </li>
         <li className="position-relative">
-          <Link href="wishlist">
+          <Link href="/wishlist">
             <Icon name="bag" className={pageName === "wishlist" ? 'text-primary' : ''} />
             {
               wishlistProducts.length > 0 &&
@@ -84,7 +84,7 @@ const QuickMenus = (): React.ReactNode => {
           </Link>
         </li>
         <li className="icon-cart position-relative">
-          <Link href="cart">
+          <Link href="/cart">
             <Icon name="cart" className={pageName === "cart" ? 'text-primary' : ''} />
           </Link>
           {
