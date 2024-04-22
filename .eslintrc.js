@@ -49,6 +49,7 @@ module.exports = {
     "react/jsx-wrap-multilines": "off",
     "operator-linebreak": "off",
     "react/no-danger": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "arrow-body-style": "off"
   }
 };

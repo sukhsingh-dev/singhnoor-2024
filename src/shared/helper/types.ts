@@ -27,6 +27,15 @@ export interface StoreBtnTypes {
   productInfo: ProductType
   storeName: string
   btnClasses: string
+  selected?: SelectedStoreType
+}
+
+export interface SelectedStoreType {
+  qty?: number
+  size?: string
+  color?: string
+  material?: string
+  work?: string
 }
 
 export interface CartContextType {

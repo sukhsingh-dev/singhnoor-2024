@@ -1,8 +1,8 @@
 import Link from "next/link"
-import Icon from '@/shared/components/Icon'
 import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import { type Select, type ProductType } from "@/shared/helper/types"
+import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
 import ProductDescription from "../client/ProductDescription"
@@ -65,18 +65,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
               </div>
               : ''
           }
-          <div className="sn-product-page-attribute qty">
-            <span className="sn-product-page-attribute-heading">Qty:</span>
-            <div className="attribute-qty">
-              <button type="button" aria-label="increase product quantity by 1">
-                <Icon name="add" width={18} height={18} />
-              </button>
-              <input type="number" defaultValue={1} />
-              <button type="button" aria-label="decrease product quantity by 1">
-                <Icon name="minus" width={18} height={2} />
-              </button>
-            </div>
-          </div>
+          <QtyBtnInput />
           <div className="sn-product-page-float">
             <div className="sn-product-page-price">
               <span className="old-price">

@@ -7,6 +7,10 @@
   grid-template-columns: rem(100) auto rem(100) rem(120) rem(50)
   margin-bottom: rem(24)
 
+  .qty
+    .sn-product-page-attribute-heading
+      display: none
+
   +onMaxSize(medium)
     grid-template-columns: rem(100) auto rem(50)
     gap: rem(12)
@@ -67,28 +71,6 @@
   &-title
     margin-bottom: rem(24)
     font-size: rem(28)
-
-.attribute-qty
-  display: inline-flex
-  align-items: center
-  gap: rem(4)
-  padding: rem(8)
-  border-radius: rem(30)
-  background: var(--secondary-light)
-  input
-    background: none
-    border: none
-    text-align: center
-    font-weight: 600
-    font-size: rem(18)
-    width: rem(40)
-    height: rem(20)
-  button
-    display: grid
-    place-items: center
-    width: rem(18)
-    height: rem(18)
-    color: var(--secondary)
 
 .sn-product-page-attribute
   display: flex

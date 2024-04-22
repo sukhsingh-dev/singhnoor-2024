@@ -4,6 +4,7 @@ import { useContext } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
+import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
 import { type ProductType } from "@/shared/helper/types"
 import { CartContext } from "@/shared/components/context/CartContext"
 import { CART_STORE_NAME } from "@/shared/helper/constants"
@@ -57,17 +58,7 @@ const CartItems = (): React.ReactNode => {
                         <span className="product-price-currency">₹</span>
                         {product.productPrice}
                       </h3>
-                      <div className="sn-product-page-attribute qty">
-                        <div className="attribute-qty">
-                          <button type="button" aria-label="increase product quantity by 1">
-                            <Icon name="add" width={18} height={18} />
-                          </button>
-                          <input type="text" defaultValue={1} />
-                          <button type="button" aria-label="decrease product quantity by 1">
-                            <Icon name="minus" width={18} height={2} />
-                          </button>
-                        </div>
-                      </div>
+                      <QtyBtnInput />
                       <button
                         type="button"
                         aria-label="remove from cart"
