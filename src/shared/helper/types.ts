@@ -130,21 +130,11 @@ interface innerLinks {
   name: string
 }
 
-export interface QuickMenusTypes {
-  langText: string
-  currentLang: string
-}
-
 export interface QuickMenusInnerTypes {
   isActive: boolean
   closeAction: (state: boolean) => void
   menuListBody: React.ReactNode
 
-}
-
-export interface LanguageChangeActionTypes {
-  lang: string
-  name: string
 }
 
 export interface ModalType {

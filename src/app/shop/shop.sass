@@ -1,0 +1,436 @@
+@import "../../shared/styles/_functions.sass"
+
+$filter-section-width: 25%
+$filter-section-gap: rem(32)
+
+.btn
+  &-filter
+    align-items: center
+    font-weight: 500
+    font-size: rem(16)
+    gap: rem(8)
+
+    svg
+      position: relative
+      top: rem(6)
+      left: rem(8)
+    +onMinSize(large)
+      visibility: hidden
+
+  &-clear
+    display: flex
+    font-family: inherit
+    gap: rem(8)
+    font-weight: 600
+    color: var(--secondary)
+
+    svg
+      transform: scale(0.8)
+    +onMaxSize(large)
+      position: absolute
+      z-index: 1
+      padding: .75rem 1.75rem
+      border-radius: rem(40)
+      bottom: rem(16)
+      right: rem(16)
+      gap: rem(16)
+      border: rem(2) solid
+
+.shop-page
+  &-section
+    display: flex
+    flex-wrap: wrap
+    gap: $filter-section-gap
+    padding-top: rem(24)
+
+    .product-image-outer
+      &::after
+        display: none
+
+  &-inner
+    +onMinSize(large)
+      width: calc(100% - $filter-section-width)
+
+      .product-list
+        column-gap: 1rem
+        grid-template-columns: repeat(4, minmax(0,1fr))
+
+        > li *
+          opacity: 1
+          transform: none
+
+  &-actions
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-bottom: rem(32)
+
+    &-view
+      border: none
+      display: flex
+      align-items: center
+      gap: rem(12)
+
+      label
+        cursor: pointer
+        opacity: 0.75
+      svg
+        transition: 0.3s var(--ease-spring)
+
+    &.view-group
+      margin-bottom: 0
+
+      +onMinSize(large)
+        align-items: flex-start
+
+    &-input
+      +hide-input
+
+      &#productViewGrid
+        &:checked
+          ~ .filters-fields-outer .productViewGrid
+            color: var(--primary)
+
+      &#productViewList
+        &:checked
+          ~ .filters-fields-outer .productViewList
+            color: var(--primary)
+
+          ~ .shop-page-inner
+            +onMaxSize(large)
+              width: 100%
+
+            .product-list
+              grid-template-columns: 100%
+
+              +onMinSize(medium)
+                grid-template-columns: repeat(2, minmax(0,1fr))
+
+              .product-card-outer
+                flex-direction: row
+                justify-content: space-between
+
+              .product-image-outer
+                margin: 0
+                max-height: rem(250)
+
+                img
+                  height: 100%
+                  object-fit: cover
+
+              .product-name
+                text-align: right
+                width: 50%
+                padding: rem(16) rem(8) 0 0
+
+              .product-info
+                position: absolute
+                bottom: rem(10)
+                right: rem(10)
+
+                &-inner
+                  flex-direction: column
+                  align-items: flex-end
+
+                .btn-wishlist
+                  position: fixed
+
+                .btn-add
+                  height: auto
+                  line-height: 1
+                  bottom: rem(-10)
+                  right: rem(-10)
+                  gap: rem(8)
+                  padding: rem(12) rem(16)
+
+                  span
+                    display: block
+
+              .product-price-info
+                text-align: right
+                padding-right: rem(8)
+.dropdown
+  &-outer
+    position: relative
+  &-inner
+    display: flex
+    align-items: center
+    cursor: pointer
+
+    .text-primary
+      font-weight: 600
+    .icon
+      margin-left: rem(8)
+      transform: rotate(180deg)
+      opacity: 0.75
+      transition: transform 0.3s var(--ease-spring)
+
+  &-group
+    padding-inline: rem(8)
+
+  &-input
+    +hide-input
+    &:checked
+      ~ .dropdown-menu
+        visibility: visible
+        transform: translateY(0)
+        opacity: 1
+      ~ .dropdown-inner .icon
+        transform: rotate(0deg)
+
+  &-menu
+    position: absolute
+    visibility: hidden
+    right: 0
+    z-index: 1
+    opacity: 0
+    margin-top: rem(8)
+    border-radius: rem(20)
+    padding: rem(8) rem(16)
+    min-width: rem(80)
+    border: rem(1) solid var(--border-light)
+    background-color: var(--white)
+    transform: translateY(rem(12))
+    transition: transform 0.3s var(--ease-spring), opacity 0.3s var(--ease-spring)
+
+    li
+      padding-block: rem(8)
+
+      button
+        text-align: left
+        width: 100%
+        font-size: rem(16)
+
+        &:hover
+          color: var(--primary)
+
+.sn-pagination
+  display: grid
+  place-items: center
+  width: 100%
+  ul
+    display: flex
+    gap: rem(8)
+
+    .btn
+      display: grid
+      place-items: center
+      padding: 0
+      font-weight: 500
+      border-radius: rem(10)
+      width: rem(40)
+      height: rem(40)
+      background-color: var(--primary-light)
+      color: var(--text)
+
+      &.activate
+        background-color: var(--primary)
+        color: var(--white)
+
+  .last-page
+    display: grid
+    justify-content: center
+    align-items: flex-end
+    width: rem(40)
+
+.filters-fields
+  border: rem(1) solid var(--border-light)
+  border-radius: rem(20)
+  +onMinSize(large)
+    position: sticky
+    top: rem(32)
+    transition: top 0.3s var(--ease-spring)
+
+    .show-header:not(.page-down) &
+      top: rem(90)
+  +onMaxSize(large)
+    position: fixed
+    inset: 0
+    z-index: 3
+    border-radius: 0
+    transform: translateX(-110%)
+    background-color: var(--white)
+    transition: transform 0.3s var(--ease-spring)
+
+    &-body
+      overflow: auto
+      max-height: calc(100vh - rem(200))
+
+  &-footer
+    position: absolute
+    bottom: 0
+    padding: rem(16)
+    width: 100%
+    border: rem(1) solid var(--border-light)
+    background: var(--white)
+    +onMinSize(large)
+      display: none
+
+  &-outer
+    min-width: 100%
+    +onMinSize(large)
+      min-width: calc($filter-section-width - $filter-section-gap)
+      max-width: calc($filter-section-width - $filter-section-gap)
+
+  &-heading
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: rem(16)
+    border-bottom: rem(1) solid var(--border-light)
+
+    h2
+      font-weight: 600
+      font-size: rem(20)
+
+  &-applied
+    display: flex
+    flex-wrap: wrap
+    gap: rem(4) rem(8)
+    margin-bottom: rem(16)
+    padding: rem(8)
+    border-bottom: rem(1) solid var(--border-light)
+    &:empty
+      display: none
+  &-pill
+    display: inline-flex
+    align-items: center
+    text-transform: capitalize
+    cursor: pointer
+    font-size: rem(12)
+    gap: rem(4)
+    padding: rem(4) rem(6)
+    border-radius: rem(4)
+    background-color: var(--primary-light)
+
+    button
+      width: rem(18)
+      height: rem(17)
+    svg
+      width: rem(18)
+      height: rem(18)
+      transform: scale(0.6)
+      color: var(--primary)
+
+  &-main
+    li
+      margin: rem(8) rem(20)
+      &:last-child
+        margin-bottom: rem(16)
+        details
+          border-bottom: none
+
+  &-options
+    margin-block: rem(16)
+    display: flex
+    flex-direction: column
+    &-outer
+      margin-left: rem(12)
+      padding-left: rem(4)
+      order: -1
+      .sn-custom-checkbox-outer
+        padding-right: rem(12)
+      summary
+        margin-bottom: rem(8)
+        font-weight: 500
+    &.Colors
+      display: flex
+      flex-wrap: wrap
+      flex-direction: row
+      gap: rem(8)
+      padding-left: rem(16)
+
+.sn-custom-checkbox
+  display: inline-block
+  width: rem(16)
+  height: rem(16)
+  border-radius: rem(2)
+  border: rem(1) solid var(--border-light)
+  transition: background-color 0.3s var(--ease-spring)
+
+  &-outer
+    display: flex
+    justify-content: space-between
+    cursor: pointer
+    padding: rem(8) rem(4) rem(8) rem(16)
+
+    &.Colors
+      padding: 0
+      &,
+      .sn-custom-checkbox
+        width: rem(20)
+        height: rem(20)
+        border-radius: 50%
+
+        .sn-custom-checkbox-label
+          display: none
+
+      .sn-custom-checkbox-input:checked ~ .sn-custom-checkbox
+        border-color: var(--border-light)
+
+  &-input
+    +hide-input
+    &:checked
+      ~ .sn-custom-checkbox
+        background-position: center
+        background-repeat: no-repeat
+        background-image: url("data:image/svg+xml,%3Csvg width='11' height='9' viewBox='0 0 11 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.33 1L3.11763 7.2475L1 5.1179' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+        background-color: var(--primary)
+        border-color: var(--primary)
+
+        &[style="background-color:White"]
+          background-image: url("data:image/svg+xml,%3Csvg width='11' height='9' viewBox='0 0 11 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.33 1L3.11763 7.2475L1 5.1179' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+
+.sn-input
+  &-range
+    width: 100%
+    appearance: none
+    background-color: transparent
+    &::-webkit-slider-thumb
+      width: rem(16)
+      height: rem(16)
+      appearance: none
+      background-color: var(--primary)
+      border-radius: 50%
+      pointer-events: auto
+      cursor: pointer
+      position: relative
+      z-index: 1
+    &.min-range
+      &::-webkit-slider-runnable-track
+        background-color: var(--border-dark)
+        height: rem(6)
+        border-radius: rem(4)
+      &::-webkit-slider-thumb
+        position: relative
+        top: rem(-4)
+    &.max-range
+      position: relative
+      top: rem(-30)
+      &::-webkit-slider-runnable-track
+        height: 0
+        appearance: none
+    &-set
+      margin-top: rem(8)
+      label
+        display: flex
+        align-items: center
+        gap: rem(8)
+      input
+        border: rem(1) solid var(--border-light)
+        padding: rem(8)
+        border-radius: rem(20)
+        width: rem(80)
+.filter-fields-toggler
+  +hide-input
+  &:checked
+    ~ .filters-fields
+      transform: translateX(0)
+
+  &-close
+    +onMinSize(large)
+      display: none
+
+.not-found-text
+  color: var(--text)
+  margin-top: rem(60)

@@ -1,21 +1,18 @@
 'use client'
 
-import { type LanguageChangeActionTypes, type QuickMenusTypes, type QuickMenusInnerTypes } from "@/shared/helper/types"
-import { useState, useEffect, useTransition, useContext } from "react"
-import { usePathname, useRouter } from 'next/navigation'
-import { useLocale } from "next-intl"
+import { type QuickMenusInnerTypes } from "@/shared/helper/types"
+import { useState, useEffect, useContext } from "react"
+import { usePathname } from 'next/navigation'
 import Link from "next/link"
 import { CartContext } from "../../context/CartContext"
 import Icon from "../../Icon"
 
-const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode => {
+const QuickMenus = (): React.ReactNode => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
-  const [languageOpen, setLanguageOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const [scrollDown, setScrollDown] = useState(false)
   const { cartProducts, wishlistProducts } = useContext(CartContext)
   const pageName = usePathname()
-  const lang = useLocale()
 
   useEffect(() => {
     const animItems = document.querySelectorAll('.aos')
@@ -78,8 +75,8 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
           </Link>
         </li>
         <li className="position-relative">
-          <Link href={`/${lang}/wishlist`}>
-            <Icon name="bag" className={pageName === `/${lang}/wishlist` ? 'text-primary' : ''} />
+          <Link href="wishlist">
+            <Icon name="bag" className={pageName === "wishlist" ? 'text-primary' : ''} />
             {
               wishlistProducts.length > 0 &&
               <span className="cart-count position-absolute d-flex align-center justify-center">{wishlistProducts.length}</span>
@@ -87,8 +84,8 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
           </Link>
         </li>
         <li className="icon-cart position-relative">
-          <Link href={`/${lang}/cart`}>
-            <Icon name="cart" className={pageName === `/${lang}/cart` ? 'text-primary' : ''} />
+          <Link href="cart">
+            <Icon name="cart" className={pageName === "cart" ? 'text-primary' : ''} />
           </Link>
           {
             cartProducts.length > 0 &&
@@ -130,39 +127,10 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
             isActive={settingsOpen}
             closeAction={setSettingsOpen}
             menuListBody={
-              <>
-                <li>
-                  <button
-                    type="submit"
-                    onClick={() => setLanguageOpen((prev) => !prev)}
-                  >
-                    {langText}
-                    :&nbsp;
-                    <span>{currentLang}</span>
-                  </button>
-                  <QuickMenuInner
-                    isActive={languageOpen}
-                    closeAction={setLanguageOpen}
-                    menuListBody={
-                      <>
-                        <li>
-                          <LanguageChangeAction lang="en" name="English" />
-                        </li>
-                        <li>
-                          <LanguageChangeAction lang="hi" name="हिंदी" />
-                        </li>
-                        <li>
-                          <LanguageChangeAction lang="pu" name="ਪੰਜਾਬੀ" />
-                        </li>
-                      </>
-                    }
-                  />
-                </li>
-                <li>
-                  Theme Mode:
-                  <span> Light</span>
-                </li>
-              </>
+              <li>
+                Theme Mode:
+                <span> Light</span>
+              </li>
             }
           />
         </li>
@@ -192,47 +160,5 @@ const QuickMenuInner = ({
     </ul>
   </div>
 )
-
-const LanguageChangeAction = ({ lang, name }: LanguageChangeActionTypes): React.ReactNode => {
-  const [isPending, startTransition] = useTransition()
-  const router = useRouter()
-  const pName = usePathname()
-
-  const getTextAfterSecondSlash = (inputText: string): string | null => {
-    const firstSlashIndex = inputText.indexOf('/')
-
-    if (firstSlashIndex === -1 || firstSlashIndex === inputText.length - 1) {
-      return null
-    }
-    const secondSlashIndex = inputText.indexOf('/', firstSlashIndex + 1)
-    if (secondSlashIndex === -1) {
-      return null
-    }
-    const textAfterSecondSlash = inputText.substring(secondSlashIndex + 1)
-    return textAfterSecondSlash
-  }
-
-  const redirectPath = getTextAfterSecondSlash(pName)
-
-  const handleClick = (): void => {
-    startTransition(() => {
-      if (redirectPath == null) {
-        router.replace(`/${lang}`)
-      } else {
-        router.replace(`/${lang}/${redirectPath}`)
-      }
-    })
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={handleClick}
-      disabled={isPending}
-    >
-      {name}
-    </button>
-  )
-}
 
 export default QuickMenus

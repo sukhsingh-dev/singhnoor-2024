@@ -1,18 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
-import { useLocale } from "next-intl"
 import { type Product } from "@/shared/helper/types"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import StoreBtn from "../../storeBtn/StoreBtn"
 import './style.sass'
 
 const ProductCard: React.FC<Product> = ({ product }: Product) => {
-  const lang = useLocale()
   const roundToNearestTen = (number: number): number => Math.round(number / 10) * 10
   return (
     <div className="product-card-outer" key={product._id}>
       <Link
-        href={`/${lang}/product/${product._id}`}
+        href={`/product/${product._id}`}
         className="product-image-outer"
       >
         <Image
@@ -24,7 +22,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
         />
       </Link>
       <Link
-        href={`/${lang}/product/${product._id}`}
+        href={`/product/${product._id}`}
         className="product-name"
       >
         {product.productTitle}
