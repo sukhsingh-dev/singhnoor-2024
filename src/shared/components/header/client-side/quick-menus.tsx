@@ -1,6 +1,6 @@
 'use client'
 
-import { type LanguageChangeActionTypes, type QuickMenusTypes } from "@/shared/helper/types"
+import { type LanguageChangeActionTypes, type QuickMenusTypes, type QuickMenusInnerTypes } from "@/shared/helper/types"
 import { useState, useEffect, useTransition, useContext } from "react"
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from "next-intl"
@@ -77,7 +77,7 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
             <Icon name="home" className={pageName === '/' ? 'text-primary' : ''} />
           </Link>
         </li>
-        <li>
+        <li className="position-relative">
           <Link href={`/${lang}/wishlist`}>
             <Icon name="bag" className={pageName === `/${lang}/wishlist` ? 'text-primary' : ''} />
             {
@@ -103,25 +103,20 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
           >
             <Icon name="person" className={accountOpen ? 'text-primary' : ''} />
           </button>
-          <div className={`sn-quick-menus-inner ${accountOpen ? 'show-menu' : ''}`}>
-            <div className="sn-quick-menus-close">
-              <button
-                type="button"
-                aria-label="close menu"
-                onClick={() => setAccountOpen(false)}
-              >
-                <Icon name="close" />
-              </button>
-            </div>
-            <ul className="sn-quick-menus-inner-list">
-              <li>
-                Login
-              </li>
-              <li>
-                Signup
-              </li>
-            </ul>
-          </div>
+          <QuickMenuInner
+            isActive={accountOpen}
+            closeAction={setAccountOpen}
+            menuListBody={
+              <>
+                <li>
+                  Login
+                </li>
+                <li>
+                  Signup
+                </li>
+              </>
+            }
+          />
         </li>
         <li className="icon-setting">
           <button
@@ -131,61 +126,72 @@ const QuickMenus = ({ langText, currentLang }: QuickMenusTypes): React.ReactNode
           >
             <Icon name="setting" className={settingsOpen ? 'text-primary' : ''} />
           </button>
-          <div className={`sn-quick-menus-inner ${settingsOpen ? 'show-menu' : ''}`}>
-            <div className="sn-quick-menus-close">
-              <button
-                type="button"
-                aria-label="close menu"
-                onClick={() => setSettingsOpen(false)}
-              >
-                <Icon name="close" />
-              </button>
-            </div>
-            <ul className="sn-quick-menus-inner-list">
-              <li>
-                <button
-                  type="submit"
-                  onClick={() => setLanguageOpen((prev) => !prev)}
-                >
-                  {langText}
-                  :&nbsp;
-                  <span>{currentLang}</span>
-                </button>
-                <div className={`sn-quick-menus-inner lang-menu-inner ${languageOpen ? 'show-menu' : ''}`}>
-                  <div className="sn-quick-menus-close">
-                    <button
-                      type="button"
-                      aria-label="close menu"
-                      onClick={() => setLanguageOpen(false)}
-                    >
-                      <Icon name="close" />
-                    </button>
-                  </div>
-                  <ul className="sn-quick-menus-inner-list">
-                    <li>
-                      <LanguageChangeAction lang="en" name="English" />
-                    </li>
-                    <li>
-                      <LanguageChangeAction lang="hi" name="हिंदी" />
-                    </li>
-                    <li>
-                      <LanguageChangeAction lang="pu" name="ਪੰਜਾਬੀ" />
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                Theme Mode:
-                <span> Light</span>
-              </li>
-            </ul>
-          </div>
+          <QuickMenuInner
+            isActive={settingsOpen}
+            closeAction={setSettingsOpen}
+            menuListBody={
+              <>
+                <li>
+                  <button
+                    type="submit"
+                    onClick={() => setLanguageOpen((prev) => !prev)}
+                  >
+                    {langText}
+                    :&nbsp;
+                    <span>{currentLang}</span>
+                  </button>
+                  <QuickMenuInner
+                    isActive={languageOpen}
+                    closeAction={setLanguageOpen}
+                    menuListBody={
+                      <>
+                        <li>
+                          <LanguageChangeAction lang="en" name="English" />
+                        </li>
+                        <li>
+                          <LanguageChangeAction lang="hi" name="हिंदी" />
+                        </li>
+                        <li>
+                          <LanguageChangeAction lang="pu" name="ਪੰਜਾਬੀ" />
+                        </li>
+                      </>
+                    }
+                  />
+                </li>
+                <li>
+                  Theme Mode:
+                  <span> Light</span>
+                </li>
+              </>
+            }
+          />
         </li>
       </ul>
 
     </div>
   )
 }
+
+const QuickMenuInner = ({
+  isActive, closeAction, menuListBody
+}: QuickMenusInnerTypes): React.ReactNode => (
+  <div className={`sn-quick-menus-inner ${isActive ? 'show-menu' : ''}`}>
+    <div className="position-relative">
+      <Icon name="modal-design" className="modal-design" />
+    </div>
+    <button
+      className="menu-close"
+      type="button"
+      aria-label="close menu"
+      onClick={() => closeAction(false)}
+    >
+      <Icon name="close" width={16} height={16} />
+    </button>
+    <ul className="sn-quick-menus-inner-list">
+      {menuListBody}
+    </ul>
+  </div>
+)
 
 const LanguageChangeAction = ({ lang, name }: LanguageChangeActionTypes): React.ReactNode => {
   const [isPending, startTransition] = useTransition()

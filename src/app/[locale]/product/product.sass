@@ -499,8 +499,9 @@ $imgShape: rem(450) // match this with imgShape variable in productImages.tsx
   margin-bottom: rem(-10)
   filter: drop-shadow(0 rem(-1) 0 rgba(#000,0.2))
 
-  +onMinSize(medium)
-    height: rem(90)
+  +onMinSize(small)
+    background-color: var(--white)
+    border-radius: rem(30) rem(30) 0 0
   +onMinSize(x-large)
     display: none
 

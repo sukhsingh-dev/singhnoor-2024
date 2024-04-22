@@ -135,6 +135,13 @@ export interface QuickMenusTypes {
   currentLang: string
 }
 
+export interface QuickMenusInnerTypes {
+  isActive: boolean
+  closeAction: (state: boolean) => void
+  menuListBody: React.ReactNode
+
+}
+
 export interface LanguageChangeActionTypes {
   lang: string
   name: string
