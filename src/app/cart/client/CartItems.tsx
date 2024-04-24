@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
@@ -12,6 +12,30 @@ import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
   const { cartProducts, clearCart } = useContext(CartContext)
+  const subtotal = cartProducts.reduce((acc, product: InCartProductType) => {
+    const productSubtotal = product.productPrice * (
+      product.selected?.qty !== undefined ? product.selected.qty : 1
+    )
+    return acc + productSubtotal
+  }, 0)
+
+  const getGSTPrice = (): number => {
+    let gstVal = 1
+
+    if (subtotal < 1000) {
+      gstVal = 0.05
+    } else {
+      gstVal = 0.12
+    }
+    const priceGST = subtotal * gstVal
+    return Number(priceGST.toFixed(2))
+  }
+
+  const discount = 0
+  const getGrandTotal = (): number => {
+    const sum = subtotal + getGSTPrice() - discount
+    return Number(sum.toFixed(2))
+  }
 
   const sortedCartProducts = cartProducts.sort((a, b) => {
     if (a._id < b._id) {
@@ -56,34 +80,31 @@ const CartItems = (): React.ReactNode => {
                   <span className="order-info-title">Subtotal</span>
                   <span className="order-info-total">
                     <span className="product-price-currency">₹</span>
-                    500
-                  </span>
-                </div>
-
-                <div className="order-info discount">
-                  <span className="order-info-title">Discount</span>
-                  <span className="order-info-total">
-                    -
-                    <span className="product-price-currency">₹</span>
-                    100
+                    {`${subtotal}.00`}
                   </span>
                 </div>
 
                 <div className="order-info">
                   <span className="order-info-title">GST</span>
                   <span className="order-info-total">
-                    -
                     <span className="product-price-currency">₹</span>
-                    20
+                    {getGSTPrice()}
+                  </span>
+                </div>
+
+                <div className="order-info discount">
+                  <span className="order-info-title">Discount</span>
+                  <span className="order-info-total">
+                    <span className="product-price-currency">₹</span>
+                    {discount}
                   </span>
                 </div>
 
                 <div className="order-info grand-total">
                   <span className="order-info-title">Grand Total</span>
                   <span className="order-info-total">
-                    -
                     <span className="product-price-currency">₹</span>
-                    520
+                    {getGrandTotal()}
                   </span>
                 </div>
 
@@ -111,7 +132,7 @@ const NoProductUI = (): React.ReactNode => (
 )
 
 const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
-  const [qty, setQty] = useState(1)
+  const [qty, setQty] = useState(((product.selected?.qty) != null) ? product.selected.qty : 1)
   const {
     updateOneProduct, removeProduct
   } = useContext(CartContext)
@@ -137,6 +158,17 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
     }
     updateOneProduct(newChanges)
   }
+
+  useEffect(() => {
+    const newChanges: InCartProductType = {
+      ...product,
+      selected: {
+        ...product.selected,
+        qty
+      }
+    }
+    updateOneProduct(newChanges)
+  }, [qty])
 
   return (
     <div key={product._id} className="cart-product">
