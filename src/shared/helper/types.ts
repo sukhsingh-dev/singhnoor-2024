@@ -32,15 +32,21 @@ export interface StoreBtnTypes {
 
 export interface SelectedStoreType {
   qty?: number
-  size?: string
-  color?: string
-  material?: string
-  work?: string
+  size?: string | null
+  color?: string | null
+  material?: string | null
+  work?: string | null
+}
+
+export interface InCartProductType extends ProductType {
+  selected?: SelectedStoreType
 }
 
 export interface CartContextType {
   wishlistProducts: ProductType[]
   cartProducts: ProductType[]
+  getOneProduct: (productId: string) => InCartProductType | undefined
+  updateOneProduct: (product: InCartProductType) => void
   setCartProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
   addProduct: (product: ProductType) => void
   addToWishList: (product: ProductType) => void
@@ -147,4 +153,9 @@ export interface AttributeType {
 export interface RemoveProductType {
   productId: string
   actionType: string
+}
+
+export interface QtyBtnInputTypes {
+  qty: number
+  setQty: (state: number) => void
 }

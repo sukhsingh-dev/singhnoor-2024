@@ -1,20 +1,16 @@
 import Link from "next/link"
-import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
-import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
-import { type Select, type ProductType } from "@/shared/helper/types"
-import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
+import { type ProductType } from "@/shared/helper/types"
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
 import ProductDescription from "../client/ProductDescription"
-import SizeChart from "../client/SizeChart"
 import ProductList from "../../home/products/ProductsList"
+import ProductAttributes from "../client/ProductAttributes"
 import '../product.sass'
 
 const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
   const res = await fetch(`${process.env.BACKOFFICE_URL}/products?id=${params.id}`, { cache: 'no-store' })
   const product: ProductType = await res.json()
 
-  const roundToNearestTen = (number: number): number => Math.round(number / 10) * 10
   return (
     <>
       <section className="sn-product-page">
@@ -24,72 +20,7 @@ const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.
           <ProductDescription text={product.productDescription} />
         </div>
         <div className="sn-product-page-attribute-container">
-          {
-            product.productSize.length !== 0 ?
-              <div className="sn-product-page-attribute size">
-                <span className="sn-product-page-attribute-heading">Size:</span>
-                <ul className="attribute-sizes-list">
-                  {
-                    product.productSize.map((item: Select, index: number) => (
-                      <li key={item.value}>
-                        <input
-                          type="radio"
-                          name="size-radio"
-                          value={item.value}
-                          id={item.value}
-                          defaultChecked={index === 0}
-                        />
-                        <label htmlFor={item.value}>{item.label}</label>
-                      </li>
-                    ))
-                  }
-                </ul>
-                <SizeChart category={product.productCategory.label} />
-              </div>
-              : ''
-          }
-          {
-            product.productColors.length > 1 ?
-              <div className="sn-product-page-attribute colors">
-                <span className="sn-product-page-attribute-heading">Colors:</span>
-                <ul className="attribute-colors-list">
-                  {
-                    product.productColors.map((item: Select, index: number) => (
-                      <li key={item.value}>
-                        <input type="radio" name="color-radio" value={item.value} id={item.value} defaultChecked={index === 0} />
-                        <label htmlFor={item.value} style={{ backgroundColor: item.value }} />
-                      </li>
-                    ))
-                  }
-                </ul>
-              </div>
-              : ''
-          }
-          <QtyBtnInput />
-          <div className="sn-product-page-float">
-            <div className="sn-product-page-price">
-              <span className="old-price">
-                ₹
-                {
-                  roundToNearestTen(product.productPrice + (product.productPrice / 2.5))
-                }
-              </span>
-              <span className="text-primary new-price">
-                ₹
-                {product.productPrice}
-              </span>
-            </div>
-            <StoreBtn
-              productInfo={product}
-              storeName={WISHLIST_STORE_NAME}
-              btnClasses="btn-wishlist-float"
-            />
-            <StoreBtn
-              productInfo={product}
-              storeName={CART_STORE_NAME}
-              btnClasses="btn btn-secondary align-center"
-            />
-          </div>
+          <ProductAttributes product={product} />
           <details className="sn-product-page-accordion about">
             <summary>About Product</summary>
             <InnerHtml data={product.productAdditional} className="sn-product-additional-info" />

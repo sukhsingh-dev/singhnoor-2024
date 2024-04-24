@@ -169,3 +169,21 @@
     h3
       margin-block: rem(24)
       font-size: rem(24)
+
+.attribute-colors-list
+  display: flex
+  gap: rem(8)
+  label
+    display: block
+    cursor: pointer
+    border-radius: 50%
+    width: rem(20)
+    height: rem(20)
+    &.white
+      border: rem(1) solid var(--border-dark)
+  input
+    +hide-input
+    &:checked
+      ~ label
+        outline: rem(2) solid var(--primary)
+        outline-offset: rem(2)

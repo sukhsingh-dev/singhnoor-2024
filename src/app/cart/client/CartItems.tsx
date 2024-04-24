@@ -4,26 +4,66 @@ import { useContext } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
-import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
-import { type ProductType } from "@/shared/helper/types"
+// import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
+import { type InCartProductType } from "@/shared/helper/types"
 import { CartContext } from "@/shared/components/context/CartContext"
 import { CART_STORE_NAME } from "@/shared/helper/constants"
 import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
-  const { cartProducts, removeProduct, clearCart } = useContext(CartContext)
+  const {
+    cartProducts, getOneProduct, updateOneProduct, removeProduct, clearCart
+  } = useContext(CartContext)
+
+  const sortedCartProducts = cartProducts.sort((a, b) => {
+    if (a._id < b._id) {
+      return -1
+    }
+    if (a._id > b._id) {
+      return 1
+    }
+    return 0
+  })
+
+  const handleSizeChange = (sizeValue: string, id: string): void => {
+    const currentProduct = getOneProduct(id)
+    if (currentProduct !== undefined) {
+      const newChanges: InCartProductType = {
+        ...currentProduct,
+        selected: {
+          ...currentProduct.selected,
+          size: sizeValue
+        }
+      }
+      updateOneProduct(newChanges)
+    }
+  }
+
+  const handleColorChange = (colorValue: string, id: string): void => {
+    const currentProduct = getOneProduct(id)
+    if (currentProduct !== undefined) {
+      const newChanges: InCartProductType = {
+        ...currentProduct,
+        selected: {
+          ...currentProduct.selected,
+          color: colorValue
+        }
+      }
+      updateOneProduct(newChanges)
+    }
+  }
 
   return (
     <div className="cart-page-outer">
       {
-        cartProducts.length === 0
+        sortedCartProducts.length === 0
           ? <NoProductUI />
           :
           <>
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  cartProducts.map((product: ProductType) => (
+                  sortedCartProducts.map((product: InCartProductType) => (
                     <div key={product._id} className="cart-product">
                       <Image
                         src={product.productImagesArray[0]}
@@ -43,7 +83,16 @@ const CartItems = (): React.ReactNode => {
                                   product.productSize.map((size) => {
                                     return (
                                       <li key={size.value}>
-                                        <input id={`${size.value}-${product._id}`} type="radio" value={size.label} name="size-radio" />
+                                        <input
+                                          id={`${size.value}-${product._id}`}
+                                          type="radio"
+                                          value={size.label}
+                                          name={`size-radio-${product._id}`}
+                                          defaultChecked={product.selected?.size === size.label}
+                                          onChange={
+                                            (e) => handleSizeChange(e.target.value, product._id)
+                                          }
+                                        />
                                         <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
                                       </li>
                                     )
@@ -53,12 +102,41 @@ const CartItems = (): React.ReactNode => {
                             </div>
                             : null
                         }
+                        {
+                          product.productColors.length > 1 ?
+                            <div className="sn-product-page-attribute colors">
+                              <span className="sn-product-page-attribute-heading">Colors:</span>
+                              <ul className="attribute-colors-list">
+                                {
+                                  product.productColors.map((item) => (
+                                    <li key={item.value}>
+                                      <input
+                                        type="radio"
+                                        name={`color-radio-${product._id}`}
+                                        value={item.value}
+                                        id={item.value}
+                                        defaultChecked={product.selected?.color === item.value}
+                                        onChange={
+                                          (e) => handleColorChange(e.target.value, product._id)
+                                        }
+                                      />
+                                      <label
+                                        htmlFor={item.value}
+                                        style={{ backgroundColor: item.value }}
+                                      />
+                                    </li>
+                                  ))
+                                }
+                              </ul>
+                            </div>
+                            : ''
+                        }
                       </div>
                       <h3>
                         <span className="product-price-currency">₹</span>
                         {product.productPrice}
                       </h3>
-                      <QtyBtnInput />
+                      {/* <QtyBtnInput /> */}
                       <button
                         type="button"
                         aria-label="remove from cart"

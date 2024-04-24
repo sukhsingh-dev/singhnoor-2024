@@ -1,12 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { type QtyBtnInputTypes } from '@/shared/helper/types'
 import Icon from '../../Icon'
 import './qtyBtnInput.sass'
 
-const QtyBtnInput = (): React.ReactNode => {
-  const [qty, setQty] = useState(1)
-
+const QtyBtnInput = ({ qty, setQty }: QtyBtnInputTypes): React.ReactNode => {
   return (
     <div className="sn-product-page-attribute qty">
       <span className="sn-product-page-attribute-heading">Qty:</span>
@@ -14,7 +12,7 @@ const QtyBtnInput = (): React.ReactNode => {
         <button
           type="button"
           aria-label="increase product quantity by 1"
-          onClick={() => setQty((prev) => prev + 1)}
+          onClick={() => setQty(qty + 1)}
         >
           <Icon name="add" width={18} height={18} />
         </button>
@@ -22,7 +20,7 @@ const QtyBtnInput = (): React.ReactNode => {
         <button
           type="button"
           aria-label="decrease product quantity by 1"
-          onClick={() => setQty((prev) => (qty > 1 ? prev - 1 : 1))}
+          onClick={() => setQty((qty > 1 ? qty - 1 : 1))}
         >
           <Icon name="minus" width={18} height={2} />
         </button>

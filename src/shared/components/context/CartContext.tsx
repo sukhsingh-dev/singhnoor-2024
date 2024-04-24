@@ -1,13 +1,15 @@
 'use client'
 
 import React, { createContext, useEffect, useState, type ReactNode } from "react"
-import { type CartContextType, type ProductType, type RemoveProductType } from "@/shared/helper/types"
+import { type CartContextType, type ProductType, type RemoveProductType, type InCartProductType } from "@/shared/helper/types"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import Modal from "../ui/modal/Modal"
 
 export const CartContext = createContext<CartContextType>({
   wishlistProducts: [],
   cartProducts: [],
+  getOneProduct: () => undefined,
+  updateOneProduct: () => { },
   setCartProducts: () => { },
   addProduct: () => { },
   addToWishList: () => { },
@@ -27,8 +29,18 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
   const [clearCartAction, setClearCartAction] = useState('')
 
   const [alertType, setAlertTypeAlert] = useState("info")
-  const [cartProducts, setCartProducts] = useState<ProductType[]>([])
+  const [cartProducts, setCartProducts] = useState<ProductType[] | InCartProductType[]>([])
   const [wishlistProducts, setWishlistProducts] = useState<ProductType[]>([])
+
+  const getOneProduct = (id: string): InCartProductType | undefined => {
+    return cartProducts.find((item: InCartProductType) => item._id === id)
+  }
+
+  const updateOneProduct = (product: InCartProductType): void => {
+    const updatedCart = cartProducts.filter((item) => item._id !== product._id)
+    const newCart = [...updatedCart, product]
+    setCartProducts(newCart)
+  }
 
   const addProduct = (product: ProductType): void => {
     if (((Boolean(cartProducts.some((item: ProductType) => item._id === product._id))) ||
@@ -136,6 +148,8 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
       value={{
         cartProducts,
         wishlistProducts,
+        updateOneProduct,
+        getOneProduct,
         setCartProducts,
         addProduct,
         addToWishList,

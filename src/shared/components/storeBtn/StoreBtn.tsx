@@ -6,13 +6,16 @@ import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import { CartContext } from "../context/CartContext"
 import Icon from "../Icon"
 
-const StoreBtn = ({ productInfo, storeName, btnClasses }: StoreBtnTypes): React.ReactNode => {
+const StoreBtn = ({
+  productInfo, storeName, btnClasses, selected
+}: StoreBtnTypes): React.ReactNode => {
   const { cartProducts, wishlistProducts, addProduct, addToWishList } = useContext(CartContext)
   const [isActive, setIsActive] = useState(false)
 
   const handleAddToCart = (): void => {
+    const productData = { ...productInfo, selected }
     if (storeName === CART_STORE_NAME) {
-      addProduct(productInfo)
+      addProduct(productData)
     } else {
       addToWishList(productInfo)
     }
