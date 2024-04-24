@@ -1,19 +1,17 @@
 'use client'
 
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
-// import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
-import { type InCartProductType } from "@/shared/helper/types"
+import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
+import { type InCartProductType, type InCartProduct } from "@/shared/helper/types"
 import { CartContext } from "@/shared/components/context/CartContext"
 import { CART_STORE_NAME } from "@/shared/helper/constants"
 import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
-  const {
-    cartProducts, getOneProduct, updateOneProduct, removeProduct, clearCart
-  } = useContext(CartContext)
+  const { cartProducts, clearCart } = useContext(CartContext)
 
   const sortedCartProducts = cartProducts.sort((a, b) => {
     if (a._id < b._id) {
@@ -25,34 +23,6 @@ const CartItems = (): React.ReactNode => {
     return 0
   })
 
-  const handleSizeChange = (sizeValue: string, id: string): void => {
-    const currentProduct = getOneProduct(id)
-    if (currentProduct !== undefined) {
-      const newChanges: InCartProductType = {
-        ...currentProduct,
-        selected: {
-          ...currentProduct.selected,
-          size: sizeValue
-        }
-      }
-      updateOneProduct(newChanges)
-    }
-  }
-
-  const handleColorChange = (colorValue: string, id: string): void => {
-    const currentProduct = getOneProduct(id)
-    if (currentProduct !== undefined) {
-      const newChanges: InCartProductType = {
-        ...currentProduct,
-        selected: {
-          ...currentProduct.selected,
-          color: colorValue
-        }
-      }
-      updateOneProduct(newChanges)
-    }
-  }
-
   return (
     <div className="cart-page-outer">
       {
@@ -63,91 +33,8 @@ const CartItems = (): React.ReactNode => {
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  sortedCartProducts.map((product: InCartProductType) => (
-                    <div key={product._id} className="cart-product">
-                      <Image
-                        src={product.productImagesArray[0]}
-                        alt={product.productTitle}
-                        width={100}
-                        height={100}
-                      />
-                      <div className="product-select-info">
-                        <Link className="cart-product-title" href={`/product/${product._id}`}>{product.productTitle}</Link>
-                        {
-                          product.productSize.length > 1 ?
-                            <div className="sn-product-page-attribute size">
-                              <span className="sn-product-page-attribute-heading">Size:</span>
-                              <ul className="attribute-sizes-list">
-                                {
-                                  // eslint-disable-next-line arrow-body-style
-                                  product.productSize.map((size) => {
-                                    return (
-                                      <li key={size.value}>
-                                        <input
-                                          id={`${size.value}-${product._id}`}
-                                          type="radio"
-                                          value={size.label}
-                                          name={`size-radio-${product._id}`}
-                                          defaultChecked={product.selected?.size === size.label}
-                                          onChange={
-                                            (e) => handleSizeChange(e.target.value, product._id)
-                                          }
-                                        />
-                                        <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
-                                      </li>
-                                    )
-                                  })
-                                }
-                              </ul>
-                            </div>
-                            : null
-                        }
-                        {
-                          product.productColors.length > 1 ?
-                            <div className="sn-product-page-attribute colors">
-                              <span className="sn-product-page-attribute-heading">Colors:</span>
-                              <ul className="attribute-colors-list">
-                                {
-                                  product.productColors.map((item) => (
-                                    <li key={item.value}>
-                                      <input
-                                        type="radio"
-                                        name={`color-radio-${product._id}`}
-                                        value={item.value}
-                                        id={item.value}
-                                        defaultChecked={product.selected?.color === item.value}
-                                        onChange={
-                                          (e) => handleColorChange(e.target.value, product._id)
-                                        }
-                                      />
-                                      <label
-                                        htmlFor={item.value}
-                                        style={{ backgroundColor: item.value }}
-                                      />
-                                    </li>
-                                  ))
-                                }
-                              </ul>
-                            </div>
-                            : ''
-                        }
-                      </div>
-                      <h3>
-                        <span className="product-price-currency">₹</span>
-                        {product.productPrice}
-                      </h3>
-                      {/* <QtyBtnInput /> */}
-                      <button
-                        type="button"
-                        aria-label="remove from cart"
-                        className="btn-remove-product"
-                        onClick={() => removeProduct({
-                          productId: product._id, actionType: CART_STORE_NAME
-                        })}
-                      >
-                        <Icon name="delete" />
-                      </button>
-                    </div>
+                  sortedCartProducts.map((productInfo: InCartProductType) => (
+                    <CartProductUI key={productInfo._id} product={productInfo} />
                   ))
 
                 }
@@ -222,5 +109,121 @@ const NoProductUI = (): React.ReactNode => (
     <Link href="/shop" className="btn btn-secondary btn-arrow-long align-center">Start Adding Product</Link>
   </div>
 )
+
+const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
+  const [qty, setQty] = useState(1)
+  const {
+    updateOneProduct, removeProduct
+  } = useContext(CartContext)
+
+  const handleSizeChange = (sizeValue: string): void => {
+    const newChanges: InCartProductType = {
+      ...product,
+      selected: {
+        ...product.selected,
+        size: sizeValue
+      }
+    }
+    updateOneProduct(newChanges)
+  }
+
+  const handleColorChange = (colorValue: string): void => {
+    const newChanges: InCartProductType = {
+      ...product,
+      selected: {
+        ...product.selected,
+        color: colorValue
+      }
+    }
+    updateOneProduct(newChanges)
+  }
+
+  return (
+    <div key={product._id} className="cart-product">
+      <Image
+        src={product.productImagesArray[0]}
+        alt={product.productTitle}
+        width={100}
+        height={100}
+      />
+      <div className="product-select-info">
+        <Link className="cart-product-title" href={`/product/${product._id}`}>{product.productTitle}</Link>
+        {
+          product.productSize.length > 1 ?
+            <div className="sn-product-page-attribute size">
+              <span className="sn-product-page-attribute-heading">Size:</span>
+              <ul className="attribute-sizes-list">
+                {
+                  // eslint-disable-next-line arrow-body-style
+                  product.productSize.map((size) => {
+                    return (
+                      <li key={size.value}>
+                        <input
+                          id={`${size.value}-${product._id}`}
+                          type="radio"
+                          value={size.label}
+                          name={`size-radio-${product._id}`}
+                          defaultChecked={product.selected?.size === size.label}
+                          onChange={
+                            (e) => handleSizeChange(e.target.value)
+                          }
+                        />
+                        <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+            : null
+        }
+        {
+          product.productColors.length > 1 ?
+            <div className="sn-product-page-attribute colors">
+              <span className="sn-product-page-attribute-heading">Colors:</span>
+              <ul className="attribute-colors-list">
+                {
+                  product.productColors.map((item) => (
+                    <li key={item.value}>
+                      <input
+                        type="radio"
+                        name={`color-radio-${product._id}`}
+                        value={item.value}
+                        id={item.value}
+                        defaultChecked={product.selected?.color === item.value}
+                        onChange={
+                          (e) => handleColorChange(e.target.value)
+                        }
+                      />
+                      <label
+                        htmlFor={item.value}
+                        style={{ backgroundColor: item.value }}
+                      />
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+            : ''
+        }
+      </div>
+      <h3>
+        <span className="product-price-currency">₹</span>
+        {product.productPrice}
+      </h3>
+      <QtyBtnInput qty={qty} setQty={setQty} />
+      <button
+        type="button"
+        aria-label="remove from cart"
+        className="btn-remove-product"
+        onClick={() => removeProduct({
+          productId: product._id, actionType: CART_STORE_NAME
+        })}
+      >
+        <Icon name="delete" />
+      </button>
+    </div>
+  )
+}
 
 export default CartItems

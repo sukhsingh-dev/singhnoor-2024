@@ -42,6 +42,10 @@ export interface InCartProductType extends ProductType {
   selected?: SelectedStoreType
 }
 
+export interface InCartProduct {
+  product: InCartProductType
+}
+
 export interface CartContextType {
   wishlistProducts: ProductType[]
   cartProducts: ProductType[]
