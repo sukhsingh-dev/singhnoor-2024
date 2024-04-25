@@ -193,9 +193,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                         <input
                           id={`${size.value}-${product._id}`}
                           type="radio"
-                          value={size.label}
+                          value={size.value}
                           name={`size-radio-${product._id}`}
-                          defaultChecked={product.selected?.size === size.label}
+                          defaultChecked={product.selected?.size === size.value}
                           onChange={
                             (e) => handleSizeChange(e.target.value)
                           }
