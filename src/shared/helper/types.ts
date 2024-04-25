@@ -163,3 +163,11 @@ export interface QtyBtnInputTypes {
   qty: number
   setQty: (state: number) => void
 }
+
+export interface RadioInputType {
+  id: string
+  name: string
+  value: string
+  checkedInCart: string | undefined | null
+  handleChange: (keyName: string, valueName: string) => void
+}
