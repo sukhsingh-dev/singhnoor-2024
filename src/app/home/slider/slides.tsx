@@ -22,6 +22,7 @@ export const Slide2: React.FC = () => (
           height={380}
           quality={100}
           className="slider-img"
+          priority={false}
         />
       </div>
       <div className="slide-offer">
@@ -36,6 +37,7 @@ export const Slide2: React.FC = () => (
             width={180}
             height={180}
             quality={100}
+            priority={false}
           />
         </div>
         <div className="slider-img-lg-right">
@@ -45,6 +47,7 @@ export const Slide2: React.FC = () => (
             width={180}
             height={180}
             quality={100}
+            priority={false}
           />
         </div>
       </div>
@@ -73,6 +76,7 @@ export const Slide3: React.FC = () => (
           height={380}
           quality={100}
           className="slider-img"
+          priority={false}
         />
       </div>
       <div className="slide-offer">
@@ -87,6 +91,7 @@ export const Slide3: React.FC = () => (
             width={180}
             height={180}
             quality={100}
+            priority={false}
           />
         </div>
         <div className="slider-img-lg-right">
@@ -96,6 +101,7 @@ export const Slide3: React.FC = () => (
             width={180}
             height={180}
             quality={100}
+            priority={false}
           />
         </div>
       </div>
@@ -124,6 +130,7 @@ export const Slide1: React.FC = () => (
           height={380}
           quality={100}
           className="slider-img"
+          priority={false}
         />
       </div>
       <div className="slide-offer">
@@ -138,6 +145,7 @@ export const Slide1: React.FC = () => (
             width={180}
             height={180}
             quality={100}
+            priority={false}
           />
         </div>
         <div className="slider-img-lg-right">
@@ -147,6 +155,7 @@ export const Slide1: React.FC = () => (
             width={180}
             height={180}
             quality={100}
+            priority={false}
           />
         </div>
       </div>
