@@ -30,7 +30,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
       <div className="d-flex justify-between product-info">
         <div className="product-info-inner">
           <StoreBtn
-            productInfo={product}
+            _id={product._id}
             storeName={WISHLIST_STORE_NAME}
             btnClasses="btn-product btn-wishlist"
           />
@@ -45,7 +45,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
             </span>
           </div>
           <StoreBtn
-            productInfo={product}
+            _id={product._id}
             storeName={CART_STORE_NAME}
             btnClasses="btn-product btn-add"
           />

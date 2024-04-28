@@ -18,16 +18,6 @@ export interface ProductType {
   productMaterial: Select[]
   productColors: Select[]
   productWork: Select[]
-  // createdAt: time
-  // updatedAt: time
-  // __v: number
-}
-
-export interface StoreBtnTypes {
-  productInfo: ProductType
-  storeName: string
-  btnClasses: string
-  selected?: SelectedStoreType
 }
 
 export interface SelectedStoreType {
@@ -38,24 +28,30 @@ export interface SelectedStoreType {
   work?: string | null
 }
 
-export interface InCartProductType extends ProductType {
+export interface InCartProductType {
+  _id: string
   selected?: SelectedStoreType
 }
 
-export interface InCartProduct {
-  product: InCartProductType
+export interface StoreBtnTypes extends InCartProductType {
+  storeName: string
+  btnClasses: string
+}
+
+export interface CartActionType {
+  productId: string
+  storeName: string
 }
 
 export interface CartContextType {
-  wishlistProducts: ProductType[]
-  cartProducts: ProductType[]
-  getOneProduct: (productId: string) => InCartProductType | undefined
-  updateOneProduct: (product: InCartProductType) => void
-  setCartProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
-  addProduct: (product: ProductType) => void
-  addToWishList: (product: ProductType) => void
-  removeProduct: ({ productId, actionType }: RemoveProductType) => void
-  clearCart: (actionType: string) => void
+  cartProducts: InCartProductType[]
+  wishlistProducts: InCartProductType[]
+  addToCart: (productInfo: InCartProductType) => void
+  addToWishList: (productInfo: InCartProductType) => void
+  // getOneProduct: ({ productId, storeName }: CartActionType) => InCartProductType | undefined
+  // updateOneProduct: ({ productId, storeName }: CartActionType) => void
+  // removeProduct: ({ productId, storeName }: CartActionType) => void
+  // clearCart: (storeName: string) => void
 }
 
 export interface Select {
@@ -64,9 +60,7 @@ export interface Select {
   __isNew__?: boolean
 }
 
-export interface Category {
-  value: string
-  label: string
+export interface Category extends Select {
   attr: Select[]
   subCategory: Select[]
 }
@@ -78,9 +72,6 @@ export interface CategoryType {
   categoryImg: string
   categoryAttributes: Select[]
   subCategory: Select[]
-  // createdAt: time
-  // updatedAt: time
-  // __v: number
 }
 
 export interface ProductListTypes {
@@ -152,11 +143,6 @@ export interface AttributeType {
   _id: string
   attributeName: string
   attributeOptions: Select[]
-}
-
-export interface RemoveProductType {
-  productId: string
-  actionType: string
 }
 
 export interface QtyBtnInputTypes {
