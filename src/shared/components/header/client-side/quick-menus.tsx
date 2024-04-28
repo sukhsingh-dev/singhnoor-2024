@@ -20,7 +20,7 @@ const QuickMenus = (): React.ReactNode => {
   useEffect(() => {
     setCartLength(cartProducts.length)
     setWishListLength(wishlistProducts.length)
-  })
+  }, [cartProducts, wishlistProducts])
 
   useEffect(() => {
     const animItems = document.querySelectorAll('.aos')

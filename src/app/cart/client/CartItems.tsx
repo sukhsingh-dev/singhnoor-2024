@@ -1,64 +1,49 @@
 'use client'
 
-import { useContext, useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
 import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
-import { type InCartProductType, type InCartProduct } from "@/shared/helper/types"
-import { CartContext } from "@/shared/components/context/CartContext"
-import { CART_STORE_NAME } from "@/shared/helper/constants"
+import { type ProductType, type InCartProductType } from "@/shared/helper/types"
+import { useShoppingCart } from "@/shared/components/context/CartContext"
+// import { CART_STORE_NAME } from "@/shared/helper/constants"
 import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
-  const { cartProducts, clearCart } = useContext(CartContext)
-  const subtotal = cartProducts.reduce((acc, product: InCartProductType) => {
-    const productSubtotal = product.productPrice * (
-      product.selected?.qty !== undefined ? product.selected.qty : 1
-    )
-    return acc + productSubtotal
-  }, 0)
+  const [cartItems, setCartItems] = useState<InCartProductType[]>()
+  const { cartProducts } = useShoppingCart()
 
-  const getGSTPrice = (): number => {
-    let gstVal = 1
-
-    if (subtotal < 1000) {
-      gstVal = 0.05
-    } else {
-      gstVal = 0.12
-    }
-    const priceGST = subtotal * gstVal
-    return Number(priceGST.toFixed(2))
-  }
-
-  const discount = 0
-  const getGrandTotal = (): number => {
-    const sum = subtotal + getGSTPrice() - discount
-    return Number(sum.toFixed(2))
-  }
-
-  const sortedCartProducts = cartProducts.sort((a, b) => {
-    if (a._id < b._id) {
-      return -1
-    }
-    if (a._id > b._id) {
-      return 1
-    }
-    return 0
+  useEffect(() => {
+    setCartItems(cartProducts)
   })
+
+  // const sortedCartProducts = cartProducts.sort((a, b) => {
+  //   if (a._id < b._id) {
+  //     return -1
+  //   }
+  //   if (a._id > b._id) {
+  //     return 1
+  //   }
+  //   return 0
+  // })
 
   return (
     <div className="cart-page-outer">
       {
-        sortedCartProducts.length === 0
+        cartItems?.length === 0
           ? <NoProductUI />
           :
           <>
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  sortedCartProducts.map((productInfo: InCartProductType) => (
-                    <CartProductUI key={productInfo._id} product={productInfo} />
+                  cartItems?.map((productInfo: InCartProductType) => (
+                    <CartProductUI
+                      key={productInfo._id}
+                      _id={productInfo._id}
+                      selected={productInfo.selected}
+                    />
                   ))
 
                 }
@@ -66,7 +51,7 @@ const CartItems = (): React.ReactNode => {
               <button
                 type="button"
                 className="btn-clear-cart"
-                onClick={() => clearCart(CART_STORE_NAME)}
+              // onClick={() => clearCart(CART_STORE_NAME)}
               >
                 Clear Cart
                 <Icon name="close" width={12} height={12} />
@@ -80,7 +65,7 @@ const CartItems = (): React.ReactNode => {
                   <span className="order-info-title">Subtotal</span>
                   <span className="order-info-total">
                     <span className="product-price-currency">₹</span>
-                    {`${subtotal}.00`}
+                    {/* {`${subtotal}.00`} */}
                   </span>
                 </div>
 
@@ -88,7 +73,7 @@ const CartItems = (): React.ReactNode => {
                   <span className="order-info-title">GST</span>
                   <span className="order-info-total">
                     <span className="product-price-currency">₹</span>
-                    {getGSTPrice()}
+                    {/* {getGSTPrice()} */}
                   </span>
                 </div>
 
@@ -96,7 +81,7 @@ const CartItems = (): React.ReactNode => {
                   <span className="order-info-title">Discount</span>
                   <span className="order-info-total">
                     <span className="product-price-currency">₹</span>
-                    {discount}
+                    {/* {discount} */}
                   </span>
                 </div>
 
@@ -104,7 +89,7 @@ const CartItems = (): React.ReactNode => {
                   <span className="order-info-title">Grand Total</span>
                   <span className="order-info-total">
                     <span className="product-price-currency">₹</span>
-                    {getGrandTotal()}
+                    {/* {getGrandTotal()} */}
                   </span>
                 </div>
 
@@ -131,44 +116,31 @@ const NoProductUI = (): React.ReactNode => (
   </div>
 )
 
-const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
-  const [qty, setQty] = useState(((product.selected?.qty) != null) ? product.selected.qty : 1)
-  const {
-    updateOneProduct, removeProduct
-  } = useContext(CartContext)
+const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode => {
+  const [qty, setQty] = useState(selected?.qty === undefined ? 1 : selected?.qty)
+  const [product, setProduct] = useState<ProductType>()
 
-  const handleSizeChange = (sizeValue: string): void => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        size: sizeValue
-      }
-    }
-    updateOneProduct(newChanges)
-  }
-
-  const handleColorChange = (colorValue: string): void => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        color: colorValue
-      }
-    }
-    updateOneProduct(newChanges)
-  }
+  // const getProduct = async (): Promise<ProductType> => {
+  //   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`,
+  // { cache: 'no-store', mode: 'no-cors' })
+  //   const productData: ProductType = await res.json()
+  //   return productData
+  // }
 
   useEffect(() => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        qty
-      }
-    }
-    updateOneProduct(newChanges)
-  }, [qty])
+    fetch(`http://localhost:3000/api/products?id=${_id}`)
+      // eslint-disable-next-line @typescript-eslint/promise-function-async
+      .then((res) => res.json())
+      .then((data: ProductType) => {
+        setProduct(data)
+        console.log("Now product is", data)
+      })
+      .catch((err) => console.log("the error", err))
+  }, [])
+
+  if (product === undefined) {
+    return "Loading..."
+  }
 
   return (
     <div key={product._id} className="cart-product">
@@ -195,10 +167,10 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                           type="radio"
                           value={size.value}
                           name={`size-radio-${product._id}`}
-                          defaultChecked={product.selected?.size === size.value}
-                          onChange={
-                            (e) => handleSizeChange(e.target.value)
-                          }
+                        // defaultChecked={product.selected?.size === size.value}
+                        // onChange={
+                        //   (e) => handleSizeChange(e.target.value)
+                        // }
                         />
                         <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
                       </li>
@@ -222,10 +194,10 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                         name={`color-radio-${product._id}`}
                         value={item.value}
                         id={item.value}
-                        defaultChecked={product.selected?.color === item.value}
-                        onChange={
-                          (e) => handleColorChange(e.target.value)
-                        }
+                      // defaultChecked={product.selected?.color === item.value}
+                      // onChange={
+                      //   (e) => handleColorChange(e.target.value)
+                      // }
                       />
                       <label
                         htmlFor={item.value}
@@ -248,9 +220,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
-        onClick={() => removeProduct({
-          productId: product._id, actionType: CART_STORE_NAME
-        })}
+      // onClick={() => removeProduct({
+      //   productId: product._id, actionType: CART_STORE_NAME
+      // })}
       >
         <Icon name="delete" />
       </button>
