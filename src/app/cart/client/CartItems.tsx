@@ -9,6 +9,7 @@ import { type ProductType, type InCartProductType } from "@/shared/helper/types"
 import { useShoppingCart } from "@/shared/components/context/CartContext"
 // import { CART_STORE_NAME } from "@/shared/helper/constants"
 import '../cart.sass'
+import { CART_STORE_NAME } from "@/shared/helper/constants"
 
 const CartItems = (): React.ReactNode => {
   const [cartItems, setCartItems] = useState<InCartProductType[]>()
@@ -120,12 +121,7 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
   const [qty, setQty] = useState(selected?.qty === undefined ? 1 : selected?.qty)
   const [product, setProduct] = useState<ProductType>()
 
-  // const getProduct = async (): Promise<ProductType> => {
-  //   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`,
-  // { cache: 'no-store', mode: 'no-cors' })
-  //   const productData: ProductType = await res.json()
-  //   return productData
-  // }
+  const { removeProduct } = useShoppingCart()
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/products?id=${_id}`)
@@ -133,9 +129,8 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
       .then((res) => res.json())
       .then((data: ProductType) => {
         setProduct(data)
-        console.log("Now product is", data)
       })
-      .catch((err) => console.log("the error", err))
+      .catch((err: string) => { throw new Error(err) })
   }, [])
 
   if (product === undefined) {
@@ -220,9 +215,7 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
-      // onClick={() => removeProduct({
-      //   productId: product._id, actionType: CART_STORE_NAME
-      // })}
+        onClick={() => removeProduct({ productId: product._id, storeName: CART_STORE_NAME })}
       >
         <Icon name="delete" />
       </button>

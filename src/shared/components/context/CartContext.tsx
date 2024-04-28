@@ -3,7 +3,7 @@
 'use client'
 
 import React, { createContext, useContext, useState, type ReactNode } from "react"
-import { type CartContextType, type InCartProductType } from "@/shared/helper/types"
+import { type CartActionType, type CartContextType, type InCartProductType } from "@/shared/helper/types"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import useLocalStorage from "@/shared/hooks/useLocalStorage"
 import Modal from "../ui/modal/Modal"
@@ -12,10 +12,10 @@ export const CartContext = createContext<CartContextType>({
   wishlistProducts: [],
   cartProducts: [],
   addToCart: () => { },
-  addToWishList: () => { }
+  addToWishList: () => { },
   // getOneProduct: () => undefined,
   // updateOneProduct: () => { },
-  // removeProduct: () => { },
+  removeProduct: () => { }
   // clearCart: () => { }
 })
 
@@ -45,6 +45,20 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     console.log("In Wishlist is", wishlistProducts)
   }
 
+  const removeProduct = ({ productId, storeName }: CartActionType): void => {
+    if (storeName === CART_STORE_NAME) {
+      setCartProducts((current) => {
+        return current.filter((cartProduct) => cartProduct._id !== productId)
+      })
+    } else {
+      setWishlistProducts((current) => {
+        return current.filter((cartProduct) => cartProduct._id !== productId)
+      })
+    }
+    setShowAlert(true)
+    setAlertInfo({ alertType: 'info', alertMsg: 'Product Removed' })
+  }
+
   return (
     <CartContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -52,7 +66,8 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
         cartProducts,
         wishlistProducts,
         addToCart,
-        addToWishList
+        addToWishList,
+        removeProduct
       }}
     >
       {children}

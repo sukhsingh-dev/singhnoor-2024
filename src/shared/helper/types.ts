@@ -50,7 +50,7 @@ export interface CartContextType {
   addToWishList: (productInfo: InCartProductType) => void
   // getOneProduct: ({ productId, storeName }: CartActionType) => InCartProductType | undefined
   // updateOneProduct: ({ productId, storeName }: CartActionType) => void
-  // removeProduct: ({ productId, storeName }: CartActionType) => void
+  removeProduct: ({ productId, storeName }: CartActionType) => void
   // clearCart: (storeName: string) => void
 }
 
