@@ -8,11 +8,19 @@ import { CartContext } from "../../context/CartContext"
 import Icon from "../../Icon"
 
 const QuickMenus = (): React.ReactNode => {
+  const { cartProducts, wishlistProducts } = useContext(CartContext)
+
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const [scrollDown, setScrollDown] = useState(false)
-  const { cartProducts, wishlistProducts } = useContext(CartContext)
+  const [cartLength, setCartLength] = useState(0)
+  const [wishlistLength, setWishListLength] = useState(0)
   const pageName = usePathname()
+
+  useEffect(() => {
+    setCartLength(cartProducts.length)
+    setWishListLength(wishlistProducts.length)
+  })
 
   useEffect(() => {
     const animItems = document.querySelectorAll('.aos')
@@ -78,8 +86,8 @@ const QuickMenus = (): React.ReactNode => {
           <Link href="/wishlist" aria-label="Go to Wishlist page">
             <Icon name="bag" className={pageName === "wishlist" ? 'text-primary' : ''} />
             {
-              wishlistProducts.length > 0 &&
-              <span className="cart-count position-absolute d-flex align-center justify-center">{wishlistProducts.length}</span>
+              wishlistLength > 0 &&
+              <span className="cart-count position-absolute d-flex align-center justify-center">{wishlistLength}</span>
             }
           </Link>
         </li>
@@ -88,8 +96,8 @@ const QuickMenus = (): React.ReactNode => {
             <Icon name="cart" className={pageName === "cart" ? 'text-primary' : ''} />
           </Link>
           {
-            cartProducts.length > 0 &&
-            <span className="cart-count position-absolute d-flex align-center justify-center">{cartProducts.length}</span>
+            cartLength > 0 &&
+            <span className="cart-count position-absolute d-flex align-center justify-center">{cartLength}</span>
           }
         </li>
         <li className="icon-account">
