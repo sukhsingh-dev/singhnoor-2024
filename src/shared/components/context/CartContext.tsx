@@ -1,8 +1,11 @@
+/* eslint-disable no-console */
+
 'use client'
 
 import React, { createContext, useContext, useState, type ReactNode } from "react"
 import { type CartContextType, type InCartProductType } from "@/shared/helper/types"
-// import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
+import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
+import useLocalStorage from "@/shared/hooks/useLocalStorage"
 import Modal from "../ui/modal/Modal"
 
 export const CartContext = createContext<CartContextType>({
@@ -24,8 +27,9 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
   const [showAlert, setShowAlert] = useState(false)
   const [alertInfo, setAlertInfo] = useState({ alertType: '', alertMsg: '' })
 
-  const [cartProducts, setCartProducts] = useState<InCartProductType[]>([])
-  const [wishlistProducts, setWishlistProducts] = useState<InCartProductType[]>([])
+  const [cartProducts, setCartProducts] = useLocalStorage<InCartProductType[]>(CART_STORE_NAME, [])
+  const [wishlistProducts, setWishlistProducts] =
+    useLocalStorage<InCartProductType[]>(WISHLIST_STORE_NAME, [])
 
   const addToCart = (productInfo: InCartProductType): void => {
     setCartProducts((current) => [...current, productInfo])
