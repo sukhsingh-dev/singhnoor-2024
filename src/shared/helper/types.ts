@@ -38,19 +38,16 @@ export interface StoreBtnTypes extends InCartProductType {
   btnClasses: string
 }
 
-export interface CartActionType {
-  productId: string
-  storeName: string
-}
-
 export interface CartContextType {
   cartProducts: InCartProductType[]
   wishlistProducts: InCartProductType[]
   addToCart: (productInfo: InCartProductType) => void
   addToWishList: (productInfo: InCartProductType) => void
-  // getOneProduct: ({ productId, storeName }: CartActionType) => InCartProductType | undefined
-  // updateOneProduct: ({ productId, storeName }: CartActionType) => void
-  removeProduct: ({ productId, storeName }: CartActionType) => void
+  updateProduct: (productId: string,
+    storeName: string,
+    keyName: string,
+    keyValue: string | number) => void
+  removeProduct: (productId: string, storeName: string) => void
   // clearCart: (storeName: string) => void
 }
 

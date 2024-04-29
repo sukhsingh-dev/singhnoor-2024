@@ -2,9 +2,9 @@
 
 'use client'
 
-import React, { createContext, useContext, useState, type ReactNode } from "react"
-import { type CartActionType, type CartContextType, type InCartProductType } from "@/shared/helper/types"
+import { type CartContextType, type InCartProductType } from "@/shared/helper/types"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
+import React, { createContext, useContext, useState, type ReactNode } from "react"
 import useLocalStorage from "@/shared/hooks/useLocalStorage"
 import Modal from "../ui/modal/Modal"
 
@@ -13,8 +13,7 @@ export const CartContext = createContext<CartContextType>({
   cartProducts: [],
   addToCart: () => { },
   addToWishList: () => { },
-  // getOneProduct: () => undefined,
-  // updateOneProduct: () => { },
+  updateProduct: () => { },
   removeProduct: () => { }
   // clearCart: () => { }
 })
@@ -45,7 +44,7 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     console.log("In Wishlist is", wishlistProducts)
   }
 
-  const removeProduct = ({ productId, storeName }: CartActionType): void => {
+  const removeProduct = (productId: string, storeName: string): void => {
     if (storeName === CART_STORE_NAME) {
       setCartProducts((current) => {
         return current.filter((cartProduct) => cartProduct._id !== productId)
@@ -59,6 +58,32 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setAlertInfo({ alertType: 'info', alertMsg: 'Product Removed' })
   }
 
+  const updateProduct = (
+    productId: string,
+    storeName: string,
+    keyName: string,
+    keyValue: string | number
+  ): void => {
+    // if (storeName === CART_STORE_NAME) {
+    //   const updatingProduct =
+    // cartProducts.find((item: InCartProductType) => item._id === productId)
+    //   const currentProducts = cartProducts.filter((item) => item._id !== productId)
+    //   console.log("This got", updatingProduct, currentProducts)
+    //   if (updatingProduct !== undefined && currentProducts !== undefined) {
+    //     const newChanges: InCartProductType = {
+    //       ...updatingProduct,
+    //       selected: {
+    //         ...updatingProduct?.selected,
+    //         [keyName]: keyValue
+    //       }
+    //     }
+    //     setCartProducts([...currentProducts, newChanges])
+    //   }
+    // } else {
+    //   wishlistProducts.find((item: InCartProductType) => item._id === productId)
+    // }
+  }
+
   return (
     <CartContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -67,7 +92,8 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
         wishlistProducts,
         addToCart,
         addToWishList,
-        removeProduct
+        removeProduct,
+        updateProduct
       }}
     >
       {children}

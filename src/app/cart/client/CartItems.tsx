@@ -7,9 +7,8 @@ import Icon from "@/shared/components/Icon"
 import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
 import { type ProductType, type InCartProductType } from "@/shared/helper/types"
 import { useShoppingCart } from "@/shared/components/context/CartContext"
-// import { CART_STORE_NAME } from "@/shared/helper/constants"
-import '../cart.sass'
 import { CART_STORE_NAME } from "@/shared/helper/constants"
+import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
   const [cartItems, setCartItems] = useState<InCartProductType[]>()
@@ -119,12 +118,22 @@ const NoProductUI = (): React.ReactNode => (
 
 const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode => {
   const [qty, setQty] = useState(selected?.qty === undefined ? 1 : selected?.qty)
+  const [selectedSize] = useState(selected?.size)
+  const [selectedColor] = useState(selected?.color)
   const [product, setProduct] = useState<ProductType>()
 
-  const { removeProduct } = useShoppingCart()
+  const { updateProduct, removeProduct } = useShoppingCart()
+
+  const handleAttributeChange = (keyValue: string | number, keyName: string): void => {
+    updateProduct(_id, CART_STORE_NAME, keyName, keyValue)
+  }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/products?id=${_id}`)
+    updateProduct(_id, CART_STORE_NAME, "qty", qty)
+  }, [qty])
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`)
       // eslint-disable-next-line @typescript-eslint/promise-function-async
       .then((res) => res.json())
       .then((data: ProductType) => {
@@ -156,16 +165,16 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
                   // eslint-disable-next-line arrow-body-style
                   product.productSize.map((size) => {
                     return (
-                      <li key={size.value}>
+                      <li key={`${size.value}-${product._id}`}>
                         <input
                           id={`${size.value}-${product._id}`}
                           type="radio"
                           value={size.value}
                           name={`size-radio-${product._id}`}
-                        // defaultChecked={product.selected?.size === size.value}
-                        // onChange={
-                        //   (e) => handleSizeChange(e.target.value)
-                        // }
+                          defaultChecked={selectedSize === size.value}
+                          onChange={
+                            (e) => handleAttributeChange(e.target.value, "size")
+                          }
                         />
                         <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
                       </li>
@@ -189,10 +198,10 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
                         name={`color-radio-${product._id}`}
                         value={item.value}
                         id={item.value}
-                      // defaultChecked={product.selected?.color === item.value}
-                      // onChange={
-                      //   (e) => handleColorChange(e.target.value)
-                      // }
+                        defaultChecked={selectedColor === item.value}
+                        onChange={
+                          (e) => handleAttributeChange(e.target.value, "color")
+                        }
                       />
                       <label
                         htmlFor={item.value}
@@ -215,7 +224,7 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
-        onClick={() => removeProduct({ productId: product._id, storeName: CART_STORE_NAME })}
+        onClick={() => removeProduct(product._id, CART_STORE_NAME)}
       >
         <Icon name="delete" />
       </button>
