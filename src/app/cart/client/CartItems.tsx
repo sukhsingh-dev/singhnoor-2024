@@ -38,11 +38,13 @@ const CartItems = (): React.ReactNode => {
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  cartItems?.map((productInfo: InCartProductType) => (
+                  cartItems?.map((productInfo: InCartProductType, index: number) => (
                     <CartProductUI
-                      key={productInfo._id}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={`${productInfo._id}-${index}`}
                       _id={productInfo._id}
                       selected={productInfo.selected}
+                      index={index}
                     />
                   ))
 
@@ -119,7 +121,7 @@ const NoProductUI = (): React.ReactNode => (
   </div>
 )
 
-const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode => {
+const CartProductUI = ({ _id, selected, index }: InCartProductType): React.ReactNode => {
   const [qty, setQty] = useState(selected?.qty === undefined ? 1 : selected?.qty)
   const [selectedSize] = useState(selected?.size)
   const [selectedColor] = useState(selected?.color)
@@ -150,7 +152,7 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
   }
 
   return (
-    <div key={product._id} className="cart-product">
+    <div key={`${product._id}-${index}`} className="cart-product">
       <Image
         src={product.productImagesArray[0]}
         alt={product.productTitle}
@@ -165,21 +167,21 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
               <span className="sn-product-page-attribute-heading">Size:</span>
               <ul className="attribute-sizes-list">
                 {
-                  // eslint-disable-next-line arrow-body-style
                   product.productSize.map((size) => {
+                    const uniqueValue = `${size.value}-${product._id}-${index}`
                     return (
-                      <li key={`${size.value}-${product._id}`}>
+                      <li key={uniqueValue}>
                         <input
-                          id={`${size.value}-${product._id}`}
                           type="radio"
+                          id={uniqueValue}
+                          name={`size-radio-${product._id}-${index}`}
                           value={size.value}
-                          name={`size-radio-${product._id}`}
                           defaultChecked={selectedSize === size.value}
                           onChange={
                             (e) => handleAttributeChange(e.target.value, "size")
                           }
                         />
-                        <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
+                        <label htmlFor={uniqueValue}>{size.label}</label>
                       </li>
                     )
                   })
@@ -194,24 +196,27 @@ const CartProductUI = ({ _id, selected }: InCartProductType): React.ReactNode =>
               <span className="sn-product-page-attribute-heading">Colors:</span>
               <ul className="attribute-colors-list">
                 {
-                  product.productColors.map((item) => (
-                    <li key={item.value}>
-                      <input
-                        type="radio"
-                        name={`color-radio-${product._id}`}
-                        value={item.value}
-                        id={item.value}
-                        defaultChecked={selectedColor === item.value}
-                        onChange={
-                          (e) => handleAttributeChange(e.target.value, "color")
-                        }
-                      />
-                      <label
-                        htmlFor={item.value}
-                        style={{ backgroundColor: item.value }}
-                      />
-                    </li>
-                  ))
+                  product.productColors.map((item) => {
+                    const uniqueValue = `${item.value}-${product._id}-${index}`
+                    return (
+                      <li key={uniqueValue}>
+                        <input
+                          type="radio"
+                          name={`color-radio-${product._id}-${index}`}
+                          value={item.value}
+                          id={uniqueValue}
+                          defaultChecked={selectedColor === item.value}
+                          onChange={
+                            (e) => handleAttributeChange(e.target.value, "color")
+                          }
+                        />
+                        <label
+                          htmlFor={uniqueValue}
+                          style={{ backgroundColor: item.value }}
+                        />
+                      </li>
+                    )
+                  })
                 }
               </ul>
             </div>

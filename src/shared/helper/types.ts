@@ -30,6 +30,7 @@ export interface SelectedStoreType {
 
 export interface InCartProductType {
   _id: string
+  index: number
   selected?: SelectedStoreType
 }
 
