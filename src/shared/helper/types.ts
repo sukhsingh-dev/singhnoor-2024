@@ -48,7 +48,7 @@ export interface CartContextType {
     storeName: string,
     keyName: string,
     keyValue: string | number) => void
-  removeProduct: (productId: string, storeName: string) => void
+  removeProduct: (productIndex: number, storeName: string) => void
   clearCart: (storeName: string) => void
 }
 

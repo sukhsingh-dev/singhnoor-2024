@@ -232,7 +232,7 @@ const CartProductUI = ({ _id, selected, index }: InCartProductType): React.React
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
-        onClick={() => removeProduct(product._id, CART_STORE_NAME)}
+        onClick={() => removeProduct(index, CART_STORE_NAME)}
       >
         <Icon name="delete" />
       </button>

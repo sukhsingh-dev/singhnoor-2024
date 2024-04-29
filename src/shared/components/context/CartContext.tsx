@@ -44,15 +44,15 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     console.log("In Wishlist is", wishlistProducts)
   }
 
-  const removeProduct = (productId: string, storeName: string): void => {
+  const removeProduct = (productIndex: number, storeName: string): void => {
     if (storeName === CART_STORE_NAME) {
-      setCartProducts((current) => {
-        return current.filter((cartProduct) => cartProduct._id !== productId)
-      })
+      const productsList = cartProducts
+      productsList.splice(productIndex, 1)
+      setCartProducts(productsList)
     } else {
-      setWishlistProducts((current) => {
-        return current.filter((cartProduct) => cartProduct._id !== productId)
-      })
+      const productsList = cartProducts
+      productsList.splice(productIndex, 1)
+      setWishlistProducts(productsList)
     }
     setShowAlert(true)
     setAlertInfo({ alertType: 'info', alertMsg: 'Product Removed' })
