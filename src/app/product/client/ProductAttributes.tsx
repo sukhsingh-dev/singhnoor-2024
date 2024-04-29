@@ -8,8 +8,8 @@ import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import SizeChart from "./SizeChart"
 
 const ProductAttributes = ({ product }: Product): React.ReactNode => {
-  const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined)
-  const [selectedColor, setSelectedColor] = useState<string | null>(null)
+  const [selectedSize, setSelectedSize] = useState<string>(product.productSize[0].value)
+  const [selectedColor, setSelectedColor] = useState<string>(product.productColors[0].value)
   const [selectedQty, setSelectedQty] = useState<number>(1)
 
   const roundToNearestTen = (number: number): number => Math.round(number / 10) * 10

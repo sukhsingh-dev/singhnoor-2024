@@ -38,16 +38,19 @@ const CartItems = (): React.ReactNode => {
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  cartItems?.map((productInfo: InCartProductType, index: number) => (
-                    <CartProductUI
-                      // eslint-disable-next-line react/no-array-index-key
-                      key={`${productInfo._id}-${index}`}
-                      _id={productInfo._id}
-                      selected={productInfo.selected}
-                      index={index}
-                    />
-                  ))
+                  cartItems?.map((productInfo: InCartProductType, index: number) => {
+                    const uniqueKey = `${productInfo._id}-${productInfo.selected?.size}-${productInfo.selected?.color}-${productInfo.selected?.qty}-${productInfo.selected?.material}-${productInfo.selected?.work}`
 
+                    return (
+                      <CartProductUI
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={uniqueKey}
+                        _id={productInfo._id}
+                        selected={productInfo.selected}
+                        index={index}
+                      />
+                    )
+                  })
                 }
               </div>
               {
@@ -130,15 +133,19 @@ const CartProductUI = ({ _id, selected, index }: InCartProductType): React.React
   const { updateProduct, removeProduct } = useShoppingCart()
 
   const handleAttributeChange = (keyValue: string | number, keyName: string): void => {
-    updateProduct(_id, CART_STORE_NAME, keyName, keyValue)
+    if (index !== undefined) {
+      updateProduct(index, CART_STORE_NAME, keyName, keyValue)
+    }
   }
 
   useEffect(() => {
-    updateProduct(_id, CART_STORE_NAME, "qty", qty)
+    if (index !== undefined) {
+      updateProduct(index, CART_STORE_NAME, "qty", qty)
+    }
   }, [qty])
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`)
+    fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`, { cache: 'no-store' })
       // eslint-disable-next-line @typescript-eslint/promise-function-async
       .then((res) => res.json())
       .then((data: ProductType) => {
@@ -152,7 +159,7 @@ const CartProductUI = ({ _id, selected, index }: InCartProductType): React.React
   }
 
   return (
-    <div key={`${product._id}-${index}`} className="cart-product">
+    <div className="cart-product">
       <Image
         src={product.productImagesArray[0]}
         alt={product.productTitle}
@@ -232,7 +239,7 @@ const CartProductUI = ({ _id, selected, index }: InCartProductType): React.React
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
-        onClick={() => removeProduct(index, CART_STORE_NAME)}
+        onClick={() => removeProduct(index ?? 0, CART_STORE_NAME)}
       >
         <Icon name="delete" />
       </button>

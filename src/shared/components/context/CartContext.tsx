@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 'use client'
 
 import { type CartContextType, type InCartProductType } from "@/shared/helper/types"
@@ -34,32 +32,30 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setCartProducts((current) => [...current, productInfo])
     setShowAlert(true)
     setAlertInfo({ alertType: 'info', alertMsg: 'Added to Cart' })
-    console.log("In Cart is", cartProducts)
   }
 
   const addToWishList = (productInfo: InCartProductType): void => {
     setWishlistProducts((current) => [...current, productInfo])
     setShowAlert(true)
     setAlertInfo({ alertType: 'info', alertMsg: 'Added to Wishlist' })
-    console.log("In Wishlist is", wishlistProducts)
   }
 
   const removeProduct = (productIndex: number, storeName: string): void => {
     if (storeName === CART_STORE_NAME) {
-      const productsList = cartProducts
-      productsList.splice(productIndex, 1)
-      setCartProducts(productsList)
+      setCartProducts((prevItems) => {
+        return prevItems.filter((_item, index) => index !== productIndex)
+      })
     } else {
-      const productsList = cartProducts
-      productsList.splice(productIndex, 1)
-      setWishlistProducts(productsList)
+      setWishlistProducts((prevItems) => {
+        return prevItems.filter((_item, index) => index !== productIndex)
+      })
     }
     setShowAlert(true)
     setAlertInfo({ alertType: 'info', alertMsg: 'Product Removed' })
   }
 
   const updateProduct = (
-    productId: string,
+    productIndex: number,
     storeName: string,
     keyName: string,
     keyValue: string | number
@@ -67,7 +63,7 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     // if (storeName === CART_STORE_NAME) {
     //   const updatingProduct =
     // cartProducts.find((item: InCartProductType) => item._id === productId)
-    //   const currentProducts = cartProducts.filter((item) => item._id !== productId)
+    // const currentProducts = cartProducts.filter((item) => item._id !== productId)
     //   console.log("This got", updatingProduct, currentProducts)
     //   if (updatingProduct !== undefined && currentProducts !== undefined) {
     //     const newChanges: InCartProductType = {
