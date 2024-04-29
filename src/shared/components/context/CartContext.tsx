@@ -14,8 +14,8 @@ export const CartContext = createContext<CartContextType>({
   addToCart: () => { },
   addToWishList: () => { },
   updateProduct: () => { },
-  removeProduct: () => { }
-  // clearCart: () => { }
+  removeProduct: () => { },
+  clearCart: () => { }
 })
 
 export function useShoppingCart(): CartContextType {
@@ -84,6 +84,14 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     // }
   }
 
+  const clearCart = (storeName: string): void => {
+    if (storeName === CART_STORE_NAME) {
+      setCartProducts([])
+    } else {
+      setWishlistProducts([])
+    }
+  }
+
   return (
     <CartContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -93,7 +101,8 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
         addToCart,
         addToWishList,
         removeProduct,
-        updateProduct
+        updateProduct,
+        clearCart
       }}
     >
       {children}

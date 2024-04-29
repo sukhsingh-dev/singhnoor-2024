@@ -12,7 +12,7 @@ import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
   const [cartItems, setCartItems] = useState<InCartProductType[]>()
-  const { cartProducts } = useShoppingCart()
+  const { cartProducts, clearCart } = useShoppingCart()
 
   useEffect(() => {
     setCartItems(cartProducts)
@@ -48,14 +48,17 @@ const CartItems = (): React.ReactNode => {
 
                 }
               </div>
-              <button
-                type="button"
-                className="btn-clear-cart"
-              // onClick={() => clearCart(CART_STORE_NAME)}
-              >
-                Clear Cart
-                <Icon name="close" width={12} height={12} />
-              </button>
+              {
+                (cartItems != null) && cartItems?.length > 1 &&
+                <button
+                  type="button"
+                  className="btn-clear-cart"
+                  onClick={() => clearCart(CART_STORE_NAME)}
+                >
+                  Clear Cart
+                  <Icon name="close" width={12} height={12} />
+                </button>
+              }
             </div>
             <div className="cart-product-order">
               <div className="cart-product-order-summary">
