@@ -83,6 +83,7 @@ const ProductAttributes = ({ product }: Product): React.ReactNode => {
           </span>
         </div>
         <StoreBtn
+          uniqueKey=""
           _id={product._id}
           storeName={WISHLIST_STORE_NAME}
           selected={{
@@ -93,6 +94,7 @@ const ProductAttributes = ({ product }: Product): React.ReactNode => {
           btnClasses="btn-wishlist-float"
         />
         <StoreBtn
+          uniqueKey=""
           _id={product._id}
           storeName={CART_STORE_NAME}
           selected={{
