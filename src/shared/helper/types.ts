@@ -32,6 +32,7 @@ export interface InCartProductType {
   _id: string
   selected?: SelectedStoreType
   index?: number
+  uniqueKey: string
 }
 
 export interface StoreBtnTypes extends InCartProductType {
@@ -45,11 +46,11 @@ export interface CartContextType {
   addToCart: (productInfo: InCartProductType) => void
   addToWishList: (productInfo: InCartProductType) => void
   updateProduct: (
-    productIndex: number,
+    uniqueKey: string,
     storeName: string,
     keyName: string,
     keyValue: string | number) => void
-  removeProduct: (productIndex: number, storeName: string) => void
+  removeProduct: (uniqueKey: string, storeName: string) => void
   clearCart: (storeName: string) => void
 }
 

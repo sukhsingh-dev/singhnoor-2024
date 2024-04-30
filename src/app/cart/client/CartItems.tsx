@@ -38,13 +38,19 @@ const CartItems = (): React.ReactNode => {
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  cartItems?.map((productInfo: InCartProductType, index: number) => {
-                    const uniqueKey = `${productInfo._id}-${productInfo.selected?.size}-${productInfo.selected?.color}-${productInfo.selected?.qty}-${productInfo.selected?.material}-${productInfo.selected?.work}`
-
+                  cartItems?.sort((a, b) => {
+                    if (a.uniqueKey < b.uniqueKey) {
+                      return -1
+                    }
+                    if (a.uniqueKey > b.uniqueKey) {
+                      return 1
+                    }
+                    return 0
+                  })?.map((productInfo: InCartProductType, index: number) => {
                     return (
                       <CartProductUI
-                        // eslint-disable-next-line react/no-array-index-key
-                        key={uniqueKey}
+                        key={productInfo.uniqueKey}
+                        uniqueKey={productInfo.uniqueKey}
                         _id={productInfo._id}
                         selected={productInfo.selected}
                         index={index}
@@ -124,7 +130,7 @@ const NoProductUI = (): React.ReactNode => (
   </div>
 )
 
-const CartProductUI = ({ _id, selected, index }: InCartProductType): React.ReactNode => {
+const CartProductUI = ({ _id, selected, index, uniqueKey }: InCartProductType): React.ReactNode => {
   const [qty, setQty] = useState(selected?.qty === undefined ? 1 : selected?.qty)
   const [selectedSize] = useState(selected?.size)
   const [selectedColor] = useState(selected?.color)
@@ -134,18 +140,18 @@ const CartProductUI = ({ _id, selected, index }: InCartProductType): React.React
 
   const handleAttributeChange = (keyValue: string | number, keyName: string): void => {
     if (index !== undefined) {
-      updateProduct(index, CART_STORE_NAME, keyName, keyValue)
+      updateProduct(uniqueKey, CART_STORE_NAME, keyName, keyValue)
     }
   }
 
-  useEffect(() => {
-    if (index !== undefined) {
-      updateProduct(index, CART_STORE_NAME, "qty", qty)
-    }
-  }, [qty])
+  // useEffect(() => {
+  //   if (index !== undefined) {
+  //     updateProduct(index, CART_STORE_NAME, "qty", qty)
+  //   }
+  // }, [qty])
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`, { cache: 'no-store' })
+    fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`)
       // eslint-disable-next-line @typescript-eslint/promise-function-async
       .then((res) => res.json())
       .then((data: ProductType) => {
@@ -239,7 +245,7 @@ const CartProductUI = ({ _id, selected, index }: InCartProductType): React.React
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
-        onClick={() => removeProduct(index ?? 0, CART_STORE_NAME)}
+        onClick={() => removeProduct(uniqueKey, CART_STORE_NAME)}
       >
         <Icon name="delete" />
       </button>

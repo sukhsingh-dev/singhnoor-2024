@@ -40,14 +40,14 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setAlertInfo({ alertType: 'info', alertMsg: 'Added to Wishlist' })
   }
 
-  const removeProduct = (productIndex: number, storeName: string): void => {
+  const removeProduct = (uniqueKey: string, storeName: string): void => {
     if (storeName === CART_STORE_NAME) {
       setCartProducts((prevItems) => {
-        return prevItems.filter((_item, index) => index !== productIndex)
+        return prevItems.filter((item) => item.uniqueKey !== uniqueKey)
       })
     } else {
       setWishlistProducts((prevItems) => {
-        return prevItems.filter((_item, index) => index !== productIndex)
+        return prevItems.filter((item) => item.uniqueKey !== uniqueKey)
       })
     }
     setShowAlert(true)
@@ -55,29 +55,26 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
   }
 
   const updateProduct = (
-    productIndex: number,
+    uniqueKey: string,
     storeName: string,
     keyName: string,
     keyValue: string | number
   ): void => {
-    // if (storeName === CART_STORE_NAME) {
-    //   const updatingProduct =
-    // cartProducts.find((item: InCartProductType) => item._id === productId)
-    // const currentProducts = cartProducts.filter((item) => item._id !== productId)
-    //   console.log("This got", updatingProduct, currentProducts)
-    //   if (updatingProduct !== undefined && currentProducts !== undefined) {
-    //     const newChanges: InCartProductType = {
-    //       ...updatingProduct,
-    //       selected: {
-    //         ...updatingProduct?.selected,
-    //         [keyName]: keyValue
-    //       }
-    //     }
-    //     setCartProducts([...currentProducts, newChanges])
-    //   }
-    // } else {
-    //   wishlistProducts.find((item: InCartProductType) => item._id === productId)
-    // }
+    if (storeName === CART_STORE_NAME) {
+      const updatingProduct = cartProducts.find((item) => item.uniqueKey === uniqueKey)
+      if (updatingProduct?._id !== undefined) {
+        const newChanges: InCartProductType = {
+          ...updatingProduct,
+          selected: {
+            ...updatingProduct?.selected,
+            [keyName]: keyValue
+          }
+        }
+        const productList = cartProducts.filter((item) => item.uniqueKey !== uniqueKey)
+        setCartProducts([...productList, newChanges])
+      }
+
+    }
   }
 
   const clearCart = (storeName: string): void => {
