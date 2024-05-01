@@ -29,9 +29,22 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     useLocalStorage<InCartProductType[]>(WISHLIST_STORE_NAME, [])
 
   const addToCart = (productInfo: InCartProductType): void => {
-    setCartProducts((current) => [...current, productInfo])
-    setShowAlert(true)
-    setAlertInfo({ alertType: 'info', alertMsg: 'Added to Cart' })
+    const checkAvailable = cartProducts.find((item) => (
+      item._id === productInfo._id &&
+      item.selected?.size === productInfo.selected?.size &&
+      item.selected?.color === productInfo.selected?.color &&
+      item.selected?.material === productInfo.selected?.material &&
+      item.selected?.work === productInfo.selected?.work))
+
+    if (checkAvailable?.selected?.qty !== undefined) {
+      updateProduct(checkAvailable.uniqueKey, CART_STORE_NAME, "qty", (checkAvailable.selected.qty + 1))
+      setShowAlert(true)
+      setAlertInfo({ alertType: 'info', alertMsg: 'Quantity Updated' })
+    } else {
+      setCartProducts((current) => [...current, productInfo])
+      setShowAlert(true)
+      setAlertInfo({ alertType: 'info', alertMsg: 'Added to Cart' })
+    }
   }
 
   const addToWishList = (productInfo: InCartProductType): void => {
