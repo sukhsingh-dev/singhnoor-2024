@@ -18,16 +18,6 @@ const CartItems = (): React.ReactNode => {
     setCartItems(cartProducts)
   })
 
-  // const sortedCartProducts = cartProducts.sort((a, b) => {
-  //   if (a._id < b._id) {
-  //     return -1
-  //   }
-  //   if (a._id > b._id) {
-  //     return 1
-  //   }
-  //   return 0
-  // })
-
   return (
     <div className="cart-page-outer">
       {
@@ -144,12 +134,6 @@ const CartProductUI = ({ _id, selected, index, uniqueKey }: InCartProductType): 
     }
   }
 
-  // useEffect(() => {
-  //   if (index !== undefined) {
-  //     updateProduct(index, CART_STORE_NAME, "qty", qty)
-  //   }
-  // }, [qty])
-
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/products?id=${_id}`)
       // eslint-disable-next-line @typescript-eslint/promise-function-async
@@ -240,7 +224,12 @@ const CartProductUI = ({ _id, selected, index, uniqueKey }: InCartProductType): 
         <span className="product-price-currency">₹</span>
         {product.productPrice}
       </h3>
-      <QtyBtnInput qty={qty} setQty={setQty} />
+      <QtyBtnInput
+        qty={qty}
+        setQty={setQty}
+        keyName={uniqueKey}
+        storeName={CART_STORE_NAME}
+      />
       <button
         type="button"
         aria-label="remove from cart"

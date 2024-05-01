@@ -109,20 +109,4 @@ const ProductAttributes = ({ product }: Product): React.ReactNode => {
   )
 }
 
-// const RadioInput = (
-//   { id, name, value, checkedInCart, handleChange }: RadioInputType
-// ): React.ReactNode => {
-//   const [isChecked] = useState(checkedInCart === value)
-//   return (
-//     <input
-//       type="radio"
-//       name={`${name}-radio-${id}`}
-//       value={value}
-//       id={value}
-//       defaultChecked={isChecked}
-//       onChange={(e) => handleChange(name, e.target.value)}
-//     />
-//   )
-// }
-
 export default ProductAttributes

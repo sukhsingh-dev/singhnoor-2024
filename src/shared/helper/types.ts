@@ -148,6 +148,8 @@ export interface AttributeType {
 export interface QtyBtnInputTypes {
   qty: number
   setQty: (state: number) => void
+  keyName?: string
+  storeName?: string
 }
 
 export interface RadioInputType {
