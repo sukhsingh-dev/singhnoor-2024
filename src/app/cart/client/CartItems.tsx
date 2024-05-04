@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
@@ -133,42 +133,7 @@ const NoProductUI = (): React.ReactNode => (
 
 const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
   const [qty, setQty] = useState(((product.selected?.qty) != null) ? product.selected.qty : 1)
-  const {
-    updateOneProduct, removeProduct
-  } = useContext(CartContext)
-
-  const handleSizeChange = (sizeValue: string): void => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        size: sizeValue
-      }
-    }
-    updateOneProduct(newChanges)
-  }
-
-  const handleColorChange = (colorValue: string): void => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        color: colorValue
-      }
-    }
-    updateOneProduct(newChanges)
-  }
-
-  useEffect(() => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        qty
-      }
-    }
-    updateOneProduct(newChanges)
-  }, [qty])
+  const { removeProduct } = useContext(CartContext)
 
   return (
     <div key={product._id} className="cart-product">
@@ -196,9 +161,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                           value={size.value}
                           name={`size-radio-${product._id}`}
                           defaultChecked={product.selected?.size === size.value}
-                          onChange={
-                            (e) => handleSizeChange(e.target.value)
-                          }
+                        // onChange={
+                        //   (e) => handleSizeChange(e.target.value)
+                        // }
                         />
                         <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
                       </li>
@@ -223,9 +188,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                         value={item.value}
                         id={item.value}
                         defaultChecked={product.selected?.color === item.value}
-                        onChange={
-                          (e) => handleColorChange(e.target.value)
-                        }
+                      // onChange={
+                      //   (e) => handleColorChange(e.target.value)
+                      // }
                       />
                       <label
                         htmlFor={item.value}

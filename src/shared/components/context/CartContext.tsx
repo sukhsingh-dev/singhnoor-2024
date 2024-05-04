@@ -4,23 +4,19 @@ import React, { createContext, useEffect, useState, type ReactNode } from "react
 import { type CartContextType, type ProductType, type RemoveProductType, type InCartProductType } from "@/shared/helper/types"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import Modal from "../ui/modal/Modal"
+import Localbase from "./localbase"
 
 export const CartContext = createContext<CartContextType>({
   wishlistProducts: [],
   cartProducts: [],
-  getOneProduct: () => undefined,
-  updateOneProduct: () => { },
-  setCartProducts: () => { },
-  addProduct: () => { },
+  addToCart: () => { },
   addToWishList: () => { },
   removeProduct: () => { },
   clearCart: () => { }
 })
 
 export function CartContextProvider({ children }: { children: ReactNode }): ReactNode {
-  const ls = typeof window !== "undefined" ? window.localStorage : null
-  const cartStoreName = CART_STORE_NAME
-  const wishlistStoreName = WISHLIST_STORE_NAME
+  const db = new Localbase('db')
 
   const [alertMsg, setAlertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
@@ -29,30 +25,33 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
   const [clearCartAction, setClearCartAction] = useState('')
 
   const [alertType, setAlertTypeAlert] = useState("info")
-  const [cartProducts, setCartProducts] = useState<ProductType[] | InCartProductType[]>([])
+  const [cartProducts, setCartProducts] = useState<InCartProductType[]>([])
   const [wishlistProducts, setWishlistProducts] = useState<ProductType[]>([])
 
-  const getOneProduct = (id: string): InCartProductType | undefined => {
-    return cartProducts.find((item: InCartProductType) => item._id === id)
-  }
+  const addToCart = (productInfo: InCartProductType): void => {
+    const checkAvailable = cartProducts.find((item) => (
+      item._id === productInfo._id &&
+      item.selected?.size === productInfo.selected?.size &&
+      item.selected?.color === productInfo.selected?.color &&
+      item.selected?.material === productInfo.selected?.material &&
+      item.selected?.work === productInfo.selected?.work))
 
-  const updateOneProduct = (product: InCartProductType): void => {
-    const updatedCart = cartProducts.filter((item) => item._id !== product._id)
-    const newCart = [...updatedCart, product]
-    setCartProducts(newCart)
-  }
-
-  const addProduct = (product: ProductType): void => {
-    if (((Boolean(cartProducts.some((item: ProductType) => item._id === product._id))) ||
-      cartProducts.some((item) => item._id === product._id))) {
-      setAlertTypeAlert("soft-error")
-      setAlertMsg("Already in Cart")
+    if (checkAvailable?.selected?.qty !== undefined) {
+      db.collection(CART_STORE_NAME).doc({ _id: productInfo._id }).update({
+        selected: {
+          ...productInfo.selected,
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          qty: checkAvailable?.selected?.qty + 1
+        }
+      })
+      setAlertMsg("Quantity Updated")
       setShowAlert(true)
       return
     }
+    db.collection(CART_STORE_NAME).add(productInfo)
     setAlertTypeAlert("info")
     setShowAlert(true)
-    setCartProducts((prev) => [...prev, product])
+    setCartProducts((prev) => [...prev, productInfo])
   }
 
   const addToWishList = (product: ProductType): void => {
@@ -71,10 +70,12 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
 
   const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
     if (actionType === CART_STORE_NAME) {
+      db.collection(CART_STORE_NAME).doc({ _id: productId }).delete()
       const updatedCart = cartProducts.filter((item) => item._id !== productId)
       setCartProducts(updatedCart)
       setAlertMsg("Removed from Cart")
     } else {
+      db.collection(WISHLIST_STORE_NAME).doc({ _id: productId }).delete()
       const updatedWishlist = wishlistProducts.filter((item) => item._id !== productId)
       setWishlistProducts(updatedWishlist)
       setAlertMsg("Removed from Wishlist")
@@ -94,53 +95,23 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setShowAlert(true)
 
     if (clearCartAction === CART_STORE_NAME) {
+      db.collection(CART_STORE_NAME).delete()
       setCartProducts([])
-      ls?.setItem(CART_STORE_NAME, JSON.stringify([]))
       setAlertMsg("Cart Cleared")
     }
     if (clearCartAction === WISHLIST_STORE_NAME) {
+      db.collection(WISHLIST_STORE_NAME).delete()
       setWishlistProducts([])
-      ls?.setItem(WISHLIST_STORE_NAME, JSON.stringify([]))
       setAlertMsg("Wishlist Cleared")
     }
     setClearCartAction('')
   }
 
   useEffect(() => {
-    const cartDataString = ls?.getItem(cartStoreName)
-    if ((ls?.getItem(cartStoreName)) !== null) {
-      const getCartData: ProductType[] = (cartDataString != null)
-        ? JSON.parse(cartDataString)
-        : null
-      if (getCartData !== null) {
-        setCartProducts(getCartData)
-      }
-    }
+    db.collection(CART_STORE_NAME).get().then((data: ProductType[]) => {
+      setCartProducts(data)
+    })
   }, [])
-
-  useEffect(() => {
-    if (cartProducts?.length > 0) {
-      ls?.setItem(cartStoreName, JSON.stringify(cartProducts))
-    }
-  }, [cartProducts])
-
-  useEffect(() => {
-    const cartDataString = ls?.getItem(wishlistStoreName)
-    if ((ls?.getItem(wishlistStoreName)) !== null) {
-      const getCartData: ProductType[] = (cartDataString != null)
-        ? JSON.parse(cartDataString)
-        : null
-      if (getCartData !== null) {
-        setWishlistProducts(getCartData)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    if (wishlistProducts?.length > 0) {
-      ls?.setItem(wishlistStoreName, JSON.stringify(wishlistProducts))
-    }
-  }, [wishlistProducts])
 
   return (
     <CartContext.Provider
@@ -148,10 +119,7 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
       value={{
         cartProducts,
         wishlistProducts,
-        updateOneProduct,
-        getOneProduct,
-        setCartProducts,
-        addProduct,
+        addToCart,
         addToWishList,
         removeProduct,
         clearCart

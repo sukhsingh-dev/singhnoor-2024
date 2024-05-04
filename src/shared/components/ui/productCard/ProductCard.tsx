@@ -33,6 +33,11 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
             productInfo={product}
             storeName={WISHLIST_STORE_NAME}
             btnClasses="btn-product btn-wishlist"
+            selected={{
+              size: product.productSize[0]?.label,
+              color: product.productColors[0]?.label,
+              qty: 1
+            }}
           />
           <div className="product-price-info d-flex">
             <span className="product-price-old">
@@ -48,6 +53,11 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
             productInfo={product}
             storeName={CART_STORE_NAME}
             btnClasses="btn-product btn-add"
+            selected={{
+              size: product.productSize[0]?.label,
+              color: product.productColors[0]?.label,
+              qty: 1
+            }}
           />
         </div>
       </div>

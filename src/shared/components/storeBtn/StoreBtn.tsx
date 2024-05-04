@@ -9,13 +9,13 @@ import Icon from "../Icon"
 const StoreBtn = ({
   productInfo, storeName, btnClasses, selected
 }: StoreBtnTypes): React.ReactNode => {
-  const { cartProducts, wishlistProducts, addProduct, addToWishList } = useContext(CartContext)
+  const { cartProducts, wishlistProducts, addToCart, addToWishList } = useContext(CartContext)
   const [isActive, setIsActive] = useState(false)
 
   const handleAddToCart = (): void => {
     const productData = { ...productInfo, selected }
     if (storeName === CART_STORE_NAME) {
-      addProduct(productData)
+      addToCart(productData)
     } else {
       addToWishList(productInfo)
     }
