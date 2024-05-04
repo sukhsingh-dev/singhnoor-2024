@@ -1,16 +1,14 @@
 'use client'
 
-import { useContext, useState, useEffect } from "react"
 import { type StoreBtnTypes } from "@/shared/helper/types"
-import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
-import { CartContext } from "../context/CartContext"
+import { CART_STORE_NAME } from "@/shared/helper/constants"
+import { useShoppingCart } from "../context/CartContext"
 import Icon from "../Icon"
 
 const StoreBtn = ({
   productInfo, storeName, btnClasses, selected
 }: StoreBtnTypes): React.ReactNode => {
-  const { cartProducts, wishlistProducts, addToCart, addToWishList } = useContext(CartContext)
-  const [isActive, setIsActive] = useState(false)
+  const { addToCart, addToWishList } = useShoppingCart()
 
   const handleAddToCart = (): void => {
     const productData = { ...productInfo, selected }
@@ -21,42 +19,17 @@ const StoreBtn = ({
     }
   }
 
-  useEffect(() => {
-    if (storeName === CART_STORE_NAME &&
-      cartProducts.some((item) => item._id === productInfo._id)) {
-      setIsActive(true)
-    }
-
-    if (storeName === WISHLIST_STORE_NAME &&
-      wishlistProducts.some((item) => item._id === productInfo._id)) {
-      setIsActive(true)
-    }
-  }, [handleAddToCart])
-
   return (
     <button
-      aria-label={
-        storeName === CART_STORE_NAME
-          ? 'Add to Cart'
-          : 'Add to Wishlist'
-      }
+      aria-label={storeName === CART_STORE_NAME ? 'Add to Cart' : 'Add to Wishlist'}
       type="button"
-      className={`${btnClasses} ${isActive ? 'isActive' : ''}`}
+      className={btnClasses}
       onClick={() => handleAddToCart()}
     >
       <span>
-        {
-          storeName === CART_STORE_NAME
-            ? isActive ? 'Added to Cart' : 'Add to Cart'
-            : 'Add to Wishlist'
-        }
+        {storeName === CART_STORE_NAME ? 'Add to Cart' : 'Add to Wishlist'}
       </span>
-      <Icon name={
-        storeName === CART_STORE_NAME
-          ? isActive ? 'cart-filled' : 'cart'
-          : isActive ? 'heart-filled' : 'heart'
-      }
-      />
+      <Icon name={storeName === CART_STORE_NAME ? 'cart' : 'heart'} />
     </button>
   )
 }

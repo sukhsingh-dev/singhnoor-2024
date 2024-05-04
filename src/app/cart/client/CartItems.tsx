@@ -1,17 +1,17 @@
 'use client'
 
-import { useContext, useState } from "react"
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
 import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
 import { type InCartProductType, type InCartProduct } from "@/shared/helper/types"
-import { CartContext } from "@/shared/components/context/CartContext"
+import { useShoppingCart } from "@/shared/components/context/CartContext"
 import { CART_STORE_NAME } from "@/shared/helper/constants"
 import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
-  const { cartProducts, clearCart } = useContext(CartContext)
+  const { cartProducts, clearCart } = useShoppingCart()
   const subtotal = cartProducts.reduce((acc, product: InCartProductType) => {
     const productSubtotal = product.productPrice * (
       product.selected?.qty !== undefined ? product.selected.qty : 1
@@ -133,7 +133,7 @@ const NoProductUI = (): React.ReactNode => (
 
 const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
   const [qty, setQty] = useState(((product.selected?.qty) != null) ? product.selected.qty : 1)
-  const { removeProduct } = useContext(CartContext)
+  const { removeProduct } = useShoppingCart()
 
   return (
     <div key={product._id} className="cart-product">

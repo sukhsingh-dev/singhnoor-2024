@@ -1,10 +1,12 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 'use client'
 
-import React, { createContext, useEffect, useState, type ReactNode } from "react"
+import React, { createContext, useEffect, useState, useContext } from "react"
+import Localbase from 'localbase'
 import { type CartContextType, type ProductType, type RemoveProductType, type InCartProductType } from "@/shared/helper/types"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import Modal from "../ui/modal/Modal"
-import Localbase from "./localbase"
 
 export const CartContext = createContext<CartContextType>({
   wishlistProducts: [],
@@ -15,8 +17,9 @@ export const CartContext = createContext<CartContextType>({
   clearCart: () => { }
 })
 
-export function CartContextProvider({ children }: { children: ReactNode }): ReactNode {
+export function CartContextProvider({ children }: { children: React.ReactNode }): React.ReactNode {
   const db = new Localbase('db')
+  db.config.debug = false
 
   const [alertMsg, setAlertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
@@ -26,7 +29,7 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
 
   const [alertType, setAlertTypeAlert] = useState("info")
   const [cartProducts, setCartProducts] = useState<InCartProductType[]>([])
-  const [wishlistProducts, setWishlistProducts] = useState<ProductType[]>([])
+  const [wishlistProducts, setWishlistProducts] = useState<InCartProductType[]>([])
 
   const addToCart = (productInfo: InCartProductType): void => {
     const checkAvailable = cartProducts.find((item) => (
@@ -54,18 +57,30 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setCartProducts((prev) => [...prev, productInfo])
   }
 
-  const addToWishList = (product: ProductType): void => {
-    if (((Boolean(wishlistProducts.some((item: ProductType) => item._id === product._id))) ||
-      wishlistProducts.some((item) => item._id === product._id))) {
-      setAlertTypeAlert("soft-error")
-      setAlertMsg("Already in Wishlist")
+  const addToWishList = (productInfo: InCartProductType): void => {
+    const checkAvailable = wishlistProducts.find((item) => (
+      item._id === productInfo._id &&
+      item.selected?.size === productInfo.selected?.size &&
+      item.selected?.color === productInfo.selected?.color &&
+      item.selected?.material === productInfo.selected?.material &&
+      item.selected?.work === productInfo.selected?.work))
+
+    if (checkAvailable?.selected?.qty !== undefined) {
+      db.collection(WISHLIST_STORE_NAME).doc({ _id: productInfo._id }).update({
+        selected: {
+          ...productInfo.selected,
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          qty: checkAvailable?.selected?.qty + 1
+        }
+      })
+      setAlertMsg("Quantity Updated")
       setShowAlert(true)
       return
     }
+    db.collection(WISHLIST_STORE_NAME).add(productInfo)
     setAlertTypeAlert("info")
     setShowAlert(true)
-    setAlertMsg("Added to Wishlist")
-    setWishlistProducts((prev) => [...prev, product])
+    setWishlistProducts((prev) => [...prev, productInfo])
   }
 
   const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
@@ -163,4 +178,8 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
       }
     </CartContext.Provider>
   )
+}
+
+export function useShoppingCart(): CartContextType {
+  return useContext(CartContext)
 }
