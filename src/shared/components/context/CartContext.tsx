@@ -31,6 +31,38 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
   const [cartProducts, setCartProducts] = useState<InCartProductType[]>([])
   const [wishlistProducts, setWishlistProducts] = useState<InCartProductType[]>([])
 
+  const refreshCartState = (): void => {
+    db.collection(CART_STORE_NAME).get({ keys: true }).then((product: ProductType[]) => {
+      const cartData: InCartProductType[] = []
+      if (Array.isArray(product)) {
+        // eslint-disable-next-line array-callback-return
+        product.map((item: any) => {
+          const itemKey: string = item.key
+          const newData: ProductType = item.data
+          const newItem: InCartProductType = { itemKey, ...newData }
+          cartData.push(newItem)
+        })
+        setCartProducts(cartData)
+      }
+    })
+  }
+
+  const updateCart = (
+    storeName: string,
+    productInfo: InCartProductType,
+    keyName: string,
+    keyValue: string | number
+  ): void => {
+    db.collection(storeName).doc(productInfo.itemKey).update({
+      selected: {
+        ...productInfo.selected,
+        [keyName]: keyValue
+      }
+    }).then((_res: any) => {
+      refreshCartState()
+    })
+  }
+
   const addToCart = (productInfo: InCartProductType): void => {
     const checkAvailable = cartProducts.find((item) => (
       item._id === productInfo._id &&
@@ -40,18 +72,14 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
       item.selected?.work === productInfo.selected?.work))
 
     if (checkAvailable?.selected?.qty !== undefined) {
-      db.collection(CART_STORE_NAME).doc({ _id: productInfo._id }).update({
-        selected: {
-          ...productInfo.selected,
-          // eslint-disable-next-line no-unsafe-optional-chaining
-          qty: checkAvailable?.selected?.qty + 1
-        }
-      })
+      updateCart(CART_STORE_NAME, checkAvailable, "qty", (checkAvailable.selected.qty + 1))
       setAlertMsg("Quantity Updated")
       setShowAlert(true)
       return
     }
-    db.collection(CART_STORE_NAME).add(productInfo)
+    db.collection(CART_STORE_NAME).add(productInfo).then((_res: any) => {
+      refreshCartState()
+    })
     setAlertTypeAlert("info")
     setAlertMsg("Added to Cart")
     setShowAlert(true)
@@ -67,13 +95,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
       item.selected?.work === productInfo.selected?.work))
 
     if (checkAvailable?.selected?.qty !== undefined) {
-      db.collection(WISHLIST_STORE_NAME).doc({ _id: productInfo._id }).update({
-        selected: {
-          ...productInfo.selected,
-          // eslint-disable-next-line no-unsafe-optional-chaining
-          qty: checkAvailable?.selected?.qty + 1
-        }
-      })
+      updateCart(WISHLIST_STORE_NAME, checkAvailable, "qty", (checkAvailable.selected.qty + 1))
       setAlertMsg("Quantity Updated")
       setShowAlert(true)
       return
@@ -87,12 +109,14 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
 
   const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
     if (actionType === CART_STORE_NAME) {
-      db.collection(CART_STORE_NAME).doc({ _id: productId }).delete()
+      db.collection(CART_STORE_NAME).doc(productId).delete().then((_res: any) => {
+        refreshCartState()
+      })
       const updatedCart = cartProducts.filter((item) => item._id !== productId)
       setCartProducts(updatedCart)
       setAlertMsg("Removed from Cart")
     } else {
-      db.collection(WISHLIST_STORE_NAME).doc({ _id: productId }).delete()
+      db.collection(WISHLIST_STORE_NAME).doc(productId).delete()
       const updatedWishlist = wishlistProducts.filter((item) => item._id !== productId)
       setWishlistProducts(updatedWishlist)
       setAlertMsg("Removed from Wishlist")
@@ -125,18 +149,8 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
   }
 
   useEffect(() => {
-    db.collection(CART_STORE_NAME).get({ keys: true }).then((product: ProductType[]) => {
-      const cartData: InCartProductType[] = []
-      // eslint-disable-next-line array-callback-return
-      product.map((item: any) => {
-        const itemKey: string = item.key
-        const newData: ProductType = item.data
-        const newItem: InCartProductType = { itemKey, ...newData }
-        cartData.push(newItem)
-      })
-      setCartProducts(cartData)
-    })
-  }, [addToCart])
+    refreshCartState()
+  }, [])
 
   return (
     <CartContext.Provider

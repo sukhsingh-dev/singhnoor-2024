@@ -37,16 +37,6 @@ const CartItems = (): React.ReactNode => {
     return Number(sum.toFixed(2))
   }
 
-  // const sortedCartProducts = cartProducts.sort((a, b) => {
-  //   if (a._id < b._id) {
-  //     return -1
-  //   }
-  //   if (a._id > b._id) {
-  //     return 1
-  //   }
-  //   return 0
-  // })
-
   return (
     <div className="cart-page-outer">
       {

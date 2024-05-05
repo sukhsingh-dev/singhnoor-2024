@@ -34,8 +34,8 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
             storeName={WISHLIST_STORE_NAME}
             btnClasses="btn-product btn-wishlist"
             selected={{
-              size: product.productSize[0]?.label,
-              color: product.productColors[0]?.label,
+              size: product.productSize[0]?.value,
+              color: product.productColors[0]?.value,
               qty: 1
             }}
           />
@@ -54,8 +54,8 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
             storeName={CART_STORE_NAME}
             btnClasses="btn-product btn-add"
             selected={{
-              size: product.productSize[0]?.label,
-              color: product.productColors[0]?.label,
+              size: product.productSize[0]?.value,
+              color: product.productColors[0]?.value,
               qty: 1
             }}
           />
