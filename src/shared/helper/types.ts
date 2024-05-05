@@ -18,9 +18,6 @@ export interface ProductType {
   productMaterial: Select[]
   productColors: Select[]
   productWork: Select[]
-  // createdAt: time
-  // updatedAt: time
-  // __v: number
 }
 
 export interface StoreBtnTypes {
@@ -40,6 +37,7 @@ export interface SelectedStoreType {
 
 export interface InCartProductType extends ProductType {
   selected?: SelectedStoreType
+  itemKey?: string
 }
 
 export interface InCartProduct {
@@ -49,11 +47,12 @@ export interface InCartProduct {
 export interface CartContextType {
   wishlistProducts: ProductType[]
   cartProducts: ProductType[]
-  getOneProduct: (productId: string) => InCartProductType | undefined
-  updateOneProduct: (product: InCartProductType) => void
-  setCartProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
-  addProduct: (product: ProductType) => void
+  addToCart: (product: ProductType) => void
   addToWishList: (product: ProductType) => void
+  updateCart: (storeName: string,
+    productInfo: InCartProductType,
+    keyName: string,
+    keyValue: string | number) => void
   removeProduct: ({ productId, actionType }: RemoveProductType) => void
   clearCart: (actionType: string) => void
 }
@@ -64,9 +63,7 @@ export interface Select {
   __isNew__?: boolean
 }
 
-export interface Category {
-  value: string
-  label: string
+export interface Category extends Select {
   attr: Select[]
   subCategory: Select[]
 }
@@ -78,9 +75,6 @@ export interface CategoryType {
   categoryImg: string
   categoryAttributes: Select[]
   subCategory: Select[]
-  // createdAt: time
-  // updatedAt: time
-  // __v: number
 }
 
 export interface ProductListTypes {
@@ -162,6 +156,8 @@ export interface RemoveProductType {
 export interface QtyBtnInputTypes {
   qty: number
   setQty: (state: number) => void
+  productInfo?: InCartProductType
+  storeName?: string
 }
 
 export interface RadioInputType {

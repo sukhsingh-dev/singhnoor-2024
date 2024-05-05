@@ -1,6 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 'use client'
 
-import React, { createContext, useEffect, useState, type ReactNode } from "react"
+import React, { createContext, useEffect, useState, useContext } from "react"
+import Localbase from 'localbase'
 import { type CartContextType, type ProductType, type RemoveProductType, type InCartProductType } from "@/shared/helper/types"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import Modal from "../ui/modal/Modal"
@@ -8,19 +11,16 @@ import Modal from "../ui/modal/Modal"
 export const CartContext = createContext<CartContextType>({
   wishlistProducts: [],
   cartProducts: [],
-  getOneProduct: () => undefined,
-  updateOneProduct: () => { },
-  setCartProducts: () => { },
-  addProduct: () => { },
+  addToCart: () => { },
   addToWishList: () => { },
+  updateCart: () => { },
   removeProduct: () => { },
   clearCart: () => { }
 })
 
-export function CartContextProvider({ children }: { children: ReactNode }): ReactNode {
-  const ls = typeof window !== "undefined" ? window.localStorage : null
-  const cartStoreName = CART_STORE_NAME
-  const wishlistStoreName = WISHLIST_STORE_NAME
+export function CartContextProvider({ children }: { children: React.ReactNode }): React.ReactNode {
+  const db = new Localbase('db')
+  db.config.debug = false
 
   const [alertMsg, setAlertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
@@ -29,52 +29,95 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
   const [clearCartAction, setClearCartAction] = useState('')
 
   const [alertType, setAlertTypeAlert] = useState("info")
-  const [cartProducts, setCartProducts] = useState<ProductType[] | InCartProductType[]>([])
-  const [wishlistProducts, setWishlistProducts] = useState<ProductType[]>([])
+  const [cartProducts, setCartProducts] = useState<InCartProductType[]>([])
+  const [wishlistProducts, setWishlistProducts] = useState<InCartProductType[]>([])
 
-  const getOneProduct = (id: string): InCartProductType | undefined => {
-    return cartProducts.find((item: InCartProductType) => item._id === id)
+  const refreshCartState = (): void => {
+    db.collection(CART_STORE_NAME).get({ keys: true }).then((product: ProductType[]) => {
+      const cartData: InCartProductType[] = []
+      if (Array.isArray(product)) {
+        // eslint-disable-next-line array-callback-return
+        product.map((item: any) => {
+          const itemKey: string = item.key
+          const newData: ProductType = item.data
+          const newItem: InCartProductType = { itemKey, ...newData }
+          cartData.push(newItem)
+        })
+        setCartProducts(cartData)
+      }
+    })
   }
 
-  const updateOneProduct = (product: InCartProductType): void => {
-    const updatedCart = cartProducts.filter((item) => item._id !== product._id)
-    const newCart = [...updatedCart, product]
-    setCartProducts(newCart)
+  const updateCart = (
+    storeName: string,
+    productInfo: InCartProductType,
+    keyName: string,
+    keyValue: string | number
+  ): void => {
+    db.collection(storeName).doc(productInfo.itemKey).update({
+      selected: {
+        ...productInfo.selected,
+        [keyName]: keyValue
+      }
+    }).then((_res: any) => {
+      refreshCartState()
+    })
   }
 
-  const addProduct = (product: ProductType): void => {
-    if (((Boolean(cartProducts.some((item: ProductType) => item._id === product._id))) ||
-      cartProducts.some((item) => item._id === product._id))) {
-      setAlertTypeAlert("soft-error")
-      setAlertMsg("Already in Cart")
+  const addToCart = (productInfo: InCartProductType): void => {
+    const checkAvailable = cartProducts.find((item) => (
+      item._id === productInfo._id &&
+      item.selected?.size === productInfo.selected?.size &&
+      item.selected?.color === productInfo.selected?.color &&
+      item.selected?.material === productInfo.selected?.material &&
+      item.selected?.work === productInfo.selected?.work))
+
+    if (checkAvailable?.selected?.qty !== undefined) {
+      updateCart(CART_STORE_NAME, checkAvailable, "qty", (checkAvailable.selected.qty + 1))
+      setAlertMsg("Quantity Updated")
       setShowAlert(true)
       return
     }
+    db.collection(CART_STORE_NAME).add(productInfo).then((_res: any) => {
+      refreshCartState()
+    })
     setAlertTypeAlert("info")
+    setAlertMsg("Added to Cart")
     setShowAlert(true)
-    setCartProducts((prev) => [...prev, product])
+    setCartProducts((prev) => [...prev, productInfo])
   }
 
-  const addToWishList = (product: ProductType): void => {
-    if (((Boolean(wishlistProducts.some((item: ProductType) => item._id === product._id))) ||
-      wishlistProducts.some((item) => item._id === product._id))) {
-      setAlertTypeAlert("soft-error")
-      setAlertMsg("Already in Wishlist")
+  const addToWishList = (productInfo: InCartProductType): void => {
+    const checkAvailable = wishlistProducts.find((item) => (
+      item._id === productInfo._id &&
+      item.selected?.size === productInfo.selected?.size &&
+      item.selected?.color === productInfo.selected?.color &&
+      item.selected?.material === productInfo.selected?.material &&
+      item.selected?.work === productInfo.selected?.work))
+
+    if (checkAvailable?.selected?.qty !== undefined) {
+      updateCart(WISHLIST_STORE_NAME, checkAvailable, "qty", (checkAvailable.selected.qty + 1))
+      setAlertMsg("Quantity Updated")
       setShowAlert(true)
       return
     }
+    db.collection(WISHLIST_STORE_NAME).add(productInfo)
     setAlertTypeAlert("info")
-    setShowAlert(true)
     setAlertMsg("Added to Wishlist")
-    setWishlistProducts((prev) => [...prev, product])
+    setShowAlert(true)
+    setWishlistProducts((prev) => [...prev, productInfo])
   }
 
   const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
     if (actionType === CART_STORE_NAME) {
+      db.collection(CART_STORE_NAME).doc(productId).delete().then((_res: any) => {
+        refreshCartState()
+      })
       const updatedCart = cartProducts.filter((item) => item._id !== productId)
       setCartProducts(updatedCart)
       setAlertMsg("Removed from Cart")
     } else {
+      db.collection(WISHLIST_STORE_NAME).doc(productId).delete()
       const updatedWishlist = wishlistProducts.filter((item) => item._id !== productId)
       setWishlistProducts(updatedWishlist)
       setAlertMsg("Removed from Wishlist")
@@ -94,53 +137,21 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
     setShowAlert(true)
 
     if (clearCartAction === CART_STORE_NAME) {
+      db.collection(CART_STORE_NAME).delete()
       setCartProducts([])
-      ls?.setItem(CART_STORE_NAME, JSON.stringify([]))
       setAlertMsg("Cart Cleared")
     }
     if (clearCartAction === WISHLIST_STORE_NAME) {
+      db.collection(WISHLIST_STORE_NAME).delete()
       setWishlistProducts([])
-      ls?.setItem(WISHLIST_STORE_NAME, JSON.stringify([]))
       setAlertMsg("Wishlist Cleared")
     }
     setClearCartAction('')
   }
 
   useEffect(() => {
-    const cartDataString = ls?.getItem(cartStoreName)
-    if ((ls?.getItem(cartStoreName)) !== null) {
-      const getCartData: ProductType[] = (cartDataString != null)
-        ? JSON.parse(cartDataString)
-        : null
-      if (getCartData !== null) {
-        setCartProducts(getCartData)
-      }
-    }
+    refreshCartState()
   }, [])
-
-  useEffect(() => {
-    if (cartProducts?.length > 0) {
-      ls?.setItem(cartStoreName, JSON.stringify(cartProducts))
-    }
-  }, [cartProducts])
-
-  useEffect(() => {
-    const cartDataString = ls?.getItem(wishlistStoreName)
-    if ((ls?.getItem(wishlistStoreName)) !== null) {
-      const getCartData: ProductType[] = (cartDataString != null)
-        ? JSON.parse(cartDataString)
-        : null
-      if (getCartData !== null) {
-        setWishlistProducts(getCartData)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    if (wishlistProducts?.length > 0) {
-      ls?.setItem(wishlistStoreName, JSON.stringify(wishlistProducts))
-    }
-  }, [wishlistProducts])
 
   return (
     <CartContext.Provider
@@ -148,11 +159,9 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
       value={{
         cartProducts,
         wishlistProducts,
-        updateOneProduct,
-        getOneProduct,
-        setCartProducts,
-        addProduct,
+        addToCart,
         addToWishList,
+        updateCart,
         removeProduct,
         clearCart
       }}
@@ -195,4 +204,8 @@ export function CartContextProvider({ children }: { children: ReactNode }): Reac
       }
     </CartContext.Provider>
   )
+}
+
+export function useShoppingCart(): CartContextType {
+  return useContext(CartContext)
 }

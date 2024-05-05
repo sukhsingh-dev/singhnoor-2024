@@ -1,17 +1,17 @@
 'use client'
 
-import { useContext, useState, useEffect } from "react"
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
 import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
 import { type InCartProductType, type InCartProduct } from "@/shared/helper/types"
-import { CartContext } from "@/shared/components/context/CartContext"
+import { useShoppingCart } from "@/shared/components/context/CartContext"
 import { CART_STORE_NAME } from "@/shared/helper/constants"
 import '../cart.sass'
 
 const CartItems = (): React.ReactNode => {
-  const { cartProducts, clearCart } = useContext(CartContext)
+  const { cartProducts, clearCart } = useShoppingCart()
   const subtotal = cartProducts.reduce((acc, product: InCartProductType) => {
     const productSubtotal = product.productPrice * (
       product.selected?.qty !== undefined ? product.selected.qty : 1
@@ -37,28 +37,18 @@ const CartItems = (): React.ReactNode => {
     return Number(sum.toFixed(2))
   }
 
-  const sortedCartProducts = cartProducts.sort((a, b) => {
-    if (a._id < b._id) {
-      return -1
-    }
-    if (a._id > b._id) {
-      return 1
-    }
-    return 0
-  })
-
   return (
     <div className="cart-page-outer">
       {
-        sortedCartProducts.length === 0
+        cartProducts.length === 0
           ? <NoProductUI />
           :
           <>
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  sortedCartProducts.map((productInfo: InCartProductType) => (
-                    <CartProductUI key={productInfo._id} product={productInfo} />
+                  cartProducts.map((productInfo: InCartProductType) => (
+                    <CartProductUI key={productInfo.itemKey} product={productInfo} />
                   ))
 
                 }
@@ -133,45 +123,10 @@ const NoProductUI = (): React.ReactNode => (
 
 const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
   const [qty, setQty] = useState(((product.selected?.qty) != null) ? product.selected.qty : 1)
-  const {
-    updateOneProduct, removeProduct
-  } = useContext(CartContext)
-
-  const handleSizeChange = (sizeValue: string): void => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        size: sizeValue
-      }
-    }
-    updateOneProduct(newChanges)
-  }
-
-  const handleColorChange = (colorValue: string): void => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        color: colorValue
-      }
-    }
-    updateOneProduct(newChanges)
-  }
-
-  useEffect(() => {
-    const newChanges: InCartProductType = {
-      ...product,
-      selected: {
-        ...product.selected,
-        qty
-      }
-    }
-    updateOneProduct(newChanges)
-  }, [qty])
+  const { updateCart, removeProduct } = useShoppingCart()
 
   return (
-    <div key={product._id} className="cart-product">
+    <div className="cart-product">
       <Image
         src={product.productImagesArray[0]}
         alt={product.productTitle}
@@ -191,16 +146,18 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                     return (
                       <li key={size.value}>
                         <input
-                          id={`${size.value}-${product._id}`}
+                          id={`${size.value}-${product.itemKey}`}
                           type="radio"
                           value={size.value}
-                          name={`size-radio-${product._id}`}
+                          name={`size-radio-${product.itemKey}`}
                           defaultChecked={product.selected?.size === size.value}
+                          data-v={product.selected?.size}
+                          data-n={size.value}
                           onChange={
-                            (e) => handleSizeChange(e.target.value)
+                            (e) => updateCart(CART_STORE_NAME, product, "size", e.target.value)
                           }
                         />
-                        <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
+                        <label htmlFor={`${size.value}-${product.itemKey}`}>{size.label}</label>
                       </li>
                     )
                   })
@@ -219,16 +176,16 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                     <li key={item.value}>
                       <input
                         type="radio"
-                        name={`color-radio-${product._id}`}
+                        name={`color-radio-${product.itemKey}`}
                         value={item.value}
-                        id={item.value}
+                        id={`${item.value}-${product.itemKey}`}
                         defaultChecked={product.selected?.color === item.value}
                         onChange={
-                          (e) => handleColorChange(e.target.value)
+                          (e) => updateCart(CART_STORE_NAME, product, "color", e.target.value)
                         }
                       />
                       <label
-                        htmlFor={item.value}
+                        htmlFor={`${item.value}-${product.itemKey}`}
                         style={{ backgroundColor: item.value }}
                       />
                     </li>
@@ -243,13 +200,18 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
         <span className="product-price-currency">₹</span>
         {product.productPrice}
       </h3>
-      <QtyBtnInput qty={qty} setQty={setQty} />
+      <QtyBtnInput
+        qty={qty}
+        setQty={setQty}
+        productInfo={product}
+        storeName={CART_STORE_NAME}
+      />
       <button
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
         onClick={() => removeProduct({
-          productId: product._id, actionType: CART_STORE_NAME
+          productId: product.itemKey ?? '', actionType: CART_STORE_NAME
         })}
       >
         <Icon name="delete" />

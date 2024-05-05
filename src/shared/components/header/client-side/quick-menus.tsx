@@ -1,17 +1,17 @@
 'use client'
 
 import { type QuickMenusInnerTypes } from "@/shared/helper/types"
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { usePathname } from 'next/navigation'
 import Link from "next/link"
-import { CartContext } from "../../context/CartContext"
+import { useShoppingCart } from "../../context/CartContext"
 import Icon from "../../Icon"
 
 const QuickMenus = (): React.ReactNode => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const [scrollDown, setScrollDown] = useState(false)
-  const { cartProducts, wishlistProducts } = useContext(CartContext)
+  const { cartProducts, wishlistProducts } = useShoppingCart()
   const pageName = usePathname()
 
   useEffect(() => {
