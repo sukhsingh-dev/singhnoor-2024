@@ -53,6 +53,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
     }
     db.collection(CART_STORE_NAME).add(productInfo)
     setAlertTypeAlert("info")
+    setAlertMsg("Added to Cart")
     setShowAlert(true)
     setCartProducts((prev) => [...prev, productInfo])
   }
@@ -79,6 +80,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
     }
     db.collection(WISHLIST_STORE_NAME).add(productInfo)
     setAlertTypeAlert("info")
+    setAlertMsg("Added to Wishlist")
     setShowAlert(true)
     setWishlistProducts((prev) => [...prev, productInfo])
   }
@@ -123,10 +125,18 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
   }
 
   useEffect(() => {
-    db.collection(CART_STORE_NAME).get().then((data: ProductType[]) => {
-      setCartProducts(data)
+    db.collection(CART_STORE_NAME).get({ keys: true }).then((product: ProductType[]) => {
+      const cartData: InCartProductType[] = []
+      // eslint-disable-next-line array-callback-return
+      product.map((item: any) => {
+        const itemKey: string = item.key
+        const newData: ProductType = item.data
+        const newItem: InCartProductType = { itemKey, ...newData }
+        cartData.push(newItem)
+      })
+      setCartProducts(cartData)
     })
-  }, [])
+  }, [addToCart])
 
   return (
     <CartContext.Provider

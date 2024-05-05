@@ -37,6 +37,7 @@ export interface SelectedStoreType {
 
 export interface InCartProductType extends ProductType {
   selected?: SelectedStoreType
+  itemKey?: string
 }
 
 export interface InCartProduct {

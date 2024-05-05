@@ -37,28 +37,28 @@ const CartItems = (): React.ReactNode => {
     return Number(sum.toFixed(2))
   }
 
-  const sortedCartProducts = cartProducts.sort((a, b) => {
-    if (a._id < b._id) {
-      return -1
-    }
-    if (a._id > b._id) {
-      return 1
-    }
-    return 0
-  })
+  // const sortedCartProducts = cartProducts.sort((a, b) => {
+  //   if (a._id < b._id) {
+  //     return -1
+  //   }
+  //   if (a._id > b._id) {
+  //     return 1
+  //   }
+  //   return 0
+  // })
 
   return (
     <div className="cart-page-outer">
       {
-        sortedCartProducts.length === 0
+        cartProducts.length === 0
           ? <NoProductUI />
           :
           <>
             <div className="cart-page-set">
               <div className="cart-page-products">
                 {
-                  sortedCartProducts.map((productInfo: InCartProductType) => (
-                    <CartProductUI key={productInfo._id} product={productInfo} />
+                  cartProducts.map((productInfo: InCartProductType) => (
+                    <CartProductUI key={productInfo.itemKey} product={productInfo} />
                   ))
 
                 }
@@ -136,7 +136,7 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
   const { removeProduct } = useShoppingCart()
 
   return (
-    <div key={product._id} className="cart-product">
+    <div className="cart-product">
       <Image
         src={product.productImagesArray[0]}
         alt={product.productTitle}
@@ -156,16 +156,16 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                     return (
                       <li key={size.value}>
                         <input
-                          id={`${size.value}-${product._id}`}
+                          id={`${size.value}-${product.itemKey}`}
                           type="radio"
                           value={size.value}
-                          name={`size-radio-${product._id}`}
+                          name={`size-radio-${product.itemKey}`}
                           defaultChecked={product.selected?.size === size.value}
                         // onChange={
                         //   (e) => handleSizeChange(e.target.value)
                         // }
                         />
-                        <label htmlFor={`${size.value}-${product._id}`}>{size.label}</label>
+                        <label htmlFor={`${size.value}-${product.itemKey}`}>{size.label}</label>
                       </li>
                     )
                   })
@@ -184,16 +184,16 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                     <li key={item.value}>
                       <input
                         type="radio"
-                        name={`color-radio-${product._id}`}
+                        name={`color-radio-${product.itemKey}`}
                         value={item.value}
-                        id={item.value}
+                        id={`${item.value}-${product.itemKey}`}
                         defaultChecked={product.selected?.color === item.value}
                       // onChange={
                       //   (e) => handleColorChange(e.target.value)
                       // }
                       />
                       <label
-                        htmlFor={item.value}
+                        htmlFor={`${item.value}-${product.itemKey}`}
                         style={{ backgroundColor: item.value }}
                       />
                     </li>
@@ -214,7 +214,7 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
         aria-label="remove from cart"
         className="btn-remove-product"
         onClick={() => removeProduct({
-          productId: product._id, actionType: CART_STORE_NAME
+          productId: product.itemKey ?? '', actionType: CART_STORE_NAME
         })}
       >
         <Icon name="delete" />
