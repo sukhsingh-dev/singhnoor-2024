@@ -27,7 +27,7 @@ const ProductAttributes = ({ product }: Product): React.ReactNode => {
                     <input
                       type="radio"
                       name="size-radio"
-                      value={item.label}
+                      value={item.value}
                       id={item.value}
                       defaultChecked={index === 0}
                       onChange={(e) => setSelectedSize(e.target.value)}

@@ -32,6 +32,7 @@ https://codepen.io/andymerskin/pen/XNMWvQ - parallax cards
 https://codepen.io/petegarvin1/pen/YzWBbRx - person profile card effect
 
 https://lenis.studiofreight.com/ - scroll
+https://www.npmjs.com/package/localbase- localbase
 
 https://manuarora.in/resources
 

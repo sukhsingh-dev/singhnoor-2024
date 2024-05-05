@@ -123,7 +123,7 @@ const NoProductUI = (): React.ReactNode => (
 
 const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
   const [qty, setQty] = useState(((product.selected?.qty) != null) ? product.selected.qty : 1)
-  const { removeProduct } = useShoppingCart()
+  const { updateCart, removeProduct } = useShoppingCart()
 
   return (
     <div className="cart-product">
@@ -151,9 +151,11 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                           value={size.value}
                           name={`size-radio-${product.itemKey}`}
                           defaultChecked={product.selected?.size === size.value}
-                        // onChange={
-                        //   (e) => handleSizeChange(e.target.value)
-                        // }
+                          data-v={product.selected?.size}
+                          data-n={size.value}
+                          onChange={
+                            (e) => updateCart(CART_STORE_NAME, product, "size", e.target.value)
+                          }
                         />
                         <label htmlFor={`${size.value}-${product.itemKey}`}>{size.label}</label>
                       </li>
@@ -178,9 +180,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                         value={item.value}
                         id={`${item.value}-${product.itemKey}`}
                         defaultChecked={product.selected?.color === item.value}
-                      // onChange={
-                      //   (e) => handleColorChange(e.target.value)
-                      // }
+                        onChange={
+                          (e) => updateCart(CART_STORE_NAME, product, "color", e.target.value)
+                        }
                       />
                       <label
                         htmlFor={`${item.value}-${product.itemKey}`}
@@ -198,7 +200,12 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
         <span className="product-price-currency">₹</span>
         {product.productPrice}
       </h3>
-      <QtyBtnInput qty={qty} setQty={setQty} />
+      <QtyBtnInput
+        qty={qty}
+        setQty={setQty}
+        productInfo={product}
+        storeName={CART_STORE_NAME}
+      />
       <button
         type="button"
         aria-label="remove from cart"

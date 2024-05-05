@@ -49,6 +49,10 @@ export interface CartContextType {
   cartProducts: ProductType[]
   addToCart: (product: ProductType) => void
   addToWishList: (product: ProductType) => void
+  updateCart: (storeName: string,
+    productInfo: InCartProductType,
+    keyName: string,
+    keyValue: string | number) => void
   removeProduct: ({ productId, actionType }: RemoveProductType) => void
   clearCart: (actionType: string) => void
 }
@@ -152,6 +156,8 @@ export interface RemoveProductType {
 export interface QtyBtnInputTypes {
   qty: number
   setQty: (state: number) => void
+  productInfo?: InCartProductType
+  storeName?: string
 }
 
 export interface RadioInputType {

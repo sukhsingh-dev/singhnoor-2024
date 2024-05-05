@@ -13,6 +13,7 @@ export const CartContext = createContext<CartContextType>({
   cartProducts: [],
   addToCart: () => { },
   addToWishList: () => { },
+  updateCart: () => { },
   removeProduct: () => { },
   clearCart: () => { }
 })
@@ -160,6 +161,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
         wishlistProducts,
         addToCart,
         addToWishList,
+        updateCart,
         removeProduct,
         clearCart
       }}
