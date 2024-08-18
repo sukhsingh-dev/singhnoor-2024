@@ -7,6 +7,8 @@ Home page --------
   Account related UI
   Search Functionality
   Cursor design for desktop
+  Testmonial section
+  
 
 Shop page --------
   Per page dropdown + Pagination + auto load
