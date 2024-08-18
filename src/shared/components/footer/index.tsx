@@ -53,7 +53,7 @@ const Contacts: React.FC = () => (
           <Icon name="call" />
           <span>
             Call Us
-            <small>+91 81302 29131</small>
+            {/* <small>+91 81302 29131</small> */}
           </span>
         </a>
       </li>
@@ -62,18 +62,12 @@ const Contacts: React.FC = () => (
           <Icon name="whatsapp" />
           <span>
             WhatsApp
-            <small>+91 81302 29131</small>
+            {/* <small>+91 81302 29131</small> */}
           </span>
         </a>
       </li>
       <li>
-        <a href="mailto:contact@singhnoor.com" className="d-flex align-center" rel="noreferrer" target="_blank">
-          <Icon name="gmail" />
-          Mail Us
-        </a>
-      </li>
-      <li>
-        <a href="https://www.instagram.com/singhnoor.com_/" className="d-flex align-center" rel="noreferrer" target="_blank">
+        <a href="https://instagram.com/singhnoorcreations/" className="d-flex align-center" rel="noreferrer" target="_blank">
           <InstaIcon />
           Instagram
         </a>
@@ -85,11 +79,17 @@ const Contacts: React.FC = () => (
         </a>
       </li>
       <li>
+        <a href="mailto:singhnoorcreations@gmail.com" className="d-flex align-center" rel="noreferrer" target="_blank">
+          <Icon name="gmail" />
+          Mail Us
+        </a>
+      </li>
+      {/* <li>
         <a href="/f" className="d-flex align-center" rel="noreferrer" target="_blank">
           <Icon name="facebook" />
           Facebook
         </a>
-      </li>
+      </li> */}
     </ul>
   </div>
 )
