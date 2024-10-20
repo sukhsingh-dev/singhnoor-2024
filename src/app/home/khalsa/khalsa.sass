@@ -1,0 +1,122 @@
+@import "../../../shared/styles/_functions.sass"
+
+$center-width: 20%
+
+.sn-khalsa-collections
+  display: flex
+  gap: rem(24)
+
+  img
+    object-position: top center !important
+
+  .sn-collections-card
+    &:hover
+      cursor: pointer
+      .sn-khalsa-collections-heading
+        transform: translateY(0)
+      p
+        opacity: 1
+        transition: opacity 0.3s var(--ease-spring) 0.3s
+
+    &-img::after
+      background: linear-gradient(25deg, rgba(0, 123, 255, 0.3), rgba(250, 107, 56, 0.3))
+
+  .sn-collections-btn
+    opacity: 1
+    margin-top: rem(20)
+    transform: translateY(0)
+
+  &-side
+    &-center
+      width: $center-width
+      min-width: $center-width
+      transition: 0.3s var(--ease-spring)
+
+      .sn-collections-card,
+      .sn-collections-card-img,
+      img
+        height: calc(100vh - rem(120))
+
+      &:hover
+        min-width: 40%
+        cursor: pointer
+    &-left,
+    &-right
+      display: flex
+      flex-direction: column
+      width: calc((100% - $center-width)/2)
+      gap: rem(24)
+
+      .sn-collections-card,
+      .sn-collections-card-img,
+      img
+        height: calc(50vh - rem(72))
+
+  &-heading
+    display: flex
+    flex-direction: column
+    font-size: rem(32)
+    margin-bottom: rem(8)
+    text-shadow: 0.1875rem 0.1875rem 0.1875rem rgba(0, 0, 0, .5)
+    transform: translateY(rem(50))
+    transition: 0.3s var(--ease-spring)
+
+    +onMaxSize(large)
+      transform: translateY(0)
+
+    small
+      font-size: 0.5em
+      font-weight: 550
+
+  &-info
+    position: absolute
+    bottom: rem(20)
+    left: rem(20)
+    color: var(--white)
+
+    p
+      max-width: 75%
+      opacity: 0
+      height: rem(50)
+      +onMaxSize(large)
+        opacity: 1
+        height: auto
+
+  +onMaxSize(large)
+    flex-wrap: wrap
+    gap: rem(16)
+
+    .sn-khalsa-collections-side-left,
+    .sn-khalsa-collections-side-right,
+    .sn-khalsa-collections-side-center
+      width: 100%
+
+    .sn-khalsa-collections-side-center
+      .sn-collections-card,
+      .sn-collections-card-img,
+      img
+        height: calc(50vh - rem(120))
+
+    .sn-khalsa-collections-side-left,
+    .sn-khalsa-collections-side-right
+      flex-direction: row
+      gap: rem(16)
+
+      .sn-collections-card,
+      .sn-collections-card-img,
+      img
+        height: calc(25vh - rem(32))
+
+  +onMaxSize(medium)
+    .sn-khalsa-collections-side-left,
+    .sn-khalsa-collections-side-right
+      flex-direction: column
+      gap: rem(16)
+
+      .sn-collections-card,
+      .sn-collections-card-img,
+      img
+        height: calc(50vh - rem(120))
+
+    .sn-khalsa-collections-side-center
+      order: 1

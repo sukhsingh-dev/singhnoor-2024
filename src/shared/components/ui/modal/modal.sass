@@ -1,0 +1,84 @@
+@import "../../../styles/_functions"
+
+.sn-modal
+  position: fixed
+  display: grid
+  place-items: center
+  z-index: 10
+  inset: 0
+  background: rgba(#000, 0.75)
+  backdrop-filter: blur(rem(6))
+
+  &-inner
+    background-color: var(--white)
+    border-radius: rem(10)
+    max-width: rem(500)
+    min-width: rem(200)
+    min-height: rem(200)
+
+  &-heading
+    display: flex
+
+  &-close
+    margin-left: auto
+
+  &-footer
+    display: flex
+    justify-content: flex-end
+    gap: rem(16)
+
+.small-modal
+  background: transparent
+  backdrop-filter: none
+  inset: auto
+  width: 100%
+  bottom: rem(80)
+  +onMinSize(medium)
+    place-items: flex-end
+    padding-right: rem(8)
+  &.soft-error
+    .sn-modal-inner
+      background-color: var(--page-color-red-light)
+      .item-heading
+        color: var(--white)
+        text-shadow: 0 0 rem(5) var(--page-color-red-dark)
+    .sn-modal-time
+      background: var(--page-color-red-dark)
+
+  .sn-modal-inner
+    max-width: 100%
+    width: calc(100% - rem(24))
+    min-height: rem(60)
+    background: var(--primary-light)
+    padding: rem(24)
+    position: relative
+    overflow: hidden
+
+    +onMinSize(medium)
+      max-width: rem(400)
+
+  .sn-modal-heading
+    position: absolute
+    right: rem(24)
+
+  .sn-modal-close
+    svg
+      width: rem(20)
+      height: rem(20)
+      opacity: 0.6
+
+  .item-heading
+    font-size: rem(20)
+    color: var(--text)
+
+  .sn-modal-time
+    position: absolute
+    animation: scaleX linear
+    transform-origin: left
+    bottom: 0
+    transform: scaleX(0)
+    width: 100%
+    height: rem(4)
+    left: rem(1)
+    border-radius: rem(4)
+    background: var(--primary)

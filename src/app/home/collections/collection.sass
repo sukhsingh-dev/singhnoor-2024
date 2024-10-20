@@ -1,0 +1,119 @@
+@import "../../../shared/styles/_functions.sass"
+
+@mixin sn-collections-card-common
+  cursor: pointer
+  text-align: left
+  width: 40% !important
+
+  .sn-collections-heading
+    left: 90%
+
+  .sn-collections-btn,
+  .sn-collections-info p
+    opacity: 1
+    transform: translateY(0)
+
+  .sn-collections-info p
+    transition: opacity 0.3s var(--ease-spring) 0.3s, background-color 0.3s var(--ease-spring)
+//mixin end
+
+.sn-collections
+  --cols: 2
+  display: grid
+  justify-content: space-between
+  gap: rem(16)
+  grid-template-columns: repeat(var(--cols), minmax(0,1fr))
+
+  +onMinSize(medium)
+    display: flex
+
+  +onMinSize(large)
+    .sn-collections-card
+      width: 20%
+      transition: 0.3s var(--ease-spring)
+
+      img
+        object-position: top center !important
+        transition: 0.3s var(--ease-spring)
+
+      &:hover
+        +sn-collections-card-common
+
+    &:not(:hover)
+      .sn-collections-card:first-child
+        +sn-collections-card-common
+
+  &-card
+    position: relative
+    &-img
+      position: relative
+      border-radius: rem(20)
+
+      &::after,
+      &::before
+        content: ''
+        position: absolute
+        inset: 0
+        border-radius: rem(20)
+        // background-image: linear-gradient(275deg, $primary-shadow, $secondary-shadow)
+        background: linear-gradient(25deg, rgba($primary-color, 0.15), rgba($secondary-color,0.15))
+
+      &::before
+        z-index: -1
+        border-radius: 1.25rem
+        inset: rem(-2) rem(-2) rem(2) rem(-2)
+        background: linear-gradient(25deg, rgba($primary-color, 0.5), rgba($secondary-color,0.5))
+
+      img
+        object-fit: cover
+        object-position: 60% 50%
+        width: 100%
+        height: rem(360)
+        border-radius: rem(20)
+
+        &.for-her
+          object-position: 40% 50%
+
+  &-heading
+    position: absolute
+    white-space: nowrap
+    transform-origin: left
+    color: var(--white)
+    left: 50%
+    bottom: rem(60)
+    font-size: rem(36)
+    transform: rotate(270deg)
+    transition: 0.3s var(--ease-spring)
+    text-shadow: rem(3) rem(3) rem(3) rgba(0, 0, 0, 0.5)
+
+  &-btn
+    position: relative
+    z-index: 1
+    transform: translateY(rem(20))
+    transition: transform 0.3s var(--ease-spring)
+    background: linear-gradient(25deg, rgba($primary-color, 0.9), rgba($secondary-color,0.9))
+    border: none
+
+    +onMinSize(medium)
+      opacity: 0
+
+  &-info
+    position: absolute
+    left: rem(10)
+    bottom: rem(40)
+    p
+      opacity: 0
+      max-width: 80%
+      font-size: rem(18)
+      margin-bottom: rem(20)
+      padding: rem(16)
+      border-radius: rem(16)
+      color: var(--white)
+      line-height: 1.4
+
+      &:hover
+        background-color: rgba(0, 0, 0, 0.75)
+
+    +onMinSize(medium)
+      left: rem(20)
+      bottom: rem(20)

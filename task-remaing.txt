@@ -1,0 +1,41 @@
+Home page --------
+  Menus design for desktop
+  Create your own page
+  Theme mode selector
+  Wishlist page UI
+  Cart page UI
+  Account related UI
+  Search Functionality
+  Cursor design for desktop
+  Testmonial section
+  
+
+Shop page --------
+  Per page dropdown + Pagination + auto load
+  Sort by dropdown
+  Filters
+
+Product page _______
+  Size chart for different Categories
+  Qty increase
+  Reviews
+  You may like also like dynamic
+
+General ___________
+Code cleanup
+Client to server components
+
+
+
+inspiration
+https://www.nuuds.com/collections/new-in
+https://ecommerce-128.webflow.io/home-6 - insta feed
+https://codepen.io/andymerskin/pen/XNMWvQ - parallax cards
+https://codepen.io/petegarvin1/pen/YzWBbRx - person profile card effect
+
+https://lenis.studiofreight.com/ - scroll
+https://www.npmjs.com/package/localbase- localbase
+
+https://manuarora.in/resources
+
+

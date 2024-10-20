@@ -1,0 +1,139 @@
+@import "../../../shared/styles/_functions.sass"
+
+.t-shirts-set
+  display: grid
+  grid-template-columns: 25% 50% 25% 25%
+  margin-block: rem(40)
+
+  img
+    height: auto
+    position: relative
+    transform-origin: top left
+    width: 100%
+
+    &:nth-child(1)
+      right: -30%
+      transform: translateY(-10%)
+
+    &:nth-child(3)
+      left: -30%
+      transform: translateY(-10%)
+
+    &:nth-child(5)
+      display: none
+
+  &-animation
+    img
+      transition: 1s linear
+      &:nth-child(1)
+        transform: scale(0.5) translate(-50%,-10%)
+      &:nth-child(2)
+        transform: scale(0.5) translate(-70%, -10%)
+      &:nth-child(3)
+        transform: scale(2) translate(-85%, 0%)
+      &:nth-child(4)
+        transform: translate(-130%, -10%)
+
+.deals-bg-decorator
+  display: block
+  margin-inline: auto
+  position: absolute
+  top: calc(40% - rem(150))
+  margin-left: calc(50% - rem(150))
+  width: rem(300)
+  height: rem(300)
+  border-radius: 50%
+
+.deal-text
+  font-weight: 500
+  font-size: rem(24)
+  margin-bottom: rem(-18)
+
+.deals-outer
+  max-width: 100vw
+  overflow: hidden
+  margin-inline: -1rem
+
+  +onMinSize(medium)
+    display: grid
+    align-items: center
+    grid-template-areas: "heading imgsArea" "textArea imgsArea" "svgArea imgsArea" "buttonArea imgsArea"
+    padding-inline: rem(24)
+
+    .page-heading
+      grid-area: heading
+      text-align: left
+      margin-bottom: rem(-40)
+
+    .deal-text
+      grid-area: textArea
+      text-align: left
+      margin-bottom: 0
+
+    svg
+      grid-area: svgArea
+      position: relative
+      margin-bottom: 0
+      top: rem(-70)
+
+    .deal-btn-outer
+      grid-area: buttonArea
+      text-align: left
+      margin-top: rem(-60)
+
+    .deals-offer
+      grid-area: imgsArea
+      overflow: hidden
+      margin-left: 0
+      max-width: rem(450)
+
+      .deals-bg-decorator
+        height: auto
+        aspect-ratio: 1/1
+        max-width: 50%
+        top: 50%
+        transform: translate(25%,-50%)
+
+      .t-shirts-set
+        min-width: rem(540)
+        margin: rem(40) 0 0 rem(-60)
+
+        &-animation
+          img
+            &:nth-child(1)
+              opacity: 0
+
+  +onMinSize(large)
+    margin-inline: auto
+    max-width: rem(840)
+
+  +onMinSize(x-large)
+    &.text-center
+      max-width: rem(1100)
+
+    .page-heading
+      font-size: rem(50)
+      margin-top: rem(90)
+
+    .deals-offer
+      max-width: rem(960)
+
+      .t-shirts-set
+        max-width: rem(720)
+
+      .deals-bg-decorator
+        transform: translate(-25%, -50%)
+    .deal-text
+      margin-top: rem(-20)
+
+    svg
+      top: rem(-60)
+
+    .btn-primary
+      padding: 1rem 3rem
+      font-size: rem(20)
+.deals-offer
+  margin: 0 rem(-120)
+
+.deal-btn-outer
+  margin-top: rem(24)

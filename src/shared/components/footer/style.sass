@@ -1,0 +1,153 @@
+@import "../../../shared/styles/_functions.sass"
+
+.sn-footer
+  padding-inline: rem(24)
+
+  .footer-logo
+    display: none
+
+  +onMinSize(x-large)
+    position: relative
+    padding: rem(48) rem(24)
+    border-radius: rem(30) rem(30) 0 0
+    background: var(--footer-bg)
+
+    .footer-logo
+      display: inline-block
+
+  &-inner
+    +onMinSize(x-large)
+      display: grid
+      grid-template-columns: 60% 20% 20%
+      gap: rem(24)
+
+      &::after
+        content: ''
+        background-image: url('/images/footer-img-2.webp')
+        background-size: contain
+        position: absolute
+        right: 0
+        top: rem(96)
+        width: rem(350)
+        height: rem(450)
+
+  &-copyright
+    padding-bottom: rem(80)
+    padding-top: 1rem
+    margin-inline: 1rem
+    border-top: 1px solid var(--border-light)
+
+    +onMinSize(x-large)
+      border: none
+      padding: 0
+      margin: 0
+
+.about-text
+  display: none
+
+  +onMinSize(x-large)
+    display: block
+    margin-block: rem(20) rem(40)
+    font-size: rem(18)
+    max-width: rem(600)
+    line-height: 1.5
+    color: var(--text-dark)
+
+.contact
+  &-outer
+    h4
+      text-align: center
+      letter-spacing: 0.75px
+      font-size: rem(28)
+      margin-bottom: rem(24)
+
+      +onMinSize(x-large)
+        text-align: left
+        font-size: rem(24)
+
+  &-list
+    --cols: 2
+    display: grid
+    grid-template-columns: repeat(var(--cols),minmax(0,1fr))
+    gap: 1.5rem 0.75rem
+
+    +onMinSize(medium)
+      --cols: 3
+
+    a
+      font-size: 1.25rem
+      font-weight: 500
+
+      span
+        display: inline-flex
+        flex-direction: column
+
+      small
+        font-size: 0.675em
+        font-weight: 400
+        color: var(--text-light)
+
+      svg
+        min-width: rem(70)
+        height: rem(70)
+        margin-right: rem(-12)
+        transform: scale(0.75) translateX(rem(-12))
+
+.footer-links
+  li
+    margin-bottom: rem(16)
+
+  &-outer
+    h4
+      font-weight: 500
+      font-size: rem(20)
+      margin-bottom: rem(20)
+      color: var(--primary)
+
+  &-container
+    display: grid
+    grid-template-columns: 50% 50%
+    gap: rem(16)
+    margin-top: rem(24)
+    padding-inline: rem(16)
+
+    +onMinSize(medium)
+      display: flex
+      flex-direction: column
+
+      .footer-links
+        display: flex
+        gap: rem(32)
+        margin-bottom: rem(24)
+
+    +onMinSize(x-large)
+      .footer-links
+        display: block
+
+.scroll-to-top.btn
+  display: grid
+  place-items: center
+  position: absolute
+  right: rem(40)
+  width: rem(48)
+  height: rem(48)
+  margin-top: rem(-60)
+  border-radius: 50%
+  padding: 0
+  background: var(--primary)
+  color: var(--white)
+
+  &:hover
+    svg
+      animation: toTop 0.5s var(--ease-spring) infinite alternate
+
+  +onMinSize(x-large)
+    bottom: rem(60)
+
+  svg
+    width: rem(14)
+    height: rem(12)
+
+@keyframes toTop
+  100%
+    transform: translateY(rem(-8))

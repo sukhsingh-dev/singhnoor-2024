@@ -1,0 +1,35 @@
+@import "../../../shared/styles/_functions.sass"
+
+.deal-zone
+  &-list
+    overflow: auto
+    margin-right: rem(-16)
+    padding-bottom: rem(10)
+    padding-right: rem(16)
+
+    +onMinSize(medium)
+      justify-content: space-between
+      a
+        align-items: center
+
+    img
+      min-width: rem(120)
+      object-fit: contain
+
+      +onMinSize(large)
+        height: auto
+        min-width: rem(180)
+        margin-bottom: rem(8)
+
+    span
+      white-space: nowrap
+
+  &-outer
+    padding-right: 1rem
+    margin-right: -1rem
+
+    +onMaxSize(medium)
+      padding-top: 0
+
+    .page-heading
+      margin-left: -1rem
