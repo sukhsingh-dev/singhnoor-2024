@@ -1,17 +1,20 @@
-import { type SearchParam, type ProductType } from "@/shared/helper/types"
+import { type ProductType } from "@/shared/helper/types"
 import Icon from "@/shared/components/Icon"
 import ProductCard from "@/shared/components/ui/productCard/ProductCard"
 import type { JSX } from "react"
 import ShopFilter from "./ShopFilters"
 import './shop.sass'
 
-const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
-  // eslint-disable-next-line @typescript-eslint/await-thenable
+interface SearchParams {
+  searchParams: Promise<Record<string, string>>
+}
+
+const ShopPage = async ({ searchParams }: SearchParams): Promise<JSX.Element> => {
   const params = await searchParams
   let result
   const { filters } = params
   const queryString = Object.entries(params)
-    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
     .join('&')
 
   if (Object.keys(params).length === 0 || filters === undefined) {
