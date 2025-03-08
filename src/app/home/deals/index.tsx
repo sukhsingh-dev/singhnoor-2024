@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Heading, TextDecorator } from "@/shared/components/ui"
 import Image from "next/image"
+import Link from "next/link"
 import './deals.sass'
 
 const TodayDeal = ({ heading }: { heading: string }): React.ReactNode => {
@@ -53,7 +54,7 @@ const TodayDeal = ({ heading }: { heading: string }): React.ReactNode => {
       </h3>
       <TextDecorator color="#F7DACA" />
       <div className="deal-btn-outer">
-        <a href="/" className="btn btn-primary">Buy Now</a>
+        <Link href="/" className="btn btn-primary">Buy Now</Link>
       </div>
     </section>
   )

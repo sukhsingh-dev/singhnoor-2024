@@ -1,5 +1,5 @@
 import { type ModalType } from '@/shared/helper/types'
-import { useEffect } from 'react'
+import { useEffect, type JSX } from 'react'
 import ReactDOM from 'react-dom'
 import Icon from '../../Icon'
 import './modal.sass'

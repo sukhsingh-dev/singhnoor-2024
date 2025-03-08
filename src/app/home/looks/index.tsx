@@ -14,7 +14,7 @@ interface GetTheLookProps {
 const GetTheLook: React.FC<GetTheLookProps> = ({ heading }: GetTheLookProps) => {
   const imgBox = useRef<HTMLDivElement>(null)
   const [imgNotHover, setImgHover] = useState<true | false>(true)
-  const interval = useRef<NodeJS.Timeout>()
+  const interval = useRef<NodeJS.Timeout>(undefined)
 
   const handleHoverOver = (state: boolean): void => {
     setImgHover(state)

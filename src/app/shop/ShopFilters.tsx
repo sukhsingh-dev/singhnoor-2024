@@ -1,5 +1,6 @@
 import { type AttributeType, type CategoryType } from "@/shared/helper/types"
 import Icon from "@/shared/components/Icon"
+import type { JSX } from "react"
 import FilterCheckbox from "./clientComponents/FilterCheckbox"
 // import PriceRangeSelector from "./clientComponents/PriceRangeSelector"
 

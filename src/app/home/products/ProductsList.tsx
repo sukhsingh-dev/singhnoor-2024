@@ -2,6 +2,7 @@ import { type ProductType, type ProductListTypes } from "@/shared/helper/types"
 import Link from "next/link"
 import ProductCard from "@/shared/components/ui/productCard/ProductCard"
 import { Heading } from "@/shared/components/ui"
+import type { JSX } from "react"
 import './products.sass'
 
 const ProductList = async (

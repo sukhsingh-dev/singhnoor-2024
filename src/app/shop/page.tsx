@@ -1,17 +1,20 @@
 import { type SearchParam, type ProductType } from "@/shared/helper/types"
 import Icon from "@/shared/components/Icon"
 import ProductCard from "@/shared/components/ui/productCard/ProductCard"
+import type { JSX } from "react"
 import ShopFilter from "./ShopFilters"
 import './shop.sass'
 
 const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  const params = await searchParams
   let result
-  const { filters } = searchParams
-  const queryString = Object.entries(searchParams)
+  const { filters } = params
+  const queryString = Object.entries(params)
     .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
     .join('&')
 
-  if (Object.keys(searchParams).length === 0 || filters === undefined) {
+  if (Object.keys(params).length === 0 || filters === undefined) {
     result = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
   } else {
     result = await fetch(`${process.env.BACKOFFICE_URL}/products?${queryString}`, { cache: 'no-store' })
@@ -36,7 +39,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
         value="productViewList"
         className="shop-page-actions-input"
       />
-      <ShopFilter appliedFilters={searchParams} />
+      <ShopFilter appliedFilters={params} />
       <div className="shop-page-inner">
         <div className="shop-page-actions dropdown-group">
           <div className="dropdown-outer">

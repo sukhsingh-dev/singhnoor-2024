@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { type ProductType } from "@/shared/helper/types"
+import type { JSX } from "react"
 import PageTopItems from "../client/productImages"
 import InnerHtml from "../client/InnerHtml"
 import ProductDescription from "../client/ProductDescription"
@@ -7,8 +8,11 @@ import ProductList from "../../home/products/ProductsList"
 import ProductAttributes from "../client/ProductAttributes"
 import '../product.sass'
 
-const ProductPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
-  const res = await fetch(`${process.env.BACKOFFICE_URL}/products?id=${params.id}`, { cache: 'no-store' })
+const ProductPage = async (
+  { params }: { params: Promise<{ id: string }> }
+): Promise<JSX.Element> => {
+  const resolvedParams = await params
+  const res = await fetch(`${process.env.BACKOFFICE_URL}/products?id=${resolvedParams.id}`, { cache: 'no-store' })
   const product: ProductType = await res.json()
 
   return (
