@@ -46,7 +46,7 @@ const Footer: React.FC = () => (
 
 const Contacts: React.FC = () => (
   <div className="contact-outer">
-    <h4>CONTACTS</h4>
+    <h5>CONTACTS</h5>
     <ul className="contact-list">
       <li className="d-flex align-center">
         <a href="tel:+918130229131" className="d-flex align-center" rel="noreferrer" target="_blank">

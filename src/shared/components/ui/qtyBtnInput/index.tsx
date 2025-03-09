@@ -19,7 +19,7 @@ const QtyBtnInput = (
 
   return (
     <div className="sn-product-page-attribute qty">
-      <span className="sn-product-page-attribute-heading">Qty:</span>
+      <label htmlFor="qty-input" className="sn-product-page-attribute-heading">Qty:</label>
       <div className="attribute-qty">
         <button
           type="button"
@@ -28,7 +28,7 @@ const QtyBtnInput = (
         >
           <Icon name="add" width={18} height={18} />
         </button>
-        <input type="text" value={Number.isNaN(qty) ? 1 : qty} onChange={(e) => setQty(parseInt(e.target.value, 10))} />
+        <input type="text" id="qty-input" value={Number.isNaN(qty) ? 1 : qty} onChange={(e) => setQty(parseInt(e.target.value, 10))} />
         <button
           type="button"
           aria-label="decrease product quantity by 1"
