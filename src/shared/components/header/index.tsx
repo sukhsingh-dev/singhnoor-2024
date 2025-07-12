@@ -54,9 +54,9 @@ const Header: React.FC = () => (
       <Link href="/" className="logo-icon">
         <Image
           alt="singhnoor logo"
-          src="/images/new-logo.webp"
+          src="/images/sn-logo.webp"
           width={200}
-          height={45}
+          height={63}
           quality={100}
         />
       </Link>

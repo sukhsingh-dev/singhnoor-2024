@@ -13,9 +13,9 @@ const Footer: React.FC = () => (
         <Link href="/" className="footer-logo">
           <Image
             alt="singhnoor logo"
-            src="/images/sn-black-logo.webp"
-            width={60}
-            height={40}
+            src="/images/sn-logo.webp"
+            width={200}
+            height={63}
             quality={100}
           />
         </Link>
