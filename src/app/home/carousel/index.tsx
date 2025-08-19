@@ -21,7 +21,7 @@ const Carousel: React.FC = () => {
   useEffect(() => {
     const fetchCarousel = async (): Promise<void> => {
       try {
-        const res = await fetch(`http://localhost:3000/api/carousel`)
+        const res = await fetch(`${process.env.BACKOFFICE_URL}/carousel`)
         const data = await res.json()
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setCarousel(data)
