@@ -6,11 +6,12 @@ import TodayDeal from "./home/deals"
 import GetTheLook from "./home/looks"
 import KhalsaCollections from "./home/khalsa"
 import ProductList from "./home/products/ProductsList"
+import Carousel from "./home/carousel"
 
 export default function Home(): React.ReactNode {
   return (
     <>
-      <Slider />
+      <Carousel />
       <Categories />
       <ProductList
         listQuery="/products?filters=true&set=661fb23245e07081ab79ee10,661fb34045e07081ab79ee1d,6606cf6e9473554cbffb17c9,6606d3eed0c5373079537280,660678ba45e49b1e736a5dfd"
@@ -18,6 +19,7 @@ export default function Home(): React.ReactNode {
         heading="TOP PICKS"
         moreLink="/shop"
       />
+      <Slider />
       <Collections />
       <TodayDeal heading="TODAY'S DEAL" />
       <ProductList

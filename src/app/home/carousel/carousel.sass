@@ -1,0 +1,151 @@
+//https://github.com/HoanghoDev/slider_1/blob/main/style.css#L213
+@import "../../../shared/styles/_functions.sass"
+
+.sn-carousel
+    margin-inline: rem(-8)
+    margin-top: rem(-45)
+    position: relative
+    overflow: hidden
+    aspect-ratio: 181 / 233
+
+    +onMinSize(medium)
+        margin-top: rem(-52)
+        aspect-ratio: 384 / 131
+
+    &--image
+        position: relative
+        border-radius: rem(20)
+        width: 100%
+        height: auto
+        object-fit: cover
+    &--list
+        display: grid
+    &--item
+        grid-area: 1 / 1 / 2 / 2
+    
+    &--thumbnail
+        display: flex
+        justify-content: flex-end
+        gap: 8px
+        position: absolute
+        right: rem(-50)
+        z-index: 1
+        bottom: 8px
+        width: 100%
+
+        img 
+            object-fit: cover
+            border-radius: rem(8)
+            box-shadow: 3px 3px 6px 0px rgb(0 0 0 / 50%)
+
+            +onMinSize(medium)
+                width: 150px
+                height: 84px
+    &.next
+        .sn-carousel--list
+            .sn-carousel--item:nth-last-child(1)
+                img
+                    width: 80px
+                    height: 100px
+                    position: absolute
+                    bottom: 12px
+                    right: 116px
+                    border-radius: rem(8)
+                    animation: showImage 0.5s ease-in-out forwards
+
+                    +onMinSize(medium)
+                        width: 150px
+                        height: 84px
+        .sn-carousel--thumbnail
+            transform: translateX(40px)
+            animation: transformThumbnail 0.5s ease-in-out forwards
+            
+            .sn-carousel--thumbnail-item:nth-last-child(1)
+                img
+                    overflow: hidden
+                    width: 0
+                    animation: showThumbnail 0.5s ease-in-out forwards
+
+                    +onMinSize(medium)
+                        animation-name: showThumbnailDesk
+    &.prev
+        .sn-carousel--item:nth-child(1)
+            z-index: 2
+            img
+                position: absolute
+                bottom: 0
+                right: 0
+                width: 100%
+                height: 100%
+                animation: outImage 0.5s ease-in-out forwards
+                
+                +onMinSize(medium)
+                    animation-name: outImageDesk
+
+        .sn-carousel--thumbnail
+            .sn-carousel--thumbnail-item:nth-last-child(1)
+                width: 0
+                overflow: hidden
+                animation: showThumbnail 0.5s ease-in-out forwards
+                
+                +onMinSize(medium)
+                        animation-name: showThumbnailDesk
+    &--arrows
+        position: absolute
+        z-index: 0
+        top: calc(50% - 12px)
+        width: 100%
+        display: flex
+        justify-content: space-between
+        padding-inline: rem(8)
+    &--arrow
+        width: rem(48)
+        height: rem(48)
+        display: flex
+        align-items: center
+        justify-content: center
+        background: rgba(0, 0, 0, 0.5)
+        color: var(--white)
+        border-radius: 50%
+
+        svg
+            width: rem(16)
+            height: rem(16)
+
+@keyframes showImage
+    to
+        width: 100%
+        height: 100%
+        bottom: 0
+        right: 0
+        border-radius: rem(20)
+
+@keyframes transformThumbnail
+    to
+        transform: translateX(0)
+
+@keyframes showThumbnail
+    to
+        width: 80px
+        opacity: 1
+
+@keyframes outImage
+    to
+        width: 80px
+        height: 100px
+        bottom: 12px
+        right: 132px // 116px
+        border-radius: rem(8)
+
+@keyframes showThumbnailDesk
+    to
+        width: 150px
+        opacity: 1
+
+@keyframes outImageDesk
+    to
+        width: 150px
+        height: 84px
+        bottom: 12px
+        right: 266px
+        border-radius: rem(8)
