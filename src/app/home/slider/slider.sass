@@ -236,13 +236,18 @@ $box-size: rem(600)
     border-radius: 0 0 50% 50%
 
 .bg-design
+  position: relative
+  margin: -1.5rem
+  max-width: calc(100vw - 2px)
+  overflow: hidden
   +onMinSize(x-large)
+    margin: 0 -1.5rem
     &:after,
     &:before
       content: ''
       position: absolute
       left: 0
-      top: 0
+      top: -58px
       z-index: -2
       width: 50vw
       height: 50vw
