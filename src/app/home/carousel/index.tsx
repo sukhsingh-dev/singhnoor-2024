@@ -123,10 +123,10 @@ const Carousel: React.FC = () => {
         ))}
       </div>
       <div className="sn-carousel--arrows">
-        <button type="button" className="sn-carousel--arrow prev" onClick={handlePrev}>
+        <button type="button" aria-label="Go to previous slide" className="sn-carousel--arrow prev" onClick={handlePrev}>
           <Icon name="chevron-left" />
         </button>
-        <button type="button" className="sn-carousel--arrow next" onClick={handleNext}>
+        <button type="button" aria-label="Go to next slide" className="sn-carousel--arrow next" onClick={handleNext}>
           <Icon name="chevron-right" />
         </button>
       </div>
