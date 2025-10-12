@@ -4,6 +4,7 @@
 
 import React, { useEffect, useState, useRef } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import Icon from "@/shared/components/Icon"
 import "./carousel.sass"
 
@@ -81,25 +82,66 @@ const Carousel: React.FC = () => {
   const handleNext = (): void => showSlider("next")
   const handlePrev = (): void => showSlider("prev")
 
+  useEffect(() => {
+    const imgBoxCurrent = sliderDomRef.current
+
+    let startX: number
+    let endX: number
+
+    const onTouchStart = (e: TouchEvent): void => {
+      startX = e.touches[0].clientX
+    }
+
+    const onTouchMove = (e: TouchEvent): void => {
+      endX = e.touches[0].clientX
+    }
+
+    const onTouchEnd = (): void => {
+      if (startX - endX > 50) {
+        // Swipe left
+        handleNext()
+      } else if (startX - endX < -50) {
+        // Swipe right
+        handlePrev()
+      }
+    }
+
+    if (imgBoxCurrent !== null) {
+      imgBoxCurrent.addEventListener('touchstart', onTouchStart)
+      imgBoxCurrent.addEventListener('touchmove', onTouchMove)
+      imgBoxCurrent.addEventListener('touchend', onTouchEnd)
+    }
+
+    return () => {
+      if (imgBoxCurrent !== null) {
+        imgBoxCurrent.removeEventListener('touchstart', onTouchStart)
+        imgBoxCurrent.removeEventListener('touchmove', onTouchMove)
+        imgBoxCurrent.removeEventListener('touchend', onTouchEnd)
+      }
+    }
+  }, [])
+
   return (
     <div className="sn-carousel" ref={carouselDom}>
       <div className="sn-carousel--list" ref={sliderDomRef}>
         {carousel.map((slide: any) => (
           <div className="sn-carousel--item" key={slide._id}>
-            <picture>
-              <source
-                media="(min-width: 750px)"
-                srcSet={slide.productImagesArray[1]}
-                type="image/webp"
-              />
-              <Image
-                className="sn-carousel--image"
-                src={slide.productImagesArray[0]}
-                alt={slide.description}
-                width={767}
-                height={965}
-              />
-            </picture>
+            <Link href={slide.slideLink}>
+              <picture>
+                <source
+                  media="(min-width: 750px)"
+                  srcSet={slide.productImagesArray[1]}
+                  type="image/webp"
+                />
+                <Image
+                  className="sn-carousel--image"
+                  src={slide.productImagesArray[0]}
+                  alt={slide.description}
+                  width={767}
+                  height={965}
+                />
+              </picture>
+            </Link>
           </div>
         ))}
       </div>

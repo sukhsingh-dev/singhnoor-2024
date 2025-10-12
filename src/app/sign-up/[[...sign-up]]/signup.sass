@@ -1,0 +1,41 @@
+@import "../../../shared/styles/_functions.sass"
+
+.sign-up-page
+    --clerk-font-size-md: 1rem
+    --clerk-font-size-lg: 1.5rem
+    
+    min-height: 335px
+    padding: 0
+
+    +onMinSize(medium)
+        &:has(.cl-headerSubtitle)
+            min-height: 440px
+        .cl-rootBox,
+        .cl-cardBox
+            width: auto
+        .sign-up-container
+            max-width: 600px
+            margin-inline: auto
+    .cl-card,
+    .cl-cardBox 
+        border: none
+        box-shadow: none
+        background: none
+        padding-inline: 8px
+    .cl-footer
+        display: none
+    .cl-socialButtons
+        button
+            background: #fff
+    .cl-formFieldInput
+        min-height: 36px
+
+    .redirect-link
+        color: rgba(0,0,0,0.75)
+        display: flex
+        gap: 4px
+        justify-content: center
+        +onMinSize(medium)
+            margin-bottom: 2rem
+        a
+            color: var(--primary)

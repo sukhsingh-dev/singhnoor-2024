@@ -6,9 +6,8 @@
   background-size: contain
   background-image: $bg-gtl
   margin-bottom: rem(48)
+  overflow: hidden
 
-  +onMaxSize(medium)
-    overflow: visible
   &-btns
     display: flex
     justify-content: space-between
@@ -16,10 +15,6 @@
     top: 50%
     left: 0
     right: 0
-
-    +onMaxSize(medium)
-      left: -1rem
-      right: -1rem
 
   &-list
     display: grid

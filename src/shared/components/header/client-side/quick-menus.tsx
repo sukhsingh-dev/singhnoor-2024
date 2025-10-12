@@ -4,6 +4,14 @@ import { type QuickMenusInnerTypes } from "@/shared/helper/types"
 import { useState, useEffect } from "react"
 import { usePathname } from 'next/navigation'
 import Link from "next/link"
+import {
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 import { useShoppingCart } from "../../context/CartContext"
 import Icon from "../../Icon"
 
@@ -105,12 +113,28 @@ const QuickMenus = (): React.ReactNode => {
             closeAction={setAccountOpen}
             menuListBody={
               <>
-                <li>
-                  Login
-                </li>
-                <li>
-                  Signup
-                </li>
+                <SignedOut>
+                  <SignInButton>
+                    <li>
+                      <button type="button" onClick={() => setAccountOpen(false)}>
+                        Sign In
+                      </button>
+                    </li>
+                  </SignInButton>
+                  <SignUpButton>
+                    <li>
+                      <button type="button" onClick={() => setAccountOpen(false)}>
+                        Sign Up
+                      </button>
+                    </li>
+                  </SignUpButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                  <SignOutButton>
+                    Sign Out
+                  </SignOutButton>
+                </SignedIn>
               </>
             }
           />
