@@ -5,9 +5,7 @@ import { useState, useEffect } from "react"
 import { usePathname } from 'next/navigation'
 import Link from "next/link"
 import {
-  SignInButton,
   SignOutButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton
@@ -114,20 +112,16 @@ const QuickMenus = (): React.ReactNode => {
             menuListBody={
               <>
                 <SignedOut>
-                  <SignInButton>
-                    <li>
-                      <button type="button" onClick={() => setAccountOpen(false)}>
-                        Sign In
-                      </button>
-                    </li>
-                  </SignInButton>
-                  <SignUpButton>
-                    <li>
-                      <button type="button" onClick={() => setAccountOpen(false)}>
-                        Sign Up
-                      </button>
-                    </li>
-                  </SignUpButton>
+                  <li>
+                    <Link href="/sign-in" onClick={() => setAccountOpen(false)}>
+                      Sign In
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/sign-up" onClick={() => setAccountOpen(false)}>
+                      Sign Up
+                    </Link>
+                  </li>
                 </SignedOut>
                 <SignedIn>
                   <UserButton />

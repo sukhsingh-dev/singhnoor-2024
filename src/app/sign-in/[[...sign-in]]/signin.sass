@@ -3,25 +3,27 @@
 .sign-in-page
     --clerk-font-size-md: 1rem
     --clerk-font-size-lg: 1.5rem
-
-    min-height: 335px
     padding: 0
+    padding-top: rem(60)
+
+    .sign-in-skeleton
+        min-height: rem(335)
 
     +onMinSize(medium)
         &:has(.cl-headerSubtitle)
-            min-height: 440px
+            min-height: rem(440)
         .cl-rootBox,
         .cl-cardBox
             width: auto
         .sign-in-container
-            max-width: 600px
+            max-width: rem(600)
             margin-inline: auto
     .cl-card,
     .cl-cardBox 
         border: none
         box-shadow: none
         background: none
-        padding-inline: 8px
+        padding-inline: rem(8)
     .cl-footer
         display: none
     .cl-socialButtons
