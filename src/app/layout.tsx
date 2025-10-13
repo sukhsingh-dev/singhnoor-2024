@@ -5,6 +5,8 @@ import Footer from "@/shared/components/footer"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import { CartContextProvider } from "@/shared/components/context/CartContext"
+import { ClerkProvider } from '@clerk/nextjs'
+// import Image from "next/image"
 import '@/shared/styles/main.sass'
 
 const outfit = Outfit({ subsets: ["latin"] })
@@ -20,18 +22,31 @@ export default function LocaleLayout({
   children: React.ReactNode
 }>): React.ReactNode {
   return (
-    <html lang="en">
-      <body className={outfit.className}>
-        <CartContextProvider>
-          <Header />
-          <main>
-            {children}
-          </main>
-          <Footer />
-        </CartContextProvider>
-        <SpeedInsights />
-      </body>
-      <Script src="/js/scroll-easing.js" />
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={outfit.className}>
+          <CartContextProvider>
+            <Header />
+            <main>
+              {children}
+            </main>
+            {/* <div className="loading-page">
+              <div className="loading-overlay">
+                <Image
+                  alt="singhnoor logo"
+                  src="/images/sn-logo.webp"
+                  width={200}
+                  height={63}
+                  quality={100}
+                />
+              </div>
+            </div> */}
+            <Footer />
+          </CartContextProvider>
+          <SpeedInsights />
+        </body>
+        <Script src="/js/scroll-easing.js" />
+      </html>
+    </ClerkProvider>
   )
 }

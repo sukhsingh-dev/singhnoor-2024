@@ -16,7 +16,7 @@ const ProductList = async (
       <ul className="product-list">
         {
           productList.map((product: ProductType) => (
-            <li key={product._id} className="aos">
+            <li key={product._id}>
               <ProductCard product={product} />
             </li>
           ))
