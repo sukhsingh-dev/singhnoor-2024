@@ -90,7 +90,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
             <ul className="product-list">
               {
                 shopProducts.map((product: ProductType) => (
-                  <li key={product._id} className="aos">
+                  <li key={product._id}>
                     <ProductCard product={product} />
                   </li>
                 ))

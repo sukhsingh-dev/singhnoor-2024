@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import { CartContextProvider } from "@/shared/components/context/CartContext"
 import { ClerkProvider } from '@clerk/nextjs'
+// import Image from "next/image"
 import '@/shared/styles/main.sass'
 
 const outfit = Outfit({ subsets: ["latin"] })
@@ -29,6 +30,17 @@ export default function LocaleLayout({
             <main>
               {children}
             </main>
+            {/* <div className="loading-page">
+              <div className="loading-overlay">
+                <Image
+                  alt="singhnoor logo"
+                  src="/images/sn-logo.webp"
+                  width={200}
+                  height={63}
+                  quality={100}
+                />
+              </div>
+            </div> */}
             <Footer />
           </CartContextProvider>
           <SpeedInsights />

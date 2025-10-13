@@ -22,31 +22,6 @@ const QuickMenus = (): React.ReactNode => {
   const pageName = usePathname()
 
   useEffect(() => {
-    const animItems = document.querySelectorAll('.aos')
-
-    const removeClasses = (entries: IntersectionObserverEntry[]): void => {
-      entries.forEach((entry: IntersectionObserverEntry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove('aos')
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(removeClasses, {
-      rootMargin: "-60px 0px",
-      threshold: 0.5
-    })
-
-    animItems.forEach((item) => {
-      observer.observe(item)
-    })
-
-    return () => {
-      observer.disconnect()
-    }
-  })
-
-  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     let prevScrollPos = window.scrollY || document.documentElement.scrollTop
     const main = document.querySelector('body')
@@ -140,19 +115,19 @@ const QuickMenus = (): React.ReactNode => {
                         Sign Out
                       </button>
                     </SignOutButton>
-                    {
-                      showAlert && (
-                        <Modal
-                          className="small-modal"
-                          modalBody={<h4 className="item-heading">Logged Out</h4>}
-                          modalClose={setShowAlert}
-                          time={3000}
-                          type="info"
-                        />
-                      )
-                    }
                   </li>
                 </SignedIn>
+                {
+                  showAlert && (
+                    <Modal
+                      className="small-modal"
+                      modalBody={<h4 className="item-heading">Logged Out</h4>}
+                      modalClose={setShowAlert}
+                      time={3000}
+                      type="info"
+                    />
+                  )
+                }
               </>
             }
           />
