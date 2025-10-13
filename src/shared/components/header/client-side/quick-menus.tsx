@@ -7,17 +7,18 @@ import Link from "next/link"
 import {
   SignOutButton,
   SignedIn,
-  SignedOut,
-  UserButton
+  SignedOut
 } from '@clerk/nextjs'
 import { useShoppingCart } from "../../context/CartContext"
 import Icon from "../../Icon"
+import Modal from "../../ui/modal/Modal"
 
 const QuickMenus = (): React.ReactNode => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const [scrollDown, setScrollDown] = useState(false)
   const { cartProducts, wishlistProducts } = useShoppingCart()
+  const [showAlert, setShowAlert] = useState(false)
   const pageName = usePathname()
 
   useEffect(() => {
@@ -113,21 +114,44 @@ const QuickMenus = (): React.ReactNode => {
               <>
                 <SignedOut>
                   <li>
-                    <Link href="/sign-in" onClick={() => setAccountOpen(false)}>
+                    <Link href="/sign-in" className="icon-link" onClick={() => setAccountOpen(false)}>
+                      <Icon name="sign-in" />
                       Sign In
                     </Link>
                   </li>
                   <li>
-                    <Link href="/sign-up" onClick={() => setAccountOpen(false)}>
+                    <Link href="/sign-up" className="icon-link" onClick={() => setAccountOpen(false)}>
+                      <Icon name="sign-up" />
                       Sign Up
                     </Link>
                   </li>
                 </SignedOut>
                 <SignedIn>
-                  <UserButton />
-                  <SignOutButton>
-                    Sign Out
-                  </SignOutButton>
+                  <li>
+                    <Link href="/user-profile" className="icon-link" onClick={() => setAccountOpen(false)}>
+                      <Icon name="profile" />
+                      Account
+                    </Link>
+                  </li>
+                  <li>
+                    <SignOutButton>
+                      <button type="button" className="icon-link" onClick={() => { setShowAlert(true); setAccountOpen(false) }}>
+                        <Icon name="logout" />
+                        Sign Out
+                      </button>
+                    </SignOutButton>
+                    {
+                      showAlert && (
+                        <Modal
+                          className="small-modal"
+                          modalBody={<h4 className="item-heading">Logged Out</h4>}
+                          modalClose={setShowAlert}
+                          time={3000}
+                          type="info"
+                        />
+                      )
+                    }
+                  </li>
                 </SignedIn>
               </>
             }
