@@ -1,17 +1,22 @@
-import { type SearchParam, type ProductType } from "@/shared/helper/types"
+import { type ProductType } from "@/shared/helper/types"
 import Icon from "@/shared/components/Icon"
 import ProductCard from "@/shared/components/ui/productCard/ProductCard"
 import ShopFilter from "./ShopFilters"
 import './shop.sass'
 
-const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => {
+interface ShopPageProps {
+  searchParams: Promise<Record<string, string>>
+}
+
+const ShopPage = async ({ searchParams }: ShopPageProps): Promise<JSX.Element> => {
+  const resolvedSearchParams = await searchParams
   let result
-  const { filters } = searchParams
-  const queryString = Object.entries(searchParams)
-    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
+  const { filters } = resolvedSearchParams
+  const queryString = Object.entries(resolvedSearchParams)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
     .join('&')
 
-  if (Object.keys(searchParams).length === 0 || filters === undefined) {
+  if (Object.keys(resolvedSearchParams).length === 0 || filters === undefined) {
     result = await fetch(`${process.env.BACKOFFICE_URL}/products`, { cache: 'no-store' })
   } else {
     result = await fetch(`${process.env.BACKOFFICE_URL}/products?${queryString}`, { cache: 'no-store' })
@@ -36,7 +41,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
         value="productViewList"
         className="shop-page-actions-input"
       />
-      <ShopFilter appliedFilters={searchParams} />
+      <ShopFilter appliedFilters={resolvedSearchParams} />
       <div className="shop-page-inner">
         <div className="shop-page-actions dropdown-group">
           <div className="dropdown-outer">
@@ -90,7 +95,7 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
             <ul className="product-list">
               {
                 shopProducts.map((product: ProductType) => (
-                  <li key={product._id} className="aos">
+                  <li key={product._id}>
                     <ProductCard product={product} />
                   </li>
                 ))
@@ -98,7 +103,6 @@ const ShopPage = async ({ searchParams }: SearchParam): Promise<JSX.Element> => 
             </ul>
             : <h2 className="text-center not-found-text">No Product found matching your search </h2>
         }
-
       </div>
       <div className="sn-pagination">
         <ul>

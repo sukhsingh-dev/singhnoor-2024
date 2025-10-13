@@ -4,40 +4,22 @@ import { type QuickMenusInnerTypes } from "@/shared/helper/types"
 import { useState, useEffect } from "react"
 import { usePathname } from 'next/navigation'
 import Link from "next/link"
+import {
+  SignOutButton,
+  SignedIn,
+  SignedOut
+} from '@clerk/nextjs'
 import { useShoppingCart } from "../../context/CartContext"
 import Icon from "../../Icon"
+import Modal from "../../ui/modal/Modal"
 
 const QuickMenus = (): React.ReactNode => {
   const [settingsOpen, setSettingsOpen] = useState<true | false>(false)
   const [accountOpen, setAccountOpen] = useState<true | false>(false)
   const [scrollDown, setScrollDown] = useState(false)
   const { cartProducts, wishlistProducts } = useShoppingCart()
+  const [showAlert, setShowAlert] = useState(false)
   const pageName = usePathname()
-
-  useEffect(() => {
-    const animItems = document.querySelectorAll('.aos')
-
-    const removeClasses = (entries: IntersectionObserverEntry[]): void => {
-      entries.forEach((entry: IntersectionObserverEntry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove('aos')
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(removeClasses, {
-      rootMargin: "-60px 0px",
-      threshold: 0.5
-    })
-
-    animItems.forEach((item) => {
-      observer.observe(item)
-    })
-
-    return () => {
-      observer.disconnect()
-    }
-  })
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -105,12 +87,47 @@ const QuickMenus = (): React.ReactNode => {
             closeAction={setAccountOpen}
             menuListBody={
               <>
-                <li>
-                  Login
-                </li>
-                <li>
-                  Signup
-                </li>
+                <SignedOut>
+                  <li>
+                    <Link href="/sign-in" className="icon-link" onClick={() => setAccountOpen(false)}>
+                      <Icon name="sign-in" />
+                      Sign In
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/sign-up" className="icon-link" onClick={() => setAccountOpen(false)}>
+                      <Icon name="sign-up" />
+                      Sign Up
+                    </Link>
+                  </li>
+                </SignedOut>
+                <SignedIn>
+                  <li>
+                    <Link href="/user-profile" className="icon-link" onClick={() => setAccountOpen(false)}>
+                      <Icon name="profile" />
+                      Account
+                    </Link>
+                  </li>
+                  <li>
+                    <SignOutButton>
+                      <button type="button" className="icon-link" onClick={() => { setShowAlert(true); setAccountOpen(false) }}>
+                        <Icon name="logout" />
+                        Sign Out
+                      </button>
+                    </SignOutButton>
+                  </li>
+                </SignedIn>
+                {
+                  showAlert && (
+                    <Modal
+                      className="small-modal"
+                      modalBody={<h4 className="item-heading">Logged Out</h4>}
+                      modalClose={setShowAlert}
+                      time={3000}
+                      type="info"
+                    />
+                  )
+                }
               </>
             }
           />
