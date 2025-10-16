@@ -167,25 +167,6 @@ details
     &:after
       transform: rotate(180deg)
 
-html.lenis
-  height: auto
-
-.lenis
-  &.lenis-smooth
-    scroll-behavior: auto !important
-
-    & [data-lenis-prevent]
-      overscroll-behavior: contain
-
-  &.lenis-stopped
-    overflow: hidden
-
-  &.lenis-scrolling iframe
-    pointer-events: none
-
-.loading-page
-  min-height: calc(100vh - rem($header-height-size))
-
 .loading-overlay
     position: fixed
     top: 0

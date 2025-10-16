@@ -8,34 +8,15 @@ import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
 import { type InCartProductType, type InCartProduct } from "@/shared/helper/types"
 import { useShoppingCart } from "@/shared/components/context/CartContext"
 import { CART_STORE_NAME } from "@/shared/helper/constants"
+import {
+  SignedIn,
+  SignedOut
+} from '@clerk/nextjs'
 import '../cart.sass'
+import CartInfo from "@/shared/components/cart-info"
 
 const CartItems = (): React.ReactNode => {
   const { cartProducts, clearCart } = useShoppingCart()
-  const subtotal = cartProducts.reduce((acc, product: InCartProductType) => {
-    const productSubtotal = product.productPrice * (
-      product.selected?.qty !== undefined ? product.selected.qty : 1
-    )
-    return acc + productSubtotal
-  }, 0)
-
-  const getGSTPrice = (): number => {
-    let gstVal = 1
-
-    if (subtotal < 1000) {
-      gstVal = 0.05
-    } else {
-      gstVal = 0.12
-    }
-    const priceGST = subtotal * gstVal
-    return Number(priceGST.toFixed(2))
-  }
-
-  const discount = 0
-  const getGrandTotal = (): number => {
-    const sum = subtotal + getGSTPrice() - discount
-    return Number(sum.toFixed(2))
-  }
 
   return (
     <div className="cart-page-outer">
@@ -63,49 +44,18 @@ const CartItems = (): React.ReactNode => {
               </button>
             </div>
             <div className="cart-product-order">
-              <div className="cart-product-order-summary">
-                <h4>Order Summary</h4>
-
-                <div className="order-info">
-                  <span className="order-info-title">Subtotal</span>
-                  <span className="order-info-total">
-                    <span className="product-price-currency">₹</span>
-                    {`${subtotal}.00`}
-                  </span>
-                </div>
-
-                <div className="order-info">
-                  <span className="order-info-title">GST</span>
-                  <span className="order-info-total">
-                    <span className="product-price-currency">₹</span>
-                    {getGSTPrice()}
-                  </span>
-                </div>
-
-                <div className="order-info discount">
-                  <span className="order-info-title">Discount</span>
-                  <span className="order-info-total">
-                    <span className="product-price-currency">₹</span>
-                    {discount}
-                  </span>
-                </div>
-
-                <div className="order-info grand-total">
-                  <span className="order-info-title">Grand Total</span>
-                  <span className="order-info-total">
-                    <span className="product-price-currency">₹</span>
-                    {getGrandTotal()}
-                  </span>
-                </div>
-
-              </div>
-              <div className="small-note">*Based on Delivery mode you choose on next step Delivery charges will be applied </div>
+              <CartInfo />
               <div className="cart-product-order-voucher">
                 <h4>Apply Voucher or Code</h4>
                 <input type="text" placeholder="Voucher Code" className="sn-input" />
                 <button type="button" className="btn btn-primary">Apply</button>
               </div>
-              <button type="button" className="btn btn-secondary btn-arrow-long align-center">Login To Checkout</button>
+              <SignedOut>
+                <Link href="/sign-in" className="btn btn-secondary btn-arrow-long align-center">Login To Checkout</Link>
+              </SignedOut>
+              <SignedIn>
+                <Link href="/address" className="btn btn-secondary btn-arrow-long align-center">Add delivery address</Link>
+              </SignedIn>
             </div>
           </>
       }
