@@ -3,7 +3,7 @@
 
 .sn-carousel
     margin-inline: rem(-8)
-    margin-top: rem(-45)
+    margin-top: rem(-54)
     position: relative
     overflow: hidden
     aspect-ratio: 181 / 233
@@ -93,20 +93,25 @@
     &--arrows
         position: absolute
         z-index: 0
-        top: calc(50% - 12px)
+        top: calc(50% - 40px)
         width: 100%
         display: flex
         justify-content: space-between
-        padding-inline: rem(8)
     &--arrow
         width: rem(48)
-        height: rem(48)
+        height: rem(80)
         display: flex
         align-items: center
         justify-content: center
         background: rgba(0, 0, 0, 0.5)
         color: var(--white)
-        border-radius: 50%
+        mask-size: 100% 100%
+        backdrop-filter: blur(4px)
+        
+        &.next
+            mask-image: url('/images/btn-bg-right.png')
+        &.prev
+            mask-image: url('/images/btn-bg-left.png')
 
         svg
             width: rem(16)
