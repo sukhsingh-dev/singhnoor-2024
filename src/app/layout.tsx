@@ -5,7 +5,7 @@ import Footer from "@/shared/components/footer"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { CartContextProvider } from "@/shared/components/context/CartContext"
 import { ClerkProvider } from '@clerk/nextjs'
-// import Image from "next/image"
+import Script from "next/script"
 import '@/shared/styles/main.sass'
 
 const outfit = Outfit({ subsets: ["latin"] })
@@ -33,6 +33,7 @@ export default function LocaleLayout({
           </CartContextProvider>
           <SpeedInsights />
         </body>
+        <Script src="/js/main.js" />
       </html>
     </ClerkProvider>
   )

@@ -52,6 +52,7 @@ export default function AddressPage(): React.ReactElement {
       "phonecode": { value: string }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const formFieldData = {
       firstName: target.firstName.value,
       lastName: target.lastName.value,
@@ -66,7 +67,7 @@ export default function AddressPage(): React.ReactElement {
       phone: (e.currentTarget.elements.namedItem("phone") as HTMLInputElement).value
     }
 
-    console.log(formFieldData)
+    // console.log(formFieldData)
   }
 
   return (
