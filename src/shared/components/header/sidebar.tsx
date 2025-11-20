@@ -4,7 +4,7 @@ import Icon from "../Icon"
 const Sidebar = (): React.ReactNode => {
   return (
     <>
-      <div className="sn-sidebar">
+      <nav className="sn-sidebar">
         <ul className="sn-siderbar-list">
           <li>
             <details className="sn-sidebar-details">
@@ -84,7 +84,7 @@ const Sidebar = (): React.ReactNode => {
           <Icon name="pen" />
           Create Your Own
         </Link>
-      </div>
+      </nav>
       <button
         type="button"
         aria-label="close sidebar"
