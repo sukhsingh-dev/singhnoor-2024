@@ -30,7 +30,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
 
     const fetchCarousel = async (): Promise<void> => {
       try {
-        const res = await fetch(`http://localhost:3000/api/cartandwishlist/${user?.id}`)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/cartandwishlist/${user?.id}`)
         const data = await res.json()
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setCartProducts(data.cartAndWishlist.cartItems)
@@ -42,6 +42,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
     }
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchCarousel()
+    console.log(cartProducts)
   }, [isLoaded, isSignedIn, user?.id])
 
   const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
@@ -52,7 +53,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
   }
 
   const handleClear = (): void => {
-  // new Logic here
+    // new Logic here
   }
 
   return (
