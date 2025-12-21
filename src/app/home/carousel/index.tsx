@@ -12,8 +12,10 @@ const Carousel: React.FC = async () => {
         <>
             <div className="sn-carousel">
                 <div className="sn-carousel--list">
-                    {carousel.map((slide: any) => (
-                        <div className="sn-carousel--item" key={slide._id}>
+                    {carousel.map((slide: any, index: number) => (
+                        <div
+                            className={`sn-carousel--item ${index === 0 ? 'active' : index === 1 ? 'next' : 'prev '}`}
+                            key={slide._id}>
                             <Link href="/">
                                 <picture>
                                     <source

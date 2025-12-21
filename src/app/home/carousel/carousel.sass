@@ -7,15 +7,42 @@
     position: relative
     overflow: hidden
     aspect-ratio: 181 / 233
+    isolation: isolate
 
     +onMinSize(medium)
         margin-top: rem(-52)
         aspect-ratio: 384 / 131
     &--list
         display: flex
-        transition: transform 1s ease-in-out
     &--item
-        min-width: fit-content
+        position: absolute
+        width: 0
+        height: 100%
+        opacity: 0.5
+        overflow: hidden
+        transition-property: margin-left, width, opacity
+        transition-timing-function: ease
+        a
+            display: block
+            min-width: calc(100vw - rem(16))
+
+            +onMinSize(medium)
+                min-width: calc(100vw - rem(24))
+
+        &.active
+            width: 100%
+            margin-left: 0
+            transition-duration: 0.9s
+            z-index: 1
+            opacity: 1
+
+        &.prev
+            margin-left: -100%
+            transition-duration: 1.5s, 2.1s
+
+        &.next
+            margin-left: 100%
+            transition-duration: 1.2s
 
     &--image
         position: relative
@@ -23,11 +50,10 @@
         width: 100%
         height: auto
         object-fit: cover
-        transition: all 1s ease-in-out
 
     &--arrows
         position: absolute
-        z-index: 0
+        z-index: 2
         top: calc(50% - 40px)
         width: 100%
         display: flex
@@ -38,10 +64,14 @@
         display: flex
         align-items: center
         justify-content: center
-        background: rgba(255, 255, 255)
+        background: rgba(255 255 255 / 0.75)
         color: rgba(0, 0, 0, 0.7)
         mask-size: 100% 100%
+        backdrop-filter: blur(3px)
 
+        +onMinSize(medium)
+            backdrop-filter: none
+            background: rgba(255, 255, 255)
         &.next
             mask-image: url('/images/btn-bg-right.png')
         &.prev
@@ -50,3 +80,6 @@
         svg
             width: rem(16)
             height: rem(16)
+
+.left
+    left: 0
