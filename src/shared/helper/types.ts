@@ -24,7 +24,7 @@ export interface StoreBtnTypes {
   productInfo: ProductType
   storeName: string
   btnClasses: string
-  selected?: SelectedStoreType
+  selected: SelectedStoreType
 }
 
 export interface SelectedStoreType {
@@ -47,12 +47,6 @@ export interface InCartProduct {
 export interface CartContextType {
   wishlistProducts: ProductType[]
   cartProducts: ProductType[]
-  addToCart: (product: ProductType) => void
-  addToWishList: (product: ProductType) => void
-  updateCart: (storeName: string,
-    productInfo: InCartProductType,
-    keyName: string,
-    keyValue: string | number) => void
   removeProduct: ({ productId, actionType }: RemoveProductType) => void
   clearCart: (actionType: string) => void
 }

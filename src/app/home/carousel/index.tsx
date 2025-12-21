@@ -1,168 +1,105 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+"use client"
 
-'use client'
-
-import React, { useEffect, useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Icon from "@/shared/components/Icon"
+import { useRef, useEffect, useCallback, useState } from "react"
 import "./carousel.sass"
 
-const timeRunning = 600
-const timeAutoNext = 6000
-
 const Carousel: React.FC = () => {
-  const [carousel, setCarousel] = useState<any[]>([])
-  const carouselDom = useRef<HTMLDivElement>(null)
-  const sliderDomRef = useRef<HTMLDivElement>(null)
-  const thumbnailBorderDom = useRef<HTMLDivElement>(null)
-  const runTimeOut = useRef<NodeJS.Timeout | null>(null)
-  const runNextAuto = useRef<NodeJS.Timeout | null>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const currentIndexRef = useRef(0)
+  const [timerReset, setTimerReset] = useState(0)
 
-  useEffect(() => {
-    const fetchCarousel = async (): Promise<void> => {
-      try {
-        const res = await fetch(`https://singhnoor-backoffice.vercel.app/api/carousel`)
-        const data = await res.json()
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setCarousel(data)
-      } catch (error) {
-        setCarousel([])
-      }
-    }
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetchCarousel()
+  const handleNext = useCallback((): void => {
+    const container = carouselRef.current
+    if (container === null) return
+
+    const items = container.querySelectorAll('.sn-carousel--item')
+    const totalItems = items.length
+
+    const prevIndex = currentIndexRef.current
+    currentIndexRef.current = (currentIndexRef.current + 1) % totalItems
+    const currentIndex = currentIndexRef.current
+    const nextIndex = (currentIndex + 1) % totalItems
+
+    items.forEach((item) => {
+      item.classList.remove('active', 'prev', 'next')
+    })
+
+    items[prevIndex].classList.add('prev')
+    items[currentIndex].classList.add('active')
+    items[nextIndex].classList.add('next')
   }, [])
 
-  // Auto next slide
-  useEffect(() => {
-    if (carousel.length === 0) return
-    runNextAuto.current = setTimeout(() => {
-      handleNext()
-    }, timeAutoNext)
-    // eslint-disable-next-line consistent-return
-    return () => {
-      if (runNextAuto.current != null) clearTimeout(runNextAuto.current)
-    }
-  }, [carousel])
+  const handlePrev = useCallback((): void => {
+    const container = carouselRef.current
+    if (container === null) return
 
-  const showSlider = (type: "next" | "prev"): void => {
-    // Clear all timeouts and remove classes before proceeding
-    if (runTimeOut.current) clearTimeout(runTimeOut.current)
-    if (runNextAuto.current) clearTimeout(runNextAuto.current)
-    if (carouselDom.current) {
-      carouselDom.current.classList.remove("next")
-      carouselDom.current.classList.remove("prev")
-    }
+    const items = container.querySelectorAll('.sn-carousel--item')
+    const totalItems = items.length
 
-    const sliderItems = sliderDomRef.current?.querySelectorAll(".sn-carousel--item")
-    const thumbnailItems = thumbnailBorderDom.current?.querySelectorAll(".sn-carousel--thumbnail-item")
-    if (!sliderItems || !thumbnailItems || !carouselDom.current) return
+    currentIndexRef.current = (currentIndexRef.current - 1 + totalItems) % totalItems
+    const currentIndex = currentIndexRef.current
+    const prevIndex = (currentIndex - 1 + totalItems) % totalItems
+    const nextIndex = (currentIndex + 1) % totalItems
 
-    if (type === "next") {
-      sliderDomRef.current?.appendChild(sliderItems[0])
-      thumbnailBorderDom.current?.appendChild(thumbnailItems[0])
-      carouselDom.current.classList.add("next")
-    } else {
-      sliderDomRef.current?.prepend(sliderItems[sliderItems.length - 1])
-      thumbnailBorderDom.current?.prepend(thumbnailItems[thumbnailItems.length - 1])
-      carouselDom.current.classList.add("prev")
-    }
+    items.forEach((item) => {
+      item.classList.remove('active', 'prev', 'next')
+    })
 
-    runTimeOut.current = setTimeout(() => {
-      carouselDom.current?.classList.remove("next")
-      carouselDom.current?.classList.remove("prev")
-    }, timeRunning)
+    items[currentIndex].classList.add('active')
+    items[prevIndex].classList.add('prev')
+    items[nextIndex].classList.add('next')
+  }, [])
 
-    runNextAuto.current = setTimeout(() => {
-      handleNext()
-    }, timeAutoNext)
+  const touchStartX = useRef<number | null>(null)
+  const touchEndX = useRef<number | null>(null)
+
+  const handleTouchStart = (e: React.TouchEvent): void => {
+    touchStartX.current = e.targetTouches[0].clientX
   }
 
-  const handleNext = (): void => showSlider("next")
-  const handlePrev = (): void => showSlider("prev")
+  const handleTouchMove = (e: React.TouchEvent): void => {
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+
+  const handleTouchEnd = (): void => {
+    if (touchStartX.current === null || touchEndX.current === null) return
+
+    const distance = touchStartX.current - touchEndX.current
+    const minSwipeDistance = 50
+
+    if (distance > minSwipeDistance) {
+      handleNext()
+      setTimerReset((prev) => prev + 1)
+    } else if (distance < -minSwipeDistance) {
+      handlePrev()
+      setTimerReset((prev) => prev + 1)
+    }
+
+    touchStartX.current = null
+    touchEndX.current = null
+  }
 
   useEffect(() => {
-    const imgBoxCurrent = sliderDomRef.current
-
-    let startX: number
-    let endX: number
-
-    const onTouchStart = (e: TouchEvent): void => {
-      startX = e.touches[0].clientX
-    }
-
-    const onTouchMove = (e: TouchEvent): void => {
-      endX = e.touches[0].clientX
-    }
-
-    const onTouchEnd = (): void => {
-      if (startX - endX > 50) {
-        // Swipe left
-        handleNext()
-      } else if (startX - endX < -50) {
-        // Swipe right
-        handlePrev()
-      }
-    }
-
-    if (imgBoxCurrent !== null) {
-      imgBoxCurrent.addEventListener('touchstart', onTouchStart)
-      imgBoxCurrent.addEventListener('touchmove', onTouchMove)
-      imgBoxCurrent.addEventListener('touchend', onTouchEnd)
-    }
-
-    return () => {
-      if (imgBoxCurrent !== null) {
-        imgBoxCurrent.removeEventListener('touchstart', onTouchStart)
-        imgBoxCurrent.removeEventListener('touchmove', onTouchMove)
-        imgBoxCurrent.removeEventListener('touchend', onTouchEnd)
-      }
-    }
-  }, [])
+    const interval = setInterval(handleNext, 6000)
+    return () => clearInterval(interval)
+  }, [handleNext, timerReset])
 
   return (
-    <div className="sn-carousel" ref={carouselDom}>
-      <div className="sn-carousel--list" ref={sliderDomRef}>
-        {carousel.map((slide: any) => (
-          <div className="sn-carousel--item" key={slide._id}>
-            <Link href={slide.slideLink}>
-              <picture>
-                <source
-                  media="(min-width: 750px)"
-                  srcSet={slide.productImagesArray[1]}
-                  type="image/webp"
-                />
-                <Image
-                  className="sn-carousel--image"
-                  src={slide.productImagesArray[0]}
-                  alt={slide.description}
-                  width={767}
-                  height={965}
-                />
-              </picture>
-            </Link>
-          </div>
-        ))}
-      </div>
-      <div className="sn-carousel--thumbnail" ref={thumbnailBorderDom}>
-        {carousel.map((slide: any) => (
-          <div className="sn-carousel--thumbnail-item" key={slide._id}>
-            <picture>
-              <source
-                media="(min-width: 750px)"
-                srcSet={slide.productImagesArray[1]}
-                type="image/jpeg"
-              />
-              <img
-                src={slide.productImagesArray[0]}
-                alt={slide.description}
-                width={80}
-                height={100}
-              />
-            </picture>
-          </div>
-        ))}
+    <div
+      className="sn-carousel"
+      ref={carouselRef}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div className="sn-carousel--list">
+        {/* eslint-disable-next-line max-len */}
+        <SlideData slideClass="active" slideNumber="1" url="/shop?filters=true&category=Leather%20Gatra,Fabric%20Gatra" />
+        <SlideData slideClass="next" slideNumber="2" url="/shop?filters=true&subCategory=T-shirts" />
+        <SlideData slideClass="prev" slideNumber="3" url="/shop?filters=true&category=Leather%20Craft" />
       </div>
       <div className="sn-carousel--arrows">
         <button type="button" aria-label="Go to previous slide" className="sn-carousel--arrow prev" onClick={handlePrev}>
@@ -172,6 +109,29 @@ const Carousel: React.FC = () => {
           <Icon name="chevron-right" />
         </button>
       </div>
+    </div>
+  )
+}
+
+// eslint-disable-next-line max-len
+const SlideData = ({ slideClass, slideNumber, url }: { slideClass: string, slideNumber: string, url: string }): React.ReactNode => {
+  return (
+    <div className={`sn-carousel--item ${slideClass}`}>
+      <Link href={url}>
+        <picture>
+          <source
+            media="(min-width: 750px)"
+            srcSet={`/images/carousel/slide-desktop-${slideNumber}.webp`}
+          />
+          <Image
+            className="sn-carousel--image"
+            alt="Slide image"
+            width={1510}
+            height={514}
+            src={`/images/carousel/slide-mobile-${slideNumber}.webp`}
+          />
+        </picture>
+      </Link>
     </div>
   )
 }

@@ -1,8 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { type Product } from "@/shared/helper/types"
-import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
-import StoreBtn from "../../storeBtn/StoreBtn"
+import StoreBtn from "./client/index"
 import './style.sass'
 
 const ProductCard: React.FC<Product> = ({ product }: Product) => {
@@ -31,7 +30,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
         <div className="product-info-inner">
           <StoreBtn
             productInfo={product}
-            storeName={WISHLIST_STORE_NAME}
+            storeName="wishlist"
             btnClasses="btn-product btn-wishlist"
             selected={{
               size: product.productSize[0]?.value,
@@ -51,7 +50,7 @@ const ProductCard: React.FC<Product> = ({ product }: Product) => {
           </div>
           <StoreBtn
             productInfo={product}
-            storeName={CART_STORE_NAME}
+            storeName="cart"
             btnClasses="btn-product btn-add"
             selected={{
               size: product.productSize[0]?.value,

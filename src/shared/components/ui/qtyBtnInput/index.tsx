@@ -1,21 +1,21 @@
 'use client'
 
 import { type QtyBtnInputTypes } from '@/shared/helper/types'
-import { useEffect } from 'react'
-import { useShoppingCart } from '../../context/CartContext'
+// import { useEffect } from 'react'
+// import { useShoppingCart } from '../../context/CartContext'
 import Icon from '../../Icon'
 import './qtyBtnInput.sass'
 
 const QtyBtnInput = (
   { qty, setQty, productInfo, storeName }: QtyBtnInputTypes
 ): React.ReactNode => {
-  const { updateCart } = useShoppingCart()
+  // const { updateCart } = useShoppingCart()
 
-  useEffect(() => {
-    if (productInfo !== undefined && storeName !== undefined) {
-      updateCart(storeName, productInfo, "qty", qty)
-    }
-  }, [qty])
+  // useEffect(() => {
+  //   if (productInfo !== undefined && storeName !== undefined) {
+  //     updateCart(storeName, productInfo, "qty", qty)
+  //   }
+  // }, [qty])
 
   return (
     <div className="sn-product-page-attribute qty">

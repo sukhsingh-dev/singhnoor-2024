@@ -1,157 +1,60 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 'use client'
 
-import React, { createContext, useEffect, useState, useContext } from "react"
-import Localbase from 'localbase'
-import { type CartContextType, type ProductType, type RemoveProductType, type InCartProductType } from "@/shared/helper/types"
-import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
+import React, { createContext, useState, useContext, useEffect } from "react"
+import { type CartContextType, type RemoveProductType } from "@/shared/helper/types"
+import { useUser } from "@clerk/clerk-react"
 import Modal from "../ui/modal/Modal"
 
 export const CartContext = createContext<CartContextType>({
   wishlistProducts: [],
   cartProducts: [],
-  addToCart: () => { },
-  addToWishList: () => { },
-  updateCart: () => { },
   removeProduct: () => { },
   clearCart: () => { }
 })
 
 export function CartContextProvider({ children }: { children: React.ReactNode }): React.ReactNode {
-  const db = new Localbase('db')
-  db.config.debug = false
-
-  const [alertMsg, setAlertMsg] = useState("Added to Cart")
+  const { user, isLoaded, isSignedIn } = useUser()
+  const [alertMsg] = useState("Added to Cart")
   const [showAlert, setShowAlert] = useState(false)
 
   const [openClearCartConfirm, setOpenClearCartConfirm] = useState(false)
-  const [clearCartAction, setClearCartAction] = useState('')
+  // const [clearCartAction, setClearCartAction] = useState('')
 
-  const [alertType, setAlertTypeAlert] = useState("info")
-  const [cartProducts, setCartProducts] = useState<InCartProductType[]>([])
-  const [wishlistProducts, setWishlistProducts] = useState<InCartProductType[]>([])
+  const [alertType] = useState("info")
+  const [cartProducts, setCartProducts] = useState([])
+  const [wishlistProducts, setWishlistProducts] = useState([])
 
-  const refreshCartState = (): void => {
-    db.collection(CART_STORE_NAME).get({ keys: true }).then((product: ProductType[]) => {
-      const cartData: InCartProductType[] = []
-      if (Array.isArray(product)) {
-        // eslint-disable-next-line array-callback-return
-        product.map((item: any) => {
-          const itemKey: string = item.key
-          const newData: ProductType = item.data
-          const newItem: InCartProductType = { itemKey, ...newData }
-          cartData.push(newItem)
-        })
-        setCartProducts(cartData)
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!isLoaded || !isSignedIn || !user?.id) return // wait until user is available
+
+    const fetchCarousel = async (): Promise<void> => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKOFFICE_URL}/cartandwishlist/${user?.id}`)
+        const data = await res.json()
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        setCartProducts(data.cartAndWishlist.cartItems)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        setWishlistProducts(data.cartAndWishlist.wishlistItems)
+      } catch (error) {
+        setCartProducts([])
       }
-    })
-  }
-
-  const updateCart = (
-    storeName: string,
-    productInfo: InCartProductType,
-    keyName: string,
-    keyValue: string | number
-  ): void => {
-    db.collection(storeName).doc(productInfo.itemKey).update({
-      selected: {
-        ...productInfo.selected,
-        [keyName]: keyValue
-      }
-    }).then((_res: any) => {
-      refreshCartState()
-    })
-  }
-
-  const addToCart = (productInfo: InCartProductType): void => {
-    const checkAvailable = cartProducts.find((item) => (
-      item._id === productInfo._id &&
-      item.selected?.size === productInfo.selected?.size &&
-      item.selected?.color === productInfo.selected?.color &&
-      item.selected?.material === productInfo.selected?.material &&
-      item.selected?.work === productInfo.selected?.work))
-
-    if (checkAvailable?.selected?.qty !== undefined) {
-      updateCart(CART_STORE_NAME, checkAvailable, "qty", (checkAvailable.selected.qty + 1))
-      setAlertMsg("Quantity Updated")
-      setShowAlert(true)
-      return
     }
-    db.collection(CART_STORE_NAME).add(productInfo).then((_res: any) => {
-      refreshCartState()
-    })
-    setAlertTypeAlert("info")
-    setAlertMsg("Added to Cart")
-    setShowAlert(true)
-    setCartProducts((prev) => [...prev, productInfo])
-  }
-
-  const addToWishList = (productInfo: InCartProductType): void => {
-    const checkAvailable = wishlistProducts.find((item) => (
-      item._id === productInfo._id &&
-      item.selected?.size === productInfo.selected?.size &&
-      item.selected?.color === productInfo.selected?.color &&
-      item.selected?.material === productInfo.selected?.material &&
-      item.selected?.work === productInfo.selected?.work))
-
-    if (checkAvailable?.selected?.qty !== undefined) {
-      updateCart(WISHLIST_STORE_NAME, checkAvailable, "qty", (checkAvailable.selected.qty + 1))
-      setAlertMsg("Quantity Updated")
-      setShowAlert(true)
-      return
-    }
-    db.collection(WISHLIST_STORE_NAME).add(productInfo)
-    setAlertTypeAlert("info")
-    setAlertMsg("Added to Wishlist")
-    setShowAlert(true)
-    setWishlistProducts((prev) => [...prev, productInfo])
-  }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    fetchCarousel()
+    console.log(cartProducts)
+  }, [isLoaded, isSignedIn, user?.id])
 
   const removeProduct = ({ productId, actionType }: RemoveProductType): void => {
-    if (actionType === CART_STORE_NAME) {
-      db.collection(CART_STORE_NAME).doc(productId).delete().then((_res: any) => {
-        refreshCartState()
-      })
-      const updatedCart = cartProducts.filter((item) => item._id !== productId)
-      setCartProducts(updatedCart)
-      setAlertMsg("Removed from Cart")
-    } else {
-      db.collection(WISHLIST_STORE_NAME).doc(productId).delete()
-      const updatedWishlist = wishlistProducts.filter((item) => item._id !== productId)
-      setWishlistProducts(updatedWishlist)
-      setAlertMsg("Removed from Wishlist")
-    }
-    setAlertTypeAlert("info")
-    setShowAlert(true)
+    // new Logic here
   }
-
   const clearCart = (actionType: string): void => {
-    setOpenClearCartConfirm(true)
-    setClearCartAction(actionType)
+    // new Logic here
   }
 
   const handleClear = (): void => {
-    setOpenClearCartConfirm(false)
-    setAlertTypeAlert("info")
-    setShowAlert(true)
-
-    if (clearCartAction === CART_STORE_NAME) {
-      db.collection(CART_STORE_NAME).delete()
-      setCartProducts([])
-      setAlertMsg("Cart Cleared")
-    }
-    if (clearCartAction === WISHLIST_STORE_NAME) {
-      db.collection(WISHLIST_STORE_NAME).delete()
-      setWishlistProducts([])
-      setAlertMsg("Wishlist Cleared")
-    }
-    setClearCartAction('')
+    // new Logic here
   }
-
-  useEffect(() => {
-    refreshCartState()
-  }, [])
 
   return (
     <CartContext.Provider
@@ -159,9 +62,6 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
       value={{
         cartProducts,
         wishlistProducts,
-        addToCart,
-        addToWishList,
-        updateCart,
         removeProduct,
         clearCart
       }}
@@ -185,10 +85,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
             modalBody={
               <div className="clear-cart-modal-body">
                 <h3>
-                  Are you really want to
-                  <br />
-                  clear your&nbsp;
-                  {clearCartAction === CART_STORE_NAME ? "Cart" : "Wishlist"}
+                  Are you really clear your list ?
                 </h3>
               </div>
             }

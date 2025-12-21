@@ -1,56 +1,22 @@
-import { menuList } from "@/shared/helper/store"
 import Link from "next/link"
 import Image from "next/image"
-import MenuButton from "./client-side/hamburger"
-import SearchField from "./client-side/search"
 import QuickMenus from "./client-side/quick-menus"
 import './header.sass'
+import Sidebar from "./sidebar"
 
 const Header: React.FC = () => (
   <header className="sn-header">
     <div className="sn-header-inner d-flex align-center justify-between">
-      <MenuButton />
-      <nav className="sn-menu">
-        <ul>
-          {
-            menuList.map((menu) => (
-              <li key={menu.category}>
-                <label htmlFor={`${menu.category}-submenu`} className="sn-menu-label d-flex align-center justify-between arrow-icon">
-                  {menu.category}
-                </label>
-                <input type="radio" id={`${menu.category}-submenu`} name="submenu" className="submenu-input" />
-                <div className="submenu-outer">
-                  <ul>
-                    {
-                      menu.subcategories.map((item) => (
-                        <li key={item.link}>
-                          <Link href={item.link}>{item.name}</Link>
-                        </li>
-                      ))
-                    }
-                    <li className="bg-light">
-                      <label htmlFor="no-submenu" className="arrow-icon back-arrow align-center">
-                        Back
-                      </label>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            ))
-          }
-          <li>
-            <input type="radio" id="no-submenu" name="submenu" className="submenu-input" />
-            <label className="sn-menu-label d-flex">
-              <Link href="/contact">
-                Contact Us
-              </Link>
-            </label>
-          </li>
-          <li className="btn-link-outer">
-            <Link className="btn btn-primary" href="/create">Create My Own</Link>
-          </li>
-        </ul>
-      </nav>
+      <button
+        className="hamburger-btn"
+        type="button"
+        aria-label="menu toggle"
+        data-has-click="true"
+        data-class-target="sn-header"
+        data-class-applied="menu-open"
+        data-body-overflow-hidden="true"
+        data-sound-click="true"
+      />
       <Link href="/" className="logo-icon">
         <Image
           alt="singhnoor logo"
@@ -62,9 +28,22 @@ const Header: React.FC = () => (
       </Link>
       <div className="sn-header-side-options">
         <QuickMenus />
-        <SearchField />
+        <button
+          type="button"
+          aria-label="close menu"
+          className="magic-icon-search"
+          data-has-click="true"
+          data-class-target="sn-header"
+          data-class-applied="show-search"
+          data-body-overflow-hidden="true"
+          data-sound-click="true"
+        />
+        <div className="search-wrapper">
+          <input type="search" placeholder="Search..." className="header-search" />
+        </div>
       </div>
     </div>
+    <Sidebar />
   </header>
 )
 
