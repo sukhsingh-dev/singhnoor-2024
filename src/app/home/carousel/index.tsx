@@ -5,34 +5,14 @@ import Script from "next/script"
 import "./carousel.sass"
 
 const Carousel: React.FC = async () => {
-    const res = await fetch(`${process.env.BACKOFFICE_URL}/carousel`)
-    const carousel = await res.json()
 
     return (
         <>
             <div className="sn-carousel">
                 <div className="sn-carousel--list">
-                    {carousel.map((slide: any, index: number) => (
-                        <div
-                            className={`sn-carousel--item ${index === 0 ? 'active' : index === 1 ? 'next' : 'prev '}`}
-                            key={slide._id}>
-                            <Link href="/">
-                                <picture>
-                                    <source
-                                        media="(min-width: 750px)"
-                                        srcSet={slide.productImagesArray[1]}
-                                    />
-                                    <Image
-                                        className="sn-carousel--image"
-                                        src={slide.productImagesArray[0]}
-                                        alt="Slide image"
-                                        width={1510}
-                                        height={514}
-                                    />
-                                </picture>
-                            </Link>
-                        </div>
-                    ))}
+                    <SlideData slideClass="active" slideNumber="1" url="/shop?filters=true&category=Leather%20Gatra,Fabric%20Gatra" />
+                    <SlideData slideClass="next" slideNumber="2" url="/shop?filters=true&subCategory=T-shirts" />
+                    <SlideData slideClass="prev" slideNumber="3" url="/shop?filters=true&category=Leather%20Craft" />
                 </div>
                 <div className="sn-carousel--arrows">
                     <button type="button" aria-label="Go to previous slide" className="sn-carousel--arrow prev">
@@ -45,6 +25,28 @@ const Carousel: React.FC = async () => {
             </div>
             <Script src="/js/carousel.js" />
         </>
+    )
+}
+
+const SlideData = ({ slideClass, slideNumber, url }: { slideClass: string, slideNumber: string, url: string }) => {
+    return (
+        <div className={`sn-carousel--item ${slideClass}`}>
+            <Link href={url}>
+                <picture>
+                    <source
+                        media="(min-width: 750px)"
+                        srcSet={`/images/carousel/slide-desktop-${slideNumber}.webp`}
+                    />
+                    <Image
+                        className="sn-carousel--image"
+                        alt="Slide image"
+                        width={1510}
+                        height={514}
+                        src={`/images/carousel/slide-mobile-${slideNumber}.webp`}
+                    />
+                </picture>
+            </Link>
+        </div>
     )
 }
 

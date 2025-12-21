@@ -6,7 +6,7 @@
     margin-top: rem(-54)
     position: relative
     overflow: hidden
-    aspect-ratio: 181 / 233
+    aspect-ratio: 346 / 429
     isolation: isolate
     background: var(--decoration-bg)
     border-radius: rem(24)
@@ -20,7 +20,7 @@
         position: absolute
         width: 0
         height: 100%
-        opacity: 0.5
+        opacity: 0.25
         overflow: hidden
         transition-property: margin-left, width, opacity
         transition-timing-function: ease
@@ -55,7 +55,6 @@
 
     &--arrows
         position: absolute
-        z-index: 2
         top: calc(50% - 40px)
         width: 100%
         display: flex
@@ -70,6 +69,7 @@
         color: rgba(0, 0, 0, 0.7)
         mask-size: 100% 100%
         backdrop-filter: blur(3px)
+        z-index: 1
 
         +onMinSize(medium)
             backdrop-filter: none
