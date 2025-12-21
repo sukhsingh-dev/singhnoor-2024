@@ -30,6 +30,8 @@ const Carousel: React.FC = () => {
     items[prevIndex].classList.add('prev')
     items[currentIndex].classList.add('active')
     items[nextIndex].classList.add('next')
+
+    setTimerReset((prev) => prev + 1)
   }, [])
 
   const handlePrev = useCallback((): void => {
@@ -51,6 +53,8 @@ const Carousel: React.FC = () => {
     items[currentIndex].classList.add('active')
     items[prevIndex].classList.add('prev')
     items[nextIndex].classList.add('next')
+
+    setTimerReset((prev) => prev + 1)
   }, [])
 
   const touchStartX = useRef<number | null>(null)
@@ -72,10 +76,8 @@ const Carousel: React.FC = () => {
 
     if (distance > minSwipeDistance) {
       handleNext()
-      setTimerReset((prev) => prev + 1)
     } else if (distance < -minSwipeDistance) {
       handlePrev()
-      setTimerReset((prev) => prev + 1)
     }
 
     touchStartX.current = null
@@ -85,7 +87,7 @@ const Carousel: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(handleNext, 6000)
     return () => clearInterval(interval)
-  }, [handleNext, timerReset])
+  }, [handleNext, handlePrev, timerReset])
 
   return (
     <div
