@@ -16,7 +16,7 @@ $card-padding: rem(12)
 
   &-name
     font-weight: 500
-    font-size: rem(18)
+    font-size: rem(16)
     padding: rem(4) var(--card-padding)
 
   &-info
@@ -56,9 +56,7 @@ $card-padding: rem(12)
       background-color: var(--white)
 
       +onMinSize(x-large)
-        --card-padding: 1rem
         .product-name
-          font-size: rem(18)
           color: var(--text)
           padding: rem(8) var(--card-padding)
 
@@ -112,11 +110,6 @@ $card-padding: rem(12)
   &-wishlist,
   &-add
     position: relative
-    bottom: rem(-27)
-    color: var(--secondary)
-    background-color: var(--secondary-light)
-    +onMaxSize(medium)
-      bottom: rem(-20)
     svg
       height: auto
       position: relative
@@ -124,12 +117,20 @@ $card-padding: rem(12)
   &-add
     right: 0
     border-radius: var(--card-radius) 0 var(--card-radius) 0
+    color: var(--secondary)
+    background-color: var(--secondary-light)
+    bottom: rem(-18)
+
+    &:hover
+      background-color: var(--secondary)
+      color: var(--secondary-light)
   &-wishlist
-    background: rgba(#FB6577, 0.8)
+    background: rgba(#FB6577, 0.6)
+    color: var(--white)
+    backdrop-filter: blur(4px)
     position: absolute
     top: rem(4)
     left: rem(4)
-    color: var(--white)
     border-radius: 50%
     min-width: rem(32)
     width: rem(32)
@@ -143,3 +144,7 @@ $card-padding: rem(12)
       transform: scale(0.9)
       +onMaxSize(medium)
         transform: scale(0.75)
+
+    &:hover
+      color: #FB6577
+      background-color: rgba(255,255,255,0.8)

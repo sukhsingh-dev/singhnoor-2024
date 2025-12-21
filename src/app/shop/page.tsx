@@ -104,7 +104,7 @@ const ShopPage = async ({ searchParams }: ShopPageProps): Promise<JSX.Element> =
             : <h2 className="text-center not-found-text">No Product found matching your search </h2>
         }
       </div>
-      <div className="sn-pagination">
+      {/* <div className="sn-pagination">
         <ul>
           <li>
             <button type="button" className="btn activate">1</button>
@@ -120,7 +120,7 @@ const ShopPage = async ({ searchParams }: ShopPageProps): Promise<JSX.Element> =
             <button type="button" className="btn">21</button>
           </li>
         </ul>
-      </div>
+      </div> */}
     </section>
   )
 }

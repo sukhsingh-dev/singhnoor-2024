@@ -3,7 +3,7 @@
 import { type Select, type Product } from "@/shared/helper/types"
 import { useState } from "react"
 import QtyBtnInput from "@/shared/components/ui/qtyBtnInput"
-import StoreBtn from "@/shared/components/storeBtn/StoreBtn"
+import StoreBtn from "@/shared/components/ui/productCard/client"
 import { CART_STORE_NAME, WISHLIST_STORE_NAME } from "@/shared/helper/constants"
 import SizeChart from "./SizeChart"
 

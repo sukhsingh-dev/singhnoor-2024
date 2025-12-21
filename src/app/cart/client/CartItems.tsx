@@ -73,7 +73,7 @@ const NoProductUI = (): React.ReactNode => (
 
 const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
   const [qty, setQty] = useState(((product.selected?.qty) != null) ? product.selected.qty : 1)
-  const { updateCart, removeProduct } = useShoppingCart()
+  // const { updateCart, removeProduct } = useShoppingCart()
 
   return (
     <div className="cart-product">
@@ -103,9 +103,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                           defaultChecked={product.selected?.size === size.value}
                           data-v={product.selected?.size}
                           data-n={size.value}
-                          onChange={
-                            (e) => updateCart(CART_STORE_NAME, product, "size", e.target.value)
-                          }
+                        // onChange={
+                        //   (e) => updateCart(CART_STORE_NAME, product, "size", e.target.value)
+                        // }
                         />
                         <label htmlFor={`${size.value}-${product.itemKey}`}>{size.label}</label>
                       </li>
@@ -130,9 +130,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
                         value={item.value}
                         id={`${item.value}-${product.itemKey}`}
                         defaultChecked={product.selected?.color === item.value}
-                        onChange={
-                          (e) => updateCart(CART_STORE_NAME, product, "color", e.target.value)
-                        }
+                      // onChange={
+                      //   (e) => updateCart(CART_STORE_NAME, product, "color", e.target.value)
+                      // }
                       />
                       <label
                         htmlFor={`${item.value}-${product.itemKey}`}
@@ -160,9 +160,9 @@ const CartProductUI = ({ product }: InCartProduct): React.ReactNode => {
         type="button"
         aria-label="remove from cart"
         className="btn-remove-product"
-        onClick={() => removeProduct({
-          productId: product.itemKey ?? '', actionType: CART_STORE_NAME
-        })}
+      // onClick={() => removeProduct({
+      //   productId: product.itemKey ?? '', actionType: CART_STORE_NAME
+      // })}
       >
         <Icon name="delete" />
       </button>

@@ -25,10 +25,7 @@
   //--decoration-bg: #eefaf
   --ease-spring: cubic-bezier(0.25, 0.84, 0.44, 1)
 
-  @media (max-width: 1360px) and (min-width: 1200px)
-    font-size: 14px
-
-  @media (max-width: 376px)
+  @media (max-width: 375px)
     font-size: 14px
 
 *
@@ -52,8 +49,8 @@ a
   text-decoration: none
   color: var(--text)
   transition: color 0.3s var(--ease-spring)
-  &:hover
-    color: var(--primary)
+  // &:not(.no-hover-color):hover
+  //   color: var(--primary)
 
 button
   border: none
