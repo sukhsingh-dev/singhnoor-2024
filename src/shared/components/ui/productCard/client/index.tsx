@@ -41,7 +41,7 @@ export default function StoreBtn({ productInfo, storeName, btnClasses, selected 
       } else {
         setAlertTypeAlert("error")
         setModelText("Something went wrong")
-        // console.log(result.error)
+        console.log(result.error)
       }
       setShowModel(true)
     })
